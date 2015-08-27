@@ -4,7 +4,7 @@
   "author": "David Muto <david.muto@gmail.com> (https://pseudomuto.com)",
   "repository": "https://github.com/pseudomuto/shopify-api-flux.git",
   "description": "A flux-based implementation of the Shopify API",
-  "main": "lib/shopify-api.js",
+  "main": "lib/ShopifyAPI.js",
   "scripts": {
     "test": "jest"
   },
@@ -12,6 +12,10 @@
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest/index.js",
     "testPathDirs": [
       "lib/"
+    ],
+    "unmockedModulePathPatterns": [
+      "Constants",
+      "keymirror"
     ]
   },
   "devDependencies": {
@@ -21,6 +25,7 @@
     "jest-cli": "^0.5.0"
   },
   "dependencies": {
-    "flux": "^2.1.1"
+    "flux": "^2.1.1",
+    "keymirror": "^0.1.1"
   }
 }
