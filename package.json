@@ -10,6 +10,7 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest/index.js",
+    "setupEnvScriptFile": "<rootDir>/test-env.js",
     "testPathDirs": [
       "lib/"
     ],
