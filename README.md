@@ -9,8 +9,8 @@ A flux version of the Shopify API.
 ```javascript
 import ShopifyAPI from "shopify-api-flux";
 
-// set the API token
-ShopifyAPI.Auth.setAuthToken("YOUR_SHOPIFY_API_TOKEN")
+// set the Domain and API token
+ShopifyAPI.Session.init("YOUR_SHOP", "YOUR_API_TOKEN")
 
 class ShopView extends React.Component {
   constructor(props) {
