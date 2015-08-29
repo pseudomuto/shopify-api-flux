@@ -1,5 +1,7 @@
 # Shopify API Flux
 
+[![Build Status](https://travis-ci.org/pseudomuto/shopify-api-flux.svg?branch=master)](https://travis-ci.org/pseudomuto/shopify-api-flux)
+
 A flux version of the Shopify API.
 
 **THIS IS SO FAR FROM BEING READY THAT YOU MIGHT NOT EVEN WANT TO TRY IT YET**
