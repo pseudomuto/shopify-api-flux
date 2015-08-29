@@ -25,19 +25,15 @@ class ShopView extends React.Component {
   }
 
   componentWillMount() {
-    ShopifyAPI.ShopStore.addChangeListener(this._onChange.bind(this));
+    ShopifyAPI.ShopStore.addListener(this._onChange.bind(this));
   }
 
   componentDidMount() {
     ShopifyAPI.Shop.fetch()
   }
 
-  componentWillUnmount() {
-    ShopifyAPI.ShopStore.removeChangeListener(this._onChange.bind(this));
-  }
-
   _onChange() {
-    this.setState({ shop: ShopifyAPI.ShopStore.get() });
+    this.setState({ shop: ShopifyAPI.ShopStore.getCurrent() });
   }
 }
 ```
