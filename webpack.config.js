@@ -1,8 +1,13 @@
+var webpack = require("webpack");
+
 module.exports = {
   entry: "./lib/ShopifyAPI.js",
   output: {
     filename: "./dist/shopify-api-flux.js"
   },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({minimize: true})
+  ],
   module: {
     loaders: [
       {
