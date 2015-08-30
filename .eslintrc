@@ -2,18 +2,21 @@
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "rules": {
-    "strict": 0,
-    "indent": [2, 2],
+    "strict": [2, "global"],
+    "indent": [2, 2, { "SwitchCase": 1 }],
     "quotes": [2, "double"],
     "semi": [2, "always"],
     "object-shorthand": [2, "always"],
-    "no-console": 1
+    "no-console": 1,
+    "no-unused-vars": [2, { "vars": "all", "varsIgnorePattern": "fetch" }]
   },
   "env": {
     "node": true,
+    "jest": true,
     "es6": true
   },
   "globals": {
-    "fetch"
+    "fetch",
+    "stubFetchRequest"
   }
 }
