@@ -6,6 +6,11 @@
   "description": "A flux-based implementation of the Shopify API",
   "main": "dist/shopify-api-flux.js",
   "jsnext:main": "lib/ShopifyAPI.js",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "scripts": {
     "build": "webpack --progress --colors",
     "lint": "eslint lib",
