@@ -4,7 +4,8 @@ module.exports = {
   entry: "./lib/ShopifyAPI.js",
   output: {
     filename: "./dist/shopify-api-flux.js",
-    library: "ShopifyAPI"
+    library: "ShopifyAPI",
+    libraryTarget: "commonjs2"
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({minimize: true})
