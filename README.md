@@ -11,8 +11,10 @@ A flux version of the Shopify API.
 ```javascript
 import ShopifyAPI from "shopify-api-flux";
 
+const { Session, Shop } = ShopifyAPI;
+
 // set the Domain and API token
-ShopifyAPI.Session.init("YOUR_SHOP", "YOUR_API_TOKEN")
+Session.init("YOUR_SHOP", "YOUR_API_TOKEN")
 
 class ShopView extends React.Component {
   constructor(props) {
@@ -27,15 +29,15 @@ class ShopView extends React.Component {
   }
 
   componentWillMount() {
-    ShopifyAPI.ShopStore.addListener(this._onChange.bind(this));
+    Shop.store.addListener(this._onChange.bind(this));
   }
 
   componentDidMount() {
-    ShopifyAPI.Shop.fetch()
+    Shop.fetch()
   }
 
   _onChange() {
-    this.setState({ shop: ShopifyAPI.ShopStore.getCurrent() });
+    this.setState({ shop: Shop.store.getCurrent() });
   }
 }
 ```
