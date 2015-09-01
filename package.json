@@ -14,7 +14,8 @@
   "scripts": {
     "build": "webpack --progress --colors",
     "lint": "eslint lib",
-    "test": "jest"
+    "test": "jest",
+    "ci": "npm run lint && npm test"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest/index.js",
