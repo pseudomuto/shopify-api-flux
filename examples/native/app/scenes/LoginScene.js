@@ -10,10 +10,26 @@ const { Color, Default }         = Utilities.Branding;
 const { Button, Input, Label }   = Components;
 const { Session }                = ShopifyAPI;
 
-export default class extends React.Component {
+export default class LoginScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { domain: "", token: "" }
+    this.state = { domain: "", token: "" };
+  }
+
+  _isDisabled() {
+    return !(this.state.domain && this.state.token);
+  }
+
+  _onDomainChanged(domain) {
+    this.setState({ domain });
+  }
+
+  _onTokenChanged(token) {
+    this.setState({ token });
+  }
+
+  _onButtonClick() {
+    Session.init(this.state.domain, this.state.token);
   }
 
   render() {
@@ -42,22 +58,6 @@ export default class extends React.Component {
       </View>
     );
   }
-
-  _isDisabled() {
-    return !(this.state.domain && this.state.token);
-  }
-
-  _onDomainChanged(domain) {
-    this.setState({ domain });
-  }
-
-  _onTokenChanged(token) {
-    this.setState({ token });
-  }
-
-  _onButtonClick() {
-    Session.init(this.state.domain, this.state.token);
-  }
 }
 
 let styles = StyleSheet.create({
@@ -65,7 +65,7 @@ let styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.slate,
     justifyContent: "center",
-    paddingHorizontal: Default.spacing,
+    paddingHorizontal: Default.spacing
   },
 
   footer: {

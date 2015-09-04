@@ -6,7 +6,11 @@ import Utilities from "../utilities";
 const { StyleSheet, Text } = React;
 const { Color, Default }   = Utilities.Branding;
 
-export default class extends React.Component {
+export default class Label extends React.Component {
+  static get propTypes() {
+    return { children: React.PropTypes.string.isRequired };
+  }
+
   render() {
     return (
       <Text

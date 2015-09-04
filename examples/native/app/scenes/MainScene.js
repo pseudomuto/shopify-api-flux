@@ -1,30 +1,19 @@
 "use strict";
 
-import React        from "react-native";
-import AccountScene from "./AccountScene";
-import RootScene    from "./RootScene";
+import React         from "react-native";
+import AccountScene  from "./AccountScene";
+import ProductsScene from "./ProductsScene";
+import RootScene     from "./RootScene";
 
-const { TabBarIOS, View } = React;
+const { TabBarIOS } = React;
 
-export default class extends React.Component {
+export default class MainScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedTab: "Account" }
+    this.state = { selectedTab: "Account" };
   }
 
-  render() {
-    let { selectedTab } = this.state;
-
-    return (
-      <TabBarIOS>
-        { this._renderTab("Products", "tabbar-products", View) }
-        { this._renderTab("Orders", "tabbar-orders", View) }
-        { this._renderTab("Account", "tabbar-account", View) }
-      </TabBarIOS>
-    );
-  }
-
-  _renderTab(title: string, icon: string, component: object) {
+  _renderTab(title, icon, component) {
     return (
       <TabBarIOS.Item
         title={ title }
@@ -33,6 +22,15 @@ export default class extends React.Component {
         selected={ this.state.selectedTab === title }>
         <RootScene title={ title } component={ component } />
       </TabBarIOS.Item>
+    );
+  }
+
+  render() {
+    return (
+      <TabBarIOS>
+        { this._renderTab("Products", "tabbar-products", ProductsScene) }
+        { this._renderTab("Account", "tabbar-account", AccountScene) }
+      </TabBarIOS>
     );
   }
 }

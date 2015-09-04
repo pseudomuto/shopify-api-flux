@@ -5,33 +5,33 @@ import Components from "../components";
 import ShopifyAPI from "shopify-api-flux";
 
 const { View, Text } = React;
-const { Shop }       = ShopifyAPI;
+const { Product }    = ShopifyAPI;
 const { Container }  = Components;
 
-export default class AccountScene extends React.Component {
+export default class ProductsScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { shop: {} };
+    this.state = { products: {} };
   }
 
   componentWillMount() {
-    Shop.store.addListener(this._shopAvailable.bind(this));
+    Product.store.addListener(this._productsChanged.bind(this));
   }
 
   componentDidMount() {
-    Shop.fetch();
+    Product.fetch();
   }
 
-  _shopAvailable() {
-    let shop = Shop.store.getCurrent();
-    this.setState({ shop });
+  _productsChanged() {
+    let products = Product.store.getAll();
+    this.setState({ products });
   }
 
   render() {
     return (
       <Container>
         <View style={{ flex: 1 }}>
-          <Text>{ JSON.stringify(this.state.shop) }</Text>
+          <Text>{ JSON.stringify(this.state.products) }</Text>
         </View>
       </Container>
     );

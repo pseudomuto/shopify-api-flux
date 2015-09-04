@@ -4,16 +4,22 @@ import React from "react-native";
 
 const { ScrollView, StyleSheet } = React;
 
-export default class extends React.Component {
+export default class Container extends React.Component {
+  static get propTypes() {
+    return { children: React.PropTypes.element.isRequired };
+  }
+
   render() {
     let { children } = this.props;
 
-    <ScrollView
-      automaticallyAdjustContentInsets={ false }
-      contentContainerStyle={ styles.container }
-      style={ styles.scrollView }>
-      { children }
-    </ScrollView>
+    return (
+      <ScrollView
+        automaticallyAdjustContentInsets={ false }
+        contentContainerStyle={ styles.container }
+        style={ styles.scrollView }>
+        { children }
+      </ScrollView>
+    );
   }
 }
 
