@@ -23,7 +23,7 @@ export default class ProductsScene extends React.Component {
   }
 
   _productsChanged() {
-    let products = Product.store.getAll();
+    let products = Product.store.where();
     this.setState({ products });
   }
 
