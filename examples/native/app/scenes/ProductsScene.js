@@ -1,14 +1,19 @@
 "use strict";
 
-import React      from "react-native";
-import Components from "../components";
-import ShopifyAPI from "shopify-api-flux";
+import React        from "react-native";
+import Components   from "../components";
+import ProductScene from "./ProductScene";
+import ShopifyAPI   from "shopify-api-flux";
 
 const { ListView, StyleSheet } = React;
 const { Product }              = ShopifyAPI;
 const { ProductRow }           = Components;
 
 export default class ProductsScene extends React.Component {
+  static get propTypes() {
+    return { navigator: React.PropTypes.object.isRequired };
+  }
+
   constructor(props) {
     super(props);
 
@@ -31,11 +36,21 @@ export default class ProductsScene extends React.Component {
     this.setState({ products });
   }
 
+  _onProductSelected(product) {
+    this.props.navigator.push({
+      title: product.title,
+      component: ProductScene,
+      passProps: { product }
+    });
+  }
+
   render() {
+    let handler = this._onProductSelected.bind(this);
+
     return (
       <ListView
         dataSource={ this.state.products }
-        renderRow={row => <ProductRow product={ row } />}
+        renderRow={row => <ProductRow onPress={ handler } product={ row } />}
         style={ styles.listView } />
     );
   }

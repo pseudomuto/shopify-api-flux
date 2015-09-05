@@ -15,14 +15,24 @@ const { Color, Default } = Utilities.Branding;
 
 export default class ProductRow extends React.Component {
   static get propTypes() {
-    return { product: React.PropTypes.object.isRequired };
+    return {
+      onPress: React.PropTypes.func,
+      product: React.PropTypes.object.isRequired
+    };
+  }
+
+  _onSelect() {
+    if (this.props.onPress) {
+      this.props.onPress(this.props.product);
+    }
   }
 
   render() {
     let { image, title } = this.props.product;
+    let handler = this._onSelect.bind(this);
 
     return (
-      <TouchableHighlight underlayColor={ Color.slate }>
+      <TouchableHighlight onPress={ handler } underlayColor={ Color.slate }>
         <View style={ styles.container }>
           <Image style={ styles.image } source={{ uri: image.src }} />
           <Text style={ styles.title }>{ title }</Text>
