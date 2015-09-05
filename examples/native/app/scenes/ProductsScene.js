@@ -4,14 +4,16 @@ import React      from "react-native";
 import Components from "../components";
 import ShopifyAPI from "shopify-api-flux";
 
-const { View, Text } = React;
-const { Product }    = ShopifyAPI;
-const { Container }  = Components;
+const { ListView, StyleSheet } = React;
+const { Product }              = ShopifyAPI;
+const { ProductRow }           = Components;
 
 export default class ProductsScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { products: {} };
+
+    let ds     = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = { products: ds.cloneWithRows([]) };
   }
 
   componentWillMount() {
@@ -23,17 +25,23 @@ export default class ProductsScene extends React.Component {
   }
 
   _productsChanged() {
-    let products = Product.store.where();
+    let ds       = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    let products = ds.cloneWithRows(Product.store.where());
+
     this.setState({ products });
   }
 
   render() {
     return (
-      <Container>
-        <View style={{ flex: 1 }}>
-          <Text>{ JSON.stringify(this.state.products) }</Text>
-        </View>
-      </Container>
+      <ListView
+        dataSource={ this.state.products }
+        renderRow={row => <ProductRow product={ row } />}
+        style={ styles.listView } />
     );
   }
 }
+
+let styles = StyleSheet.create({
+  listView: {
+  }
+});

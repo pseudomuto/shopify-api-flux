@@ -10,7 +10,7 @@ const { TabBarIOS } = React;
 export default class MainScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedTab: "Account" };
+    this.state = { selectedTab: "Products" };
   }
 
   _renderTab(title, icon, component) {
