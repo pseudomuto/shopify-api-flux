@@ -1,0 +1,20 @@
+{
+  "name": "native",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh",
+    "lint": "eslint app"
+  },
+  "dependencies": {
+    "flux": "^2.1.1",
+    "react-native": "^0.10.1",
+    "react-native-button": "^1.2.1",
+    "shopify-api-flux": "file:../../"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.0",
+    "eslint": "^1.2.1",
+    "eslint-plugin-react": "^3.3.1"
+  }
+}
