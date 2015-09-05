@@ -5,9 +5,9 @@ import Components   from "../components";
 import ProductScene from "./ProductScene";
 import ShopifyAPI   from "shopify-api-flux";
 
-const { ListView, StyleSheet } = React;
-const { Product }              = ShopifyAPI;
-const { ProductRow }           = Components;
+const { ListView }     = React;
+const { Product }      = ShopifyAPI;
+const { ListViewCell } = Components;
 
 export default class ProductsScene extends React.Component {
   static get propTypes() {
@@ -17,8 +17,11 @@ export default class ProductsScene extends React.Component {
   constructor(props) {
     super(props);
 
-    let ds     = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = { products: ds.cloneWithRows([]) };
+    let products = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.state   = { products };
   }
 
   componentWillMount() {
@@ -30,33 +33,40 @@ export default class ProductsScene extends React.Component {
   }
 
   _productsChanged() {
-    let ds       = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    let products = ds.cloneWithRows(Product.store.where());
-
+    let products = this.state.products.cloneWithRows(Product.store.where());
     this.setState({ products });
   }
 
-  _onProductSelected(product) {
+  _onProductSelected(id) {
+    let product = Product.store.at(id);
+
     this.props.navigator.push({
-      title: product.title,
-      component: ProductScene,
-      passProps: { product }
+      title:      product.title,
+      component:  ProductScene,
+      passProps:  { product }
     });
   }
 
+  _renderProduct(product) {
+    let { id, image, title } = product;
+    let handler              = this._onProductSelected.bind(this);
+
+    return (
+      <ListViewCell
+        id={ id }
+        image={{ uri: image.src }}
+        onPress={ handler }
+        title={ title } />
+    );
+  }
+
   render() {
-    let handler = this._onProductSelected.bind(this);
+    let renderer = this._renderProduct.bind(this);
 
     return (
       <ListView
         dataSource={ this.state.products }
-        renderRow={row => <ProductRow onPress={ handler } product={ row } />}
-        style={ styles.listView } />
+        renderRow={ renderer } />
     );
   }
 }
-
-let styles = StyleSheet.create({
-  listView: {
-  }
-});

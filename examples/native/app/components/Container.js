@@ -25,8 +25,8 @@ export default class Container extends React.Component {
 
 let styles = StyleSheet.create({
   scrollView: {
-    marginTop: 64,
-    marginBottom: 49
+    marginTop:     64,
+    marginBottom:  49
   },
 
   container: {

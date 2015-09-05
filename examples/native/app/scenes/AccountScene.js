@@ -3,15 +3,18 @@
 import React      from "react-native";
 import Components from "../components";
 import ShopifyAPI from "shopify-api-flux";
+import Utilities  from "../utilities";
 
-const { View, Text } = React;
-const { Shop }       = ShopifyAPI;
-const { Container }  = Components;
+const { ListView, StyleSheet, View } = React;
+const { Shop }                       = ShopifyAPI;
+const { Label, ListViewCell }        = Components;
+const { ShopDataSource }             = Utilities;
+const { Color }                      = Utilities.Branding;
 
 export default class AccountScene extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { shop: {} };
+    this.state = { shop: new ShopDataSource() };
   }
 
   componentWillMount() {
@@ -23,17 +26,37 @@ export default class AccountScene extends React.Component {
   }
 
   _shopAvailable() {
-    let shop = Shop.store.getCurrent();
+    let shop = this.state.shop.cloneWithShop(Shop.store.getCurrent());
     this.setState({ shop });
   }
 
-  render() {
+  _renderRow(value) {
+    return <ListViewCell id={ value } title={ value } />;
+  }
+
+  _renderHeader(value) {
     return (
-      <Container>
-        <View style={{ flex: 1 }}>
-          <Text>{ JSON.stringify(this.state.shop) }</Text>
-        </View>
-      </Container>
+      <View style={ styles.header }>
+        <Label>{ value }</Label>
+      </View>
+    );
+  }
+
+  render() {
+    let { shop } = this.state;
+
+    return (
+      <ListView
+        renderRow={ this._renderRow }
+        renderSectionHeader={ this._renderHeader }
+        dataSource={ shop } />
     );
   }
 }
+
+let styles = StyleSheet.create({
+  header: {
+    alignItems:       "center",
+    backgroundColor:  Color.slate
+  }
+});

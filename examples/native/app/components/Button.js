@@ -9,13 +9,12 @@ const { Color, Default } = Utilities.Branding;
 
 export default class Button extends React.Component {
   static get propTypes() {
+    let childrenTypes = [React.PropTypes.string, React.PropTypes.element];
+
     return {
-      children: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.element
-      ]).isRequired,
-      disabled: React.PropTypes.bool,
-      onPress: React.PropTypes.func
+      children:  React.PropTypes.oneOfType(childrenTypes).isRequired,
+      disabled:  React.PropTypes.bool,
+      onPress:   React.PropTypes.func
     };
   }
 
@@ -40,12 +39,12 @@ export default class Button extends React.Component {
 
 let styles = StyleSheet.create({
   button: {
-    backgroundColor: Color.green,
-    color: Color.white,
-    height: Default.height,
-    paddingHorizontal: Default.spacing,
-    paddingVertical: Default.spacingInner,
-    marginVertical: Default.spacing
+    backgroundColor:    Color.green,
+    color:              Color.white,
+    height:             Default.height,
+    paddingHorizontal:  Default.spacing,
+    paddingVertical:    Default.spacingInner,
+    marginVertical:     Default.spacing
   },
 
   disabled: {

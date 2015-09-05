@@ -62,17 +62,17 @@ export default class LoginScene extends React.Component {
 
 let styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Color.slate,
-    justifyContent: "center",
-    paddingHorizontal: Default.spacing
+    flex:               1,
+    backgroundColor:    Color.slate,
+    justifyContent:     "center",
+    paddingHorizontal:  Default.spacing
   },
 
   footer: {
-    color: Color.grayDark,
-    fontSize: 14,
-    marginTop: Default.spacing,
-    paddingHorizontal: Default.spacing,
-    textAlign: "center"
+    color:              Color.grayDark,
+    fontSize:           14,
+    marginTop:          Default.spacing,
+    paddingHorizontal:  Default.spacing,
+    textAlign:          "center"
   }
 });

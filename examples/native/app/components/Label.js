@@ -13,8 +13,7 @@ export default class Label extends React.Component {
 
   render() {
     return (
-      <Text
-        style={ styles.label }>
+      <Text style={ styles.label }>
         { this.props.children }
       </Text>
     );
@@ -23,8 +22,8 @@ export default class Label extends React.Component {
 
 let styles = StyleSheet.create({
   label: {
-    color: Color.black,
-    fontWeight: "bold",
-    marginVertical: Default.spacing
+    color:           Color.black,
+    fontWeight:      "bold",
+    marginVertical:  Default.spacing
   }
 });

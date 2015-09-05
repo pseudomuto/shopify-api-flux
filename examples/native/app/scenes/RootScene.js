@@ -7,8 +7,8 @@ const { NavigatorIOS, StyleSheet } = React;
 export default class RootScene extends React.Component {
   static get propTypes() {
     return {
-      title: React.PropTypes.string.isRequired,
-      component: React.PropTypes.func.isRequired
+      title:      React.PropTypes.string.isRequired,
+      component:  React.PropTypes.func.isRequired
     };
   }
 

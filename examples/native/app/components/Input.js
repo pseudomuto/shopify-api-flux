@@ -4,7 +4,7 @@ import React     from "react-native";
 import Utilities from "../utilities";
 
 const { StyleSheet, TextInput } = React;
-const { Color, Default }   = Utilities.Branding;
+const { Color, Default }        = Utilities.Branding;
 
 export default class Input extends React.Component {
   render() {
@@ -16,10 +16,10 @@ export default class Input extends React.Component {
 
 let styles = StyleSheet.create({
   input: {
-    backgroundColor: Color.white,
-    borderColor: Color.black,
-    borderWidth: 1,
-    height: Default.height,
-    paddingHorizontal: Default.spacingInner
+    backgroundColor:    Color.white,
+    borderColor:        Color.black,
+    borderWidth:        1,
+    height:             Default.height,
+    paddingHorizontal:  Default.spacingInner
   }
 });

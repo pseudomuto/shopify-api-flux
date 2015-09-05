@@ -27,13 +27,13 @@ export default class ProductScene extends React.Component {
 
 let styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center"
+    flex:        1,
+    alignItems:  "center"
   },
 
   image: {
-    resizeMode: "contain",
-    width: 300,
-    height: 300
+    resizeMode:  "contain",
+    width:       300,
+    height:      300
   }
 });

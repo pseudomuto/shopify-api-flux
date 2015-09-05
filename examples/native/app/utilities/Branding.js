@@ -2,21 +2,21 @@
 
 export default {
   Color: {
-    black: "#28282a",
+    black:     "#28282a",
 
-    gray: "#EBEEF0",
-    grayDark: "#95A7B7",
+    gray:      "#EBEEF0",
+    grayDark:  "#95A7B7",
 
-    green: "#83B72F",
+    green:     "#83B72F",
 
-    slate: "#F9FAFB",
+    slate:     "#F9FAFB",
 
-    white: "white"
+    white:     "white"
   },
 
   Default: {
-    height: 44,
-    spacing: 20,
-    spacingInner: 10
+    height:        44,
+    spacing:       20,
+    spacingInner:  10
   }
 };
