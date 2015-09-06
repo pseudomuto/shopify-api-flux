@@ -21,7 +21,7 @@ export default class ProductsScene extends React.Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.state   = { products };
+    this.state = { products };
   }
 
   componentWillMount() {

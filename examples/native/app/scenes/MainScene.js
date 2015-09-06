@@ -2,6 +2,7 @@
 
 import React         from "react-native";
 import AccountScene  from "./AccountScene";
+import OrdersScene   from "./OrdersScene";
 import ProductsScene from "./ProductsScene";
 import RootScene     from "./RootScene";
 
@@ -29,6 +30,7 @@ export default class MainScene extends React.Component {
     return (
       <TabBarIOS>
         { this._renderTab("Products", "tabbar-products", ProductsScene) }
+        { this._renderTab("Orders", "tabbar-orders", OrdersScene) }
         { this._renderTab("Account", "tabbar-account", AccountScene) }
       </TabBarIOS>
     );
