@@ -12,9 +12,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "shopify-api-flux/lib/stores/base.js~base",
-    "class/lib/stores/Base.js~Base.html",
-    "<span>Base</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/Base.js</span>",
+    "shopify-api-flux/lib/stores/basestore.js~basestore",
+    "class/lib/stores/BaseStore.js~BaseStore.html",
+    "<span>BaseStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/BaseStore.js</span>",
     "class"
   ],
   [
@@ -24,9 +24,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "shopify-api-flux/lib/stores/orders.js~orders",
-    "class/lib/stores/Orders.js~Orders.html",
-    "<span>Orders</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/Orders.js</span>",
+    "shopify-api-flux/lib/stores/ordersstore.js~ordersstore",
+    "class/lib/stores/OrdersStore.js~OrdersStore.html",
+    "<span>OrdersStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/OrdersStore.js</span>",
     "class"
   ],
   [
@@ -36,9 +36,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "shopify-api-flux/lib/stores/products.js~products",
-    "class/lib/stores/Products.js~Products.html",
-    "<span>Products</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/Products.js</span>",
+    "shopify-api-flux/lib/stores/productsstore.js~productsstore",
+    "class/lib/stores/ProductsStore.js~ProductsStore.html",
+    "<span>ProductsStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/ProductsStore.js</span>",
     "class"
   ],
   [
@@ -48,9 +48,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "shopify-api-flux/lib/stores/sessions.js~sessions",
-    "class/lib/stores/Sessions.js~Sessions.html",
-    "<span>Sessions</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/Sessions.js</span>",
+    "shopify-api-flux/lib/stores/sessionstore.js~sessionstore",
+    "class/lib/stores/SessionStore.js~SessionStore.html",
+    "<span>SessionStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/SessionStore.js</span>",
     "class"
   ],
   [
@@ -60,9 +60,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "shopify-api-flux/lib/stores/shops.js~shops",
-    "class/lib/stores/Shops.js~Shops.html",
-    "<span>Shops</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/Shops.js</span>",
+    "shopify-api-flux/lib/stores/shopstore.js~shopstore",
+    "class/lib/stores/ShopStore.js~ShopStore.html",
+    "<span>ShopStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/ShopStore.js</span>",
     "class"
   ],
   [
@@ -600,117 +600,135 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/stores/base.js",
-    "file/lib/stores/Base.js.html",
-    "lib/stores/Base.js",
+    "lib/stores/basestore.js",
+    "file/lib/stores/BaseStore.js.html",
+    "lib/stores/BaseStore.js",
     "file"
   ],
   [
-    "lib/stores/base.js~base#areequal",
-    "class/lib/stores/Base.js~Base.html#instance-method-areEqual",
-    "lib/stores/Base.js~Base#areEqual",
+    "lib/stores/basestore.js~basestore#areequal",
+    "class/lib/stores/BaseStore.js~BaseStore.html#instance-method-areEqual",
+    "lib/stores/BaseStore.js~BaseStore#areEqual",
     "method"
   ],
   [
-    "lib/stores/base.js~base#constructor",
-    "class/lib/stores/Base.js~Base.html#instance-constructor-constructor",
-    "lib/stores/Base.js~Base#constructor",
+    "lib/stores/basestore.js~basestore#constructor",
+    "class/lib/stores/BaseStore.js~BaseStore.html#instance-constructor-constructor",
+    "lib/stores/BaseStore.js~BaseStore#constructor",
     "method"
   ],
   [
-    "lib/stores/base.js~base#reduce",
-    "class/lib/stores/Base.js~Base.html#instance-method-reduce",
-    "lib/stores/Base.js~Base#reduce",
+    "lib/stores/basestore.js~basestore#reduce",
+    "class/lib/stores/BaseStore.js~BaseStore.html#instance-method-reduce",
+    "lib/stores/BaseStore.js~BaseStore#reduce",
     "method"
   ],
   [
-    "lib/stores/base.js~base#where",
-    "class/lib/stores/Base.js~Base.html#instance-method-where",
-    "lib/stores/Base.js~Base#where",
+    "lib/stores/basestore.js~basestore#where",
+    "class/lib/stores/BaseStore.js~BaseStore.html#instance-method-where",
+    "lib/stores/BaseStore.js~BaseStore#where",
     "method"
   ],
   [
-    "lib/stores/orders.js",
-    "file/lib/stores/Orders.js.html",
-    "lib/stores/Orders.js",
+    "lib/stores/basestore.js~fluxmapstore",
+    "external/index.html",
+    "lib/stores/BaseStore.js~FluxMapStore",
+    "external"
+  ],
+  [
+    "lib/stores/basestore.js~queryobject",
+    "external/index.html",
+    "lib/stores/BaseStore.js~QueryObject",
+    "external"
+  ],
+  [
+    "lib/stores/ordersstore.js",
+    "file/lib/stores/OrdersStore.js.html",
+    "lib/stores/OrdersStore.js",
     "file"
   ],
   [
-    "lib/stores/orders.js~orders#constructor",
-    "class/lib/stores/Orders.js~Orders.html#instance-constructor-constructor",
-    "lib/stores/Orders.js~Orders#constructor",
+    "lib/stores/ordersstore.js~ordersstore#constructor",
+    "class/lib/stores/OrdersStore.js~OrdersStore.html#instance-constructor-constructor",
+    "lib/stores/OrdersStore.js~OrdersStore#constructor",
     "method"
   ],
   [
-    "lib/stores/products.js",
-    "file/lib/stores/Products.js.html",
-    "lib/stores/Products.js",
+    "lib/stores/productsstore.js",
+    "file/lib/stores/ProductsStore.js.html",
+    "lib/stores/ProductsStore.js",
     "file"
   ],
   [
-    "lib/stores/products.js~products#constructor",
-    "class/lib/stores/Products.js~Products.html#instance-constructor-constructor",
-    "lib/stores/Products.js~Products#constructor",
+    "lib/stores/productsstore.js~productsstore#constructor",
+    "class/lib/stores/ProductsStore.js~ProductsStore.html#instance-constructor-constructor",
+    "lib/stores/ProductsStore.js~ProductsStore#constructor",
     "method"
   ],
   [
-    "lib/stores/sessions.js",
-    "file/lib/stores/Sessions.js.html",
-    "lib/stores/Sessions.js",
+    "lib/stores/sessionstore.js",
+    "file/lib/stores/SessionStore.js.html",
+    "lib/stores/SessionStore.js",
     "file"
   ],
   [
-    "lib/stores/sessions.js~sessions#getaccesstoken",
-    "class/lib/stores/Sessions.js~Sessions.html#instance-method-getAccessToken",
-    "lib/stores/Sessions.js~Sessions#getAccessToken",
+    "lib/stores/sessionstore.js~sessionstore#getaccesstoken",
+    "class/lib/stores/SessionStore.js~SessionStore.html#instance-method-getAccessToken",
+    "lib/stores/SessionStore.js~SessionStore#getAccessToken",
     "method"
   ],
   [
-    "lib/stores/sessions.js~sessions#getdomain",
-    "class/lib/stores/Sessions.js~Sessions.html#instance-method-getDomain",
-    "lib/stores/Sessions.js~Sessions#getDomain",
+    "lib/stores/sessionstore.js~sessionstore#getdomain",
+    "class/lib/stores/SessionStore.js~SessionStore.html#instance-method-getDomain",
+    "lib/stores/SessionStore.js~SessionStore#getDomain",
     "method"
   ],
   [
-    "lib/stores/shops.js",
-    "file/lib/stores/Shops.js.html",
-    "lib/stores/Shops.js",
+    "lib/stores/sessionstore.js~store",
+    "external/index.html",
+    "lib/stores/SessionStore.js~Store",
+    "external"
+  ],
+  [
+    "lib/stores/shopstore.js",
+    "file/lib/stores/ShopStore.js.html",
+    "lib/stores/ShopStore.js",
     "file"
   ],
   [
-    "lib/stores/shops.js~shops#getcurrent",
-    "class/lib/stores/Shops.js~Shops.html#instance-method-getCurrent",
-    "lib/stores/Shops.js~Shops#getCurrent",
+    "lib/stores/shopstore.js~shopstore#getcurrent",
+    "class/lib/stores/ShopStore.js~ShopStore.html#instance-method-getCurrent",
+    "lib/stores/ShopStore.js~ShopStore#getCurrent",
     "method"
   ],
   [
-    "lib/stores/__tests__/basetest.js",
-    "file/lib/stores/__tests__/BaseTest.js.html",
-    "lib/stores/__tests__/BaseTest.js",
+    "lib/stores/__tests__/basestoretest.js",
+    "file/lib/stores/__tests__/BaseStoreTest.js.html",
+    "lib/stores/__tests__/BaseStoreTest.js",
     "file"
   ],
   [
-    "lib/stores/__tests__/orderstest.js",
-    "file/lib/stores/__tests__/OrdersTest.js.html",
-    "lib/stores/__tests__/OrdersTest.js",
+    "lib/stores/__tests__/ordersstoretest.js",
+    "file/lib/stores/__tests__/OrdersStoreTest.js.html",
+    "lib/stores/__tests__/OrdersStoreTest.js",
     "file"
   ],
   [
-    "lib/stores/__tests__/productstest.js",
-    "file/lib/stores/__tests__/ProductsTest.js.html",
-    "lib/stores/__tests__/ProductsTest.js",
+    "lib/stores/__tests__/productsstoretest.js",
+    "file/lib/stores/__tests__/ProductsStoreTest.js.html",
+    "lib/stores/__tests__/ProductsStoreTest.js",
     "file"
   ],
   [
-    "lib/stores/__tests__/sessionstest.js",
-    "file/lib/stores/__tests__/SessionsTest.js.html",
-    "lib/stores/__tests__/SessionsTest.js",
+    "lib/stores/__tests__/sessionstoretest.js",
+    "file/lib/stores/__tests__/SessionStoreTest.js.html",
+    "lib/stores/__tests__/SessionStoreTest.js",
     "file"
   ],
   [
-    "lib/stores/__tests__/shopstest.js",
-    "file/lib/stores/__tests__/ShopsTest.js.html",
-    "lib/stores/__tests__/ShopsTest.js",
+    "lib/stores/__tests__/shopstoretest.js",
+    "file/lib/stores/__tests__/ShopStoreTest.js.html",
+    "lib/stores/__tests__/ShopStoreTest.js",
     "file"
   ],
   [

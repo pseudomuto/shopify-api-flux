@@ -21,7 +21,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/Orders\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/Products\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/Sessions\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/Shops\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -1163,66 +1163,56 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/Base.js",
+    "name": "lib/stores/BaseStore.js",
     "memberof": null,
-    "longname": "lib/stores/Base.js",
+    "longname": "lib/stores/BaseStore.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\nfunction mergeItems(state, items) {\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\nexport default class extends Flux.MapStore {\n  constructor(dispatcher, mergeAction, clearAction) {\n    super(dispatcher);\n    this._mergeAction = mergeAction;\n    this._clearAction = clearAction;\n  }\n\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._mergeAction:\n        return mergeItems(state, action.items);\n      case this._clearAction:\n        return state.clear();\n      default:\n        return state;\n    }\n  }\n\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\n/**\n * @external {FluxMapStore} https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js\n */\n\n/**\n * @external {QueryObject} https://lodash.com/docs#where\n */\n\nfunction mergeItems(state, items) {\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\n/**\n * A base class for resource stores.\n *\n * Stores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n *\n * This store exposes a few methods (from it's base class). These include:\n *\n * * `at(key)` - returns the object with the specified key. Raises when not found\n * * `get(key)` - returns the object with the specified key. Returns undefined when not found\n * * `has(key)` - returns whether or not an object with the specified key exists in the store\n *\n * @extends {FluxMapStore}\n *\n * @example\n * import APIDispatcher from \"../dispatcher/APIDispatcher\";\n * import Base          from \"./Base\";\n *\n * let store = new Base(APIDispatcher, \"MERGE_PRODUCTS\", \"CLEAR_PRODUCTS\");\n *\n * // listen for change events\n * store.addListener(() => console.log(store.get(1)));\n *\n * // will cause the store to update the state and emit it's change event\n * APIDispatcher.dispatch({\n *   actionType: \"MERGE_PRODUCTS\",\n *   items: [{ id: 1, title: \"My Product\" }]\n * });\n */\nexport default class BaseStore extends Flux.MapStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {string} mergeAction - The action that is dispatched for additions\n   * @param {string} clearAction - The action that is dispatched for clearing the store\n   */\n  constructor(dispatcher, mergeAction, clearAction) {\n    super(dispatcher);\n    this._mergeAction = mergeAction;\n    this._clearAction = clearAction;\n  }\n\n  /**\n   * Queries the store for resources matching the source object\n   *\n   * @param {QueryObject} source\n   *\n   * @return {Array<object>} Resources that match the query\n   */\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  /**\n   * Used to reduce a stream of actions coming from the dispatcher into a\n   * single state object. This will handle merge and clear actions for this resource.\n   *\n   * **This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.\n   *\n   * @param {object} state - The current state\n   * @param {object} action - The action sent by the dispatcher\n   *\n   * @return {object} The new state for this store\n   */\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._mergeAction:\n        return mergeItems(state, action.items);\n      case this._clearAction:\n        return state.clear();\n      default:\n        return state;\n    }\n  }\n\n  /**\n   * Determines whether or not the state of this store has changed.\n   *\n   * **This method should not be called directly**\n   *\n   * @param {object} state1 - The original state\n   * @param {object} state2 - The new state\n   *\n   * @return {boolean} Whether or not the state's are identical\n   */\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
   },
   {
-    "kind": "function",
+    "kind": "external",
     "static": true,
     "variation": null,
-    "name": "mergeItems",
-    "memberof": "lib/stores/Base.js",
-    "longname": "lib/stores/Base.js~mergeItems",
+    "name": "FluxMapStore",
+    "externalLink": "https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js",
+    "memberof": "lib/stores/BaseStore.js",
+    "longname": "lib/stores/BaseStore.js~FluxMapStore",
     "access": null,
-    "export": false,
-    "importPath": "shopify-api-flux/lib/stores/Base.js",
-    "importStyle": null,
+    "description": null
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "QueryObject",
+    "externalLink": "https://lodash.com/docs#where",
+    "memberof": "lib/stores/BaseStore.js",
+    "longname": "lib/stores/BaseStore.js~QueryObject",
+    "access": null,
     "description": null,
-    "lineNumber": 6,
-    "undocument": true,
-    "params": [
-      {
-        "name": "state",
-        "types": [
-          "*"
-        ]
-      },
-      {
-        "name": "items",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
+    "lineNumber": 14
   },
   {
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "Base",
-    "memberof": "lib/stores/Base.js",
-    "longname": "lib/stores/Base.js~Base",
+    "name": "BaseStore",
+    "memberof": "lib/stores/BaseStore.js",
+    "longname": "lib/stores/BaseStore.js~BaseStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Base.js",
-    "importStyle": "Base",
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "importPath": "shopify-api-flux/lib/stores/BaseStore.js",
+    "importStyle": "BaseStore",
+    "description": "A base class for resource stores.\n\nStores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n\nThis store exposes a few methods (from it's base class). These include:\n\n* `at(key)` - returns the object with the specified key. Raises when not found\n* `get(key)` - returns the object with the specified key. Returns undefined when not found\n* `has(key)` - returns whether or not an object with the specified key exists in the store",
+    "examples": [
+      "import APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\n\nlet store = new Base(APIDispatcher, \"MERGE_PRODUCTS\", \"CLEAR_PRODUCTS\");\n\n// listen for change events\nstore.addListener(() => console.log(store.get(1)));\n\n// will cause the store to update the state and emit it's change event\nAPIDispatcher.dispatch({\n  actionType: \"MERGE_PRODUCTS\",\n  items: [{ id: 1, title: \"My Product\" }]\n});"
+    ],
+    "lineNumber": 50,
     "interface": false,
     "extends": [
-      "flux/utils~Flux.MapStore"
+      "FluxMapStore"
     ]
   },
   {
@@ -1230,30 +1220,41 @@
     "static": false,
     "variation": null,
     "name": "constructor",
-    "memberof": "lib/stores/Base.js~Base",
-    "longname": "lib/stores/Base.js~Base#constructor",
+    "memberof": "lib/stores/BaseStore.js~BaseStore",
+    "longname": "lib/stores/BaseStore.js~BaseStore#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 15,
-    "undocument": true,
+    "lineNumber": 56,
     "params": [
       {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "dispatcher",
-        "types": [
-          "*"
-        ]
+        "description": "The dispatcher to register with"
       },
       {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "mergeAction",
-        "types": [
-          "*"
-        ]
+        "description": "The action that is dispatched for additions"
       },
       {
-        "name": "clearAction",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "clearAction",
+        "description": "The action that is dispatched for clearing the store"
       }
     ],
     "generator": false
@@ -1263,11 +1264,11 @@
     "static": false,
     "variation": null,
     "name": "_mergeAction",
-    "memberof": "lib/stores/Base.js~Base",
-    "longname": "lib/stores/Base.js~Base#_mergeAction",
+    "memberof": "lib/stores/BaseStore.js~BaseStore",
+    "longname": "lib/stores/BaseStore.js~BaseStore#_mergeAction",
     "access": null,
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 58,
     "undocument": true,
     "type": {
       "types": [
@@ -1280,11 +1281,11 @@
     "static": false,
     "variation": null,
     "name": "_clearAction",
-    "memberof": "lib/stores/Base.js~Base",
-    "longname": "lib/stores/Base.js~Base#_clearAction",
+    "memberof": "lib/stores/BaseStore.js~BaseStore",
+    "longname": "lib/stores/BaseStore.js~BaseStore#_clearAction",
     "access": null,
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 59,
     "undocument": true,
     "type": {
       "types": [
@@ -1297,24 +1298,30 @@
     "static": false,
     "variation": null,
     "name": "where",
-    "memberof": "lib/stores/Base.js~Base",
-    "longname": "lib/stores/Base.js~Base#where",
+    "memberof": "lib/stores/BaseStore.js~BaseStore",
+    "longname": "lib/stores/BaseStore.js~BaseStore#where",
     "access": null,
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "description": "Queries the store for resources matching the source object",
+    "lineNumber": 69,
     "params": [
       {
-        "name": "source",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "QueryObject"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "source",
+        "description": ""
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array<object>"
+      ],
+      "spread": false,
+      "description": "Resources that match the query"
     },
     "generator": false
   },
@@ -1323,30 +1330,40 @@
     "static": false,
     "variation": null,
     "name": "reduce",
-    "memberof": "lib/stores/Base.js~Base",
-    "longname": "lib/stores/Base.js~Base#reduce",
+    "memberof": "lib/stores/BaseStore.js~BaseStore",
+    "longname": "lib/stores/BaseStore.js~BaseStore#reduce",
     "access": null,
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
+    "description": "Used to reduce a stream of actions coming from the dispatcher into a\nsingle state object. This will handle merge and clear actions for this resource.\n\n**This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.",
+    "lineNumber": 84,
     "params": [
       {
-        "name": "state",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state",
+        "description": "The current state"
       },
       {
-        "name": "action",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "action",
+        "description": "The action sent by the dispatcher"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "object"
+      ],
+      "spread": false,
+      "description": "The new state for this store"
     },
     "generator": false
   },
@@ -1355,30 +1372,40 @@
     "static": false,
     "variation": null,
     "name": "areEqual",
-    "memberof": "lib/stores/Base.js~Base",
-    "longname": "lib/stores/Base.js~Base#areEqual",
+    "memberof": "lib/stores/BaseStore.js~BaseStore",
+    "longname": "lib/stores/BaseStore.js~BaseStore#areEqual",
     "access": null,
-    "description": null,
-    "lineNumber": 36,
-    "undocument": true,
+    "description": "Determines whether or not the state of this store has changed.\n\n**This method should not be called directly**",
+    "lineNumber": 105,
     "params": [
       {
-        "name": "state1",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state1",
+        "description": "The original state"
       },
       {
-        "name": "state2",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state2",
+        "description": "The new state"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "boolean"
+      ],
+      "spread": false,
+      "description": "Whether or not the state's are identical"
     },
     "generator": false
   },
@@ -1386,32 +1413,31 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/Orders.js",
+    "name": "lib/stores/OrdersStore.js",
     "memberof": null,
-    "longname": "lib/stores/Orders.js",
+    "longname": "lib/stores/OrdersStore.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass Orders extends Base {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_ORDERS, Constants.Actions.CLEAR_ORDERS);\n  }\n}\n\n/** @ignore */\nexport default new Orders(APIDispatcher);\n"
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport BaseStore     from \"./BaseStore\";\nimport Constants     from \"../Constants\";\n\n/**\n * The Orders store\n *\n * @extends {BaseStore}\n */\nclass OrdersStore extends BaseStore {\n  /**\n   * Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_ORDERS, Constants.Actions.CLEAR_ORDERS);\n  }\n}\n\n/** @ignore */\nexport default new OrdersStore(APIDispatcher);\n"
   },
   {
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "Orders",
-    "memberof": "lib/stores/Orders.js",
-    "longname": "lib/stores/Orders.js~Orders",
+    "name": "OrdersStore",
+    "memberof": "lib/stores/OrdersStore.js",
+    "longname": "lib/stores/OrdersStore.js~OrdersStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Orders.js",
+    "importPath": "shopify-api-flux/lib/stores/OrdersStore.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 7,
+    "description": "The Orders store",
+    "lineNumber": 12,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
-      "lib/stores/Base~Base"
+      "BaseStore"
     ]
   },
   {
@@ -1419,18 +1445,21 @@
     "static": false,
     "variation": null,
     "name": "constructor",
-    "memberof": "lib/stores/Orders.js~Orders",
-    "longname": "lib/stores/Orders.js~Orders#constructor",
+    "memberof": "lib/stores/OrdersStore.js~OrdersStore",
+    "longname": "lib/stores/OrdersStore.js~OrdersStore#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively",
+    "lineNumber": 17,
     "params": [
       {
-        "name": "dispatcher",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
       }
     ],
     "generator": false
@@ -1439,19 +1468,19 @@
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "orders",
-    "memberof": "lib/stores/Orders.js",
-    "longname": "lib/stores/Orders.js~orders",
+    "name": "ordersStore",
+    "memberof": "lib/stores/OrdersStore.js",
+    "longname": "lib/stores/OrdersStore.js~ordersStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Orders.js",
-    "importStyle": "orders",
+    "importPath": "shopify-api-flux/lib/stores/OrdersStore.js",
+    "importStyle": "ordersStore",
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 23,
     "ignore": true,
     "type": {
       "types": [
-        "lib/stores/Orders.js~Orders"
+        "lib/stores/OrdersStore.js~OrdersStore"
       ]
     }
   },
@@ -1459,32 +1488,31 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/Products.js",
+    "name": "lib/stores/ProductsStore.js",
     "memberof": null,
-    "longname": "lib/stores/Products.js",
+    "longname": "lib/stores/ProductsStore.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass Products extends Base {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_PRODUCTS, Constants.Actions.CLEAR_PRODUCTS);\n  }\n}\n\n/** @ignore */\nexport default new Products(APIDispatcher);\n"
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport BaseStore     from \"./BaseStore\";\nimport Constants     from \"../Constants\";\n\n/**\n * The products store\n *\n * @extends {BaseStore}\n */\nclass ProductsStore extends BaseStore {\n  /**\n   * Sets the merge and clear actions to MERGE_PRODUCTS and CLEAR_PRODUCTS respectively\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to regiter with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_PRODUCTS, Constants.Actions.CLEAR_PRODUCTS);\n  }\n}\n\n/** @ignore */\nexport default new ProductsStore(APIDispatcher);\n"
   },
   {
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "Products",
-    "memberof": "lib/stores/Products.js",
-    "longname": "lib/stores/Products.js~Products",
+    "name": "ProductsStore",
+    "memberof": "lib/stores/ProductsStore.js",
+    "longname": "lib/stores/ProductsStore.js~ProductsStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Products.js",
+    "importPath": "shopify-api-flux/lib/stores/ProductsStore.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 7,
+    "description": "The products store",
+    "lineNumber": 12,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
-      "lib/stores/Base~Base"
+      "BaseStore"
     ]
   },
   {
@@ -1492,18 +1520,21 @@
     "static": false,
     "variation": null,
     "name": "constructor",
-    "memberof": "lib/stores/Products.js~Products",
-    "longname": "lib/stores/Products.js~Products#constructor",
+    "memberof": "lib/stores/ProductsStore.js~ProductsStore",
+    "longname": "lib/stores/ProductsStore.js~ProductsStore#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
+    "description": "Sets the merge and clear actions to MERGE_PRODUCTS and CLEAR_PRODUCTS respectively",
+    "lineNumber": 18,
     "params": [
       {
-        "name": "dispatcher",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to regiter with"
       }
     ],
     "generator": false
@@ -1512,19 +1543,19 @@
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "products",
-    "memberof": "lib/stores/Products.js",
-    "longname": "lib/stores/Products.js~products",
+    "name": "productsStore",
+    "memberof": "lib/stores/ProductsStore.js",
+    "longname": "lib/stores/ProductsStore.js~productsStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Products.js",
-    "importStyle": "products",
+    "importPath": "shopify-api-flux/lib/stores/ProductsStore.js",
+    "importStyle": "productsStore",
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 24,
     "ignore": true,
     "type": {
       "types": [
-        "lib/stores/Products.js~Products"
+        "lib/stores/ProductsStore.js~ProductsStore"
       ]
     }
   },
@@ -1532,47 +1563,39 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/Sessions.js",
+    "name": "lib/stores/SessionStore.js",
     "memberof": null,
-    "longname": "lib/stores/Sessions.js",
+    "longname": "lib/stores/SessionStore.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport Flux          from \"flux/utils\";\n\nvar domain      = null;\nvar accessToken = null;\n\n/** @ignore */\nconst { Store } = Flux;\n\nclass Sessions extends Store {\n  getDomain() {\n    return domain;\n  }\n\n  getAccessToken() {\n    return accessToken;\n  }\n\n  __onDispatch(action) {\n    switch(action.actionType) {\n      case Constants.Actions.SET_SESSION:\n        domain      = action.domain;\n        accessToken = action.accessToken;\n        this.__emitChange();\n        break;\n      default:\n        // no-op\n    }\n  }\n}\n\n/** @ignore */\nexport default new Sessions(APIDispatcher);\n"
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport Flux          from \"flux/utils\";\n\n/**\n * @external {Store} https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js\n */\n\nvar domain      = null;\nvar accessToken = null;\n\n/** @ignore */\nconst { Store } = Flux;\n\n/**\n * The session store\n *\n * This class doesn't inherit from the base store. Instead, it handles the `SET_SESSION` event. This event expects a\n * domain and accessToken property.\n */\nclass SessionStore extends Store {\n  /**\n   * Gets the domain for the session's shop\n   *\n   * @return {string}\n   */\n  getDomain() {\n    return domain;\n  }\n\n  /**\n   * Gets the API access token register for this session\n   *\n   * @return {string}\n   */\n  getAccessToken() {\n    return accessToken;\n  }\n\n  __onDispatch(action) {\n    switch(action.actionType) {\n      case Constants.Actions.SET_SESSION:\n        domain      = action.domain;\n        accessToken = action.accessToken;\n        this.__emitChange();\n        break;\n      default:\n        // no-op\n    }\n  }\n}\n\n/** @ignore */\nexport default new SessionStore(APIDispatcher);\n"
   },
   {
-    "kind": "variable",
+    "kind": "external",
     "static": true,
     "variation": null,
-    "name": "domain",
-    "memberof": "lib/stores/Sessions.js",
-    "longname": "lib/stores/Sessions.js~domain",
+    "name": "Store",
+    "externalLink": "https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js",
+    "memberof": "lib/stores/SessionStore.js",
+    "longname": "lib/stores/SessionStore.js~Store",
     "access": null,
-    "export": false,
-    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
-    "importStyle": null,
     "description": null,
-    "lineNumber": 7,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
+    "lineNumber": 11
   },
   {
     "kind": "variable",
     "static": true,
     "variation": null,
     "name": "accessToken",
-    "memberof": "lib/stores/Sessions.js",
-    "longname": "lib/stores/Sessions.js~accessToken",
+    "memberof": "lib/stores/SessionStore.js",
+    "longname": "lib/stores/SessionStore.js~accessToken",
     "access": null,
     "export": false,
-    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importPath": "shopify-api-flux/lib/stores/SessionStore.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 8,
+    "lineNumber": 12,
     "undocument": true,
     "type": {
       "types": [
@@ -1585,14 +1608,14 @@
     "static": true,
     "variation": null,
     "name": "Store",
-    "memberof": "lib/stores/Sessions.js",
-    "longname": "lib/stores/Sessions.js~Store",
+    "memberof": "lib/stores/SessionStore.js",
+    "longname": "lib/stores/SessionStore.js~Store",
     "access": null,
     "export": false,
-    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importPath": "shopify-api-flux/lib/stores/SessionStore.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 15,
     "ignore": true,
     "type": {
       "types": [
@@ -1604,17 +1627,16 @@
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "Sessions",
-    "memberof": "lib/stores/Sessions.js",
-    "longname": "lib/stores/Sessions.js~Sessions",
+    "name": "SessionStore",
+    "memberof": "lib/stores/SessionStore.js",
+    "longname": "lib/stores/SessionStore.js~SessionStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importPath": "shopify-api-flux/lib/stores/SessionStore.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 13,
+    "description": "The session store\n\nThis class doesn't inherit from the base store. Instead, it handles the `SET_SESSION` event. This event expects a\ndomain and accessToken property.",
+    "lineNumber": 23,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
       "Store"
@@ -1625,17 +1647,19 @@
     "static": false,
     "variation": null,
     "name": "getDomain",
-    "memberof": "lib/stores/Sessions.js~Sessions",
-    "longname": "lib/stores/Sessions.js~Sessions#getDomain",
+    "memberof": "lib/stores/SessionStore.js~SessionStore",
+    "longname": "lib/stores/SessionStore.js~SessionStore#getDomain",
     "access": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "Gets the domain for the session's shop",
+    "lineNumber": 29,
     "params": [],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -1644,17 +1668,19 @@
     "static": false,
     "variation": null,
     "name": "getAccessToken",
-    "memberof": "lib/stores/Sessions.js~Sessions",
-    "longname": "lib/stores/Sessions.js~Sessions#getAccessToken",
+    "memberof": "lib/stores/SessionStore.js~SessionStore",
+    "longname": "lib/stores/SessionStore.js~SessionStore#getAccessToken",
     "access": null,
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "Gets the API access token register for this session",
+    "lineNumber": 38,
     "params": [],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -1663,11 +1689,11 @@
     "static": false,
     "variation": null,
     "name": "__onDispatch",
-    "memberof": "lib/stores/Sessions.js~Sessions",
-    "longname": "lib/stores/Sessions.js~Sessions#__onDispatch",
+    "memberof": "lib/stores/SessionStore.js~SessionStore",
+    "longname": "lib/stores/SessionStore.js~SessionStore#__onDispatch",
     "access": null,
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 42,
     "undocument": true,
     "params": [
       {
@@ -1683,19 +1709,19 @@
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "sessions",
-    "memberof": "lib/stores/Sessions.js",
-    "longname": "lib/stores/Sessions.js~sessions",
+    "name": "sessionStore",
+    "memberof": "lib/stores/SessionStore.js",
+    "longname": "lib/stores/SessionStore.js~sessionStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
-    "importStyle": "sessions",
+    "importPath": "shopify-api-flux/lib/stores/SessionStore.js",
+    "importStyle": "sessionStore",
     "description": null,
-    "lineNumber": 36,
+    "lineNumber": 56,
     "ignore": true,
     "type": {
       "types": [
-        "lib/stores/Sessions.js~Sessions"
+        "lib/stores/SessionStore.js~SessionStore"
       ]
     }
   },
@@ -1703,24 +1729,24 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/Shops.js",
+    "name": "lib/stores/ShopStore.js",
     "memberof": null,
-    "longname": "lib/stores/Shops.js",
+    "longname": "lib/stores/ShopStore.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport Flux          from \"flux/utils\";\n\nvar shop = null;\n\nconst { Store } = Flux;\n\nclass Shops extends Store {\n  getCurrent() {\n    return shop;\n  }\n\n  __onDispatch(action) {\n    switch(action.actionType) {\n      case Constants.Actions.SET_SHOP:\n        shop = action.items[0];\n        this.__emitChange();\n        break;\n      case Constants.Actions.CLEAR_SHOP:\n        shop = null;\n        this.__emitChange();\n        break;\n      default:\n        // no-op\n        break;\n    }\n  }\n}\n\n/** @ignore */\nexport default new Shops(APIDispatcher);\n"
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport Flux          from \"flux/utils\";\n\nvar shop = null;\n\nconst { Store } = Flux;\n\n/**\n * The shop store\n *\n * @extends {Store}\n */\nclass ShopStore extends Store {\n  /**\n   * Gets the current shop based on the domain and accessToken registered with the session\n   *\n   * @return {object} The shop resource\n   */\n  getCurrent() {\n    return shop;\n  }\n\n  __onDispatch(action) {\n    switch(action.actionType) {\n      case Constants.Actions.SET_SHOP:\n        shop = action.items[0];\n        this.__emitChange();\n        break;\n      case Constants.Actions.CLEAR_SHOP:\n        shop = null;\n        this.__emitChange();\n        break;\n      default:\n        // no-op\n        break;\n    }\n  }\n}\n\n/** @ignore */\nexport default new ShopStore(APIDispatcher);\n"
   },
   {
     "kind": "variable",
     "static": true,
     "variation": null,
     "name": "shop",
-    "memberof": "lib/stores/Shops.js",
-    "longname": "lib/stores/Shops.js~shop",
+    "memberof": "lib/stores/ShopStore.js",
+    "longname": "lib/stores/ShopStore.js~shop",
     "access": null,
     "export": false,
-    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importPath": "shopify-api-flux/lib/stores/ShopStore.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 7,
@@ -1736,11 +1762,11 @@
     "static": true,
     "variation": null,
     "name": "Store",
-    "memberof": "lib/stores/Shops.js",
-    "longname": "lib/stores/Shops.js~Store",
+    "memberof": "lib/stores/ShopStore.js",
+    "longname": "lib/stores/ShopStore.js~Store",
     "access": null,
     "export": false,
-    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importPath": "shopify-api-flux/lib/stores/ShopStore.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 9,
@@ -1755,17 +1781,16 @@
     "kind": "class",
     "static": true,
     "variation": null,
-    "name": "Shops",
-    "memberof": "lib/stores/Shops.js",
-    "longname": "lib/stores/Shops.js~Shops",
+    "name": "ShopStore",
+    "memberof": "lib/stores/ShopStore.js",
+    "longname": "lib/stores/ShopStore.js~ShopStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importPath": "shopify-api-flux/lib/stores/ShopStore.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 11,
+    "description": "The shop store",
+    "lineNumber": 16,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
       "Store"
@@ -1776,17 +1801,19 @@
     "static": false,
     "variation": null,
     "name": "getCurrent",
-    "memberof": "lib/stores/Shops.js~Shops",
-    "longname": "lib/stores/Shops.js~Shops#getCurrent",
+    "memberof": "lib/stores/ShopStore.js~ShopStore",
+    "longname": "lib/stores/ShopStore.js~ShopStore#getCurrent",
     "access": null,
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
+    "description": "Gets the current shop based on the domain and accessToken registered with the session",
+    "lineNumber": 22,
     "params": [],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "object"
+      ],
+      "spread": false,
+      "description": "The shop resource"
     },
     "generator": false
   },
@@ -1795,11 +1822,11 @@
     "static": false,
     "variation": null,
     "name": "__onDispatch",
-    "memberof": "lib/stores/Shops.js~Shops",
-    "longname": "lib/stores/Shops.js~Shops#__onDispatch",
+    "memberof": "lib/stores/ShopStore.js~ShopStore",
+    "longname": "lib/stores/ShopStore.js~ShopStore#__onDispatch",
     "access": null,
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 26,
     "undocument": true,
     "params": [
       {
@@ -1815,19 +1842,19 @@
     "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "shops",
-    "memberof": "lib/stores/Shops.js",
-    "longname": "lib/stores/Shops.js~shops",
+    "name": "shopStore",
+    "memberof": "lib/stores/ShopStore.js",
+    "longname": "lib/stores/ShopStore.js~shopStore",
     "access": null,
     "export": true,
-    "importPath": "shopify-api-flux/lib/stores/Shops.js",
-    "importStyle": "shops",
+    "importPath": "shopify-api-flux/lib/stores/ShopStore.js",
+    "importStyle": "shopStore",
     "description": null,
-    "lineNumber": 34,
+    "lineNumber": 44,
     "ignore": true,
     "type": {
       "types": [
-        "lib/stores/Shops.js~Shops"
+        "lib/stores/ShopStore.js~ShopStore"
       ]
     }
   },
@@ -1835,24 +1862,24 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/BaseTest.js",
+    "name": "lib/stores/__tests__/BaseStoreTest.js",
     "memberof": null,
-    "longname": "lib/stores/__tests__/BaseTest.js",
+    "longname": "lib/stores/__tests__/BaseStoreTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../Base\");\n\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../Base\");\n\nclass ThingsStore extends BaseStore {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);\n  }\n}\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    it(\"responds to actions appropriately\", () => {\n      expect(store.has(1)).toBe(false);\n      expect(store.get(1)).toBeUndefined();\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.get(1).title).toBe(\"My Product\");\n    });\n\n    it(\"only emits a single change event even with multiple values\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\" },\n          { id: 2, title: \"My Second Product\" },\n          { id: 3, title: \"My Third Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.has(2)).toBe(true);\n      expect(store.has(3)).toBe(true);\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"doesn't emit a change event when the values haven't changed\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"clears the cache\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n      expect(store.has(1)).toBe(false);\n      expect(changeEvent.mock.calls.length).toBe(2);\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../BaseStore\");\n\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../BaseStore\");\n\n/** @ignore */\nclass ThingsStore extends BaseStore {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);\n  }\n}\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    it(\"responds to actions appropriately\", () => {\n      expect(store.has(1)).toBe(false);\n      expect(store.get(1)).toBeUndefined();\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.get(1).title).toBe(\"My Product\");\n    });\n\n    it(\"only emits a single change event even with multiple values\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\" },\n          { id: 2, title: \"My Second Product\" },\n          { id: 3, title: \"My Third Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.has(2)).toBe(true);\n      expect(store.has(3)).toBe(true);\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"doesn't emit a change event when the values haven't changed\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"clears the cache\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n      expect(store.has(1)).toBe(false);\n      expect(changeEvent.mock.calls.length).toBe(2);\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
     "static": true,
     "variation": null,
     "name": "BaseStore",
-    "memberof": "lib/stores/__tests__/BaseTest.js",
-    "longname": "lib/stores/__tests__/BaseTest.js~BaseStore",
+    "memberof": "lib/stores/__tests__/BaseStoreTest.js",
+    "longname": "lib/stores/__tests__/BaseStoreTest.js~BaseStore",
     "access": null,
     "export": false,
-    "importPath": "shopify-api-flux/lib/stores/__tests__/BaseTest.js",
+    "importPath": "shopify-api-flux/lib/stores/__tests__/BaseStoreTest.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 9,
@@ -1868,15 +1895,15 @@
     "static": true,
     "variation": null,
     "name": "ThingsStore",
-    "memberof": "lib/stores/__tests__/BaseTest.js",
-    "longname": "lib/stores/__tests__/BaseTest.js~ThingsStore",
+    "memberof": "lib/stores/__tests__/BaseStoreTest.js",
+    "longname": "lib/stores/__tests__/BaseStoreTest.js~ThingsStore",
     "access": null,
     "export": false,
-    "importPath": "shopify-api-flux/lib/stores/__tests__/BaseTest.js",
+    "importPath": "shopify-api-flux/lib/stores/__tests__/BaseStoreTest.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 11,
-    "undocument": true,
+    "lineNumber": 12,
+    "ignore": true,
     "interface": false,
     "extends": [
       "BaseStore"
@@ -1887,11 +1914,11 @@
     "static": false,
     "variation": null,
     "name": "constructor",
-    "memberof": "lib/stores/__tests__/BaseTest.js~ThingsStore",
-    "longname": "lib/stores/__tests__/BaseTest.js~ThingsStore#constructor",
+    "memberof": "lib/stores/__tests__/BaseStoreTest.js~ThingsStore",
+    "longname": "lib/stores/__tests__/BaseStoreTest.js~ThingsStore#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 13,
     "undocument": true,
     "params": [
       {
@@ -1907,49 +1934,49 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/OrdersTest.js",
+    "name": "lib/stores/__tests__/OrdersStoreTest.js",
     "memberof": null,
-    "longname": "lib/stores/__tests__/OrdersTest.js",
+    "longname": "lib/stores/__tests__/OrdersStoreTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Orders\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Orders\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../Orders\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_ORDERS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_ORDERS);\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../BaseStore\");\njest.dontMock(\"../OrdersStore\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"OrdersStore\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../OrdersStore\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_ORDERS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_ORDERS);\n  });\n});\n"
   },
   {
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/ProductsTest.js",
+    "name": "lib/stores/__tests__/ProductsStoreTest.js",
     "memberof": null,
-    "longname": "lib/stores/__tests__/ProductsTest.js",
+    "longname": "lib/stores/__tests__/ProductsStoreTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Products\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Products\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../Products\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_PRODUCTS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_PRODUCTS);\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../BaseStore\");\njest.dontMock(\"../ProductsStore\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"ProductsStore\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../ProductsStore\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_PRODUCTS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_PRODUCTS);\n  });\n});\n"
   },
   {
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/SessionsTest.js",
+    "name": "lib/stores/__tests__/SessionStoreTest.js",
     "memberof": null,
-    "longname": "lib/stores/__tests__/SessionsTest.js",
+    "longname": "lib/stores/__tests__/SessionStoreTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../Sessions\");\n\ndescribe(\"Session\", () => {\n  var SessionStore, APIDispatcher;\n\n  beforeEach(() => {\n    APIDispatcher = require(\"../../dispatcher/APIDispatcher\");\n    SessionStore  = require(\"../Sessions\");\n  });\n\n  it(\"registers a callback with the dispatcher\", () => {\n    expect(APIDispatcher.register.mock.calls.length).toBe(1);\n  });\n\n  it(\"starts out without a token\", () => {\n    var token = SessionStore.getAccessToken();\n    expect(token).toBeNull();\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../SessionStore\");\n\ndescribe(\"SessionStore\", () => {\n  var SessionStore, APIDispatcher;\n\n  beforeEach(() => {\n    APIDispatcher = require(\"../../dispatcher/APIDispatcher\");\n    SessionStore  = require(\"../SessionStore\");\n  });\n\n  it(\"registers a callback with the dispatcher\", () => {\n    expect(APIDispatcher.register.mock.calls.length).toBe(1);\n  });\n\n  it(\"starts out without a token\", () => {\n    var token = SessionStore.getAccessToken();\n    expect(token).toBeNull();\n  });\n});\n"
   },
   {
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/ShopsTest.js",
+    "name": "lib/stores/__tests__/ShopStoreTest.js",
     "memberof": null,
-    "longname": "lib/stores/__tests__/ShopsTest.js",
+    "longname": "lib/stores/__tests__/ShopStoreTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../Shops\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Shop\", () => {\n  var store, dispatcher, changeEvent;\n\n  beforeEach(() => {\n    store      = require(\"../Shops\");\n    dispatcher = store.getDispatcher();\n\n    changeEvent = jest.genMockFunction();\n    store.__emitter.emit = changeEvent;\n  });\n\n  it(\"initially has a null shop\", () => {\n    expect(store.getCurrent()).toBeNull();\n  });\n\n  it(\"sets the shop when the action is dispatched and emits the change event\", () => {\n    dispatcher.dispatch({\n      actionType: Constants.Actions.SET_SHOP,\n      items: [\"myshop\"]\n    });\n\n    expect(store.getCurrent()).toBe(\"myshop\");\n    expect(changeEvent.mock.calls.length).toBe(1);\n  });\n\n  it(\"clears the shop when the action is dispatched and emits the change event\", () => {\n    dispatcher.dispatch({\n      actionType: Constants.Actions.SET_SHOP,\n      items: [\"myshop\"]\n    });\n\n    dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_SHOP });\n    expect(store.getCurrent()).toBeNull();\n    expect(changeEvent.mock.calls.length).toBe(2);\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../ShopStore\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"ShopStore\", () => {\n  var store, dispatcher, changeEvent;\n\n  beforeEach(() => {\n    store      = require(\"../ShopStore\");\n    dispatcher = store.getDispatcher();\n\n    changeEvent = jest.genMockFunction();\n    store.__emitter.emit = changeEvent;\n  });\n\n  it(\"initially has a null shop\", () => {\n    expect(store.getCurrent()).toBeNull();\n  });\n\n  it(\"sets the shop when the action is dispatched and emits the change event\", () => {\n    dispatcher.dispatch({\n      actionType: Constants.Actions.SET_SHOP,\n      items: [\"myshop\"]\n    });\n\n    expect(store.getCurrent()).toBe(\"myshop\");\n    expect(changeEvent.mock.calls.length).toBe(1);\n  });\n\n  it(\"clears the shop when the action is dispatched and emits the change event\", () => {\n    dispatcher.dispatch({\n      actionType: Constants.Actions.SET_SHOP,\n      items: [\"myshop\"]\n    });\n\n    dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_SHOP });\n    expect(store.getCurrent()).toBeNull();\n    expect(changeEvent.mock.calls.length).toBe(2);\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -2020,7 +2047,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/Sessions\";\n\nfunction _performRequest(method, url, options) {\n  options = (options || {});\n  options.method = method;\n  options.headers = (options.headers || {});\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
+    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/SessionStore\";\n\nfunction _performRequest(method, url, options) {\n  options = (options || {});\n  options.method = method;\n  options.headers = (options.headers || {});\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
   },
   {
     "kind": "function",
@@ -2235,7 +2262,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../APIProxy\");\njest.dontMock(\"../../resources/Base\");\njest.dontMock(\"../../resources/Product\");\n\ndescribe(\"APIProxy\", () => {\n  var api, actions, store;\n\n  beforeEach(() => {\n    const APIProxy = require(\"../APIProxy\");\n\n    actions       = require(\"../../resources/Product\");\n    actions.fetch = jest.genMockFunction();\n\n    store = require(\"../../stores/Products\");\n    api   = new APIProxy(actions, store);\n  });\n\n  it(\"decorates the proxy object with api methods\", () => {\n    let apiMethods = actions.constructor.apiMethods;\n    apiMethods.forEach(method => expect(api[method]).toBeDefined(`${method} not defined`));\n  });\n\n  it(\"proxies api method calls to the action object\", () => {\n    api.fetch();\n    expect(actions.fetch).toBeCalled();\n  });\n\n  it(\"exposes a read-only property called store\", () => {\n    expect(api.store).toBe(store);\n    expect(() => api.store = null).toThrow();\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../APIProxy\");\njest.dontMock(\"../../resources/Base\");\njest.dontMock(\"../../resources/Product\");\n\ndescribe(\"APIProxy\", () => {\n  var api, actions, store;\n\n  beforeEach(() => {\n    const APIProxy = require(\"../APIProxy\");\n\n    actions       = require(\"../../resources/Product\");\n    actions.fetch = jest.genMockFunction();\n\n    store = require(\"../../stores/ProductsStore\");\n    api   = new APIProxy(actions, store);\n  });\n\n  it(\"decorates the proxy object with api methods\", () => {\n    let apiMethods = actions.constructor.apiMethods;\n    apiMethods.forEach(method => expect(api[method]).toBeDefined(`${method} not defined`));\n  });\n\n  it(\"proxies api method calls to the action object\", () => {\n    api.fetch();\n    expect(actions.fetch).toBeCalled();\n  });\n\n  it(\"exposes a read-only property called store\", () => {\n    expect(api.store).toBe(store);\n    expect(() => api.store = null).toThrow();\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -2259,7 +2286,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../WebAPI\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"WebAPI\", () => {\n  var SessionStore, WebAPI;\n\n  beforeEach(() => {\n    SessionStore = require(\"../../stores/Sessions\");\n    WebAPI       = require(\"../WebAPI\");\n\n    SessionStore.getDomain.mockReturnValue(\"example.myshopify.com\");\n    SessionStore.getAccessToken.mockReturnValue(\"my_token\");\n  });\n\n  describe(\"get\", () => {\n    var url, options;\n\n    beforeEach(() => {\n      WebAPI.get(\"/someurl\", { body: JSON.stringify({ param: \"value\" }) });\n\n      url     = fetch.mock.calls[0][0];\n      options = fetch.mock.calls[0][1];\n    });\n\n    afterEach(() => {\n      fetch.mockClear();\n    });\n\n    it(\"requests the specified URL using the GET method\", () => {\n      expect(url).toBe(\"https://example.myshopify.com/someurl\");\n      expect(options.method).toBe(\"get\");\n    });\n\n    it(\"sends request body along with the request\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(options.body).toBe(body);\n    });\n\n    it(\"adds the shopify token header\", () => {\n      expect(options.headers[Constants.OAUTH_HEADER]).toBe(\"my_token\");\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../WebAPI\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"WebAPI\", () => {\n  var SessionStore, WebAPI;\n\n  beforeEach(() => {\n    SessionStore = require(\"../../stores/SessionStore\");\n    WebAPI       = require(\"../WebAPI\");\n\n    SessionStore.getDomain.mockReturnValue(\"example.myshopify.com\");\n    SessionStore.getAccessToken.mockReturnValue(\"my_token\");\n  });\n\n  describe(\"get\", () => {\n    var url, options;\n\n    beforeEach(() => {\n      WebAPI.get(\"/someurl\", { body: JSON.stringify({ param: \"value\" }) });\n\n      url     = fetch.mock.calls[0][0];\n      options = fetch.mock.calls[0][1];\n    });\n\n    afterEach(() => {\n      fetch.mockClear();\n    });\n\n    it(\"requests the specified URL using the GET method\", () => {\n      expect(url).toBe(\"https://example.myshopify.com/someurl\");\n      expect(options.method).toBe(\"get\");\n    });\n\n    it(\"sends request body along with the request\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(options.body).toBe(body);\n    });\n\n    it(\"adds the shopify token header\", () => {\n      expect(options.headers[Constants.OAUTH_HEADER]).toBe(\"my_token\");\n    });\n  });\n});\n"
   },
   {
     "kind": "external",
