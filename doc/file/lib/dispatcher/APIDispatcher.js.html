@@ -86,7 +86,23 @@ import Flux from &quot;flux&quot;;
 
 const { Dispatcher } = Flux;
 
-export default new Dispatcher();
+/**
+ * A generic action object that is dispatched by {APIDispatcher}
+ *
+ * @typedef {object} Action
+ * @property {string} actionType - The type of action to be dispatched
+ */
+
+/**
+ * An action object that is dispatched when items should be added to a store
+ *
+ * @typedef {object} MergeAction
+ * @property {string} actionType - The type of action to be dispatched
+ * @property {Array&lt;object&gt;} items - An array of items to be added to the store
+ */
+
+const APIDispatcher = new Dispatcher();
+export default APIDispatcher;
 </code></pre>
 
 </div>

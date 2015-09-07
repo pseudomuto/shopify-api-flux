@@ -85,17 +85,6 @@
 import Constants    from &quot;../Constants&quot;;
 import SessionStore from &quot;../stores/SessionStore&quot;;
 
-function _performRequest(method, url, options) {
-  options = (options || {});
-  options.method = method;
-  options.headers = (options.headers || {});
-  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();
-
-  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response =&gt; {
-    return response.json();
-  });
-}
-
 /**
  * A method signature for resolved request promises
  *
@@ -131,6 +120,17 @@ function _performRequest(method, url, options) {
  *
  * @typedef {Promise} RequestPromise
  */
+
+function _performRequest(method, url, options) {
+  options = (options || {});
+  options.method = method;
+  options.headers = (options.headers || {});
+  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();
+
+  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response =&gt; {
+    return response.json();
+  });
+}
 
 /**
  * A helper class for working with the REST API.
