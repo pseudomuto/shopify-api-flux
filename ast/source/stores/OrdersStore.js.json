@@ -117,10 +117,10 @@
           "type": "ImportDefaultSpecifier",
           "local": {
             "type": "Identifier",
-            "name": "Base",
+            "name": "BaseStore",
             "range": [
               79,
-              83
+              88
             ],
             "loc": {
               "start": {
@@ -129,13 +129,13 @@
               },
               "end": {
                 "line": 4,
-                "column": 11
+                "column": 16
               }
             }
           },
           "range": [
             79,
-            83
+            88
           ],
           "loc": {
             "start": {
@@ -144,18 +144,18 @@
             },
             "end": {
               "line": 4,
-              "column": 11
+              "column": 16
             }
           }
         }
       ],
       "source": {
         "type": "Literal",
-        "value": "./Base",
-        "raw": "\"./Base\"",
+        "value": "./BaseStore",
+        "raw": "\"./BaseStore\"",
         "range": [
           98,
-          106
+          111
         ],
         "loc": {
           "start": {
@@ -164,13 +164,13 @@
           },
           "end": {
             "line": 4,
-            "column": 34
+            "column": 39
           }
         }
       },
       "range": [
         72,
-        107
+        112
       ],
       "loc": {
         "start": {
@@ -179,7 +179,7 @@
         },
         "end": {
           "line": 4,
-          "column": 35
+          "column": 40
         }
       }
     },
@@ -192,8 +192,8 @@
             "type": "Identifier",
             "name": "Constants",
             "range": [
-              115,
-              124
+              120,
+              129
             ],
             "loc": {
               "start": {
@@ -207,8 +207,8 @@
             }
           },
           "range": [
-            115,
-            124
+            120,
+            129
           ],
           "loc": {
             "start": {
@@ -227,8 +227,8 @@
         "value": "../Constants",
         "raw": "\"../Constants\"",
         "range": [
-          134,
-          148
+          139,
+          153
         ],
         "loc": {
           "start": {
@@ -242,8 +242,8 @@
         }
       },
       "range": [
-        108,
-        149
+        113,
+        154
       ],
       "loc": {
         "start": {
@@ -254,43 +254,63 @@
           "line": 5,
           "column": 41
         }
-      }
+      },
+      "trailingComments": [
+        {
+          "type": "Block",
+          "value": "*\n * The Orders store\n *\n * @extends {BaseStore}\n ",
+          "range": [
+            156,
+            210
+          ],
+          "loc": {
+            "start": {
+              "line": 7,
+              "column": 0
+            },
+            "end": {
+              "line": 11,
+              "column": 3
+            }
+          }
+        }
+      ]
     },
     {
       "type": "Identifier",
       "id": {
         "type": "Identifier",
-        "name": "Products",
+        "name": "OrdersStore",
         "range": [
-          157,
-          165
+          217,
+          228
         ],
         "loc": {
           "start": {
-            "line": 7,
+            "line": 12,
             "column": 6
           },
           "end": {
-            "line": 7,
-            "column": 14
+            "line": 12,
+            "column": 17
           }
         }
       },
       "superClass": {
         "type": "Identifier",
-        "name": "Base",
+        "name": "BaseStore",
         "range": [
-          174,
-          178
+          237,
+          246
         ],
         "loc": {
           "start": {
-            "line": 7,
-            "column": 23
+            "line": 12,
+            "column": 26
           },
           "end": {
-            "line": 7,
-            "column": 27
+            "line": 12,
+            "column": 35
           }
         }
       },
@@ -303,16 +323,16 @@
               "type": "Identifier",
               "name": "constructor",
               "range": [
-                183,
-                194
+                420,
+                431
               ],
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 17,
                   "column": 2
                 },
                 "end": {
-                  "line": 8,
+                  "line": 17,
                   "column": 13
                 }
               }
@@ -325,16 +345,16 @@
                   "type": "Identifier",
                   "name": "dispatcher",
                   "range": [
-                    195,
-                    205
+                    432,
+                    442
                   ],
                   "loc": {
                     "start": {
-                      "line": 8,
+                      "line": 17,
                       "column": 14
                     },
                     "end": {
-                      "line": 8,
+                      "line": 17,
                       "column": 24
                     }
                   }
@@ -350,16 +370,16 @@
                       "callee": {
                         "type": "Super",
                         "range": [
-                          213,
-                          218
+                          450,
+                          455
                         ],
                         "loc": {
                           "start": {
-                            "line": 9,
+                            "line": 18,
                             "column": 4
                           },
                           "end": {
-                            "line": 9,
+                            "line": 18,
                             "column": 9
                           }
                         }
@@ -369,16 +389,16 @@
                           "type": "Identifier",
                           "name": "dispatcher",
                           "range": [
-                            219,
-                            229
+                            456,
+                            466
                           ],
                           "loc": {
                             "start": {
-                              "line": 9,
+                              "line": 18,
                               "column": 10
                             },
                             "end": {
-                              "line": 9,
+                              "line": 18,
                               "column": 20
                             }
                           }
@@ -393,16 +413,16 @@
                               "type": "Identifier",
                               "name": "Constants",
                               "range": [
-                                231,
-                                240
+                                468,
+                                477
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 22
                                 },
                                 "end": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 31
                                 }
                               }
@@ -411,65 +431,65 @@
                               "type": "Identifier",
                               "name": "Actions",
                               "range": [
-                                241,
-                                248
+                                478,
+                                485
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 32
                                 },
                                 "end": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 39
                                 }
                               }
                             },
                             "range": [
-                              231,
-                              248
+                              468,
+                              485
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
+                                "line": 18,
                                 "column": 22
                               },
                               "end": {
-                                "line": 9,
+                                "line": 18,
                                 "column": 39
                               }
                             }
                           },
                           "property": {
                             "type": "Identifier",
-                            "name": "MERGE_PRODUCTS",
+                            "name": "MERGE_ORDERS",
                             "range": [
-                              249,
-                              263
+                              486,
+                              498
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
+                                "line": 18,
                                 "column": 40
                               },
                               "end": {
-                                "line": 9,
-                                "column": 54
+                                "line": 18,
+                                "column": 52
                               }
                             }
                           },
                           "range": [
-                            231,
-                            263
+                            468,
+                            498
                           ],
                           "loc": {
                             "start": {
-                              "line": 9,
+                              "line": 18,
                               "column": 22
                             },
                             "end": {
-                              "line": 9,
-                              "column": 54
+                              "line": 18,
+                              "column": 52
                             }
                           }
                         },
@@ -483,17 +503,17 @@
                               "type": "Identifier",
                               "name": "Constants",
                               "range": [
-                                265,
-                                274
+                                500,
+                                509
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
-                                  "column": 56
+                                  "line": 18,
+                                  "column": 54
                                 },
                                 "end": {
-                                  "line": 9,
-                                  "column": 65
+                                  "line": 18,
+                                  "column": 63
                                 }
                               }
                             },
@@ -501,111 +521,111 @@
                               "type": "Identifier",
                               "name": "Actions",
                               "range": [
-                                275,
-                                282
+                                510,
+                                517
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
-                                  "column": 66
+                                  "line": 18,
+                                  "column": 64
                                 },
                                 "end": {
-                                  "line": 9,
-                                  "column": 73
+                                  "line": 18,
+                                  "column": 71
                                 }
                               }
                             },
                             "range": [
-                              265,
-                              282
+                              500,
+                              517
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
-                                "column": 56
+                                "line": 18,
+                                "column": 54
                               },
                               "end": {
-                                "line": 9,
-                                "column": 73
+                                "line": 18,
+                                "column": 71
                               }
                             }
                           },
                           "property": {
                             "type": "Identifier",
-                            "name": "CLEAR_PRODUCTS",
+                            "name": "CLEAR_ORDERS",
                             "range": [
-                              283,
-                              297
+                              518,
+                              530
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
-                                "column": 74
+                                "line": 18,
+                                "column": 72
                               },
                               "end": {
-                                "line": 9,
-                                "column": 88
+                                "line": 18,
+                                "column": 84
                               }
                             }
                           },
                           "range": [
-                            265,
-                            297
+                            500,
+                            530
                           ],
                           "loc": {
                             "start": {
-                              "line": 9,
-                              "column": 56
+                              "line": 18,
+                              "column": 54
                             },
                             "end": {
-                              "line": 9,
-                              "column": 88
+                              "line": 18,
+                              "column": 84
                             }
                           }
                         }
                       ],
                       "range": [
-                        213,
-                        298
+                        450,
+                        531
                       ],
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 18,
                           "column": 4
                         },
                         "end": {
-                          "line": 9,
-                          "column": 89
+                          "line": 18,
+                          "column": 85
                         }
                       }
                     },
                     "range": [
-                      213,
-                      299
+                      450,
+                      532
                     ],
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 18,
                         "column": 4
                       },
                       "end": {
-                        "line": 9,
-                        "column": 90
+                        "line": 18,
+                        "column": 86
                       }
                     }
                   }
                 ],
                 "range": [
-                  207,
-                  303
+                  444,
+                  536
                 ],
                 "loc": {
                   "start": {
-                    "line": 8,
+                    "line": 17,
                     "column": 26
                   },
                   "end": {
-                    "line": 10,
+                    "line": 19,
                     "column": 3
                   }
                 }
@@ -613,16 +633,16 @@
               "generator": false,
               "expression": false,
               "range": [
-                194,
-                303
+                431,
+                536
               ],
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 17,
                   "column": 13
                 },
                 "end": {
-                  "line": 10,
+                  "line": 19,
                   "column": 3
                 }
               }
@@ -630,54 +650,74 @@
             "kind": "constructor",
             "computed": false,
             "range": [
-              183,
-              303
+              420,
+              536
             ],
             "loc": {
               "start": {
-                "line": 8,
+                "line": 17,
                 "column": 2
               },
               "end": {
-                "line": 10,
+                "line": 19,
                 "column": 3
               }
             },
+            "leadingComments": [
+              {
+                "type": "Block",
+                "value": "*\n   * Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   ",
+                "range": [
+                  251,
+                  417
+                ],
+                "loc": {
+                  "start": {
+                    "line": 13,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 5
+                  }
+                }
+              }
+            ],
             "static": false
           }
         ],
         "range": [
-          179,
-          305
+          247,
+          538
         ],
         "loc": {
           "start": {
-            "line": 7,
-            "column": 28
+            "line": 12,
+            "column": 36
           },
           "end": {
-            "line": 11,
+            "line": 20,
             "column": 1
           }
         }
       },
       "range": [
-        151,
-        305
+        211,
+        538
       ],
       "loc": {
         "start": {
-          "line": 7,
+          "line": 12,
           "column": 0
         },
         "end": {
-          "line": 11,
+          "line": 20,
           "column": 1
         }
       },
+      "leadingComments": [],
       "trailingComments": [],
-      "name": "_",
-      "leadingComments": []
+      "name": "_"
     },
     {
       "type": "Identifier",
@@ -685,19 +725,19 @@
         "type": "NewExpression",
         "callee": {
           "type": "Identifier",
-          "name": "Products",
+          "name": "OrdersStore",
           "range": [
-            341,
-            349
+            574,
+            585
           ],
           "loc": {
             "start": {
-              "line": 14,
+              "line": 23,
               "column": 19
             },
             "end": {
-              "line": 14,
-              "column": 27
+              "line": 23,
+              "column": 30
             }
           }
         },
@@ -706,48 +746,48 @@
             "type": "Identifier",
             "name": "APIDispatcher",
             "range": [
-              350,
-              363
+              586,
+              599
             ],
             "loc": {
               "start": {
-                "line": 14,
-                "column": 28
+                "line": 23,
+                "column": 31
               },
               "end": {
-                "line": 14,
-                "column": 41
+                "line": 23,
+                "column": 44
               }
             }
           }
         ],
         "range": [
-          337,
-          364
+          570,
+          600
         ],
         "loc": {
           "start": {
-            "line": 14,
+            "line": 23,
             "column": 15
           },
           "end": {
-            "line": 14,
-            "column": 42
+            "line": 23,
+            "column": 45
           }
         }
       },
       "range": [
-        322,
-        365
+        555,
+        601
       ],
       "loc": {
         "start": {
-          "line": 14,
+          "line": 23,
           "column": 0
         },
         "end": {
-          "line": 14,
-          "column": 43
+          "line": 23,
+          "column": 46
         }
       },
       "leadingComments": [],
@@ -760,37 +800,37 @@
         "type": "ClassDeclaration",
         "id": {
           "type": "Identifier",
-          "name": "Products",
+          "name": "OrdersStore",
           "range": [
-            157,
-            165
+            217,
+            228
           ],
           "loc": {
             "start": {
-              "line": 7,
+              "line": 12,
               "column": 6
             },
             "end": {
-              "line": 7,
-              "column": 14
+              "line": 12,
+              "column": 17
             }
           }
         },
         "superClass": {
           "type": "Identifier",
-          "name": "Base",
+          "name": "BaseStore",
           "range": [
-            174,
-            178
+            237,
+            246
           ],
           "loc": {
             "start": {
-              "line": 7,
-              "column": 23
+              "line": 12,
+              "column": 26
             },
             "end": {
-              "line": 7,
-              "column": 27
+              "line": 12,
+              "column": 35
             }
           }
         },
@@ -803,16 +843,16 @@
                 "type": "Identifier",
                 "name": "constructor",
                 "range": [
-                  183,
-                  194
+                  420,
+                  431
                 ],
                 "loc": {
                   "start": {
-                    "line": 8,
+                    "line": 17,
                     "column": 2
                   },
                   "end": {
-                    "line": 8,
+                    "line": 17,
                     "column": 13
                   }
                 }
@@ -825,16 +865,16 @@
                     "type": "Identifier",
                     "name": "dispatcher",
                     "range": [
-                      195,
-                      205
+                      432,
+                      442
                     ],
                     "loc": {
                       "start": {
-                        "line": 8,
+                        "line": 17,
                         "column": 14
                       },
                       "end": {
-                        "line": 8,
+                        "line": 17,
                         "column": 24
                       }
                     }
@@ -850,16 +890,16 @@
                         "callee": {
                           "type": "Super",
                           "range": [
-                            213,
-                            218
+                            450,
+                            455
                           ],
                           "loc": {
                             "start": {
-                              "line": 9,
+                              "line": 18,
                               "column": 4
                             },
                             "end": {
-                              "line": 9,
+                              "line": 18,
                               "column": 9
                             }
                           }
@@ -869,16 +909,16 @@
                             "type": "Identifier",
                             "name": "dispatcher",
                             "range": [
-                              219,
-                              229
+                              456,
+                              466
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
+                                "line": 18,
                                 "column": 10
                               },
                               "end": {
-                                "line": 9,
+                                "line": 18,
                                 "column": 20
                               }
                             }
@@ -893,16 +933,16 @@
                                 "type": "Identifier",
                                 "name": "Constants",
                                 "range": [
-                                  231,
-                                  240
+                                  468,
+                                  477
                                 ],
                                 "loc": {
                                   "start": {
-                                    "line": 9,
+                                    "line": 18,
                                     "column": 22
                                   },
                                   "end": {
-                                    "line": 9,
+                                    "line": 18,
                                     "column": 31
                                   }
                                 }
@@ -911,65 +951,65 @@
                                 "type": "Identifier",
                                 "name": "Actions",
                                 "range": [
-                                  241,
-                                  248
+                                  478,
+                                  485
                                 ],
                                 "loc": {
                                   "start": {
-                                    "line": 9,
+                                    "line": 18,
                                     "column": 32
                                   },
                                   "end": {
-                                    "line": 9,
+                                    "line": 18,
                                     "column": 39
                                   }
                                 }
                               },
                               "range": [
-                                231,
-                                248
+                                468,
+                                485
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 22
                                 },
                                 "end": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 39
                                 }
                               }
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "MERGE_PRODUCTS",
+                              "name": "MERGE_ORDERS",
                               "range": [
-                                249,
-                                263
+                                486,
+                                498
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
+                                  "line": 18,
                                   "column": 40
                                 },
                                 "end": {
-                                  "line": 9,
-                                  "column": 54
+                                  "line": 18,
+                                  "column": 52
                                 }
                               }
                             },
                             "range": [
-                              231,
-                              263
+                              468,
+                              498
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
+                                "line": 18,
                                 "column": 22
                               },
                               "end": {
-                                "line": 9,
-                                "column": 54
+                                "line": 18,
+                                "column": 52
                               }
                             }
                           },
@@ -983,17 +1023,17 @@
                                 "type": "Identifier",
                                 "name": "Constants",
                                 "range": [
-                                  265,
-                                  274
+                                  500,
+                                  509
                                 ],
                                 "loc": {
                                   "start": {
-                                    "line": 9,
-                                    "column": 56
+                                    "line": 18,
+                                    "column": 54
                                   },
                                   "end": {
-                                    "line": 9,
-                                    "column": 65
+                                    "line": 18,
+                                    "column": 63
                                   }
                                 }
                               },
@@ -1001,111 +1041,111 @@
                                 "type": "Identifier",
                                 "name": "Actions",
                                 "range": [
-                                  275,
-                                  282
+                                  510,
+                                  517
                                 ],
                                 "loc": {
                                   "start": {
-                                    "line": 9,
-                                    "column": 66
+                                    "line": 18,
+                                    "column": 64
                                   },
                                   "end": {
-                                    "line": 9,
-                                    "column": 73
+                                    "line": 18,
+                                    "column": 71
                                   }
                                 }
                               },
                               "range": [
-                                265,
-                                282
+                                500,
+                                517
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
-                                  "column": 56
+                                  "line": 18,
+                                  "column": 54
                                 },
                                 "end": {
-                                  "line": 9,
-                                  "column": 73
+                                  "line": 18,
+                                  "column": 71
                                 }
                               }
                             },
                             "property": {
                               "type": "Identifier",
-                              "name": "CLEAR_PRODUCTS",
+                              "name": "CLEAR_ORDERS",
                               "range": [
-                                283,
-                                297
+                                518,
+                                530
                               ],
                               "loc": {
                                 "start": {
-                                  "line": 9,
-                                  "column": 74
+                                  "line": 18,
+                                  "column": 72
                                 },
                                 "end": {
-                                  "line": 9,
-                                  "column": 88
+                                  "line": 18,
+                                  "column": 84
                                 }
                               }
                             },
                             "range": [
-                              265,
-                              297
+                              500,
+                              530
                             ],
                             "loc": {
                               "start": {
-                                "line": 9,
-                                "column": 56
+                                "line": 18,
+                                "column": 54
                               },
                               "end": {
-                                "line": 9,
-                                "column": 88
+                                "line": 18,
+                                "column": 84
                               }
                             }
                           }
                         ],
                         "range": [
-                          213,
-                          298
+                          450,
+                          531
                         ],
                         "loc": {
                           "start": {
-                            "line": 9,
+                            "line": 18,
                             "column": 4
                           },
                           "end": {
-                            "line": 9,
-                            "column": 89
+                            "line": 18,
+                            "column": 85
                           }
                         }
                       },
                       "range": [
-                        213,
-                        299
+                        450,
+                        532
                       ],
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 18,
                           "column": 4
                         },
                         "end": {
-                          "line": 9,
-                          "column": 90
+                          "line": 18,
+                          "column": 86
                         }
                       }
                     }
                   ],
                   "range": [
-                    207,
-                    303
+                    444,
+                    536
                   ],
                   "loc": {
                     "start": {
-                      "line": 8,
+                      "line": 17,
                       "column": 26
                     },
                     "end": {
-                      "line": 10,
+                      "line": 19,
                       "column": 3
                     }
                   }
@@ -1113,16 +1153,16 @@
                 "generator": false,
                 "expression": false,
                 "range": [
-                  194,
-                  303
+                  431,
+                  536
                 ],
                 "loc": {
                   "start": {
-                    "line": 8,
+                    "line": 17,
                     "column": 13
                   },
                   "end": {
-                    "line": 10,
+                    "line": 19,
                     "column": 3
                   }
                 }
@@ -1130,86 +1170,125 @@
               "kind": "constructor",
               "computed": false,
               "range": [
-                183,
-                303
+                420,
+                536
               ],
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 17,
                   "column": 2
                 },
                 "end": {
-                  "line": 10,
+                  "line": 19,
                   "column": 3
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "Block",
+                  "value": "*\n   * Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   ",
+                  "range": [
+                    251,
+                    417
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 13,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 16,
+                      "column": 5
+                    }
+                  }
+                }
+              ],
               "static": false
             }
           ],
           "range": [
-            179,
-            305
+            247,
+            538
           ],
           "loc": {
             "start": {
-              "line": 7,
-              "column": 28
+              "line": 12,
+              "column": 36
             },
             "end": {
-              "line": 11,
+              "line": 20,
               "column": 1
             }
           }
         },
         "range": [
-          151,
-          305
+          211,
+          538
         ],
         "loc": {
           "start": {
-            "line": 7,
+            "line": 12,
             "column": 0
           },
           "end": {
-            "line": 11,
+            "line": 20,
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "Block",
+            "value": "*\n * The Orders store\n *\n * @extends {BaseStore}\n ",
+            "range": [
+              156,
+              210
+            ],
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          }
+        ],
         "trailingComments": [
           {
             "type": "Block",
             "value": "* @ignore ",
             "range": [
-              307,
-              321
+              540,
+              554
             ],
             "loc": {
               "start": {
-                "line": 13,
+                "line": 22,
                 "column": 0
               },
               "end": {
-                "line": 13,
+                "line": 22,
                 "column": 14
               }
             }
           }
         ],
-        "__esdoc__pseudo_export": true,
-        "leadingComments": []
+        "__esdoc__pseudo_export": true
       },
       "range": [
-        322,
-        365
+        555,
+        601
       ],
       "loc": {
         "start": {
-          "line": 14,
+          "line": 23,
           "column": 0
         },
         "end": {
-          "line": 14,
-          "column": 43
+          "line": 23,
+          "column": 46
         }
       },
       "leadingComments": null
@@ -1221,12 +1300,12 @@
         "kind": "let",
         "loc": {
           "start": {
-            "line": 14,
+            "line": 23,
             "column": 0
           },
           "end": {
-            "line": 14,
-            "column": 43
+            "line": 23,
+            "column": 46
           }
         },
         "declarations": [
@@ -1234,13 +1313,13 @@
             "type": "VariableDeclarator",
             "id": {
               "type": "Identifier",
-              "name": "products"
+              "name": "ordersStore"
             },
             "init": {
               "type": "NewExpression",
               "callee": {
                 "type": "Identifier",
-                "name": "Products"
+                "name": "OrdersStore"
               }
             }
           }
@@ -1250,16 +1329,16 @@
             "type": "Block",
             "value": "* @ignore ",
             "range": [
-              307,
-              321
+              540,
+              554
             ],
             "loc": {
               "start": {
-                "line": 13,
+                "line": 22,
                 "column": 0
               },
               "end": {
-                "line": 13,
+                "line": 22,
                 "column": 14
               }
             }
@@ -1268,17 +1347,17 @@
         "trailingComments": []
       },
       "range": [
-        322,
-        365
+        555,
+        601
       ],
       "loc": {
         "start": {
-          "line": 14,
+          "line": 23,
           "column": 0
         },
         "end": {
-          "line": 14,
-          "column": 43
+          "line": 23,
+          "column": 46
         }
       },
       "leadingComments": [
@@ -1286,16 +1365,16 @@
           "type": "Block",
           "value": "* @ignore ",
           "range": [
-            307,
-            321
+            540,
+            554
           ],
           "loc": {
             "start": {
-              "line": 13,
+              "line": 22,
               "column": 0
             },
             "end": {
-              "line": 13,
+              "line": 22,
               "column": 14
             }
           }
@@ -1306,7 +1385,7 @@
   "sourceType": "module",
   "range": [
     0,
-    365
+    601
   ],
   "loc": {
     "start": {
@@ -1314,25 +1393,61 @@
       "column": 0
     },
     "end": {
-      "line": 14,
-      "column": 43
+      "line": 23,
+      "column": 46
     }
   },
   "comments": [
     {
       "type": "Block",
-      "value": "* @ignore ",
+      "value": "*\n * The Orders store\n *\n * @extends {BaseStore}\n ",
       "range": [
-        307,
-        321
+        156,
+        210
+      ],
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 0
+        },
+        "end": {
+          "line": 11,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n   * Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   ",
+      "range": [
+        251,
+        417
       ],
       "loc": {
         "start": {
           "line": 13,
+          "column": 2
+        },
+        "end": {
+          "line": 16,
+          "column": 5
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "* @ignore ",
+      "range": [
+        540,
+        554
+      ],
+      "loc": {
+        "start": {
+          "line": 22,
           "column": 0
         },
         "end": {
-          "line": 13,
+          "line": 22,
           "column": 14
         }
       }

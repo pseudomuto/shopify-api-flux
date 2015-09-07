@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/stores/__tests__/ShopsTest.js | API Document</title>
+  <title data-ice="title">lib/stores/__tests__/ProductsStoreTest.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -31,16 +31,16 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/stores/Base.js~Base.html">Base</a></span></li>
-<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
-<li data-ice="classDoc"><span><a href="class/lib/stores/Orders.js~Orders.html">Orders</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
-<li data-ice="classDoc"><span><a href="class/lib/stores/Products.js~Products.html">Products</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ProductsStore.js~ProductsStore.html">ProductsStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Session.js~Session.html">Session</a></span></li>
-<li data-ice="classDoc"><span><a href="class/lib/stores/Sessions.js~Sessions.html">Sessions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
-<li data-ice="classDoc"><span><a href="class/lib/stores/Shops.js~Shops.html">Shops</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
 </ul>
 </div>
@@ -68,52 +68,38 @@
 </ul>
 </div>
 
-
+<div data-ice="externalWrap">
+  <h2>External</h2>
+  <ul>
+    
+  <li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js">FluxMapStore</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://lodash.com/docs#where">QueryObject</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js">Store</a></span></li>
+</ul>
+</div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/__tests__/ShopsTest.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/__tests__/ProductsStoreTest.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-jest.dontMock(&quot;../../dispatcher/APIDispatcher&quot;);
-jest.dontMock(&quot;flux/utils&quot;);
-jest.dontMock(&quot;../Shops&quot;);
+jest.dontMock(&quot;../BaseStore&quot;);
+jest.dontMock(&quot;../ProductsStore&quot;);
 
 import Constants from &quot;../../Constants&quot;;
 
-describe(&quot;Shop&quot;, () =&gt; {
-  var store, dispatcher, changeEvent;
+describe(&quot;ProductsStore&quot;, () =&gt; {
+  var store;
 
   beforeEach(() =&gt; {
-    store      = require(&quot;../Shops&quot;);
-    dispatcher = store.getDispatcher();
-
-    changeEvent = jest.genMockFunction();
-    store.__emitter.emit = changeEvent;
+    store = require(&quot;../ProductsStore&quot;);
   });
 
-  it(&quot;initially has a null shop&quot;, () =&gt; {
-    expect(store.getCurrent()).toBeNull();
+  it(&quot;correctly defines mergeAction&quot;, () =&gt; {
+    expect(store._mergeAction).toBe(Constants.Actions.MERGE_PRODUCTS);
   });
 
-  it(&quot;sets the shop when the action is dispatched and emits the change event&quot;, () =&gt; {
-    dispatcher.dispatch({
-      actionType: Constants.Actions.SET_SHOP,
-      items: [&quot;myshop&quot;]
-    });
-
-    expect(store.getCurrent()).toBe(&quot;myshop&quot;);
-    expect(changeEvent.mock.calls.length).toBe(1);
-  });
-
-  it(&quot;clears the shop when the action is dispatched and emits the change event&quot;, () =&gt; {
-    dispatcher.dispatch({
-      actionType: Constants.Actions.SET_SHOP,
-      items: [&quot;myshop&quot;]
-    });
-
-    dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_SHOP });
-    expect(store.getCurrent()).toBeNull();
-    expect(changeEvent.mock.calls.length).toBe(2);
+  it(&quot;correctly defines clearAction&quot;, () =&gt; {
+    expect(store._clearAction).toBe(Constants.Actions.CLEAR_PRODUCTS);
   });
 });
 </code></pre>

@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/stores/BaseStore.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -79,44 +79,117 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="shopify-api-flux">Shopify API Flux</h1>
-<p><a href="https://travis-ci.org/pseudomuto/shopify-api-flux"><img src="https://travis-ci.org/pseudomuto/shopify-api-flux.svg?branch=master" alt="Build Status"></a></p>
-<p>A flux version of the Shopify API.</p>
-<p><strong>THIS IS SO FAR FROM BEING READY THAT YOU MIGHT NOT EVEN WANT TO TRY IT YET</strong></p>
-<h2 id="usage">Usage</h2>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import ShopifyAPI from &quot;shopify-api-flux&quot;;
+<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/BaseStore.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-const { Session, Shop } = ShopifyAPI;
+import Flux from &quot;flux/utils&quot;;
+import _    from &quot;lodash&quot;;
 
-// set the Domain and API token
-Session.init(&quot;YOUR_SHOP&quot;, &quot;YOUR_API_TOKEN&quot;)
+/**
+ * @external {FluxMapStore} https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js
+ */
 
-class ShopView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { shop: null }
+/**
+ * @external {QueryObject} https://lodash.com/docs#where
+ */
+
+function mergeItems(state, items) {
+  let initialState = state.set(items[0].id, items[0]);
+
+  return items.reduce((previous, current) =&gt; {
+    return previous.set(current.id, current);
+  }, initialState);
+}
+
+/**
+ * A base class for resource stores.
+ *
+ * Stores handle dispatch events from resources. When anything changes, the store&apos;s change event is omitted.
+ *
+ * This store exposes a few methods (from it&apos;s base class). These include:
+ *
+ * * `at(key)` - returns the object with the specified key. Raises when not found
+ * * `get(key)` - returns the object with the specified key. Returns undefined when not found
+ * * `has(key)` - returns whether or not an object with the specified key exists in the store
+ *
+ * @extends {FluxMapStore}
+ *
+ * @example
+ * import APIDispatcher from &quot;../dispatcher/APIDispatcher&quot;;
+ * import Base          from &quot;./Base&quot;;
+ *
+ * let store = new Base(APIDispatcher, &quot;MERGE_PRODUCTS&quot;, &quot;CLEAR_PRODUCTS&quot;);
+ *
+ * // listen for change events
+ * store.addListener(() =&gt; console.log(store.get(1)));
+ *
+ * // will cause the store to update the state and emit it&apos;s change event
+ * APIDispatcher.dispatch({
+ *   actionType: &quot;MERGE_PRODUCTS&quot;,
+ *   items: [{ id: 1, title: &quot;My Product&quot; }]
+ * });
+ */
+export default class BaseStore extends Flux.MapStore {
+  /**
+   * @param {APIDispatcher} dispatcher - The dispatcher to register with
+   * @param {string} mergeAction - The action that is dispatched for additions
+   * @param {string} clearAction - The action that is dispatched for clearing the store
+   */
+  constructor(dispatcher, mergeAction, clearAction) {
+    super(dispatcher);
+    this._mergeAction = mergeAction;
+    this._clearAction = clearAction;
   }
 
-  render() {
-    return (
-      // YOUR VIEW CODE
-    );
+  /**
+   * Queries the store for resources matching the source object
+   *
+   * @param {QueryObject} source
+   *
+   * @return {Array&lt;object&gt;} Resources that match the query
+   */
+  where(source) {
+    return _.where(this.getState().toArray(), source);
   }
 
-  componentWillMount() {
-    Shop.store.addListener(this._onChange.bind(this));
+  /**
+   * Used to reduce a stream of actions coming from the dispatcher into a
+   * single state object. This will handle merge and clear actions for this resource.
+   *
+   * **This method should not be called directly**, but rather via a call to the dispatcher&apos;s `dispatch` method.
+   *
+   * @param {object} state - The current state
+   * @param {object} action - The action sent by the dispatcher
+   *
+   * @return {object} The new state for this store
+   */
+  reduce(state, action) {
+    switch(action.actionType) {
+      case this._mergeAction:
+        return mergeItems(state, action.items);
+      case this._clearAction:
+        return state.clear();
+      default:
+        return state;
+    }
   }
 
-  componentDidMount() {
-    Shop.fetch()
+  /**
+   * Determines whether or not the state of this store has changed.
+   *
+   * **This method should not be called directly**
+   *
+   * @param {object} state1 - The original state
+   * @param {object} state2 - The new state
+   *
+   * @return {boolean} Whether or not the state&apos;s are identical
+   */
+  areEqual(state1, state2) {
+    return _.isEqual(state1, state2);
   }
-
-  _onChange() {
-    this.setState({ shop: Shop.store.getCurrent() });
-  }
-}</code>
+}
 </code></pre>
-</div>
+
 </div>
 
 <footer class="footer">
