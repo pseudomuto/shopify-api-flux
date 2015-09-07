@@ -402,6 +402,36 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/documentation.js",
+    "file/lib/Documentation.js.html",
+    "lib/Documentation.js",
+    "file"
+  ],
+  [
+    "lib/documentation.js~fluxmapstore",
+    "external/index.html",
+    "lib/Documentation.js~FluxMapStore",
+    "external"
+  ],
+  [
+    "lib/documentation.js~queryobject",
+    "external/index.html",
+    "lib/Documentation.js~QueryObject",
+    "external"
+  ],
+  [
+    "lib/documentation.js~resourcequery",
+    "typedef/index.html#static-typedef-ResourceQuery",
+    "lib/Documentation.js~ResourceQuery",
+    "typedef"
+  ],
+  [
+    "lib/documentation.js~store",
+    "external/index.html",
+    "lib/Documentation.js~Store",
+    "external"
+  ],
+  [
     "lib/shopifyapi.js",
     "file/lib/ShopifyAPI.js.html",
     "lib/ShopifyAPI.js",
@@ -466,12 +496,6 @@ window.esdocSearchIndex = [
     "class/lib/resources/Base.js~Base.html#static-get-apiMethods",
     "lib/resources/Base.js~Base.apiMethods",
     "member"
-  ],
-  [
-    "lib/resources/base.js~resourcequery",
-    "typedef/index.html#static-typedef-ResourceQuery",
-    "lib/resources/Base.js~ResourceQuery",
-    "typedef"
   ],
   [
     "lib/resources/order.js",
@@ -630,18 +654,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/stores/basestore.js~fluxmapstore",
-    "external/index.html",
-    "lib/stores/BaseStore.js~FluxMapStore",
-    "external"
-  ],
-  [
-    "lib/stores/basestore.js~queryobject",
-    "external/index.html",
-    "lib/stores/BaseStore.js~QueryObject",
-    "external"
-  ],
-  [
     "lib/stores/ordersstore.js",
     "file/lib/stores/OrdersStore.js.html",
     "lib/stores/OrdersStore.js",
@@ -682,12 +694,6 @@ window.esdocSearchIndex = [
     "class/lib/stores/SessionStore.js~SessionStore.html#instance-method-getDomain",
     "lib/stores/SessionStore.js~SessionStore#getDomain",
     "method"
-  ],
-  [
-    "lib/stores/sessionstore.js~store",
-    "external/index.html",
-    "lib/stores/SessionStore.js~Store",
-    "external"
   ],
   [
     "lib/stores/shopstore.js",

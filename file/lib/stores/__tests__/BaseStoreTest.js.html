@@ -90,15 +90,14 @@ import Constants from &quot;../../Constants&quot;;
 
 const BaseStore = require(&quot;../BaseStore&quot;);
 
-/** @ignore */
-class ThingsStore extends BaseStore {
-  constructor(dispatcher) {
-    super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);
-  }
-}
-
 describe(&quot;Base&quot;, () =&gt; {
   var store, dispatcher;
+
+  class ThingsStore extends BaseStore {
+    constructor(dispatcher) {
+      super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);
+    }
+  }
 
   beforeEach(() =&gt; {
     dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
