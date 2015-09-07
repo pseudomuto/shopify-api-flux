@@ -121,7 +121,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\nexport default class {\n  constructor(resourceName) {\n    this._resource     = resourceName;\n    this._resources    = `${resourceName}s`;\n    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];\n    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];\n  }\n\n  static get apiMethods() {\n    return [\"clear\", \"fetch\"];\n  }\n\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  clear() {\n    APIDispatcher.dispatch({ actionType: this._clearAction });\n  }\n\n  urlFor(query) {\n    if (isPrimitive(query)) {\n      return `/admin/${this._resources}/${query}.json`;\n    }\n\n    let url    = `/admin/${this._resources}.json`;\n    let params = URLHelpers.toQueryString(query);\n    return params ? `${url}?${params}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this._mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number`, `string` - Assumes the value is a resource id\n *   * `object`           - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   */\n  constructor(resourceName) {\n    this._resource     = resourceName;\n    this._resources    = `${resourceName}s`;\n    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];\n    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return [\"clear\", \"fetch\"];\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this._clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query) {\n    if (isPrimitive(query)) {\n      return `/admin/${this._resources}/${query}.json`;\n    }\n\n    let url    = `/admin/${this._resources}.json`;\n    let params = URLHelpers.toQueryString(query);\n    return params ? `${url}?${params}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this._mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n}\n"
   },
   {
     "kind": "function",
@@ -153,6 +153,25 @@
     "generator": false
   },
   {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "ResourceQuery",
+    "memberof": "lib/resources/Base.js",
+    "longname": "lib/resources/Base.js~ResourceQuery",
+    "access": null,
+    "description": "An object representing a resource query.\n\nCan be one of the following:\n  * `number`, `string` - Assumes the value is a resource id\n  * `object`           - Will be converted to a query string",
+    "type": {
+      "types": [
+        "number",
+        "string",
+        "object"
+      ],
+      "optional": false,
+      "name": "ResourceQuery"
+    }
+  },
+  {
     "kind": "class",
     "static": true,
     "variation": null,
@@ -163,9 +182,11 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/resources/Base.js",
     "importStyle": "Base",
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
+    "description": "A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\ninclude all methods that should be made available to consumers.",
+    "examples": [
+      "import Base from \"./Base\";\n\nclass Thing extends Base {\n  constructor() {\n    super(\"thing\")\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAllTheThings\"]);\n  }\n\n  fetchAllTheThings() {\n    return this.fetch(\"/admin/things.json\");\n  }\n}"
+    ],
+    "lineNumber": 42,
     "interface": false
   },
   {
@@ -176,15 +197,18 @@
     "memberof": "lib/resources/Base.js~Base",
     "longname": "lib/resources/Base.js~Base#constructor",
     "access": null,
-    "description": null,
-    "lineNumber": 13,
-    "undocument": true,
+    "description": "Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\nwhich will be used to infer the merge and clear actions to be dispatched.",
+    "lineNumber": 49,
     "params": [
       {
-        "name": "resourceName",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "resourceName",
+        "description": "The singular name for the resource (e.g. `product`)"
       }
     ],
     "generator": false
@@ -198,7 +222,7 @@
     "longname": "lib/resources/Base.js~Base#_resource",
     "access": null,
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 50,
     "undocument": true,
     "type": {
       "types": [
@@ -215,7 +239,7 @@
     "longname": "lib/resources/Base.js~Base#_resources",
     "access": null,
     "description": null,
-    "lineNumber": 15,
+    "lineNumber": 51,
     "undocument": true,
     "type": {
       "types": [
@@ -232,7 +256,7 @@
     "longname": "lib/resources/Base.js~Base#_mergeAction",
     "access": null,
     "description": null,
-    "lineNumber": 16,
+    "lineNumber": 52,
     "undocument": true,
     "type": {
       "types": [
@@ -249,7 +273,7 @@
     "longname": "lib/resources/Base.js~Base#_clearAction",
     "access": null,
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 53,
     "undocument": true,
     "type": {
       "types": [
@@ -265,9 +289,16 @@
     "memberof": "lib/resources/Base.js~Base",
     "longname": "lib/resources/Base.js~Base.apiMethods",
     "access": null,
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
+    "description": "An array of methods to be exposed via {@link APIProxy}",
+    "lineNumber": 61,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<string>"
+      ],
+      "spread": false,
+      "description": "The names of all methods to be made available"
+    },
     "type": {
       "types": [
         "*"
@@ -283,21 +314,27 @@
     "memberof": "lib/resources/Base.js~Base",
     "longname": "lib/resources/Base.js~Base#fetch",
     "access": null,
-    "description": null,
-    "lineNumber": 24,
-    "undocument": true,
+    "description": "Performs a GET request for the specified query.",
+    "lineNumber": 72,
     "params": [
       {
-        "name": "query",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query",
+        "description": ""
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -309,9 +346,8 @@
     "memberof": "lib/resources/Base.js~Base",
     "longname": "lib/resources/Base.js~Base#clear",
     "access": null,
-    "description": null,
-    "lineNumber": 32,
-    "undocument": true,
+    "description": "Dispatches the clear action for this resource. The action will be handled by the appropriate store.",
+    "lineNumber": 83,
     "params": [],
     "generator": false
   },
@@ -322,22 +358,31 @@
     "name": "urlFor",
     "memberof": "lib/resources/Base.js~Base",
     "longname": "lib/resources/Base.js~Base#urlFor",
-    "access": null,
+    "access": "protected",
     "description": null,
-    "lineNumber": 36,
-    "undocument": true,
+    "examples": [
+      "import Base from \"./Base\";\n\nlet instance = new Base(\"product\");\n\ninstance.urlFor();                            // `/admin/products.json`\ninstance.urlFor(1);                           // `/admin/products/1.json`\ninstance.urlFor(\"1\");                         // `/admin/products/1.json`\ninstance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title"
+    ],
+    "lineNumber": 106,
     "params": [
       {
-        "name": "query",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query",
+        "description": ""
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": "The resource URL for the specified query"
     },
     "generator": false
   },
@@ -350,7 +395,7 @@
     "longname": "lib/resources/Base.js~Base#_dispatchMerge",
     "access": null,
     "description": null,
-    "lineNumber": 46,
+    "lineNumber": 116,
     "undocument": true,
     "params": [
       {
@@ -372,7 +417,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\nclass Order extends Base {\n  constructor() {\n    super(\"order\");\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n  }\n\n  fetchAuthorized() {\n    return this.fetch({ financial_status: \"authorized\" });\n  }\n\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\");\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   */\n  fetchAuthorized() {\n    return this.fetch({ financial_status: \"authorized\" });\n  }\n\n  /**\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
   },
   {
     "kind": "class",
@@ -385,13 +430,12 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/resources/Order.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
+    "description": "The Order resource",
+    "lineNumber": 10,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
-      "lib/resources/Base~Base"
+      "Base"
     ]
   },
   {
@@ -403,7 +447,7 @@
     "longname": "lib/resources/Order.js~Order#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 11,
     "undocument": true,
     "params": [],
     "generator": false
@@ -417,13 +461,21 @@
     "longname": "lib/resources/Order.js~Order.apiMethods",
     "access": null,
     "description": null,
-    "lineNumber": 10,
-    "undocument": true,
+    "lineNumber": 21,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<string>"
+      ],
+      "spread": false,
+      "description": "The names of all methods to be made available"
+    },
     "type": {
       "types": [
         "*"
       ]
     },
+    "override": true,
     "generator": false
   },
   {
@@ -434,14 +486,16 @@
     "memberof": "lib/resources/Order.js~Order",
     "longname": "lib/resources/Order.js~Order#fetchAuthorized",
     "access": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "Fetch authorized orders from the API",
+    "lineNumber": 30,
     "params": [],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -453,21 +507,28 @@
     "memberof": "lib/resources/Order.js~Order",
     "longname": "lib/resources/Order.js~Order#fetchAllSince",
     "access": null,
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "Fetch all orders that were created after the specified order",
+    "lineNumber": 41,
     "params": [
       {
-        "name": "id",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number",
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "The id of the reference order"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -483,7 +544,7 @@
     "importPath": "shopify-api-flux/lib/resources/Order.js",
     "importStyle": "order",
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 47,
     "ignore": true,
     "type": {
       "types": [
@@ -501,7 +562,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\nclass Product extends Base {\n  constructor() {\n    super(\"product\");\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n  }\n\n  fetchByCollection(collectionId) {\n    return this.fetch({ collection_id: collectionId });\n  }\n\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Product();\n"
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Product resource\n *\n * @extends {Base}\n */\nclass Product extends Base {\n  constructor() {\n    super(\"product\");\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch products in the specified collection\n   *\n   * @param {number|string} collectionId - The id of the collection\n   *\n   * @return {RequestPromise}\n   */\n  fetchByCollection(collectionId) {\n    return this.fetch({ collection_id: collectionId });\n  }\n\n  /**\n   * Fetch all products created after the specified product\n   *\n   * @param {number|string} id - The id of the reference product\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Product();\n"
   },
   {
     "kind": "class",
@@ -514,13 +575,12 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/resources/Product.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 5,
+    "description": "The Product resource",
+    "lineNumber": 10,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
-      "lib/resources/Base~Base"
+      "Base"
     ]
   },
   {
@@ -532,7 +592,7 @@
     "longname": "lib/resources/Product.js~Product#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 11,
     "undocument": true,
     "params": [],
     "generator": false
@@ -546,13 +606,21 @@
     "longname": "lib/resources/Product.js~Product.apiMethods",
     "access": null,
     "description": null,
-    "lineNumber": 10,
-    "undocument": true,
+    "lineNumber": 21,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<string>"
+      ],
+      "spread": false,
+      "description": "The names of all methods to be made available"
+    },
     "type": {
       "types": [
         "*"
       ]
     },
+    "override": true,
     "generator": false
   },
   {
@@ -563,21 +631,28 @@
     "memberof": "lib/resources/Product.js~Product",
     "longname": "lib/resources/Product.js~Product#fetchByCollection",
     "access": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
+    "description": "Fetch products in the specified collection",
+    "lineNumber": 32,
     "params": [
       {
-        "name": "collectionId",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number",
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collectionId",
+        "description": "The id of the collection"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -589,21 +664,28 @@
     "memberof": "lib/resources/Product.js~Product",
     "longname": "lib/resources/Product.js~Product#fetchAllSince",
     "access": null,
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "Fetch all products created after the specified product",
+    "lineNumber": 43,
     "params": [
       {
-        "name": "id",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number",
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "The id of the reference product"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -619,7 +701,7 @@
     "importPath": "shopify-api-flux/lib/resources/Product.js",
     "importStyle": "product",
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 49,
     "ignore": true,
     "type": {
       "types": [
@@ -637,7 +719,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass InvalidDomainException extends Error {}\nclass InvalidTokenException extends Error {}\n\nfunction verifyDomain(domain) {\n  if(!domain) {\n    throw new InvalidDomainException(\"Domain name cannot be blank or null\");\n  }\n}\n\nfunction verifyToken(token) {\n  if (!token) {\n    throw new InvalidTokenException(\"Token cannot be blank, null, undefined or empty\");\n  }\n}\n\nfunction sanitizeDomain(domain) {\n  if (!domain.match(/myshopify\\.com$/)) {\n    return `${domain}.myshopify.com`;\n  }\n\n  return domain;\n}\n\nclass Session extends Base {\n  constructor() {\n    super(\"session\");\n\n    this._resources   = this._resource;\n    this._clearAction = Constants.Actions.CLEAR_SESSION;\n  }\n\n  static get apiMethods() {\n    return [\"init\", \"clear\"];\n  }\n\n  init(domain, token) {\n    verifyDomain(domain);\n    verifyToken(token);\n\n    APIDispatcher.dispatch({\n      actionType: Constants.Actions.SET_SESSION,\n      domain: sanitizeDomain(domain),\n      accessToken: token\n    });\n  }\n}\n\n/** @ignore */\nexport default new Session();\n"
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass InvalidDomainException extends Error {}\nclass InvalidTokenException extends Error {}\n\nfunction verifyDomain(domain) {\n  if(!domain) {\n    throw new InvalidDomainException(\"Domain name cannot be blank or null\");\n  }\n}\n\nfunction verifyToken(token) {\n  if (!token) {\n    throw new InvalidTokenException(\"Token cannot be blank, null, undefined or empty\");\n  }\n}\n\nfunction sanitizeDomain(domain) {\n  if (!domain.match(/myshopify\\.com$/)) {\n    return `${domain}.myshopify.com`;\n  }\n\n  return domain;\n}\n\n/**\n * The Session resource\n *\n * @extends {Base}\n */\nclass Session extends Base {\n  constructor() {\n    super(\"session\");\n\n    this._resources   = this._resource;\n    this._clearAction = Constants.Actions.CLEAR_SESSION;\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return [\"init\", \"clear\"];\n  }\n\n  /**\n   * Dispatches the SET_SESSION event to the store\n   *\n   * @param {string} domain - The shop's domain (with or without the `.myshopify.com` suffix)\n   * @param {string} token - The API token to be used\n   */\n  init(domain, token) {\n    verifyDomain(domain);\n    verifyToken(token);\n\n    APIDispatcher.dispatch({\n      actionType: Constants.Actions.SET_SESSION,\n      domain: sanitizeDomain(domain),\n      accessToken: token\n    });\n  }\n}\n\n/** @ignore */\nexport default new Session();\n"
   },
   {
     "kind": "class",
@@ -765,13 +847,12 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/resources/Session.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 30,
+    "description": "The Session resource",
+    "lineNumber": 35,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
-      "lib/resources/Base~Base"
+      "Base"
     ]
   },
   {
@@ -783,7 +864,7 @@
     "longname": "lib/resources/Session.js~Session#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 31,
+    "lineNumber": 36,
     "undocument": true,
     "params": [],
     "generator": false
@@ -797,7 +878,7 @@
     "longname": "lib/resources/Session.js~Session#_resources",
     "access": null,
     "description": null,
-    "lineNumber": 34,
+    "lineNumber": 39,
     "undocument": true,
     "type": {
       "types": [
@@ -814,7 +895,7 @@
     "longname": "lib/resources/Session.js~Session#_clearAction",
     "access": null,
     "description": null,
-    "lineNumber": 35,
+    "lineNumber": 40,
     "undocument": true,
     "type": {
       "types": [
@@ -831,13 +912,21 @@
     "longname": "lib/resources/Session.js~Session.apiMethods",
     "access": null,
     "description": null,
-    "lineNumber": 38,
-    "undocument": true,
+    "lineNumber": 49,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array<string>"
+      ],
+      "spread": false,
+      "description": "The names of all methods to be made available"
+    },
     "type": {
       "types": [
         "*"
       ]
     },
+    "override": true,
     "generator": false
   },
   {
@@ -848,21 +937,28 @@
     "memberof": "lib/resources/Session.js~Session",
     "longname": "lib/resources/Session.js~Session#init",
     "access": null,
-    "description": null,
-    "lineNumber": 42,
-    "undocument": true,
+    "description": "Dispatches the SET_SESSION event to the store",
+    "lineNumber": 59,
     "params": [
       {
-        "name": "domain",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "domain",
+        "description": "The shop's domain (with or without the `.myshopify.com` suffix)"
       },
       {
-        "name": "token",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "token",
+        "description": "The API token to be used"
       }
     ],
     "generator": false
@@ -879,7 +975,7 @@
     "importPath": "shopify-api-flux/lib/resources/Session.js",
     "importStyle": "session",
     "description": null,
-    "lineNumber": 55,
+    "lineNumber": 72,
     "ignore": true,
     "type": {
       "types": [
@@ -897,7 +993,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base      from \"./Base\";\nimport Constants from \"../Constants\";\n\nclass Shop extends Base {\n  constructor() {\n    super(\"shop\");\n\n    this._resources   = this._resource;\n    this._mergeAction = Constants.Actions.SET_SHOP;\n    this._clearAction = Constants.Actions.CLEAR_SHOP;\n  }\n}\n\n/** @ignore */\nexport default new Shop();\n"
+    "content": "\"use strict\";\n\nimport Base      from \"./Base\";\nimport Constants from \"../Constants\";\n\n/**\n * The Shop resource\n *\n * @extends {Base}\n */\nclass Shop extends Base {\n  constructor() {\n    super(\"shop\");\n\n    this._resources   = this._resource;\n    this._mergeAction = Constants.Actions.SET_SHOP;\n    this._clearAction = Constants.Actions.CLEAR_SHOP;\n  }\n}\n\n/** @ignore */\nexport default new Shop();\n"
   },
   {
     "kind": "class",
@@ -910,13 +1006,12 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/resources/Shop.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 6,
+    "description": "The Shop resource",
+    "lineNumber": 11,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false,
     "extends": [
-      "lib/resources/Base~Base"
+      "Base"
     ]
   },
   {
@@ -928,7 +1023,7 @@
     "longname": "lib/resources/Shop.js~Shop#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 12,
     "undocument": true,
     "params": [],
     "generator": false
@@ -942,7 +1037,7 @@
     "longname": "lib/resources/Shop.js~Shop#_resources",
     "access": null,
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 15,
     "undocument": true,
     "type": {
       "types": [
@@ -959,7 +1054,7 @@
     "longname": "lib/resources/Shop.js~Shop#_mergeAction",
     "access": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 16,
     "undocument": true,
     "type": {
       "types": [
@@ -976,7 +1071,7 @@
     "longname": "lib/resources/Shop.js~Shop#_clearAction",
     "access": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 17,
     "undocument": true,
     "type": {
       "types": [
@@ -996,7 +1091,7 @@
     "importPath": "shopify-api-flux/lib/resources/Shop.js",
     "importStyle": "shop",
     "description": null,
-    "lineNumber": 17,
+    "lineNumber": 22,
     "ignore": true,
     "type": {
       "types": [
