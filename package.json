@@ -16,7 +16,11 @@
     "ci": "npm run lint && npm test",
     "doc": "rm -rf doc && esdoc -c esdoc.json",
     "lint": "eslint lib",
-    "test": "jest"
+    "test": "jest",
+
+    "preversion": "npm run ci",
+    "version": "npm run build && git add -A dist doc",
+    "postversion": "git push && git push --tags"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest/index.js",
