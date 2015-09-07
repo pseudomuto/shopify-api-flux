@@ -1925,7 +1925,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/Sessions\";\n\nfunction _performRequest(method, url, options) {\n  options = (options || {});\n  options.method = method;\n  options.headers = (options.headers || {});\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\nclass WebAPI {\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
+    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/Sessions\";\n\nfunction _performRequest(method, url, options) {\n  options = (options || {});\n  options.method = method;\n  options.headers = (options.headers || {});\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
   },
   {
     "kind": "function",
@@ -1969,6 +1969,87 @@
     "generator": false
   },
   {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "SuccessfulRequestCallback",
+    "memberof": "lib/utilities/WebAPI.js",
+    "longname": "lib/utilities/WebAPI.js~SuccessfulRequestCallback",
+    "access": null,
+    "description": "A method signature for resolved request promises",
+    "examples": [
+      "import WebAPI from \"./WebAPI\";\n\nWebAPI.get(\"/some/path\").then(json => {\n  // do something with the result\n  console.log(json);\n});"
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "json",
+        "description": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "Function"
+      ],
+      "optional": false,
+      "name": "SuccessfulRequestCallback"
+    }
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "FailedRequestCallback",
+    "memberof": "lib/utilities/WebAPI.js",
+    "longname": "lib/utilities/WebAPI.js~FailedRequestCallback",
+    "access": null,
+    "description": "A method signature for rejected request promises",
+    "examples": [
+      "import WebAPI from \"./WebAPI\";\n\nWebAPI.get(\"/failed/request\").catch(error => {\n  // do something with the error\n  console.log(error.message);\n});"
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Error"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "error",
+        "description": ""
+      }
+    ],
+    "type": {
+      "types": [
+        "Function"
+      ],
+      "optional": false,
+      "name": "FailedRequestCallback"
+    }
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "RequestPromise",
+    "memberof": "lib/utilities/WebAPI.js",
+    "longname": "lib/utilities/WebAPI.js~RequestPromise",
+    "access": null,
+    "description": "A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}",
+    "type": {
+      "types": [
+        "Promise"
+      ],
+      "optional": false,
+      "name": "RequestPromise"
+    }
+  },
+  {
     "kind": "class",
     "static": true,
     "variation": null,
@@ -1979,10 +2060,12 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
     "importStyle": null,
-    "description": null,
-    "lineNumber": 17,
+    "description": "A helper class for working with the REST API.\n\nIn all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\ncaller to handle rejection.",
+    "examples": [
+      "import WebAPI from \"./WebAPI\";\n\nWebAPI.get(\"/admin/products.json\")\n  .then(json => console.log(json))\n  .catch(error => console.log(error.message));"
+    ],
+    "lineNumber": 66,
     "pseudoExport": true,
-    "undocument": true,
     "interface": false
   },
   {
@@ -1993,27 +2076,37 @@
     "memberof": "lib/utilities/WebAPI.js~WebAPI",
     "longname": "lib/utilities/WebAPI.js~WebAPI#get",
     "access": null,
-    "description": null,
-    "lineNumber": 18,
-    "undocument": true,
+    "description": "Performs a GET request for the given URL and options",
+    "lineNumber": 75,
     "params": [
       {
-        "name": "url",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "the (relative) URL to get (e.g. `/admin/products.json`)"
       },
       {
-        "name": "options",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "options to pass along to the fetch call"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
     },
     "generator": false
   },
@@ -2029,7 +2122,7 @@
     "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
     "importStyle": "webAPI",
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 81,
     "ignore": true,
     "type": {
       "types": [
