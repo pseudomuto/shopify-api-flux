@@ -726,6 +726,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/utilities/webapi.js~failedrequestcallback",
+    "typedef/index.html#static-typedef-FailedRequestCallback",
+    "lib/utilities/WebAPI.js~FailedRequestCallback",
+    "typedef"
+  ],
+  [
+    "lib/utilities/webapi.js~requestpromise",
+    "typedef/index.html#static-typedef-RequestPromise",
+    "lib/utilities/WebAPI.js~RequestPromise",
+    "typedef"
+  ],
+  [
+    "lib/utilities/webapi.js~successfulrequestcallback",
+    "typedef/index.html#static-typedef-SuccessfulRequestCallback",
+    "lib/utilities/WebAPI.js~SuccessfulRequestCallback",
+    "typedef"
+  ],
+  [
     "lib/utilities/webapi.js~webapi#get",
     "class/lib/utilities/WebAPI.js~WebAPI.html#instance-method-get",
     "lib/utilities/WebAPI.js~WebAPI#get",

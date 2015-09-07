@@ -1371,7 +1371,81 @@
           "line": 15,
           "column": 1
         }
-      }
+      },
+      "trailingComments": [
+        {
+          "type": "Block",
+          "value": "*\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n ",
+          "range": [
+            455,
+            753
+          ],
+          "loc": {
+            "start": {
+              "line": 17,
+              "column": 0
+            },
+            "end": {
+              "line": 30,
+              "column": 3
+            }
+          }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n ",
+          "range": [
+            755,
+            1064
+          ],
+          "loc": {
+            "start": {
+              "line": 32,
+              "column": 0
+            },
+            "end": {
+              "line": 45,
+              "column": 3
+            }
+          }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n ",
+          "range": [
+            1066,
+            1238
+          ],
+          "loc": {
+            "start": {
+              "line": 47,
+              "column": 0
+            },
+            "end": {
+              "line": 51,
+              "column": 3
+            }
+          }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n ",
+          "range": [
+            1240,
+            1630
+          ],
+          "loc": {
+            "start": {
+              "line": 53,
+              "column": 0
+            },
+            "end": {
+              "line": 65,
+              "column": 3
+            }
+          }
+        }
+      ]
     },
     {
       "type": "Identifier",
@@ -1379,16 +1453,16 @@
         "type": "Identifier",
         "name": "WebAPI",
         "range": [
-          461,
-          467
+          1637,
+          1643
         ],
         "loc": {
           "start": {
-            "line": 17,
+            "line": 66,
             "column": 6
           },
           "end": {
-            "line": 17,
+            "line": 66,
             "column": 12
           }
         }
@@ -1403,16 +1477,16 @@
               "type": "Identifier",
               "name": "get",
               "range": [
-                472,
-                475
+                1914,
+                1917
               ],
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 75,
                   "column": 2
                 },
                 "end": {
-                  "line": 18,
+                  "line": 75,
                   "column": 5
                 }
               }
@@ -1425,16 +1499,16 @@
                   "type": "Identifier",
                   "name": "url",
                   "range": [
-                    476,
-                    479
+                    1918,
+                    1921
                   ],
                   "loc": {
                     "start": {
-                      "line": 18,
+                      "line": 75,
                       "column": 6
                     },
                     "end": {
-                      "line": 18,
+                      "line": 75,
                       "column": 9
                     }
                   }
@@ -1443,16 +1517,16 @@
                   "type": "Identifier",
                   "name": "options",
                   "range": [
-                    481,
-                    488
+                    1923,
+                    1930
                   ],
                   "loc": {
                     "start": {
-                      "line": 18,
+                      "line": 75,
                       "column": 11
                     },
                     "end": {
-                      "line": 18,
+                      "line": 75,
                       "column": 18
                     }
                   }
@@ -1469,16 +1543,16 @@
                         "type": "Identifier",
                         "name": "_performRequest",
                         "range": [
-                          503,
-                          518
+                          1945,
+                          1960
                         ],
                         "loc": {
                           "start": {
-                            "line": 19,
+                            "line": 76,
                             "column": 11
                           },
                           "end": {
-                            "line": 19,
+                            "line": 76,
                             "column": 26
                           }
                         }
@@ -1489,16 +1563,16 @@
                           "value": "get",
                           "raw": "\"get\"",
                           "range": [
-                            519,
-                            524
+                            1961,
+                            1966
                           ],
                           "loc": {
                             "start": {
-                              "line": 19,
+                              "line": 76,
                               "column": 27
                             },
                             "end": {
-                              "line": 19,
+                              "line": 76,
                               "column": 32
                             }
                           }
@@ -1507,16 +1581,16 @@
                           "type": "Identifier",
                           "name": "url",
                           "range": [
-                            526,
-                            529
+                            1968,
+                            1971
                           ],
                           "loc": {
                             "start": {
-                              "line": 19,
+                              "line": 76,
                               "column": 34
                             },
                             "end": {
-                              "line": 19,
+                              "line": 76,
                               "column": 37
                             }
                           }
@@ -1525,63 +1599,63 @@
                           "type": "Identifier",
                           "name": "options",
                           "range": [
-                            531,
-                            538
+                            1973,
+                            1980
                           ],
                           "loc": {
                             "start": {
-                              "line": 19,
+                              "line": 76,
                               "column": 39
                             },
                             "end": {
-                              "line": 19,
+                              "line": 76,
                               "column": 46
                             }
                           }
                         }
                       ],
                       "range": [
-                        503,
-                        539
+                        1945,
+                        1981
                       ],
                       "loc": {
                         "start": {
-                          "line": 19,
+                          "line": 76,
                           "column": 11
                         },
                         "end": {
-                          "line": 19,
+                          "line": 76,
                           "column": 47
                         }
                       }
                     },
                     "range": [
-                      496,
-                      540
+                      1938,
+                      1982
                     ],
                     "loc": {
                       "start": {
-                        "line": 19,
+                        "line": 76,
                         "column": 4
                       },
                       "end": {
-                        "line": 19,
+                        "line": 76,
                         "column": 48
                       }
                     }
                   }
                 ],
                 "range": [
-                  490,
-                  544
+                  1932,
+                  1986
                 ],
                 "loc": {
                   "start": {
-                    "line": 18,
+                    "line": 75,
                     "column": 20
                   },
                   "end": {
-                    "line": 20,
+                    "line": 77,
                     "column": 3
                   }
                 }
@@ -1589,16 +1663,16 @@
               "generator": false,
               "expression": false,
               "range": [
-                475,
-                544
+                1917,
+                1986
               ],
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 75,
                   "column": 5
                 },
                 "end": {
-                  "line": 20,
+                  "line": 77,
                   "column": 3
                 }
               }
@@ -1606,54 +1680,74 @@
             "kind": "method",
             "computed": false,
             "range": [
-              472,
-              544
+              1914,
+              1986
             ],
             "loc": {
               "start": {
-                "line": 18,
+                "line": 75,
                 "column": 2
               },
               "end": {
-                "line": 20,
+                "line": 77,
                 "column": 3
               }
             },
+            "leadingComments": [
+              {
+                "type": "Block",
+                "value": "*\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   ",
+                "range": [
+                  1648,
+                  1911
+                ],
+                "loc": {
+                  "start": {
+                    "line": 67,
+                    "column": 2
+                  },
+                  "end": {
+                    "line": 74,
+                    "column": 5
+                  }
+                }
+              }
+            ],
             "static": false
           }
         ],
         "range": [
-          468,
-          546
+          1644,
+          1988
         ],
         "loc": {
           "start": {
-            "line": 17,
+            "line": 66,
             "column": 13
           },
           "end": {
-            "line": 21,
+            "line": 78,
             "column": 1
           }
         }
       },
       "range": [
-        455,
-        546
+        1631,
+        1988
       ],
       "loc": {
         "start": {
-          "line": 17,
+          "line": 66,
           "column": 0
         },
         "end": {
-          "line": 21,
+          "line": 78,
           "column": 1
         }
       },
+      "leadingComments": [],
       "trailingComments": [],
-      "name": "_",
-      "leadingComments": []
+      "name": "_"
     },
     {
       "type": "Identifier",
@@ -1663,47 +1757,47 @@
           "type": "Identifier",
           "name": "WebAPI",
           "range": [
-            582,
-            588
+            2024,
+            2030
           ],
           "loc": {
             "start": {
-              "line": 24,
+              "line": 81,
               "column": 19
             },
             "end": {
-              "line": 24,
+              "line": 81,
               "column": 25
             }
           }
         },
         "arguments": [],
         "range": [
-          578,
-          590
+          2020,
+          2032
         ],
         "loc": {
           "start": {
-            "line": 24,
+            "line": 81,
             "column": 15
           },
           "end": {
-            "line": 24,
+            "line": 81,
             "column": 27
           }
         }
       },
       "range": [
-        563,
-        591
+        2005,
+        2033
       ],
       "loc": {
         "start": {
-          "line": 24,
+          "line": 81,
           "column": 0
         },
         "end": {
-          "line": 24,
+          "line": 81,
           "column": 28
         }
       },
@@ -1719,16 +1813,16 @@
           "type": "Identifier",
           "name": "WebAPI",
           "range": [
-            461,
-            467
+            1637,
+            1643
           ],
           "loc": {
             "start": {
-              "line": 17,
+              "line": 66,
               "column": 6
             },
             "end": {
-              "line": 17,
+              "line": 66,
               "column": 12
             }
           }
@@ -1743,16 +1837,16 @@
                 "type": "Identifier",
                 "name": "get",
                 "range": [
-                  472,
-                  475
+                  1914,
+                  1917
                 ],
                 "loc": {
                   "start": {
-                    "line": 18,
+                    "line": 75,
                     "column": 2
                   },
                   "end": {
-                    "line": 18,
+                    "line": 75,
                     "column": 5
                   }
                 }
@@ -1765,16 +1859,16 @@
                     "type": "Identifier",
                     "name": "url",
                     "range": [
-                      476,
-                      479
+                      1918,
+                      1921
                     ],
                     "loc": {
                       "start": {
-                        "line": 18,
+                        "line": 75,
                         "column": 6
                       },
                       "end": {
-                        "line": 18,
+                        "line": 75,
                         "column": 9
                       }
                     }
@@ -1783,16 +1877,16 @@
                     "type": "Identifier",
                     "name": "options",
                     "range": [
-                      481,
-                      488
+                      1923,
+                      1930
                     ],
                     "loc": {
                       "start": {
-                        "line": 18,
+                        "line": 75,
                         "column": 11
                       },
                       "end": {
-                        "line": 18,
+                        "line": 75,
                         "column": 18
                       }
                     }
@@ -1809,16 +1903,16 @@
                           "type": "Identifier",
                           "name": "_performRequest",
                           "range": [
-                            503,
-                            518
+                            1945,
+                            1960
                           ],
                           "loc": {
                             "start": {
-                              "line": 19,
+                              "line": 76,
                               "column": 11
                             },
                             "end": {
-                              "line": 19,
+                              "line": 76,
                               "column": 26
                             }
                           }
@@ -1829,16 +1923,16 @@
                             "value": "get",
                             "raw": "\"get\"",
                             "range": [
-                              519,
-                              524
+                              1961,
+                              1966
                             ],
                             "loc": {
                               "start": {
-                                "line": 19,
+                                "line": 76,
                                 "column": 27
                               },
                               "end": {
-                                "line": 19,
+                                "line": 76,
                                 "column": 32
                               }
                             }
@@ -1847,16 +1941,16 @@
                             "type": "Identifier",
                             "name": "url",
                             "range": [
-                              526,
-                              529
+                              1968,
+                              1971
                             ],
                             "loc": {
                               "start": {
-                                "line": 19,
+                                "line": 76,
                                 "column": 34
                               },
                               "end": {
-                                "line": 19,
+                                "line": 76,
                                 "column": 37
                               }
                             }
@@ -1865,63 +1959,63 @@
                             "type": "Identifier",
                             "name": "options",
                             "range": [
-                              531,
-                              538
+                              1973,
+                              1980
                             ],
                             "loc": {
                               "start": {
-                                "line": 19,
+                                "line": 76,
                                 "column": 39
                               },
                               "end": {
-                                "line": 19,
+                                "line": 76,
                                 "column": 46
                               }
                             }
                           }
                         ],
                         "range": [
-                          503,
-                          539
+                          1945,
+                          1981
                         ],
                         "loc": {
                           "start": {
-                            "line": 19,
+                            "line": 76,
                             "column": 11
                           },
                           "end": {
-                            "line": 19,
+                            "line": 76,
                             "column": 47
                           }
                         }
                       },
                       "range": [
-                        496,
-                        540
+                        1938,
+                        1982
                       ],
                       "loc": {
                         "start": {
-                          "line": 19,
+                          "line": 76,
                           "column": 4
                         },
                         "end": {
-                          "line": 19,
+                          "line": 76,
                           "column": 48
                         }
                       }
                     }
                   ],
                   "range": [
-                    490,
-                    544
+                    1932,
+                    1986
                   ],
                   "loc": {
                     "start": {
-                      "line": 18,
+                      "line": 75,
                       "column": 20
                     },
                     "end": {
-                      "line": 20,
+                      "line": 77,
                       "column": 3
                     }
                   }
@@ -1929,16 +2023,16 @@
                 "generator": false,
                 "expression": false,
                 "range": [
-                  475,
-                  544
+                  1917,
+                  1986
                 ],
                 "loc": {
                   "start": {
-                    "line": 18,
+                    "line": 75,
                     "column": 5
                   },
                   "end": {
-                    "line": 20,
+                    "line": 77,
                     "column": 3
                   }
                 }
@@ -1946,85 +2040,178 @@
               "kind": "method",
               "computed": false,
               "range": [
-                472,
-                544
+                1914,
+                1986
               ],
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 75,
                   "column": 2
                 },
                 "end": {
-                  "line": 20,
+                  "line": 77,
                   "column": 3
                 }
               },
+              "leadingComments": [
+                {
+                  "type": "Block",
+                  "value": "*\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   ",
+                  "range": [
+                    1648,
+                    1911
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 67,
+                      "column": 2
+                    },
+                    "end": {
+                      "line": 74,
+                      "column": 5
+                    }
+                  }
+                }
+              ],
               "static": false
             }
           ],
           "range": [
-            468,
-            546
+            1644,
+            1988
           ],
           "loc": {
             "start": {
-              "line": 17,
+              "line": 66,
               "column": 13
             },
             "end": {
-              "line": 21,
+              "line": 78,
               "column": 1
             }
           }
         },
         "range": [
-          455,
-          546
+          1631,
+          1988
         ],
         "loc": {
           "start": {
-            "line": 17,
+            "line": 66,
             "column": 0
           },
           "end": {
-            "line": 21,
+            "line": 78,
             "column": 1
           }
         },
+        "leadingComments": [
+          {
+            "type": "Block",
+            "value": "*\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n ",
+            "range": [
+              455,
+              753
+            ],
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 30,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "Block",
+            "value": "*\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n ",
+            "range": [
+              755,
+              1064
+            ],
+            "loc": {
+              "start": {
+                "line": 32,
+                "column": 0
+              },
+              "end": {
+                "line": 45,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "Block",
+            "value": "*\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n ",
+            "range": [
+              1066,
+              1238
+            ],
+            "loc": {
+              "start": {
+                "line": 47,
+                "column": 0
+              },
+              "end": {
+                "line": 51,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "Block",
+            "value": "*\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n ",
+            "range": [
+              1240,
+              1630
+            ],
+            "loc": {
+              "start": {
+                "line": 53,
+                "column": 0
+              },
+              "end": {
+                "line": 65,
+                "column": 3
+              }
+            }
+          }
+        ],
         "trailingComments": [
           {
             "type": "Block",
             "value": "* @ignore ",
             "range": [
-              548,
-              562
+              1990,
+              2004
             ],
             "loc": {
               "start": {
-                "line": 23,
+                "line": 80,
                 "column": 0
               },
               "end": {
-                "line": 23,
+                "line": 80,
                 "column": 14
               }
             }
           }
         ],
-        "__esdoc__pseudo_export": true,
-        "leadingComments": []
+        "__esdoc__pseudo_export": true
       },
       "range": [
-        563,
-        591
+        2005,
+        2033
       ],
       "loc": {
         "start": {
-          "line": 24,
+          "line": 81,
           "column": 0
         },
         "end": {
-          "line": 24,
+          "line": 81,
           "column": 28
         }
       },
@@ -2037,11 +2224,11 @@
         "kind": "let",
         "loc": {
           "start": {
-            "line": 24,
+            "line": 81,
             "column": 0
           },
           "end": {
-            "line": 24,
+            "line": 81,
             "column": 28
           }
         },
@@ -2066,16 +2253,16 @@
             "type": "Block",
             "value": "* @ignore ",
             "range": [
-              548,
-              562
+              1990,
+              2004
             ],
             "loc": {
               "start": {
-                "line": 23,
+                "line": 80,
                 "column": 0
               },
               "end": {
-                "line": 23,
+                "line": 80,
                 "column": 14
               }
             }
@@ -2084,16 +2271,16 @@
         "trailingComments": []
       },
       "range": [
-        563,
-        591
+        2005,
+        2033
       ],
       "loc": {
         "start": {
-          "line": 24,
+          "line": 81,
           "column": 0
         },
         "end": {
-          "line": 24,
+          "line": 81,
           "column": 28
         }
       },
@@ -2102,16 +2289,16 @@
           "type": "Block",
           "value": "* @ignore ",
           "range": [
-            548,
-            562
+            1990,
+            2004
           ],
           "loc": {
             "start": {
-              "line": 23,
+              "line": 80,
               "column": 0
             },
             "end": {
-              "line": 23,
+              "line": 80,
               "column": 14
             }
           }
@@ -2122,7 +2309,7 @@
   "sourceType": "module",
   "range": [
     0,
-    591
+    2033
   ],
   "loc": {
     "start": {
@@ -2130,25 +2317,115 @@
       "column": 0
     },
     "end": {
-      "line": 24,
+      "line": 81,
       "column": 28
     }
   },
   "comments": [
     {
       "type": "Block",
-      "value": "* @ignore ",
+      "value": "*\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n ",
       "range": [
-        548,
-        562
+        455,
+        753
       ],
       "loc": {
         "start": {
-          "line": 23,
+          "line": 17,
           "column": 0
         },
         "end": {
-          "line": 23,
+          "line": 30,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n ",
+      "range": [
+        755,
+        1064
+      ],
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 0
+        },
+        "end": {
+          "line": 45,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n ",
+      "range": [
+        1066,
+        1238
+      ],
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 0
+        },
+        "end": {
+          "line": 51,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n ",
+      "range": [
+        1240,
+        1630
+      ],
+      "loc": {
+        "start": {
+          "line": 53,
+          "column": 0
+        },
+        "end": {
+          "line": 65,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   ",
+      "range": [
+        1648,
+        1911
+      ],
+      "loc": {
+        "start": {
+          "line": 67,
+          "column": 2
+        },
+        "end": {
+          "line": 74,
+          "column": 5
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "* @ignore ",
+      "range": [
+        1990,
+        2004
+      ],
+      "loc": {
+        "start": {
+          "line": 80,
+          "column": 0
+        },
+        "end": {
+          "line": 80,
           "column": 14
         }
       }
