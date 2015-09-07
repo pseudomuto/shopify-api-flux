@@ -468,6 +468,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/resources/base.js~resourcequery",
+    "typedef/index.html#static-typedef-ResourceQuery",
+    "lib/resources/Base.js~ResourceQuery",
+    "typedef"
+  ],
+  [
     "lib/resources/order.js",
     "file/lib/resources/Order.js.html",
     "lib/resources/Order.js",

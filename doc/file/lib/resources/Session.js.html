@@ -63,6 +63,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-SuccessfulRequestCallback">SuccessfulRequestCallback</a></span></li>
 </ul>
 </div>
@@ -100,6 +101,11 @@ function sanitizeDomain(domain) {
   return domain;
 }
 
+/**
+ * The Session resource
+ *
+ * @extends {Base}
+ */
 class Session extends Base {
   constructor() {
     super(&quot;session&quot;);
@@ -108,10 +114,22 @@ class Session extends Base {
     this._clearAction = Constants.Actions.CLEAR_SESSION;
   }
 
+  /**
+   * @override
+   * An array of methods to be exposed via {@link APIProxy}
+   *
+   * @return {Array&lt;string&gt;} The names of all methods to be made available
+   */
   static get apiMethods() {
     return [&quot;init&quot;, &quot;clear&quot;];
   }
 
+  /**
+   * Dispatches the SET_SESSION event to the store
+   *
+   * @param {string} domain - The shop&apos;s domain (with or without the `.myshopify.com` suffix)
+   * @param {string} token - The API token to be used
+   */
   init(domain, token) {
     verifyDomain(domain);
     verifyToken(token);

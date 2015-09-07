@@ -63,6 +63,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-SuccessfulRequestCallback">SuccessfulRequestCallback</a></span></li>
 </ul>
 </div>
@@ -75,19 +76,44 @@
 
 import Base from &quot;./Base&quot;;
 
+/**
+ * The Product resource
+ *
+ * @extends {Base}
+ */
 class Product extends Base {
   constructor() {
     super(&quot;product&quot;);
   }
 
+  /**
+   * @override
+   * An array of methods to be exposed via {@link APIProxy}
+   *
+   * @return {Array&lt;string&gt;} The names of all methods to be made available
+   */
   static get apiMethods() {
     return super.apiMethods.concat([&quot;fetchByCollection&quot;, &quot;fetchAllSince&quot;]);
   }
 
+  /**
+   * Fetch products in the specified collection
+   *
+   * @param {number|string} collectionId - The id of the collection
+   *
+   * @return {RequestPromise}
+   */
   fetchByCollection(collectionId) {
     return this.fetch({ collection_id: collectionId });
   }
 
+  /**
+   * Fetch all products created after the specified product
+   *
+   * @param {number|string} id - The id of the reference product
+   *
+   * @return {RequestPromise}
+   */
   fetchAllSince(id) {
     return this.fetch({ since_id: id });
   }

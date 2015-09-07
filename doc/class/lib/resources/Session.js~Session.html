@@ -63,6 +63,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-SuccessfulRequestCallback">SuccessfulRequestCallback</a></span></li>
 </ul>
 </div>
@@ -77,7 +78,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/resources/Session.js.html#lineNumber30">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/resources/Session.js.html#lineNumber35">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -87,7 +88,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>lib/resources/Base~Base</span> &#x2192; Session</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span> &#x2192; Session</div></div>
   
   
   
@@ -97,7 +98,8 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>The Session resource</p>
+</div>
 
   
 
@@ -123,7 +125,7 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Session.js~Session.html#static-get-apiMethods">apiMethods</a></span></span><span data-ice="signature">: <span>*</span></span>
+           <span data-ice="name"><span><a href="class/lib/resources/Session.js~Session.html#static-get-apiMethods">apiMethods</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -189,7 +191,117 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Session.js~Session.html#instance-method-init">init</a></span></span><span data-ice="signature">(domain: <span>*</span>, token: <span>*</span>)</span>
+           <span data-ice="name"><span><a href="class/lib/resources/Session.js~Session.html#instance-method-init">init</a></span></span><span data-ice="signature">(domain: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, token: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Dispatches the SET_SESSION event to the store</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#static-get-apiMethods">apiMethods</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>An array of methods to be exposed via <span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-clear">clear</a></span></span><span data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Dispatches the clear action for this resource.</p></div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-fetch">fetch</a></span></span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Performs a GET request for the specified query.</p></div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">protected</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-urlFor">urlFor</a></span></span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -207,8 +319,6 @@
 </table>
 </div>
 
-
-
 <div data-ice="staticMemberDetails"><h2 data-ice="title">Static Public Members</h2>
 
 <div class="detail" data-ice="detail">
@@ -218,11 +328,11 @@
     <span class="kind" data-ice="kind">get</span>
     
     
-    <span data-ice="name">apiMethods</span><span data-ice="signature">: <span>*</span></span>
+    <span data-ice="name">apiMethods</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Session.js.html#lineNumber38">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Session.js.html#lineNumber49">source</a></span></span>
     </span>
   </h3>
 
@@ -231,12 +341,23 @@
   
   
 
-  
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/resources/Base.js~Base.html#static-get-apiMethods">Base#apiMethods</a></span></div>
 
   <div data-ice="properties">
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
+        <td class="return-desc" data-ice="returnDescription"><p>The names of all methods to be made available</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -266,7 +387,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Session.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Session.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -275,7 +396,7 @@
   
   
 
-  
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/resources/Base.js~Base.html#instance-constructor-constructor">Base#constructor</a></span></div>
 
   <div data-ice="properties">
 </div>
@@ -306,18 +427,19 @@
     
     
     
-    <span data-ice="name">init</span><span data-ice="signature">(domain: <span>*</span>, token: <span>*</span>)</span>
+    <span data-ice="name">init</span><span data-ice="signature">(domain: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, token: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Session.js.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Session.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Dispatches the SET_SESSION event to the store</p>
+</div>
 
   
 
@@ -331,15 +453,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">domain</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The shop&apos;s domain (with or without the <code>.myshopify.com</code> suffix)</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">token</td>
-      <td data-ice="type"><span>*</span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>The API token to be used</p>
+</td>
     </tr>
 </tbody>
   </table>
