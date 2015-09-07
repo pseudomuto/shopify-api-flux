@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/resources/__tests__/ProductTest.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/pseudomuto/shopify-api-flux.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/lib/stores/Base.js~Base.html">Base</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/Orders.js~Orders.html">Orders</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/Products.js~Products.html">Products</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Session.js~Session.html">Session</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/Sessions.js~Sessions.html">Sessions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/Shops.js~Shops.html">Shops</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></li>
+</ul>
+</div>
+
+
+
+
+
+
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/__tests__/ProductTest.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
+
+jest.dontMock(&quot;../Base&quot;);
+jest.dontMock(&quot;../Product&quot;);
+jest.dontMock(&quot;../../utilities/URLHelpers&quot;);
+
+import Constants from &quot;../../Constants&quot;;
+
+describe(&quot;Product&quot;, () =&gt; {
+  let products = [{ id: 1, title: &quot;Some Product&quot; }];
+
+  var resource, dispatcher, api;
+
+  beforeEach(() =&gt; {
+    dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
+    resource   = require(&quot;../Product&quot;);
+    api        = require(&quot;../../utilities/WebAPI&quot;);
+  });
+
+  describe(&quot;.apiMethods&quot;, () =&gt; {
+    it(&quot;exposes base methods and additional fetch methods&quot;, () =&gt; {
+      let actual   = resource.constructor.apiMethods;
+      let expected = require(&quot;../Base&quot;).apiMethods.concat([&quot;fetchByCollection&quot;, &quot;fetchAllSince&quot;]);
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe(&quot;#fetchByCollection&quot;, () =&gt; {
+    var request;
+
+    beforeEach(() =&gt; {
+      stubFetchRequest(api, { products });
+      request = resource.fetchByCollection(12345);
+    });
+
+    it(&quot;makes the request&quot;, () =&gt; {
+      expect(api.get).toBeCalledWith(&quot;/admin/products.json?collection_id=12345&quot;);
+    });
+
+    pit(&quot;dispatches the merge event&quot;, () =&gt; {
+      return Promise.resolve(request).then(() =&gt; {
+        expect(dispatcher.dispatch).toBeCalledWith({
+          actionType: Constants.Actions.MERGE_PRODUCTS,
+          items: products
+        });
+      });
+    });
+  });
+
+  describe(&quot;#fetchAllSince&quot;, () =&gt; {
+    var request;
+
+    beforeEach(() =&gt; {
+      stubFetchRequest(api, { products });
+      request = resource.fetchAllSince(12345);
+    });
+
+    it(&quot;makes the request&quot;, () =&gt; {
+      expect(api.get).toBeCalledWith(&quot;/admin/products.json?since_id=12345&quot;);
+    });
+
+    pit(&quot;dispatches the merge event&quot;, () =&gt; {
+      return Promise.resolve(request).then(() =&gt; {
+        expect(dispatcher.dispatch).toBeCalledWith({
+          actionType: Constants.Actions.MERGE_PRODUCTS,
+          items: products
+        });
+      });
+    });
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.2.5)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
