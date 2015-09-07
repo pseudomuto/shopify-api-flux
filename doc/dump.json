@@ -20,8 +20,8 @@
     "longname": "lib/Documentation.js",
     "access": null,
     "description": null,
-    "lineNumber": 34,
-    "content": "/***************************************\n * Externals\n **************************************/\n\n/**\n * @external {Store} https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js\n */\n\n/**\n * @external {FluxMapStore} https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js\n */\n\n/**\n * @external {QueryObject} https://lodash.com/docs#where\n */\n\n/***************************************\n * Request Handling\n **************************************/\n\n/***************************************\n * API Objects\n **************************************/\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number` - Assumes the value is a resource id\n *   * `string` - Assumes the value is a resource id\n *   * `object` - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n"
+    "lineNumber": 16,
+    "content": "/***************************************\n * Externals\n **************************************/\n\n/**\n * @external {Store} https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js\n */\n\n/**\n * @external {FluxMapStore} https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js\n */\n\n/**\n * @external {QueryObject} https://lodash.com/docs#where\n */\n"
   },
   {
     "kind": "external",
@@ -55,25 +55,6 @@
     "longname": "lib/Documentation.js~QueryObject",
     "access": null,
     "description": null
-  },
-  {
-    "kind": "typedef",
-    "static": true,
-    "variation": null,
-    "name": "ResourceQuery",
-    "memberof": "lib/Documentation.js",
-    "longname": "lib/Documentation.js~ResourceQuery",
-    "access": null,
-    "description": "An object representing a resource query.\n\nCan be one of the following:\n  * `number` - Assumes the value is a resource id\n  * `string` - Assumes the value is a resource id\n  * `object` - Will be converted to a query string",
-    "type": {
-      "types": [
-        "number",
-        "string",
-        "object"
-      ],
-      "optional": false,
-      "name": "ResourceQuery"
-    }
   },
   {
     "kind": "file",
@@ -141,7 +122,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Flux from \"flux\";\n\nconst { Dispatcher } = Flux;\n\n/**\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n */\n\n/**\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n */\n\nconst APIDispatcher = new Dispatcher();\nexport default APIDispatcher;\n"
+    "content": "\"use strict\";\n\nimport Flux from \"flux\";\n\nconst { Dispatcher } = Flux;\n\n/**\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n */\n\n/**\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n */\n\nexport default new Dispatcher();\n"
   },
   {
     "kind": "variable",
@@ -161,6 +142,75 @@
       "types": [
         "*"
       ]
+    }
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "Action",
+    "memberof": "lib/dispatcher/APIDispatcher.js",
+    "longname": "lib/dispatcher/APIDispatcher.js~Action",
+    "access": null,
+    "description": "A generic action object that is dispatched by {APIDispatcher}",
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "actionType",
+        "description": "The type of action to be dispatched"
+      }
+    ],
+    "type": {
+      "types": [
+        "object"
+      ],
+      "optional": false,
+      "name": "Action"
+    }
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "MergeAction",
+    "memberof": "lib/dispatcher/APIDispatcher.js",
+    "longname": "lib/dispatcher/APIDispatcher.js~MergeAction",
+    "access": null,
+    "description": "An action object that is dispatched when items should be added to a store",
+    "lineNumber": 22,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "actionType",
+        "description": "The type of action to be dispatched"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array<object>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "items",
+        "description": "An array of items to be added to the store"
+      }
+    ],
+    "type": {
+      "types": [
+        "object"
+      ],
+      "optional": false,
+      "name": "MergeAction"
     }
   },
   {
@@ -185,36 +235,27 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   */\n  constructor(resourceName) {\n    this._resource     = resourceName;\n    this._resources    = `${resourceName}s`;\n    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];\n    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return [\"clear\", \"fetch\"];\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this._clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query) {\n    if (isPrimitive(query)) {\n      return `/admin/${this._resources}/${query}.json`;\n    }\n\n    let url    = `/admin/${this._resources}.json`;\n    let params = URLHelpers.toQueryString(query);\n    return params ? `${url}?${params}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this._mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number` - Assumes the value is a resource id\n *   * `string` - Assumes the value is a resource id\n *   * `object` - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   */\n  constructor(resourceName) {\n    this._resource     = resourceName;\n    this._resources    = `${resourceName}s`;\n    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];\n    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return [\"clear\", \"fetch\"];\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this._clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query) {\n    if (isPrimitive(query)) {\n      return `/admin/${this._resources}/${query}.json`;\n    }\n\n    let url    = `/admin/${this._resources}.json`;\n    let params = URLHelpers.toQueryString(query);\n    return params ? `${url}?${params}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this._mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n}\n"
   },
   {
-    "kind": "function",
+    "kind": "typedef",
     "static": true,
     "variation": null,
-    "name": "isPrimitive",
+    "name": "ResourceQuery",
     "memberof": "lib/resources/Base.js",
-    "longname": "lib/resources/Base.js~isPrimitive",
+    "longname": "lib/resources/Base.js~ResourceQuery",
     "access": null,
-    "export": false,
-    "importPath": "shopify-api-flux/lib/resources/Base.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 8,
-    "undocument": true,
-    "params": [
-      {
-        "name": "value",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "return": {
+    "description": "An object representing a resource query.\n\nCan be one of the following:\n  * `number` - Assumes the value is a resource id\n  * `string` - Assumes the value is a resource id\n  * `object` - Will be converted to a query string",
+    "lineNumber": 18,
+    "type": {
       "types": [
-        "*"
-      ]
-    },
-    "generator": false
+        "number",
+        "string",
+        "object"
+      ],
+      "optional": false,
+      "name": "ResourceQuery"
+    }
   },
   {
     "kind": "class",
@@ -231,7 +272,7 @@
     "examples": [
       "import Base from \"./Base\";\n\nclass Thing extends Base {\n  constructor() {\n    super(\"thing\")\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAllTheThings\"]);\n  }\n\n  fetchAllTheThings() {\n    return this.fetch(\"/admin/things.json\");\n  }\n}"
     ],
-    "lineNumber": 33,
+    "lineNumber": 43,
     "interface": false
   },
   {
@@ -243,7 +284,7 @@
     "longname": "lib/resources/Base.js~Base#constructor",
     "access": null,
     "description": "Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\nwhich will be used to infer the merge and clear actions to be dispatched.",
-    "lineNumber": 40,
+    "lineNumber": 50,
     "params": [
       {
         "nullable": null,
@@ -267,7 +308,7 @@
     "longname": "lib/resources/Base.js~Base#_resource",
     "access": null,
     "description": null,
-    "lineNumber": 41,
+    "lineNumber": 51,
     "undocument": true,
     "type": {
       "types": [
@@ -284,7 +325,7 @@
     "longname": "lib/resources/Base.js~Base#_resources",
     "access": null,
     "description": null,
-    "lineNumber": 42,
+    "lineNumber": 52,
     "undocument": true,
     "type": {
       "types": [
@@ -301,7 +342,7 @@
     "longname": "lib/resources/Base.js~Base#_mergeAction",
     "access": null,
     "description": null,
-    "lineNumber": 43,
+    "lineNumber": 53,
     "undocument": true,
     "type": {
       "types": [
@@ -318,7 +359,7 @@
     "longname": "lib/resources/Base.js~Base#_clearAction",
     "access": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 54,
     "undocument": true,
     "type": {
       "types": [
@@ -335,7 +376,7 @@
     "longname": "lib/resources/Base.js~Base.apiMethods",
     "access": null,
     "description": "An array of methods to be exposed via {@link APIProxy}",
-    "lineNumber": 52,
+    "lineNumber": 62,
     "return": {
       "nullable": null,
       "types": [
@@ -360,7 +401,7 @@
     "longname": "lib/resources/Base.js~Base#fetch",
     "access": null,
     "description": "Performs a GET request for the specified query.",
-    "lineNumber": 63,
+    "lineNumber": 73,
     "params": [
       {
         "nullable": null,
@@ -392,7 +433,7 @@
     "longname": "lib/resources/Base.js~Base#clear",
     "access": null,
     "description": "Dispatches the clear action for this resource. The action will be handled by the appropriate store.",
-    "lineNumber": 74,
+    "lineNumber": 84,
     "params": [],
     "generator": false
   },
@@ -408,7 +449,7 @@
     "examples": [
       "import Base from \"./Base\";\n\nlet instance = new Base(\"product\");\n\ninstance.urlFor();                            // `/admin/products.json`\ninstance.urlFor(1);                           // `/admin/products/1.json`\ninstance.urlFor(\"1\");                         // `/admin/products/1.json`\ninstance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title"
     ],
-    "lineNumber": 97,
+    "lineNumber": 107,
     "params": [
       {
         "nullable": null,
@@ -440,7 +481,7 @@
     "longname": "lib/resources/Base.js~Base#_dispatchMerge",
     "access": null,
     "description": null,
-    "lineNumber": 107,
+    "lineNumber": 117,
     "undocument": true,
     "params": [
       {

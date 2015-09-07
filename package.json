@@ -12,7 +12,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "webpack --progress --colors",
+    "build": "npm run doc && webpack --progress --colors",
     "ci": "npm run lint && npm test",
     "doc": "rm -rf doc && esdoc -c esdoc.json",
     "lint": "eslint lib",
