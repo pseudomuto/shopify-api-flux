@@ -280,141 +280,140 @@
       ]
     },
     {
-      "type": "Identifier",
-      "declarations": [
-        {
-          "type": "VariableDeclarator",
-          "id": {
-            "type": "Identifier",
-            "name": "APIDispatcher",
-            "range": [
-              526,
-              539
-            ],
-            "loc": {
-              "start": {
-                "line": 22,
-                "column": 6
-              },
-              "end": {
-                "line": 22,
-                "column": 19
-              }
-            }
-          },
-          "init": {
-            "type": "NewExpression",
-            "callee": {
-              "type": "Identifier",
-              "name": "Dispatcher",
-              "range": [
-                546,
-                556
-              ],
-              "loc": {
-                "start": {
-                  "line": 22,
-                  "column": 26
-                },
-                "end": {
-                  "line": 22,
-                  "column": 36
-                }
-              }
-            },
-            "arguments": [],
-            "range": [
-              542,
-              558
-            ],
-            "loc": {
-              "start": {
-                "line": 22,
-                "column": 22
-              },
-              "end": {
-                "line": 22,
-                "column": 38
-              }
-            }
-          },
+      "type": "ExportDefaultDeclaration",
+      "declaration": {
+        "type": "NewExpression",
+        "callee": {
+          "type": "Identifier",
+          "name": "Dispatcher",
           "range": [
-            526,
-            558
+            539,
+            549
           ],
           "loc": {
             "start": {
               "line": 22,
-              "column": 6
+              "column": 19
             },
             "end": {
               "line": 22,
-              "column": 38
+              "column": 29
             }
           }
-        }
-      ],
-      "kind": "const",
-      "range": [
-        520,
-        559
-      ],
-      "loc": {
-        "start": {
-          "line": 22,
-          "column": 0
         },
-        "end": {
-          "line": 22,
-          "column": 39
-        }
-      },
-      "leadingComments": [],
-      "name": "_",
-      "trailingComments": []
-    },
-    {
-      "type": "ExportDefaultDeclaration",
-      "declaration": {
-        "type": "Identifier",
-        "name": "APIDispatcher",
+        "arguments": [],
         "range": [
-          575,
-          588
+          535,
+          551
         ],
         "loc": {
           "start": {
-            "line": 23,
+            "line": 22,
             "column": 15
           },
           "end": {
-            "line": 23,
-            "column": 28
+            "line": 22,
+            "column": 31
           }
         },
-        "leadingComments": [],
+        "leadingComments": [
+          {
+            "type": "Block",
+            "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n ",
+            "range": [
+              71,
+              245
+            ],
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "Block",
+            "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
+            "range": [
+              247,
+              518
+            ],
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          }
+        ],
         "trailingComments": []
       },
       "range": [
-        560,
-        589
+        520,
+        552
       ],
       "loc": {
         "start": {
-          "line": 23,
+          "line": 22,
           "column": 0
         },
         "end": {
-          "line": 23,
-          "column": 29
+          "line": 22,
+          "column": 32
         }
-      }
+      },
+      "leadingComments": [
+        {
+          "type": "Block",
+          "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n ",
+          "range": [
+            71,
+            245
+          ],
+          "loc": {
+            "start": {
+              "line": 7,
+              "column": 0
+            },
+            "end": {
+              "line": 12,
+              "column": 3
+            }
+          }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
+          "range": [
+            247,
+            518
+          ],
+          "loc": {
+            "start": {
+              "line": 14,
+              "column": 0
+            },
+            "end": {
+              "line": 20,
+              "column": 3
+            }
+          }
+        }
+      ]
     }
   ],
   "sourceType": "module",
   "range": [
     0,
-    589
+    552
   ],
   "loc": {
     "start": {
@@ -422,8 +421,8 @@
       "column": 0
     },
     "end": {
-      "line": 23,
-      "column": 29
+      "line": 22,
+      "column": 32
     }
   },
   "comments": [

@@ -420,12 +420,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "lib/documentation.js~resourcequery",
-    "typedef/index.html#static-typedef-ResourceQuery",
-    "lib/Documentation.js~ResourceQuery",
-    "typedef"
-  ],
-  [
     "lib/documentation.js~store",
     "external/index.html",
     "lib/Documentation.js~Store",
@@ -454,6 +448,18 @@ window.esdocSearchIndex = [
     "file/lib/dispatcher/APIDispatcher.js.html",
     "lib/dispatcher/APIDispatcher.js",
     "file"
+  ],
+  [
+    "lib/dispatcher/apidispatcher.js~action",
+    "typedef/index.html#static-typedef-Action",
+    "lib/dispatcher/APIDispatcher.js~Action",
+    "typedef"
+  ],
+  [
+    "lib/dispatcher/apidispatcher.js~mergeaction",
+    "typedef/index.html#static-typedef-MergeAction",
+    "lib/dispatcher/APIDispatcher.js~MergeAction",
+    "typedef"
   ],
   [
     "lib/dispatcher/__tests__/apidispatchertest.js",
@@ -496,6 +502,12 @@ window.esdocSearchIndex = [
     "class/lib/resources/Base.js~Base.html#static-get-apiMethods",
     "lib/resources/Base.js~Base.apiMethods",
     "member"
+  ],
+  [
+    "lib/resources/base.js~resourcequery",
+    "typedef/index.html#static-typedef-ResourceQuery",
+    "lib/resources/Base.js~ResourceQuery",
+    "typedef"
   ],
   [
     "lib/resources/order.js",
