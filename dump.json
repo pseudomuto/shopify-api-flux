@@ -1,0 +1,2724 @@
+[
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/Constants.js",
+    "memberof": null,
+    "longname": "lib/Constants.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null\n  })\n};\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/ShopifyAPI.js",
+    "memberof": null,
+    "longname": "lib/ShopifyAPI.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/Orders\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/Products\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/Sessions\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/Shops\"))\n};\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/__mocks__/whatwg-fetch.js",
+    "memberof": null,
+    "longname": "lib/__mocks__/whatwg-fetch.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nmodule.exports = jest.genMockFunction().mockReturnValue(new Promise((resolve) => resolve()));\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/__tests__/ShopifyAPITest.js",
+    "memberof": null,
+    "longname": "lib/__tests__/ShopifyAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Order\",\n  \"Product\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "RESOURCES",
+    "memberof": "lib/__tests__/ShopifyAPITest.js",
+    "longname": "lib/__tests__/ShopifyAPITest.js~RESOURCES",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/__tests__/ShopifyAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/dispatcher/APIDispatcher.js",
+    "memberof": null,
+    "longname": "lib/dispatcher/APIDispatcher.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Flux from \"flux\";\n\nconst { Dispatcher } = Flux;\n\nexport default new Dispatcher();\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Dispatcher",
+    "memberof": "lib/dispatcher/APIDispatcher.js",
+    "longname": "lib/dispatcher/APIDispatcher.js~Dispatcher",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/dispatcher/APIDispatcher.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/dispatcher/__tests__/APIDispatcherTest.js",
+    "memberof": null,
+    "longname": "lib/dispatcher/__tests__/APIDispatcherTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"flux\");\njest.dontMock(\"../APIDispatcher\");\n\ndescribe(\"APIDispatcher\", () => {\n  var APIDispatcher;\n\n  beforeEach(() => {\n    APIDispatcher = require(\"../APIDispatcher\");\n  });\n\n  it(\"sends actions to subscribers\", () => {\n    let listener = jest.genMockFunction();\n    let payload = {};\n\n    APIDispatcher.register(listener);\n    APIDispatcher.dispatch(payload);\n\n    expect(listener.mock.calls.length).toBe(1);\n    expect(listener.mock.calls[0][0]).toBe(payload);\n  });\n\n  it(\"does things\", () => {\n    expect(true).toBe(true);\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Base.js",
+    "memberof": null,
+    "longname": "lib/resources/Base.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\nexport default class {\n  constructor(resourceName) {\n    this._resource     = resourceName;\n    this._resources    = `${resourceName}s`;\n    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];\n    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];\n  }\n\n  static get apiMethods() {\n    return [\"clear\", \"fetch\"];\n  }\n\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  clear() {\n    APIDispatcher.dispatch({ actionType: this._clearAction });\n  }\n\n  urlFor(query) {\n    if (isPrimitive(query)) {\n      return `/admin/${this._resources}/${query}.json`;\n    }\n\n    let url    = `/admin/${this._resources}.json`;\n    let params = URLHelpers.toQueryString(query);\n    return params ? `${url}?${params}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this._mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n}\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "isPrimitive",
+    "memberof": "lib/resources/Base.js",
+    "longname": "lib/resources/Base.js~isPrimitive",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Base",
+    "memberof": "lib/resources/Base.js",
+    "longname": "lib/resources/Base.js~Base",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Base.js",
+    "importStyle": "Base",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [
+      {
+        "name": "resourceName",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_resource",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#_resource",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_resources",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#_resources",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_mergeAction",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#_mergeAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_clearAction",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#_clearAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "get",
+    "static": true,
+    "variation": null,
+    "name": "apiMethods",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base.apiMethods",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "fetch",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#fetch",
+    "access": null,
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "params": [
+      {
+        "name": "query",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "clear",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#clear",
+    "access": null,
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "urlFor",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#urlFor",
+    "access": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "params": [
+      {
+        "name": "query",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_dispatchMerge",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#_dispatchMerge",
+    "access": null,
+    "description": null,
+    "lineNumber": 46,
+    "undocument": true,
+    "params": [
+      {
+        "name": "items",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Order.js",
+    "memberof": null,
+    "longname": "lib/resources/Order.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\nclass Order extends Base {\n  constructor() {\n    super(\"order\");\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n  }\n\n  fetchAuthorized() {\n    return this.fetch({ financial_status: \"authorized\" });\n  }\n\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Order",
+    "memberof": "lib/resources/Order.js",
+    "longname": "lib/resources/Order.js~Order",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Order.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/resources/Base~Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": true,
+    "variation": null,
+    "name": "apiMethods",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order.apiMethods",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "fetchAuthorized",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#fetchAuthorized",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "fetchAllSince",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#fetchAllSince",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "order",
+    "memberof": "lib/resources/Order.js",
+    "longname": "lib/resources/Order.js~order",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Order.js",
+    "importStyle": "order",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Order.js~Order"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Product.js",
+    "memberof": null,
+    "longname": "lib/resources/Product.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\nclass Product extends Base {\n  constructor() {\n    super(\"product\");\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n  }\n\n  fetchByCollection(collectionId) {\n    return this.fetch({ collection_id: collectionId });\n  }\n\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Product();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Product",
+    "memberof": "lib/resources/Product.js",
+    "longname": "lib/resources/Product.js~Product",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Product.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/resources/Base~Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Product.js~Product",
+    "longname": "lib/resources/Product.js~Product#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": true,
+    "variation": null,
+    "name": "apiMethods",
+    "memberof": "lib/resources/Product.js~Product",
+    "longname": "lib/resources/Product.js~Product.apiMethods",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "fetchByCollection",
+    "memberof": "lib/resources/Product.js~Product",
+    "longname": "lib/resources/Product.js~Product#fetchByCollection",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [
+      {
+        "name": "collectionId",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "fetchAllSince",
+    "memberof": "lib/resources/Product.js~Product",
+    "longname": "lib/resources/Product.js~Product#fetchAllSince",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "product",
+    "memberof": "lib/resources/Product.js",
+    "longname": "lib/resources/Product.js~product",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Product.js",
+    "importStyle": "product",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Product.js~Product"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Session.js",
+    "memberof": null,
+    "longname": "lib/resources/Session.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass InvalidDomainException extends Error {}\nclass InvalidTokenException extends Error {}\n\nfunction verifyDomain(domain) {\n  if(!domain) {\n    throw new InvalidDomainException(\"Domain name cannot be blank or null\");\n  }\n}\n\nfunction verifyToken(token) {\n  if (!token) {\n    throw new InvalidTokenException(\"Token cannot be blank, null, undefined or empty\");\n  }\n}\n\nfunction sanitizeDomain(domain) {\n  if (!domain.match(/myshopify\\.com$/)) {\n    return `${domain}.myshopify.com`;\n  }\n\n  return domain;\n}\n\nclass Session extends Base {\n  constructor() {\n    super(\"session\");\n\n    this._resources   = this._resource;\n    this._clearAction = Constants.Actions.CLEAR_SESSION;\n  }\n\n  static get apiMethods() {\n    return [\"init\", \"clear\"];\n  }\n\n  init(domain, token) {\n    verifyDomain(domain);\n    verifyToken(token);\n\n    APIDispatcher.dispatch({\n      actionType: Constants.Actions.SET_SESSION,\n      domain: sanitizeDomain(domain),\n      accessToken: token\n    });\n  }\n}\n\n/** @ignore */\nexport default new Session();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "InvalidDomainException",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~InvalidDomainException",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "InvalidTokenException",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~InvalidTokenException",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "verifyDomain",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~verifyDomain",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "domain",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "verifyToken",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~verifyToken",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "sanitizeDomain",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~sanitizeDomain",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [
+      {
+        "name": "domain",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Session",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~Session",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 30,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/resources/Base~Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Session.js~Session",
+    "longname": "lib/resources/Session.js~Session#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_resources",
+    "memberof": "lib/resources/Session.js~Session",
+    "longname": "lib/resources/Session.js~Session#_resources",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_clearAction",
+    "memberof": "lib/resources/Session.js~Session",
+    "longname": "lib/resources/Session.js~Session#_clearAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "get",
+    "static": true,
+    "variation": null,
+    "name": "apiMethods",
+    "memberof": "lib/resources/Session.js~Session",
+    "longname": "lib/resources/Session.js~Session.apiMethods",
+    "access": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "init",
+    "memberof": "lib/resources/Session.js~Session",
+    "longname": "lib/resources/Session.js~Session#init",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "params": [
+      {
+        "name": "domain",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "token",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "session",
+    "memberof": "lib/resources/Session.js",
+    "longname": "lib/resources/Session.js~session",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Session.js",
+    "importStyle": "session",
+    "description": null,
+    "lineNumber": 55,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Session.js~Session"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Shop.js",
+    "memberof": null,
+    "longname": "lib/resources/Shop.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base      from \"./Base\";\nimport Constants from \"../Constants\";\n\nclass Shop extends Base {\n  constructor() {\n    super(\"shop\");\n\n    this._resources   = this._resource;\n    this._mergeAction = Constants.Actions.SET_SHOP;\n    this._clearAction = Constants.Actions.CLEAR_SHOP;\n  }\n}\n\n/** @ignore */\nexport default new Shop();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Shop",
+    "memberof": "lib/resources/Shop.js",
+    "longname": "lib/resources/Shop.js~Shop",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Shop.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/resources/Base~Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Shop.js~Shop",
+    "longname": "lib/resources/Shop.js~Shop#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_resources",
+    "memberof": "lib/resources/Shop.js~Shop",
+    "longname": "lib/resources/Shop.js~Shop#_resources",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_mergeAction",
+    "memberof": "lib/resources/Shop.js~Shop",
+    "longname": "lib/resources/Shop.js~Shop#_mergeAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_clearAction",
+    "memberof": "lib/resources/Shop.js~Shop",
+    "longname": "lib/resources/Shop.js~Shop#_clearAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "shop",
+    "memberof": "lib/resources/Shop.js",
+    "longname": "lib/resources/Shop.js~shop",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Shop.js",
+    "importStyle": "shop",
+    "description": null,
+    "lineNumber": 17,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Shop.js~Shop"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/BaseTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/BaseTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Base\", () => {\n  var actions, dispatcher;\n\n  beforeEach(() => {\n    const BaseActions = require(\"../Base\");\n\n    actions    = new BaseActions(\"thing\");\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n  });\n\n  describe(\".apiMethods\", () => {\n    var klass;\n\n    beforeEach(() => {\n      klass = actions.constructor;\n    });\n\n    it(\"returns all exported action method names\", () => {\n      expect(klass.apiMethods).toContain(\"clear\");\n    });\n\n    it(\"can be overridden in subclasses\", () => {\n      class Test extends klass {\n        static get apiMethods() {\n          return super.apiMethods.concat([\"testMethod\"]);\n        }\n      }\n\n      expect(Test.apiMethods).toContain(\"clear\");\n      expect(Test.apiMethods).toContain(\"testMethod\");\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    var api, request;\n    let actionType = Constants.Actions.MERGE_THINGS;\n\n    beforeEach(() => {\n      api = require(\"../../utilities/WebAPI\");\n    });\n\n    describe(\"when passed a single id\", () => {\n      let thing = { id: 1, title: \"Some Product\" };\n\n      beforeEach(() => {\n        stubFetchRequest(api, { thing });\n        request = actions.fetch(1);\n      });\n\n      it(\"fetches the single resource\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things/1.json\");\n      });\n\n      pit(\"dispatches the correct merge action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [thing] });\n        });\n      });\n    });\n\n    describe(\"when passed an object\", () => {\n      let things = [{ id: 1, title: \"Some Product\" }];\n\n      beforeEach(() => {\n        stubFetchRequest(api, { things });\n        request = actions.fetch({ ids: [1, 2, 3] });\n      });\n\n      it(\"fetches the resource collection with the appropriate query\", () => {\n        let encodedQuery = `ids=${encodeURIComponent(\"1,2,3\")}`;\n        expect(api.get).toBeCalledWith(`/admin/things.json?${encodedQuery}`);\n      });\n\n      pit(\"dispatches the correct merge event\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: things });\n        });\n      });\n    });\n\n    describe(\"when called without parameters\", () => {\n      let things = [\n        { id: 1, title: \"First Product\" },\n        { id: 2, title: \"Second Product\" }\n      ];\n\n      beforeEach(() => {\n        stubFetchRequest(api, { things });\n        request = actions.fetch();\n      });\n\n      it(\"fetches the resource collection\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things.json\");\n      });\n\n      pit(\"dispatches the correct merge action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: things });\n        });\n      });\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => actions.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_THINGS;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n\n  describe(\"#urlFor\", () => {\n    var helpers = require(\"../../utilities/URLHelpers\");\n\n    describe(\"when given no parameters\", () => {\n      it(\"returns the collection's URI\", () => {\n        expect(actions.urlFor()).toBe(\"/admin/things.json\");\n      });\n    });\n\n    describe(\"when requesting a single resource\", () => {\n      it(\"returns the item's URI when passed a number\", () => {\n        expect(actions.urlFor(1)).toBe(\"/admin/things/1.json\");\n      });\n\n      it(\"returns the item's URI when passed a string\", () => {\n        expect(actions.urlFor(\"1\")).toBe(\"/admin/things/1.json\");\n      });\n    });\n\n    describe(\"when given an object\", () => {\n      it(\"parameterizes the object and adds it to the collection URI\", () => {\n        let query = helpers.toQueryString({ ids: [1, 2, 3] });\n        expect(actions.urlFor({ ids: [1, 2, 3] })).toBe(`/admin/things.json?${query}`);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/OrderTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/OrderTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Order\", () => {\n  let orders = [{ id: 1, name: \"Order #1\" }];\n\n  var resource, api, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Order\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exposes base and specific fetch methods\", () => {\n      let actual   = resource.constructor.apiMethods;\n      let expected = require(\"../Base\").apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchAuthorized\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { orders });\n      request = resource.fetchAuthorized();\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?financial_status=authorized\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { orders });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/ProductTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/ProductTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Product\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Product\", () => {\n  let products = [{ id: 1, title: \"Some Product\" }];\n\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Product\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exposes base methods and additional fetch methods\", () => {\n      let actual   = resource.constructor.apiMethods;\n      let expected = require(\"../Base\").apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchByCollection\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { products });\n      request = resource.fetchByCollection(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/products.json?collection_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_PRODUCTS,\n          items: products\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { products });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/products.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_PRODUCTS,\n          items: products\n        });\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/SessionTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/SessionTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Session\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Session\", () => {\n  var dispatcher, resource;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Session\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exports init and clear as action methods\", () => {\n      expect(resource.constructor.apiMethods).toEqual([\"init\", \"clear\"]);\n    });\n  });\n\n  describe(\"#init\", () => {\n    it(\"dispatches the action appropriately\", () => {\n      resource.init(\"david.myshopify.com\", \"my_shopify_api_token\");\n      expect(dispatcher.dispatch.mock.calls.length).toBe(1);\n\n      let payload = dispatcher.dispatch.mock.calls[0][0];\n      expect(payload.actionType).toBe(Constants.Actions.SET_SESSION);\n      expect(payload.domain).toBe(\"david.myshopify.com\");\n      expect(payload.accessToken).toBe(\"my_shopify_api_token\");\n    });\n\n    it(\"ensures myshopify.com domain when only host is supplied\", () => {\n      resource.init(\"david\", \"my_shopify_api_token\");\n\n      let payload = dispatcher.dispatch.mock.calls[0][0];\n      expect(payload.domain).toBe(\"david.myshopify.com\");\n    });\n\n    it(\"raises an error when the supplied domain is falsy\", () => {\n      expect(() => resource.init(null, \"authToken\")).toThrow();\n      expect(() => resource.init(undefined, \"authToken\")).toThrow();\n      expect(() => resource.init(\"\", \"authToken\")).toThrow();\n    });\n\n    it(\"raises an error when the supplied token is falsy\", () => {\n      expect(() => resource.init(\"domain\")).toThrow();\n      expect(() => resource.init(\"domain\", null)).toThrow();\n      expect(() => resource.init(\"domain\", undefined)).toThrow();\n      expect(() => resource.init(\"domain\", \"\")).toThrow();\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => resource.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_SESSION;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/ShopTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/ShopTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Shop\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Shop\", () => {\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Shop\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exports fetch and clear as action methods\", () => {\n      expect(resource.constructor.apiMethods).toEqual([\"clear\", \"fetch\"]);\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    let shop = { id: 1, name: \"My Shop\" };\n\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { shop });\n      request = resource.fetch();\n    });\n\n    it(\"makes the web request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n\n    pit(\"dispatches the action once the shop is retrieved\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch.mock.calls.length).toBe(1);\n\n        let payload = dispatcher.dispatch.mock.calls[0][0];\n        expect(payload.actionType).toBe(Constants.Actions.SET_SHOP);\n        expect(payload.items).toEqual([shop]);\n      });\n    });\n\n    it(\"doesn't forward arguments to super\", () => {\n      resource.fetch({ name: \"Some Shop\" });\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => resource.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_SHOP;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/Base.js",
+    "memberof": null,
+    "longname": "lib/stores/Base.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\nfunction mergeItems(state, items) {\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\nexport default class extends Flux.MapStore {\n  constructor(dispatcher, mergeAction, clearAction) {\n    super(dispatcher);\n    this._mergeAction = mergeAction;\n    this._clearAction = clearAction;\n  }\n\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._mergeAction:\n        return mergeItems(state, action.items);\n      case this._clearAction:\n        return state.clear();\n      default:\n        return state;\n    }\n  }\n\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "mergeItems",
+    "memberof": "lib/stores/Base.js",
+    "longname": "lib/stores/Base.js~mergeItems",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/Base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "state",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "items",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Base",
+    "memberof": "lib/stores/Base.js",
+    "longname": "lib/stores/Base.js~Base",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Base.js",
+    "importStyle": "Base",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "flux/utils~Flux.MapStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/Base.js~Base",
+    "longname": "lib/stores/Base.js~Base#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dispatcher",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "mergeAction",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "clearAction",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_mergeAction",
+    "memberof": "lib/stores/Base.js~Base",
+    "longname": "lib/stores/Base.js~Base#_mergeAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_clearAction",
+    "memberof": "lib/stores/Base.js~Base",
+    "longname": "lib/stores/Base.js~Base#_clearAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "where",
+    "memberof": "lib/stores/Base.js~Base",
+    "longname": "lib/stores/Base.js~Base#where",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [
+      {
+        "name": "source",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "reduce",
+    "memberof": "lib/stores/Base.js~Base",
+    "longname": "lib/stores/Base.js~Base#reduce",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "params": [
+      {
+        "name": "state",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "areEqual",
+    "memberof": "lib/stores/Base.js~Base",
+    "longname": "lib/stores/Base.js~Base#areEqual",
+    "access": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "params": [
+      {
+        "name": "state1",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "state2",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/Orders.js",
+    "memberof": null,
+    "longname": "lib/stores/Orders.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass Orders extends Base {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_ORDERS, Constants.Actions.CLEAR_ORDERS);\n  }\n}\n\n/** @ignore */\nexport default new Orders(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Orders",
+    "memberof": "lib/stores/Orders.js",
+    "longname": "lib/stores/Orders.js~Orders",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Orders.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/stores/Base~Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/Orders.js~Orders",
+    "longname": "lib/stores/Orders.js~Orders#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dispatcher",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "orders",
+    "memberof": "lib/stores/Orders.js",
+    "longname": "lib/stores/Orders.js~orders",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Orders.js",
+    "importStyle": "orders",
+    "description": null,
+    "lineNumber": 14,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/Orders.js~Orders"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/Products.js",
+    "memberof": null,
+    "longname": "lib/stores/Products.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\nimport Constants     from \"../Constants\";\n\nclass Products extends Base {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_PRODUCTS, Constants.Actions.CLEAR_PRODUCTS);\n  }\n}\n\n/** @ignore */\nexport default new Products(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Products",
+    "memberof": "lib/stores/Products.js",
+    "longname": "lib/stores/Products.js~Products",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Products.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/stores/Base~Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/Products.js~Products",
+    "longname": "lib/stores/Products.js~Products#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dispatcher",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "products",
+    "memberof": "lib/stores/Products.js",
+    "longname": "lib/stores/Products.js~products",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Products.js",
+    "importStyle": "products",
+    "description": null,
+    "lineNumber": 14,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/Products.js~Products"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/Sessions.js",
+    "memberof": null,
+    "longname": "lib/stores/Sessions.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport Flux          from \"flux/utils\";\n\nvar domain      = null;\nvar accessToken = null;\n\n/** @ignore */\nconst { Store } = Flux;\n\nclass Sessions extends Store {\n  getDomain() {\n    return domain;\n  }\n\n  getAccessToken() {\n    return accessToken;\n  }\n\n  __onDispatch(action) {\n    switch(action.actionType) {\n      case Constants.Actions.SET_SESSION:\n        domain      = action.domain;\n        accessToken = action.accessToken;\n        this.__emitChange();\n        break;\n      default:\n        // no-op\n    }\n  }\n}\n\n/** @ignore */\nexport default new Sessions(APIDispatcher);\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "domain",
+    "memberof": "lib/stores/Sessions.js",
+    "longname": "lib/stores/Sessions.js~domain",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "accessToken",
+    "memberof": "lib/stores/Sessions.js",
+    "longname": "lib/stores/Sessions.js~accessToken",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Store",
+    "memberof": "lib/stores/Sessions.js",
+    "longname": "lib/stores/Sessions.js~Store",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "ignore": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Sessions",
+    "memberof": "lib/stores/Sessions.js",
+    "longname": "lib/stores/Sessions.js~Sessions",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Store"
+    ]
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getDomain",
+    "memberof": "lib/stores/Sessions.js~Sessions",
+    "longname": "lib/stores/Sessions.js~Sessions#getDomain",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getAccessToken",
+    "memberof": "lib/stores/Sessions.js~Sessions",
+    "longname": "lib/stores/Sessions.js~Sessions#getAccessToken",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "__onDispatch",
+    "memberof": "lib/stores/Sessions.js~Sessions",
+    "longname": "lib/stores/Sessions.js~Sessions#__onDispatch",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "sessions",
+    "memberof": "lib/stores/Sessions.js",
+    "longname": "lib/stores/Sessions.js~sessions",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Sessions.js",
+    "importStyle": "sessions",
+    "description": null,
+    "lineNumber": 36,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/Sessions.js~Sessions"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/Shops.js",
+    "memberof": null,
+    "longname": "lib/stores/Shops.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport Flux          from \"flux/utils\";\n\nvar shop = null;\n\nconst { Store } = Flux;\n\nclass Shops extends Store {\n  getCurrent() {\n    return shop;\n  }\n\n  __onDispatch(action) {\n    switch(action.actionType) {\n      case Constants.Actions.SET_SHOP:\n        shop = action.items[0];\n        this.__emitChange();\n        break;\n      case Constants.Actions.CLEAR_SHOP:\n        shop = null;\n        this.__emitChange();\n        break;\n      default:\n        // no-op\n        break;\n    }\n  }\n}\n\n/** @ignore */\nexport default new Shops(APIDispatcher);\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "shop",
+    "memberof": "lib/stores/Shops.js",
+    "longname": "lib/stores/Shops.js~shop",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Store",
+    "memberof": "lib/stores/Shops.js",
+    "longname": "lib/stores/Shops.js~Store",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Shops",
+    "memberof": "lib/stores/Shops.js",
+    "longname": "lib/stores/Shops.js~Shops",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Store"
+    ]
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCurrent",
+    "memberof": "lib/stores/Shops.js~Shops",
+    "longname": "lib/stores/Shops.js~Shops#getCurrent",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "__onDispatch",
+    "memberof": "lib/stores/Shops.js~Shops",
+    "longname": "lib/stores/Shops.js~Shops#__onDispatch",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "shops",
+    "memberof": "lib/stores/Shops.js",
+    "longname": "lib/stores/Shops.js~shops",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/Shops.js",
+    "importStyle": "shops",
+    "description": null,
+    "lineNumber": 34,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/Shops.js~Shops"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/__tests__/BaseTest.js",
+    "memberof": null,
+    "longname": "lib/stores/__tests__/BaseTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../Base\");\n\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../Base\");\n\nclass ThingsStore extends BaseStore {\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);\n  }\n}\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    it(\"responds to actions appropriately\", () => {\n      expect(store.has(1)).toBe(false);\n      expect(store.get(1)).toBeUndefined();\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.get(1).title).toBe(\"My Product\");\n    });\n\n    it(\"only emits a single change event even with multiple values\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\" },\n          { id: 2, title: \"My Second Product\" },\n          { id: 3, title: \"My Third Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.has(2)).toBe(true);\n      expect(store.has(3)).toBe(true);\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"doesn't emit a change event when the values haven't changed\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"clears the cache\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n      expect(store.has(1)).toBe(false);\n      expect(changeEvent.mock.calls.length).toBe(2);\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "BaseStore",
+    "memberof": "lib/stores/__tests__/BaseTest.js",
+    "longname": "lib/stores/__tests__/BaseTest.js~BaseStore",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/__tests__/BaseTest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ThingsStore",
+    "memberof": "lib/stores/__tests__/BaseTest.js",
+    "longname": "lib/stores/__tests__/BaseTest.js~ThingsStore",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/__tests__/BaseTest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "BaseStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/__tests__/BaseTest.js~ThingsStore",
+    "longname": "lib/stores/__tests__/BaseTest.js~ThingsStore#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "dispatcher",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/__tests__/OrdersTest.js",
+    "memberof": null,
+    "longname": "lib/stores/__tests__/OrdersTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Orders\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Orders\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../Orders\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_ORDERS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_ORDERS);\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/__tests__/ProductsTest.js",
+    "memberof": null,
+    "longname": "lib/stores/__tests__/ProductsTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Products\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Products\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../Products\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_PRODUCTS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_PRODUCTS);\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/__tests__/SessionsTest.js",
+    "memberof": null,
+    "longname": "lib/stores/__tests__/SessionsTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../Sessions\");\n\ndescribe(\"Session\", () => {\n  var SessionStore, APIDispatcher;\n\n  beforeEach(() => {\n    APIDispatcher = require(\"../../dispatcher/APIDispatcher\");\n    SessionStore  = require(\"../Sessions\");\n  });\n\n  it(\"registers a callback with the dispatcher\", () => {\n    expect(APIDispatcher.register.mock.calls.length).toBe(1);\n  });\n\n  it(\"starts out without a token\", () => {\n    var token = SessionStore.getAccessToken();\n    expect(token).toBeNull();\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/__tests__/ShopsTest.js",
+    "memberof": null,
+    "longname": "lib/stores/__tests__/ShopsTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../Shops\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Shop\", () => {\n  var store, dispatcher, changeEvent;\n\n  beforeEach(() => {\n    store      = require(\"../Shops\");\n    dispatcher = store.getDispatcher();\n\n    changeEvent = jest.genMockFunction();\n    store.__emitter.emit = changeEvent;\n  });\n\n  it(\"initially has a null shop\", () => {\n    expect(store.getCurrent()).toBeNull();\n  });\n\n  it(\"sets the shop when the action is dispatched and emits the change event\", () => {\n    dispatcher.dispatch({\n      actionType: Constants.Actions.SET_SHOP,\n      items: [\"myshop\"]\n    });\n\n    expect(store.getCurrent()).toBe(\"myshop\");\n    expect(changeEvent.mock.calls.length).toBe(1);\n  });\n\n  it(\"clears the shop when the action is dispatched and emits the change event\", () => {\n    dispatcher.dispatch({\n      actionType: Constants.Actions.SET_SHOP,\n      items: [\"myshop\"]\n    });\n\n    dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_SHOP });\n    expect(store.getCurrent()).toBeNull();\n    expect(changeEvent.mock.calls.length).toBe(2);\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/APIProxy.js",
+    "memberof": null,
+    "longname": "lib/utilities/APIProxy.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nexport default function(actions, store) {\n  let wrapper = Object.create({}, {\n    store: {\n      get: () => store\n    }\n  });\n\n  actions.constructor.apiMethods.forEach(method => {\n    Object.defineProperty(wrapper, method, {\n      value: (...args) => {\n        return actions[method].call(actions, ...args);\n      }\n    });\n  });\n\n  return wrapper;\n}\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "APIProxy",
+    "memberof": "lib/utilities/APIProxy.js",
+    "longname": "lib/utilities/APIProxy.js~APIProxy",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/utilities/APIProxy.js",
+    "importStyle": "APIProxy",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "params": [
+      {
+        "name": "actions",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "store",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/URLHelpers.js",
+    "memberof": null,
+    "longname": "lib/utilities/URLHelpers.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nexport default {\n  toQueryString(query) {\n    if (!query) {\n      return \"\";\n    }\n\n    return Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join(\"&\");\n  }\n};\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/WebAPI.js",
+    "memberof": null,
+    "longname": "lib/utilities/WebAPI.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/Sessions\";\n\nfunction _performRequest(method, url, options) {\n  options = (options || {});\n  options.method = method;\n  options.headers = (options.headers || {});\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\nclass WebAPI {\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "_performRequest",
+    "memberof": "lib/utilities/WebAPI.js",
+    "longname": "lib/utilities/WebAPI.js~_performRequest",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "method",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "url",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "WebAPI",
+    "memberof": "lib/utilities/WebAPI.js",
+    "longname": "lib/utilities/WebAPI.js~WebAPI",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 17,
+    "pseudoExport": true,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "get",
+    "memberof": "lib/utilities/WebAPI.js~WebAPI",
+    "longname": "lib/utilities/WebAPI.js~WebAPI#get",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "url",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "webAPI",
+    "memberof": "lib/utilities/WebAPI.js",
+    "longname": "lib/utilities/WebAPI.js~webAPI",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
+    "importStyle": "webAPI",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/utilities/WebAPI.js~WebAPI"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/__tests__/APIProxyTest.js",
+    "memberof": null,
+    "longname": "lib/utilities/__tests__/APIProxyTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../APIProxy\");\njest.dontMock(\"../../resources/Base\");\njest.dontMock(\"../../resources/Product\");\n\ndescribe(\"APIProxy\", () => {\n  var api, actions, store;\n\n  beforeEach(() => {\n    const APIProxy = require(\"../APIProxy\");\n\n    actions       = require(\"../../resources/Product\");\n    actions.fetch = jest.genMockFunction();\n\n    store = require(\"../../stores/Products\");\n    api   = new APIProxy(actions, store);\n  });\n\n  it(\"decorates the proxy object with api methods\", () => {\n    let apiMethods = actions.constructor.apiMethods;\n    apiMethods.forEach(method => expect(api[method]).toBeDefined(`${method} not defined`));\n  });\n\n  it(\"proxies api method calls to the action object\", () => {\n    api.fetch();\n    expect(actions.fetch).toBeCalled();\n  });\n\n  it(\"exposes a read-only property called store\", () => {\n    expect(api.store).toBe(store);\n    expect(() => api.store = null).toThrow();\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/__tests__/URLHelpersTest.js",
+    "memberof": null,
+    "longname": "lib/utilities/__tests__/URLHelpersTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../URLHelpers\");\n\ndescribe(\"URLHelpers\", () => {\n  var helpers = require(\"../URLHelpers\");\n\n  describe(\"#toQueryString\", () => {\n    it(\"returns falsy when the query is falsy\", () => {\n      expect(helpers.toQueryString()).toBeFalsy();\n      expect(helpers.toQueryString(\"\")).toBeFalsy();\n      expect(helpers.toQueryString(0)).toBeFalsy();\n      expect(helpers.toQueryString(null)).toBeFalsy();\n      expect(helpers.toQueryString(undefined)).toBeFalsy();\n    });\n\n    it(\"makes a query parameter for simple properties\", () => {\n      let query = { num: 0, type: \"thing\" };\n      expect(helpers.toQueryString(query)).toBe(\"num=0&type=thing\");\n    });\n\n    it(\"encodes query param values\", () => {\n      let query = { type: \"this-is&something special\" };\n      expect(helpers.toQueryString(query)).toBe(\"type=this-is%26something%20special\");\n    });\n\n    it(\"encodes arrays as comma-delimited strings\", () => {\n      let query = { ids: [1, 2, 3] };\n      expect(helpers.toQueryString(query)).toBe(\"ids=1%2C2%2C3\");\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/__tests__/WebAPITest.js",
+    "memberof": null,
+    "longname": "lib/utilities/__tests__/WebAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../WebAPI\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"WebAPI\", () => {\n  var SessionStore, WebAPI;\n\n  beforeEach(() => {\n    SessionStore = require(\"../../stores/Sessions\");\n    WebAPI       = require(\"../WebAPI\");\n\n    SessionStore.getDomain.mockReturnValue(\"example.myshopify.com\");\n    SessionStore.getAccessToken.mockReturnValue(\"my_token\");\n  });\n\n  describe(\"get\", () => {\n    var url, options;\n\n    beforeEach(() => {\n      WebAPI.get(\"/someurl\", { body: JSON.stringify({ param: \"value\" }) });\n\n      url     = fetch.mock.calls[0][0];\n      options = fetch.mock.calls[0][1];\n    });\n\n    afterEach(() => {\n      fetch.mockClear();\n    });\n\n    it(\"requests the specified URL using the GET method\", () => {\n      expect(url).toBe(\"https://example.myshopify.com/someurl\");\n      expect(options.method).toBe(\"get\");\n    });\n\n    it(\"sends request body along with the request\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(options.body).toBe(body);\n    });\n\n    it(\"adds the shopify token header\", () => {\n      expect(options.headers[Constants.OAUTH_HEADER]).toBe(\"my_token\");\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  }
+]
