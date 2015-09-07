@@ -1,0 +1,920 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "Literal",
+        "value": "use strict",
+        "raw": "\"use strict\"",
+        "range": [
+          0,
+          12
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 12
+          }
+        }
+      },
+      "range": [
+        0,
+        13
+      ],
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 13
+        }
+      }
+    },
+    {
+      "type": "ImportDeclaration",
+      "specifiers": [
+        {
+          "type": "ImportDefaultSpecifier",
+          "local": {
+            "type": "Identifier",
+            "name": "APIProxy",
+            "range": [
+              22,
+              30
+            ],
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 7
+              },
+              "end": {
+                "line": 3,
+                "column": 15
+              }
+            }
+          },
+          "range": [
+            22,
+            30
+          ],
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 7
+            },
+            "end": {
+              "line": 3,
+              "column": 15
+            }
+          }
+        }
+      ],
+      "source": {
+        "type": "Literal",
+        "value": "./utilities/APIProxy",
+        "raw": "\"./utilities/APIProxy\"",
+        "range": [
+          36,
+          58
+        ],
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 21
+          },
+          "end": {
+            "line": 3,
+            "column": 43
+          }
+        }
+      },
+      "range": [
+        15,
+        59
+      ],
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 44
+        }
+      }
+    },
+    {
+      "type": "ExportDefaultDeclaration",
+      "declaration": {
+        "type": "ObjectExpression",
+        "properties": [
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Order",
+              "range": [
+                80,
+                85
+              ],
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 2
+                },
+                "end": {
+                  "line": 6,
+                  "column": 7
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  94,
+                  102
+                ],
+                "loc": {
+                  "start": {
+                    "line": 6,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 6,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      103,
+                      110
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 6,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Order",
+                      "raw": "\"./resources/Order\"",
+                      "range": [
+                        111,
+                        130
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 6,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 52
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    103,
+                    131
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 6,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 53
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      133,
+                      140
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 6,
+                        "column": 55
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 62
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/OrdersStore",
+                      "raw": "\"./stores/OrdersStore\"",
+                      "range": [
+                        141,
+                        163
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 6,
+                          "column": 63
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 85
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    133,
+                    164
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 6,
+                      "column": 55
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 86
+                    }
+                  }
+                }
+              ],
+              "range": [
+                90,
+                165
+              ],
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 12
+                },
+                "end": {
+                  "line": 6,
+                  "column": 87
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              80,
+              165
+            ],
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 87
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Product",
+              "range": [
+                169,
+                176
+              ],
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 2
+                },
+                "end": {
+                  "line": 7,
+                  "column": 9
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  183,
+                  191
+                ],
+                "loc": {
+                  "start": {
+                    "line": 7,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      192,
+                      199
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 7,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Product",
+                      "raw": "\"./resources/Product\"",
+                      "range": [
+                        200,
+                        221
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 7,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 54
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    192,
+                    222
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 7,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 55
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      224,
+                      231
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 7,
+                        "column": 57
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 64
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/ProductsStore",
+                      "raw": "\"./stores/ProductsStore\"",
+                      "range": [
+                        232,
+                        256
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 7,
+                          "column": 65
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 89
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    224,
+                    257
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 7,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 90
+                    }
+                  }
+                }
+              ],
+              "range": [
+                179,
+                258
+              ],
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 12
+                },
+                "end": {
+                  "line": 7,
+                  "column": 91
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              169,
+              258
+            ],
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 2
+              },
+              "end": {
+                "line": 7,
+                "column": 91
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Session",
+              "range": [
+                262,
+                269
+              ],
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 2
+                },
+                "end": {
+                  "line": 8,
+                  "column": 9
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  276,
+                  284
+                ],
+                "loc": {
+                  "start": {
+                    "line": 8,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      285,
+                      292
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 8,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Session",
+                      "raw": "\"./resources/Session\"",
+                      "range": [
+                        293,
+                        314
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 8,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 54
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    285,
+                    315
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 8,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 55
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      317,
+                      324
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 8,
+                        "column": 57
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 64
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/SessionStore",
+                      "raw": "\"./stores/SessionStore\"",
+                      "range": [
+                        325,
+                        348
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 8,
+                          "column": 65
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 88
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    317,
+                    349
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 8,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 89
+                    }
+                  }
+                }
+              ],
+              "range": [
+                272,
+                350
+              ],
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 12
+                },
+                "end": {
+                  "line": 8,
+                  "column": 90
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              262,
+              350
+            ],
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 2
+              },
+              "end": {
+                "line": 8,
+                "column": 90
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Shop",
+              "range": [
+                354,
+                358
+              ],
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 2
+                },
+                "end": {
+                  "line": 9,
+                  "column": 6
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  368,
+                  376
+                ],
+                "loc": {
+                  "start": {
+                    "line": 9,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      377,
+                      384
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Shop",
+                      "raw": "\"./resources/Shop\"",
+                      "range": [
+                        385,
+                        403
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 51
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    377,
+                    404
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 52
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      406,
+                      413
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 54
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 61
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/ShopStore",
+                      "raw": "\"./stores/ShopStore\"",
+                      "range": [
+                        414,
+                        434
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 62
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 82
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    406,
+                    435
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 54
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 83
+                    }
+                  }
+                }
+              ],
+              "range": [
+                364,
+                436
+              ],
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 12
+                },
+                "end": {
+                  "line": 9,
+                  "column": 84
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              354,
+              436
+            ],
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 2
+              },
+              "end": {
+                "line": 9,
+                "column": 84
+              }
+            }
+          }
+        ],
+        "range": [
+          76,
+          438
+        ],
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 15
+          },
+          "end": {
+            "line": 10,
+            "column": 1
+          }
+        },
+        "leadingComments": [],
+        "trailingComments": []
+      },
+      "range": [
+        61,
+        439
+      ],
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 2
+        }
+      }
+    }
+  ],
+  "sourceType": "module",
+  "range": [
+    0,
+    439
+  ],
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 10,
+      "column": 2
+    }
+  },
+  "comments": []
+}

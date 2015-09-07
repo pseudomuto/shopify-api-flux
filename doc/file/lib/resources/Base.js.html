@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/resources/Base.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/pseudomuto/shopify-api-flux.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ProductsStore.js~ProductsStore.html">ProductsStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Session.js~Session.html">Session</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="typedefWrap">
+  <h2><a href="typedef/">Typedef</a></h2>
+  <ul>
+    
+  <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-SuccessfulRequestCallback">SuccessfulRequestCallback</a></span></li>
+</ul>
+</div>
+
+<div data-ice="externalWrap">
+  <h2>External</h2>
+  <ul>
+    
+  <li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js">FluxMapStore</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://lodash.com/docs#where">QueryObject</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js">Store</a></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/Base.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
+
+import Api           from &quot;../utilities/WebAPI&quot;;
+import APIDispatcher from &quot;../dispatcher/APIDispatcher&quot;;
+import Constants     from &quot;../Constants&quot;;
+import URLHelpers    from &quot;../utilities/URLHelpers&quot;;
+
+/**
+ * An object representing a resource query.
+ *
+ * Can be one of the following:
+ *   * `number` - Assumes the value is a resource id
+ *   * `string` - Assumes the value is a resource id
+ *   * `object` - Will be converted to a query string
+ * @typedef {number|string|object} ResourceQuery
+ */
+
+function isPrimitive(value) {
+  return [&quot;number&quot;, &quot;string&quot;].indexOf(typeof value) &gt;= 0;
+}
+
+/**
+ * A base class for API resources. This class is meant to be subclassed and have it&apos;s `apiMethods` method overridden to
+ * include all methods that should be made available to consumers.
+ *
+ * @example
+ * import Base from &quot;./Base&quot;;
+ *
+ * class Thing extends Base {
+ *   constructor() {
+ *     super(&quot;thing&quot;)
+ *   }
+ *
+ *   static get apiMethods() {
+ *     return super.apiMethods.concat([&quot;fetchAllTheThings&quot;]);
+ *   }
+ *
+ *   fetchAllTheThings() {
+ *     return this.fetch(&quot;/admin/things.json&quot;);
+ *   }
+ * }
+ */
+export default class {
+  /**
+   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource
+   * which will be used to infer the merge and clear actions to be dispatched.
+   *
+   * @param {string} resourceName - The singular name for the resource (e.g. `product`)
+   */
+  constructor(resourceName) {
+    this._resource     = resourceName;
+    this._resources    = `${resourceName}s`;
+    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];
+    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];
+  }
+
+  /**
+   * An array of methods to be exposed via {@link APIProxy}
+   *
+   * @return {Array&lt;string&gt;} The names of all methods to be made available
+   */
+  static get apiMethods() {
+    return [&quot;clear&quot;, &quot;fetch&quot;];
+  }
+
+  /**
+   * Performs a GET request for the specified query.
+   *
+   * @param {ResourceQuery} [query]
+   *
+   * @return {RequestPromise}
+   */
+  fetch(query) {
+    let url      = this.urlFor(query);
+    let dispatch = this._dispatchMerge.bind(this);
+    let resource = isPrimitive(query) ? this._resource : this._resources;
+
+    return Api.get(url).then(response =&gt; dispatch(response[resource]));
+  }
+
+  /**
+   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.
+   */
+  clear() {
+    APIDispatcher.dispatch({ actionType: this._clearAction });
+  }
+
+  /**
+   * @protected
+   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query
+   * string.
+   *
+   * @param {ResourceQuery} [query]
+   *
+   * @return {string} The resource URL for the specified query
+   *
+   * @example
+   * import Base from &quot;./Base&quot;;
+   *
+   * let instance = new Base(&quot;product&quot;);
+   *
+   * instance.urlFor();                            // `/admin/products.json`
+   * instance.urlFor(1);                           // `/admin/products/1.json`
+   * instance.urlFor(&quot;1&quot;);                         // `/admin/products/1.json`
+   * instance.urlFor({ fields: [&quot;id&quot;, &quot;title&quot;] }); // `/admin/products.json?fields=id,title
+   */
+  urlFor(query) {
+    if (isPrimitive(query)) {
+      return `/admin/${this._resources}/${query}.json`;
+    }
+
+    let url    = `/admin/${this._resources}.json`;
+    let params = URLHelpers.toQueryString(query);
+    return params ? `${url}?${params}` : url;
+  }
+
+  _dispatchMerge(items) {
+    if (!Array.isArray(items)) {
+      items = [items];
+    }
+
+    let actionType = this._mergeAction;
+    APIDispatcher.dispatch({ actionType, items });
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.2.5)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
