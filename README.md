@@ -1,12 +1,31 @@
 # Shopify API Flux
 
-[![Build Status](https://travis-ci.org/pseudomuto/shopify-api-flux.svg?branch=master)](https://travis-ci.org/pseudomuto/shopify-api-flux)
+[![Build Status](https://travis-ci.org/pseudomuto/shopify-api-flux.svg?branch=master)](https://travis-ci.org/pseudomuto/shopify-api-flux) [![npm version](https://badge.fury.io/js/shopify-api-flux.svg)](http://badge.fury.io/js/shopify-api-flux)
 
-A flux version of the Shopify API.
+A flux implementation of the Shopify API.
 
-**THIS IS SO FAR FROM BEING READY THAT YOU MIGHT NOT EVEN WANT TO TRY IT YET**
+## Installation
+
+```sh
+npm install --save shopify-api-flux
+```
 
 ## Usage
+
+This project uses ES6 (via Babel et al.). So the examples are in ES6. However, since the distribution (and main file in
+package.json) is actually compiled down to ES5, you should be able to use this in your ES5 projects without issue.
+
+Please let me know (or open a PR) if this is not the case.
+
+### Examples
+
+Currently, there is only one example but I intend to add more over time. For now there is a react native app in the
+examples/native directory that demonstrates creating and storing a session as well as fetching orders, products and shop
+details.
+
+This will get fleshed out more as the API comes closer to complete.
+
+### Quick Start
 
 ```javascript
 import ShopifyAPI from "shopify-api-flux";
