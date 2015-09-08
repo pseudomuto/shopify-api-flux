@@ -12,6 +12,11 @@ requests!
 * `npm test resources` - run only the tests in resources
 * `npm run ci` - lint and run all tests
 
+### Generating the Distribution and Documentation
+
+* `npm run doc` - Generates the documentation in `doc/`
+* `npm run build` - Generates the distribution (ES5) script in `dist/` and also generates the documentation.
+
 ### Releasing
 
 Travis is configured to push a new version to NPM whenever a tag is pushed. To push a new version, run the following
