@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -84,22 +87,23 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/stores/OrdersStore.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-import APIDispatcher from &quot;../dispatcher/APIDispatcher&quot;;
-import BaseStore     from &quot;./BaseStore&quot;;
-import Constants     from &quot;../Constants&quot;;
+import Actions        from &quot;../utilities/Actions&quot;;
+import APIDispatcher  from &quot;../dispatcher/APIDispatcher&quot;;
+import CountableStore from &quot;./CountableStore&quot;;
 
 /**
  * The Orders store
  *
- * @extends {BaseStore}
+ * @extends {CountableStore}
  */
-class OrdersStore extends BaseStore {
+class OrdersStore extends CountableStore {
   /**
-   * Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively
+   * Sets the dispatcher and appropriate actions for orders
+   *
    * @param {APIDispatcher} dispatcher - The dispatcher to register with
    */
   constructor(dispatcher) {
-    super(dispatcher, Constants.Actions.MERGE_ORDERS, Constants.Actions.CLEAR_ORDERS);
+    super(dispatcher, new Actions(&quot;orders&quot;));
   }
 }
 

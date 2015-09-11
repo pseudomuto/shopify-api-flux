@@ -238,11 +238,30 @@
                               "column": 17
                             }
                           }
+                        },
+                        {
+                          "type": "Literal",
+                          "value": true,
+                          "raw": "true",
+                          "range": [
+                            159,
+                            163
+                          ],
+                          "loc": {
+                            "start": {
+                              "line": 12,
+                              "column": 19
+                            },
+                            "end": {
+                              "line": 12,
+                              "column": 23
+                            }
+                          }
                         }
                       ],
                       "range": [
                         144,
-                        158
+                        164
                       ],
                       "loc": {
                         "start": {
@@ -251,13 +270,13 @@
                         },
                         "end": {
                           "line": 12,
-                          "column": 18
+                          "column": 24
                         }
                       }
                     },
                     "range": [
                       144,
-                      159
+                      165
                     ],
                     "loc": {
                       "start": {
@@ -266,14 +285,14 @@
                       },
                       "end": {
                         "line": 12,
-                        "column": 19
+                        "column": 25
                       }
                     }
                   }
                 ],
                 "range": [
                   138,
-                  163
+                  169
                 ],
                 "loc": {
                   "start": {
@@ -290,7 +309,7 @@
               "expression": false,
               "range": [
                 135,
-                163
+                169
               ],
               "loc": {
                 "start": {
@@ -307,7 +326,7 @@
             "computed": false,
             "range": [
               124,
-              163
+              169
             ],
             "loc": {
               "start": {
@@ -324,8 +343,8 @@
                 "type": "Block",
                 "value": "*\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   ",
                 "range": [
-                  167,
-                  331
+                  173,
+                  337
                 ],
                 "loc": {
                   "start": {
@@ -347,17 +366,17 @@
               "type": "Identifier",
               "name": "apiMethods",
               "range": [
-                345,
-                355
+                344,
+                354
               ],
               "loc": {
                 "start": {
                   "line": 21,
-                  "column": 13
+                  "column": 6
                 },
                 "end": {
                   "line": 21,
-                  "column": 23
+                  "column": 16
                 }
               }
             },
@@ -381,8 +400,8 @@
                           "object": {
                             "type": "Super",
                             "range": [
-                              371,
-                              376
+                              370,
+                              375
                             ],
                             "loc": {
                               "start": {
@@ -399,8 +418,8 @@
                             "type": "Identifier",
                             "name": "apiMethods",
                             "range": [
-                              377,
-                              387
+                              376,
+                              386
                             ],
                             "loc": {
                               "start": {
@@ -414,8 +433,8 @@
                             }
                           },
                           "range": [
-                            371,
-                            387
+                            370,
+                            386
                           ],
                           "loc": {
                             "start": {
@@ -432,8 +451,8 @@
                           "type": "Identifier",
                           "name": "concat",
                           "range": [
-                            388,
-                            394
+                            387,
+                            393
                           ],
                           "loc": {
                             "start": {
@@ -447,8 +466,8 @@
                           }
                         },
                         "range": [
-                          371,
-                          394
+                          370,
+                          393
                         ],
                         "loc": {
                           "start": {
@@ -470,8 +489,8 @@
                               "value": "fetchAuthorized",
                               "raw": "\"fetchAuthorized\"",
                               "range": [
-                                396,
-                                413
+                                395,
+                                412
                               ],
                               "loc": {
                                 "start": {
@@ -489,8 +508,8 @@
                               "value": "fetchAllSince",
                               "raw": "\"fetchAllSince\"",
                               "range": [
-                                415,
-                                430
+                                414,
+                                429
                               ],
                               "loc": {
                                 "start": {
@@ -505,8 +524,8 @@
                             }
                           ],
                           "range": [
-                            395,
-                            431
+                            394,
+                            430
                           ],
                           "loc": {
                             "start": {
@@ -521,8 +540,8 @@
                         }
                       ],
                       "range": [
-                        371,
-                        432
+                        370,
+                        431
                       ],
                       "loc": {
                         "start": {
@@ -536,8 +555,8 @@
                       }
                     },
                     "range": [
-                      364,
-                      433
+                      363,
+                      432
                     ],
                     "loc": {
                       "start": {
@@ -552,13 +571,13 @@
                   }
                 ],
                 "range": [
-                  358,
-                  437
+                  357,
+                  436
                 ],
                 "loc": {
                   "start": {
                     "line": 21,
-                    "column": 26
+                    "column": 19
                   },
                   "end": {
                     "line": 23,
@@ -569,13 +588,13 @@
               "generator": false,
               "expression": false,
               "range": [
-                355,
-                437
+                354,
+                436
               ],
               "loc": {
                 "start": {
                   "line": 21,
-                  "column": 23
+                  "column": 16
                 },
                 "end": {
                   "line": 23,
@@ -586,8 +605,8 @@
             "kind": "get",
             "computed": false,
             "range": [
-              334,
-              437
+              340,
+              436
             ],
             "loc": {
               "start": {
@@ -604,8 +623,8 @@
                 "type": "Block",
                 "value": "*\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   ",
                 "range": [
-                  167,
-                  331
+                  173,
+                  337
                 ],
                 "loc": {
                   "start": {
@@ -624,8 +643,8 @@
                 "type": "Block",
                 "value": "*\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   ",
                 "range": [
-                  441,
-                  527
+                  440,
+                  526
                 ],
                 "loc": {
                   "start": {
@@ -639,7 +658,7 @@
                 }
               }
             ],
-            "static": true
+            "static": false
           },
           {
             "type": "MethodDefinition",
@@ -647,8 +666,8 @@
               "type": "Identifier",
               "name": "fetchAuthorized",
               "range": [
-                530,
-                545
+                529,
+                544
               ],
               "loc": {
                 "start": {
@@ -678,8 +697,8 @@
                         "object": {
                           "type": "ThisExpression",
                           "range": [
-                            561,
-                            565
+                            560,
+                            564
                           ],
                           "loc": {
                             "start": {
@@ -696,8 +715,8 @@
                           "type": "Identifier",
                           "name": "fetch",
                           "range": [
-                            566,
-                            571
+                            565,
+                            570
                           ],
                           "loc": {
                             "start": {
@@ -711,8 +730,8 @@
                           }
                         },
                         "range": [
-                          561,
-                          571
+                          560,
+                          570
                         ],
                         "loc": {
                           "start": {
@@ -735,8 +754,8 @@
                                 "type": "Identifier",
                                 "name": "financial_status",
                                 "range": [
-                                  574,
-                                  590
+                                  573,
+                                  589
                                 ],
                                 "loc": {
                                   "start": {
@@ -754,8 +773,8 @@
                                 "value": "authorized",
                                 "raw": "\"authorized\"",
                                 "range": [
-                                  592,
-                                  604
+                                  591,
+                                  603
                                 ],
                                 "loc": {
                                   "start": {
@@ -773,8 +792,8 @@
                               "shorthand": false,
                               "computed": false,
                               "range": [
-                                574,
-                                604
+                                573,
+                                603
                               ],
                               "loc": {
                                 "start": {
@@ -789,8 +808,8 @@
                             }
                           ],
                           "range": [
-                            572,
-                            606
+                            571,
+                            605
                           ],
                           "loc": {
                             "start": {
@@ -805,8 +824,8 @@
                         }
                       ],
                       "range": [
-                        561,
-                        607
+                        560,
+                        606
                       ],
                       "loc": {
                         "start": {
@@ -820,8 +839,8 @@
                       }
                     },
                     "range": [
-                      554,
-                      608
+                      553,
+                      607
                     ],
                     "loc": {
                       "start": {
@@ -836,8 +855,8 @@
                   }
                 ],
                 "range": [
-                  548,
-                  612
+                  547,
+                  611
                 ],
                 "loc": {
                   "start": {
@@ -853,8 +872,8 @@
               "generator": false,
               "expression": false,
               "range": [
-                545,
-                612
+                544,
+                611
               ],
               "loc": {
                 "start": {
@@ -870,8 +889,8 @@
             "kind": "method",
             "computed": false,
             "range": [
-              530,
-              612
+              529,
+              611
             ],
             "loc": {
               "start": {
@@ -888,8 +907,8 @@
                 "type": "Block",
                 "value": "*\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   ",
                 "range": [
-                  441,
-                  527
+                  440,
+                  526
                 ],
                 "loc": {
                   "start": {
@@ -908,8 +927,8 @@
                 "type": "Block",
                 "value": "*\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   ",
                 "range": [
-                  616,
-                  794
+                  615,
+                  793
                 ],
                 "loc": {
                   "start": {
@@ -931,8 +950,8 @@
               "type": "Identifier",
               "name": "fetchAllSince",
               "range": [
-                797,
-                810
+                796,
+                809
               ],
               "loc": {
                 "start": {
@@ -953,8 +972,8 @@
                   "type": "Identifier",
                   "name": "id",
                   "range": [
-                    811,
-                    813
+                    810,
+                    812
                   ],
                   "loc": {
                     "start": {
@@ -981,8 +1000,8 @@
                         "object": {
                           "type": "ThisExpression",
                           "range": [
-                            828,
-                            832
+                            827,
+                            831
                           ],
                           "loc": {
                             "start": {
@@ -999,8 +1018,8 @@
                           "type": "Identifier",
                           "name": "fetch",
                           "range": [
-                            833,
-                            838
+                            832,
+                            837
                           ],
                           "loc": {
                             "start": {
@@ -1014,8 +1033,8 @@
                           }
                         },
                         "range": [
-                          828,
-                          838
+                          827,
+                          837
                         ],
                         "loc": {
                           "start": {
@@ -1038,8 +1057,8 @@
                                 "type": "Identifier",
                                 "name": "since_id",
                                 "range": [
-                                  841,
-                                  849
+                                  840,
+                                  848
                                 ],
                                 "loc": {
                                   "start": {
@@ -1056,8 +1075,8 @@
                                 "type": "Identifier",
                                 "name": "id",
                                 "range": [
-                                  851,
-                                  853
+                                  850,
+                                  852
                                 ],
                                 "loc": {
                                   "start": {
@@ -1075,8 +1094,8 @@
                               "shorthand": false,
                               "computed": false,
                               "range": [
-                                841,
-                                853
+                                840,
+                                852
                               ],
                               "loc": {
                                 "start": {
@@ -1091,8 +1110,8 @@
                             }
                           ],
                           "range": [
-                            839,
-                            855
+                            838,
+                            854
                           ],
                           "loc": {
                             "start": {
@@ -1107,8 +1126,8 @@
                         }
                       ],
                       "range": [
-                        828,
-                        856
+                        827,
+                        855
                       ],
                       "loc": {
                         "start": {
@@ -1122,8 +1141,8 @@
                       }
                     },
                     "range": [
-                      821,
-                      857
+                      820,
+                      856
                     ],
                     "loc": {
                       "start": {
@@ -1138,8 +1157,8 @@
                   }
                 ],
                 "range": [
-                  815,
-                  861
+                  814,
+                  860
                 ],
                 "loc": {
                   "start": {
@@ -1155,8 +1174,8 @@
               "generator": false,
               "expression": false,
               "range": [
-                810,
-                861
+                809,
+                860
               ],
               "loc": {
                 "start": {
@@ -1172,8 +1191,8 @@
             "kind": "method",
             "computed": false,
             "range": [
-              797,
-              861
+              796,
+              860
             ],
             "loc": {
               "start": {
@@ -1190,8 +1209,8 @@
                 "type": "Block",
                 "value": "*\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   ",
                 "range": [
-                  616,
-                  794
+                  615,
+                  793
                 ],
                 "loc": {
                   "start": {
@@ -1210,7 +1229,7 @@
         ],
         "range": [
           120,
-          863
+          862
         ],
         "loc": {
           "start": {
@@ -1225,7 +1244,7 @@
       },
       "range": [
         95,
-        863
+        862
       ],
       "loc": {
         "start": {
@@ -1249,8 +1268,8 @@
           "type": "Identifier",
           "name": "Order",
           "range": [
-            899,
-            904
+            898,
+            903
           ],
           "loc": {
             "start": {
@@ -1265,8 +1284,8 @@
         },
         "arguments": [],
         "range": [
-          895,
-          906
+          894,
+          905
         ],
         "loc": {
           "start": {
@@ -1280,8 +1299,8 @@
         }
       },
       "range": [
-        880,
-        907
+        879,
+        906
       ],
       "loc": {
         "start": {
@@ -1407,11 +1426,30 @@
                                 "column": 17
                               }
                             }
+                          },
+                          {
+                            "type": "Literal",
+                            "value": true,
+                            "raw": "true",
+                            "range": [
+                              159,
+                              163
+                            ],
+                            "loc": {
+                              "start": {
+                                "line": 12,
+                                "column": 19
+                              },
+                              "end": {
+                                "line": 12,
+                                "column": 23
+                              }
+                            }
                           }
                         ],
                         "range": [
                           144,
-                          158
+                          164
                         ],
                         "loc": {
                           "start": {
@@ -1420,13 +1458,13 @@
                           },
                           "end": {
                             "line": 12,
-                            "column": 18
+                            "column": 24
                           }
                         }
                       },
                       "range": [
                         144,
-                        159
+                        165
                       ],
                       "loc": {
                         "start": {
@@ -1435,14 +1473,14 @@
                         },
                         "end": {
                           "line": 12,
-                          "column": 19
+                          "column": 25
                         }
                       }
                     }
                   ],
                   "range": [
                     138,
-                    163
+                    169
                   ],
                   "loc": {
                     "start": {
@@ -1459,7 +1497,7 @@
                 "expression": false,
                 "range": [
                   135,
-                  163
+                  169
                 ],
                 "loc": {
                   "start": {
@@ -1476,7 +1514,7 @@
               "computed": false,
               "range": [
                 124,
-                163
+                169
               ],
               "loc": {
                 "start": {
@@ -1493,8 +1531,8 @@
                   "type": "Block",
                   "value": "*\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   ",
                   "range": [
-                    167,
-                    331
+                    173,
+                    337
                   ],
                   "loc": {
                     "start": {
@@ -1516,17 +1554,17 @@
                 "type": "Identifier",
                 "name": "apiMethods",
                 "range": [
-                  345,
-                  355
+                  344,
+                  354
                 ],
                 "loc": {
                   "start": {
                     "line": 21,
-                    "column": 13
+                    "column": 6
                   },
                   "end": {
                     "line": 21,
-                    "column": 23
+                    "column": 16
                   }
                 }
               },
@@ -1550,8 +1588,8 @@
                             "object": {
                               "type": "Super",
                               "range": [
-                                371,
-                                376
+                                370,
+                                375
                               ],
                               "loc": {
                                 "start": {
@@ -1568,8 +1606,8 @@
                               "type": "Identifier",
                               "name": "apiMethods",
                               "range": [
-                                377,
-                                387
+                                376,
+                                386
                               ],
                               "loc": {
                                 "start": {
@@ -1583,8 +1621,8 @@
                               }
                             },
                             "range": [
-                              371,
-                              387
+                              370,
+                              386
                             ],
                             "loc": {
                               "start": {
@@ -1601,8 +1639,8 @@
                             "type": "Identifier",
                             "name": "concat",
                             "range": [
-                              388,
-                              394
+                              387,
+                              393
                             ],
                             "loc": {
                               "start": {
@@ -1616,8 +1654,8 @@
                             }
                           },
                           "range": [
-                            371,
-                            394
+                            370,
+                            393
                           ],
                           "loc": {
                             "start": {
@@ -1639,8 +1677,8 @@
                                 "value": "fetchAuthorized",
                                 "raw": "\"fetchAuthorized\"",
                                 "range": [
-                                  396,
-                                  413
+                                  395,
+                                  412
                                 ],
                                 "loc": {
                                   "start": {
@@ -1658,8 +1696,8 @@
                                 "value": "fetchAllSince",
                                 "raw": "\"fetchAllSince\"",
                                 "range": [
-                                  415,
-                                  430
+                                  414,
+                                  429
                                 ],
                                 "loc": {
                                   "start": {
@@ -1674,8 +1712,8 @@
                               }
                             ],
                             "range": [
-                              395,
-                              431
+                              394,
+                              430
                             ],
                             "loc": {
                               "start": {
@@ -1690,8 +1728,8 @@
                           }
                         ],
                         "range": [
-                          371,
-                          432
+                          370,
+                          431
                         ],
                         "loc": {
                           "start": {
@@ -1705,8 +1743,8 @@
                         }
                       },
                       "range": [
-                        364,
-                        433
+                        363,
+                        432
                       ],
                       "loc": {
                         "start": {
@@ -1721,13 +1759,13 @@
                     }
                   ],
                   "range": [
-                    358,
-                    437
+                    357,
+                    436
                   ],
                   "loc": {
                     "start": {
                       "line": 21,
-                      "column": 26
+                      "column": 19
                     },
                     "end": {
                       "line": 23,
@@ -1738,13 +1776,13 @@
                 "generator": false,
                 "expression": false,
                 "range": [
-                  355,
-                  437
+                  354,
+                  436
                 ],
                 "loc": {
                   "start": {
                     "line": 21,
-                    "column": 23
+                    "column": 16
                   },
                   "end": {
                     "line": 23,
@@ -1755,8 +1793,8 @@
               "kind": "get",
               "computed": false,
               "range": [
-                334,
-                437
+                340,
+                436
               ],
               "loc": {
                 "start": {
@@ -1773,8 +1811,8 @@
                   "type": "Block",
                   "value": "*\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   ",
                   "range": [
-                    167,
-                    331
+                    173,
+                    337
                   ],
                   "loc": {
                     "start": {
@@ -1793,8 +1831,8 @@
                   "type": "Block",
                   "value": "*\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   ",
                   "range": [
-                    441,
-                    527
+                    440,
+                    526
                   ],
                   "loc": {
                     "start": {
@@ -1808,7 +1846,7 @@
                   }
                 }
               ],
-              "static": true
+              "static": false
             },
             {
               "type": "MethodDefinition",
@@ -1816,8 +1854,8 @@
                 "type": "Identifier",
                 "name": "fetchAuthorized",
                 "range": [
-                  530,
-                  545
+                  529,
+                  544
                 ],
                 "loc": {
                   "start": {
@@ -1847,8 +1885,8 @@
                           "object": {
                             "type": "ThisExpression",
                             "range": [
-                              561,
-                              565
+                              560,
+                              564
                             ],
                             "loc": {
                               "start": {
@@ -1865,8 +1903,8 @@
                             "type": "Identifier",
                             "name": "fetch",
                             "range": [
-                              566,
-                              571
+                              565,
+                              570
                             ],
                             "loc": {
                               "start": {
@@ -1880,8 +1918,8 @@
                             }
                           },
                           "range": [
-                            561,
-                            571
+                            560,
+                            570
                           ],
                           "loc": {
                             "start": {
@@ -1904,8 +1942,8 @@
                                   "type": "Identifier",
                                   "name": "financial_status",
                                   "range": [
-                                    574,
-                                    590
+                                    573,
+                                    589
                                   ],
                                   "loc": {
                                     "start": {
@@ -1923,8 +1961,8 @@
                                   "value": "authorized",
                                   "raw": "\"authorized\"",
                                   "range": [
-                                    592,
-                                    604
+                                    591,
+                                    603
                                   ],
                                   "loc": {
                                     "start": {
@@ -1942,8 +1980,8 @@
                                 "shorthand": false,
                                 "computed": false,
                                 "range": [
-                                  574,
-                                  604
+                                  573,
+                                  603
                                 ],
                                 "loc": {
                                   "start": {
@@ -1958,8 +1996,8 @@
                               }
                             ],
                             "range": [
-                              572,
-                              606
+                              571,
+                              605
                             ],
                             "loc": {
                               "start": {
@@ -1974,8 +2012,8 @@
                           }
                         ],
                         "range": [
-                          561,
-                          607
+                          560,
+                          606
                         ],
                         "loc": {
                           "start": {
@@ -1989,8 +2027,8 @@
                         }
                       },
                       "range": [
-                        554,
-                        608
+                        553,
+                        607
                       ],
                       "loc": {
                         "start": {
@@ -2005,8 +2043,8 @@
                     }
                   ],
                   "range": [
-                    548,
-                    612
+                    547,
+                    611
                   ],
                   "loc": {
                     "start": {
@@ -2022,8 +2060,8 @@
                 "generator": false,
                 "expression": false,
                 "range": [
-                  545,
-                  612
+                  544,
+                  611
                 ],
                 "loc": {
                   "start": {
@@ -2039,8 +2077,8 @@
               "kind": "method",
               "computed": false,
               "range": [
-                530,
-                612
+                529,
+                611
               ],
               "loc": {
                 "start": {
@@ -2057,8 +2095,8 @@
                   "type": "Block",
                   "value": "*\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   ",
                   "range": [
-                    441,
-                    527
+                    440,
+                    526
                   ],
                   "loc": {
                     "start": {
@@ -2077,8 +2115,8 @@
                   "type": "Block",
                   "value": "*\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   ",
                   "range": [
-                    616,
-                    794
+                    615,
+                    793
                   ],
                   "loc": {
                     "start": {
@@ -2100,8 +2138,8 @@
                 "type": "Identifier",
                 "name": "fetchAllSince",
                 "range": [
-                  797,
-                  810
+                  796,
+                  809
                 ],
                 "loc": {
                   "start": {
@@ -2122,8 +2160,8 @@
                     "type": "Identifier",
                     "name": "id",
                     "range": [
-                      811,
-                      813
+                      810,
+                      812
                     ],
                     "loc": {
                       "start": {
@@ -2150,8 +2188,8 @@
                           "object": {
                             "type": "ThisExpression",
                             "range": [
-                              828,
-                              832
+                              827,
+                              831
                             ],
                             "loc": {
                               "start": {
@@ -2168,8 +2206,8 @@
                             "type": "Identifier",
                             "name": "fetch",
                             "range": [
-                              833,
-                              838
+                              832,
+                              837
                             ],
                             "loc": {
                               "start": {
@@ -2183,8 +2221,8 @@
                             }
                           },
                           "range": [
-                            828,
-                            838
+                            827,
+                            837
                           ],
                           "loc": {
                             "start": {
@@ -2207,8 +2245,8 @@
                                   "type": "Identifier",
                                   "name": "since_id",
                                   "range": [
-                                    841,
-                                    849
+                                    840,
+                                    848
                                   ],
                                   "loc": {
                                     "start": {
@@ -2225,8 +2263,8 @@
                                   "type": "Identifier",
                                   "name": "id",
                                   "range": [
-                                    851,
-                                    853
+                                    850,
+                                    852
                                   ],
                                   "loc": {
                                     "start": {
@@ -2244,8 +2282,8 @@
                                 "shorthand": false,
                                 "computed": false,
                                 "range": [
-                                  841,
-                                  853
+                                  840,
+                                  852
                                 ],
                                 "loc": {
                                   "start": {
@@ -2260,8 +2298,8 @@
                               }
                             ],
                             "range": [
-                              839,
-                              855
+                              838,
+                              854
                             ],
                             "loc": {
                               "start": {
@@ -2276,8 +2314,8 @@
                           }
                         ],
                         "range": [
-                          828,
-                          856
+                          827,
+                          855
                         ],
                         "loc": {
                           "start": {
@@ -2291,8 +2329,8 @@
                         }
                       },
                       "range": [
-                        821,
-                        857
+                        820,
+                        856
                       ],
                       "loc": {
                         "start": {
@@ -2307,8 +2345,8 @@
                     }
                   ],
                   "range": [
-                    815,
-                    861
+                    814,
+                    860
                   ],
                   "loc": {
                     "start": {
@@ -2324,8 +2362,8 @@
                 "generator": false,
                 "expression": false,
                 "range": [
-                  810,
-                  861
+                  809,
+                  860
                 ],
                 "loc": {
                   "start": {
@@ -2341,8 +2379,8 @@
               "kind": "method",
               "computed": false,
               "range": [
-                797,
-                861
+                796,
+                860
               ],
               "loc": {
                 "start": {
@@ -2359,8 +2397,8 @@
                   "type": "Block",
                   "value": "*\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   ",
                   "range": [
-                    616,
-                    794
+                    615,
+                    793
                   ],
                   "loc": {
                     "start": {
@@ -2379,7 +2417,7 @@
           ],
           "range": [
             120,
-            863
+            862
           ],
           "loc": {
             "start": {
@@ -2394,7 +2432,7 @@
         },
         "range": [
           95,
-          863
+          862
         ],
         "loc": {
           "start": {
@@ -2431,8 +2469,8 @@
             "type": "Block",
             "value": "* @ignore ",
             "range": [
-              865,
-              879
+              864,
+              878
             ],
             "loc": {
               "start": {
@@ -2449,8 +2487,8 @@
         "__esdoc__pseudo_export": true
       },
       "range": [
-        880,
-        907
+        879,
+        906
       ],
       "loc": {
         "start": {
@@ -2500,8 +2538,8 @@
             "type": "Block",
             "value": "* @ignore ",
             "range": [
-              865,
-              879
+              864,
+              878
             ],
             "loc": {
               "start": {
@@ -2518,8 +2556,8 @@
         "trailingComments": []
       },
       "range": [
-        880,
-        907
+        879,
+        906
       ],
       "loc": {
         "start": {
@@ -2536,8 +2574,8 @@
           "type": "Block",
           "value": "* @ignore ",
           "range": [
-            865,
-            879
+            864,
+            878
           ],
           "loc": {
             "start": {
@@ -2556,7 +2594,7 @@
   "sourceType": "module",
   "range": [
     0,
-    907
+    906
   ],
   "loc": {
     "start": {
@@ -2591,8 +2629,8 @@
       "type": "Block",
       "value": "*\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   ",
       "range": [
-        167,
-        331
+        173,
+        337
       ],
       "loc": {
         "start": {
@@ -2609,8 +2647,8 @@
       "type": "Block",
       "value": "*\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   ",
       "range": [
-        441,
-        527
+        440,
+        526
       ],
       "loc": {
         "start": {
@@ -2627,8 +2665,8 @@
       "type": "Block",
       "value": "*\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   ",
       "range": [
-        616,
-        794
+        615,
+        793
       ],
       "loc": {
         "start": {
@@ -2645,8 +2683,8 @@
       "type": "Block",
       "value": "* @ignore ",
       "range": [
-        865,
-        879
+        864,
+        878
       ],
       "loc": {
         "start": {

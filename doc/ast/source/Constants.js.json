@@ -453,10 +453,10 @@
                       "type": "Property",
                       "key": {
                         "type": "Identifier",
-                        "name": "MERGE_PRODUCTS",
+                        "name": "MERGE_ORDERS",
                         "range": [
                           230,
-                          244
+                          242
                         ],
                         "loc": {
                           "start": {
@@ -465,7 +465,7 @@
                           },
                           "end": {
                             "line": 15,
-                            "column": 18
+                            "column": 16
                           }
                         }
                       },
@@ -474,17 +474,17 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          246,
-                          250
+                          244,
+                          248
                         ],
                         "loc": {
                           "start": {
                             "line": 15,
-                            "column": 20
+                            "column": 18
                           },
                           "end": {
                             "line": 15,
-                            "column": 24
+                            "column": 22
                           }
                         }
                       },
@@ -494,7 +494,7 @@
                       "computed": false,
                       "range": [
                         230,
-                        250
+                        248
                       ],
                       "loc": {
                         "start": {
@@ -503,6 +503,180 @@
                         },
                         "end": {
                           "line": 15,
+                          "column": 22
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "CLEAR_ORDERS",
+                        "range": [
+                          254,
+                          266
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 16,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 16,
+                            "column": 16
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          268,
+                          272
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 16,
+                            "column": 18
+                          },
+                          "end": {
+                            "line": 16,
+                            "column": 22
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        254,
+                        272
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 16,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 16,
+                          "column": 22
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "COUNT_ORDERS",
+                        "range": [
+                          278,
+                          290
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 17,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 17,
+                            "column": 16
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          292,
+                          296
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 17,
+                            "column": 18
+                          },
+                          "end": {
+                            "line": 17,
+                            "column": 22
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        278,
+                        296
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 17,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 17,
+                          "column": 22
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "MERGE_PRODUCTS",
+                        "range": [
+                          303,
+                          317
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 19,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 18
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          319,
+                          323
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 19,
+                            "column": 20
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 24
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        303,
+                        323
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 19,
                           "column": 24
                         }
                       }
@@ -513,16 +687,16 @@
                         "type": "Identifier",
                         "name": "CLEAR_PRODUCTS",
                         "range": [
-                          256,
-                          270
+                          329,
+                          343
                         ],
                         "loc": {
                           "start": {
-                            "line": 16,
+                            "line": 20,
                             "column": 4
                           },
                           "end": {
-                            "line": 16,
+                            "line": 20,
                             "column": 18
                           }
                         }
@@ -532,16 +706,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          272,
-                          276
+                          345,
+                          349
                         ],
                         "loc": {
                           "start": {
-                            "line": 16,
+                            "line": 20,
                             "column": 20
                           },
                           "end": {
-                            "line": 16,
+                            "line": 20,
                             "column": 24
                           }
                         }
@@ -551,16 +725,74 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        256,
-                        276
+                        329,
+                        349
                       ],
                       "loc": {
                         "start": {
-                          "line": 16,
+                          "line": 20,
                           "column": 4
                         },
                         "end": {
-                          "line": 16,
+                          "line": 20,
+                          "column": 24
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "COUNT_PRODUCTS",
+                        "range": [
+                          355,
+                          369
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 21,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 21,
+                            "column": 18
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          371,
+                          375
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 21,
+                            "column": 20
+                          },
+                          "end": {
+                            "line": 21,
+                            "column": 24
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        355,
+                        375
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 21,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 21,
                           "column": 24
                         }
                       }
@@ -571,16 +803,16 @@
                         "type": "Identifier",
                         "name": "MERGE_THINGS",
                         "range": [
-                          302,
-                          314
+                          401,
+                          413
                         ],
                         "loc": {
                           "start": {
-                            "line": 19,
+                            "line": 24,
                             "column": 4
                           },
                           "end": {
-                            "line": 19,
+                            "line": 24,
                             "column": 16
                           }
                         }
@@ -590,16 +822,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          316,
-                          320
+                          415,
+                          419
                         ],
                         "loc": {
                           "start": {
-                            "line": 19,
+                            "line": 24,
                             "column": 18
                           },
                           "end": {
-                            "line": 19,
+                            "line": 24,
                             "column": 22
                           }
                         }
@@ -609,16 +841,16 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        302,
-                        320
+                        401,
+                        419
                       ],
                       "loc": {
                         "start": {
-                          "line": 19,
+                          "line": 24,
                           "column": 4
                         },
                         "end": {
-                          "line": 19,
+                          "line": 24,
                           "column": 22
                         }
                       },
@@ -627,16 +859,16 @@
                           "type": "Line",
                           "value": " FOR TESTING",
                           "range": [
-                            283,
-                            297
+                            382,
+                            396
                           ],
                           "loc": {
                             "start": {
-                              "line": 18,
+                              "line": 23,
                               "column": 4
                             },
                             "end": {
-                              "line": 18,
+                              "line": 23,
                               "column": 18
                             }
                           }
@@ -649,16 +881,16 @@
                         "type": "Identifier",
                         "name": "CLEAR_THINGS",
                         "range": [
-                          326,
-                          338
+                          425,
+                          437
                         ],
                         "loc": {
                           "start": {
-                            "line": 20,
+                            "line": 25,
                             "column": 4
                           },
                           "end": {
-                            "line": 20,
+                            "line": 25,
                             "column": 16
                           }
                         }
@@ -668,16 +900,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          340,
-                          344
+                          439,
+                          443
                         ],
                         "loc": {
                           "start": {
-                            "line": 20,
+                            "line": 25,
                             "column": 18
                           },
                           "end": {
-                            "line": 20,
+                            "line": 25,
                             "column": 22
                           }
                         }
@@ -687,16 +919,74 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        326,
-                        344
+                        425,
+                        443
                       ],
                       "loc": {
                         "start": {
-                          "line": 20,
+                          "line": 25,
                           "column": 4
                         },
                         "end": {
-                          "line": 20,
+                          "line": 25,
+                          "column": 22
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "COUNT_THINGS",
+                        "range": [
+                          449,
+                          461
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 26,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 26,
+                            "column": 16
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          463,
+                          467
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 26,
+                            "column": 18
+                          },
+                          "end": {
+                            "line": 26,
+                            "column": 22
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        449,
+                        467
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 26,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 26,
                           "column": 22
                         }
                       }
@@ -704,7 +994,7 @@
                   ],
                   "range": [
                     132,
-                    348
+                    471
                   ],
                   "loc": {
                     "start": {
@@ -712,7 +1002,7 @@
                       "column": 21
                     },
                     "end": {
-                      "line": 21,
+                      "line": 27,
                       "column": 3
                     }
                   }
@@ -720,7 +1010,7 @@
               ],
               "range": [
                 122,
-                349
+                472
               ],
               "loc": {
                 "start": {
@@ -728,7 +1018,7 @@
                   "column": 11
                 },
                 "end": {
-                  "line": 21,
+                  "line": 27,
                   "column": 4
                 }
               }
@@ -739,7 +1029,7 @@
             "computed": false,
             "range": [
               113,
-              349
+              472
             ],
             "loc": {
               "start": {
@@ -747,7 +1037,7 @@
                 "column": 2
               },
               "end": {
-                "line": 21,
+                "line": 27,
                 "column": 4
               }
             }
@@ -755,7 +1045,7 @@
         ],
         "range": [
           66,
-          351
+          474
         ],
         "loc": {
           "start": {
@@ -763,7 +1053,7 @@
             "column": 15
           },
           "end": {
-            "line": 22,
+            "line": 28,
             "column": 1
           }
         },
@@ -772,7 +1062,7 @@
       },
       "range": [
         51,
-        352
+        475
       ],
       "loc": {
         "start": {
@@ -780,7 +1070,7 @@
           "column": 0
         },
         "end": {
-          "line": 22,
+          "line": 28,
           "column": 2
         }
       }
@@ -789,7 +1079,7 @@
   "sourceType": "module",
   "range": [
     0,
-    352
+    475
   ],
   "loc": {
     "start": {
@@ -797,7 +1087,7 @@
       "column": 0
     },
     "end": {
-      "line": 22,
+      "line": 28,
       "column": 2
     }
   },
@@ -806,16 +1096,16 @@
       "type": "Line",
       "value": " FOR TESTING",
       "range": [
-        283,
-        297
+        382,
+        396
       ],
       "loc": {
         "start": {
-          "line": 18,
+          "line": 23,
           "column": 4
         },
         "end": {
-          "line": 18,
+          "line": 23,
           "column": 18
         }
       }

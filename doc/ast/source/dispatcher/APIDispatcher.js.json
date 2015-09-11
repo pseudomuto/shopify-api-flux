@@ -276,6 +276,24 @@
               "column": 3
             }
           }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+          "range": [
+            520,
+            854
+          ],
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 0
+            },
+            "end": {
+              "line": 29,
+              "column": 3
+            }
+          }
         }
       ]
     },
@@ -287,32 +305,32 @@
           "type": "Identifier",
           "name": "Dispatcher",
           "range": [
-            539,
-            549
+            875,
+            885
           ],
           "loc": {
             "start": {
-              "line": 22,
+              "line": 31,
               "column": 19
             },
             "end": {
-              "line": 22,
+              "line": 31,
               "column": 29
             }
           }
         },
         "arguments": [],
         "range": [
-          535,
-          551
+          871,
+          887
         ],
         "loc": {
           "start": {
-            "line": 22,
+            "line": 31,
             "column": 15
           },
           "end": {
-            "line": 22,
+            "line": 31,
             "column": 31
           }
         },
@@ -352,21 +370,39 @@
                 "column": 3
               }
             }
+          },
+          {
+            "type": "Block",
+            "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+            "range": [
+              520,
+              854
+            ],
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 0
+              },
+              "end": {
+                "line": 29,
+                "column": 3
+              }
+            }
           }
         ],
         "trailingComments": []
       },
       "range": [
-        520,
-        552
+        856,
+        888
       ],
       "loc": {
         "start": {
-          "line": 22,
+          "line": 31,
           "column": 0
         },
         "end": {
-          "line": 22,
+          "line": 31,
           "column": 32
         }
       },
@@ -406,6 +442,24 @@
               "column": 3
             }
           }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+          "range": [
+            520,
+            854
+          ],
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 0
+            },
+            "end": {
+              "line": 29,
+              "column": 3
+            }
+          }
         }
       ]
     }
@@ -413,7 +467,7 @@
   "sourceType": "module",
   "range": [
     0,
-    552
+    888
   ],
   "loc": {
     "start": {
@@ -421,7 +475,7 @@
       "column": 0
     },
     "end": {
-      "line": 22,
+      "line": 31,
       "column": 32
     }
   },
@@ -458,6 +512,24 @@
         },
         "end": {
           "line": 20,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+      "range": [
+        520,
+        854
+      ],
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
           "column": 3
         }
       }

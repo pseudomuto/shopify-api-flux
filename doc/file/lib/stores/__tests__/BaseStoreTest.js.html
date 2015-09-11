@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -88,6 +91,7 @@ jest.dontMock(&quot;../../dispatcher/APIDispatcher&quot;);
 jest.dontMock(&quot;flux/utils&quot;);
 jest.dontMock(&quot;../BaseStore&quot;);
 
+import Actions   from &quot;../../utilities/Actions&quot;;
 import Constants from &quot;../../Constants&quot;;
 
 const BaseStore = require(&quot;../BaseStore&quot;);
@@ -97,13 +101,13 @@ describe(&quot;Base&quot;, () =&gt; {
 
   class ThingsStore extends BaseStore {
     constructor(dispatcher) {
-      super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);
+      super(dispatcher, new Actions(&quot;things&quot;));
     }
   }
 
   beforeEach(() =&gt; {
     dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
-    store = new ThingsStore(dispatcher);
+    store      = new ThingsStore(dispatcher);
   });
 
   describe(&quot;where&quot;, () =&gt; {
@@ -153,72 +157,76 @@ describe(&quot;Base&quot;, () =&gt; {
       store.__emitter.emit = changeEvent;
     });
 
-    it(&quot;responds to actions appropriately&quot;, () =&gt; {
-      expect(store.has(1)).toBe(false);
-      expect(store.get(1)).toBeUndefined();
+    describe(&quot;merge&quot;, () =&gt; {
+      it(&quot;responds to actions appropriately&quot;, () =&gt; {
+        expect(store.has(1)).toBe(false);
+        expect(store.get(1)).toBeUndefined();
 
-      dispatcher.dispatch({
-        actionType: Constants.Actions.MERGE_THINGS,
-        items: [
-          { id: 1, title: &quot;My Product&quot; }
-        ]
+        dispatcher.dispatch({
+          actionType: Constants.Actions.MERGE_THINGS,
+          items: [
+            { id: 1, title: &quot;My Product&quot; }
+          ]
+        });
+
+        expect(store.has(1)).toBe(true);
+        expect(store.get(1).title).toBe(&quot;My Product&quot;);
       });
 
-      expect(store.has(1)).toBe(true);
-      expect(store.get(1).title).toBe(&quot;My Product&quot;);
+      it(&quot;only emits a single change event even with multiple values&quot;, () =&gt; {
+        dispatcher.dispatch({
+          actionType: Constants.Actions.MERGE_THINGS,
+          items: [
+            { id: 1, title: &quot;My First Product&quot; },
+            { id: 2, title: &quot;My Second Product&quot; },
+            { id: 3, title: &quot;My Third Product&quot; }
+          ]
+        });
+
+        expect(store.has(1)).toBe(true);
+        expect(store.has(2)).toBe(true);
+        expect(store.has(3)).toBe(true);
+
+        expect(changeEvent.mock.calls.length).toBe(1);
+      });
+
+      it(&quot;doesn&apos;t emit a change event when the values haven&apos;t changed&quot;, () =&gt; {
+        dispatcher.dispatch({
+          actionType: Constants.Actions.MERGE_THINGS,
+          items: [
+            { id: 1, title: &quot;My Product&quot; }
+          ]
+        });
+
+        expect(changeEvent.mock.calls.length).toBe(1);
+
+        dispatcher.dispatch({
+          actionType: Constants.Actions.MERGE_THINGS,
+          items: [
+            { id: 1, title: &quot;My Product&quot; }
+          ]
+        });
+
+        expect(changeEvent.mock.calls.length).toBe(1);
+      });
     });
 
-    it(&quot;only emits a single change event even with multiple values&quot;, () =&gt; {
-      dispatcher.dispatch({
-        actionType: Constants.Actions.MERGE_THINGS,
-        items: [
-          { id: 1, title: &quot;My First Product&quot; },
-          { id: 2, title: &quot;My Second Product&quot; },
-          { id: 3, title: &quot;My Third Product&quot; }
-        ]
+    describe(&quot;clear&quot;, () =&gt; {
+      it(&quot;clears the cache&quot;, () =&gt; {
+        dispatcher.dispatch({
+          actionType: Constants.Actions.MERGE_THINGS,
+          items: [
+            { id: 1, title: &quot;My Product&quot; }
+          ]
+        });
+
+        expect(changeEvent.mock.calls.length).toBe(1);
+
+        dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });
+
+        expect(store.has(1)).toBe(false);
+        expect(changeEvent.mock.calls.length).toBe(2);
       });
-
-      expect(store.has(1)).toBe(true);
-      expect(store.has(2)).toBe(true);
-      expect(store.has(3)).toBe(true);
-
-      expect(changeEvent.mock.calls.length).toBe(1);
-    });
-
-    it(&quot;doesn&apos;t emit a change event when the values haven&apos;t changed&quot;, () =&gt; {
-      dispatcher.dispatch({
-        actionType: Constants.Actions.MERGE_THINGS,
-        items: [
-          { id: 1, title: &quot;My Product&quot; }
-        ]
-      });
-
-      expect(changeEvent.mock.calls.length).toBe(1);
-
-      dispatcher.dispatch({
-        actionType: Constants.Actions.MERGE_THINGS,
-        items: [
-          { id: 1, title: &quot;My Product&quot; }
-        ]
-      });
-
-      expect(changeEvent.mock.calls.length).toBe(1);
-    });
-
-    it(&quot;clears the cache&quot;, () =&gt; {
-      dispatcher.dispatch({
-        actionType: Constants.Actions.MERGE_THINGS,
-        items: [
-          { id: 1, title: &quot;My Product&quot; }
-        ]
-      });
-
-      expect(changeEvent.mock.calls.length).toBe(1);
-
-      dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });
-
-      expect(store.has(1)).toBe(false);
-      expect(changeEvent.mock.calls.length).toBe(2);
     });
   });
 });

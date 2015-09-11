@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/stores/__tests__/ProductsStoreTest.js | Shopify Flux API Document</title>
+  <title data-ice="title">lib/utilities/__tests__/ActionsTest..js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -81,27 +84,35 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/__tests__/ProductsStoreTest.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/utilities/__tests__/ActionsTest..js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-jest.dontMock(&quot;../BaseStore&quot;);
-jest.dontMock(&quot;../ProductsStore&quot;);
-
+import Actions   from &quot;../Actions&quot;;
 import Constants from &quot;../../Constants&quot;;
 
-describe(&quot;ProductsStore&quot;, () =&gt; {
-  var store;
+describe(&quot;Actions&quot;, () =&gt; {
+  var actions;
 
   beforeEach(() =&gt; {
-    store = require(&quot;../ProductsStore&quot;);
+    actions = new Actions(&quot;products&quot;);
   });
 
-  it(&quot;correctly defines mergeAction&quot;, () =&gt; {
-    expect(store._mergeAction).toBe(Constants.Actions.MERGE_PRODUCTS);
+  describe(&quot;#clearAction&quot;, () =&gt; {
+    it(&quot;gets the value from Constants&quot;, () =&gt; {
+      expect(actions.clearAction).toEqual(Constants.Actions.CLEAR_PRODUCTS);
+    });
   });
 
-  it(&quot;correctly defines clearAction&quot;, () =&gt; {
-    expect(store._clearAction).toBe(Constants.Actions.CLEAR_PRODUCTS);
+  describe(&quot;#countAction&quot;, () =&gt; {
+    it(&quot;gets the value from Constants&quot;, () =&gt; {
+      expect(actions.countAction).toEqual(Constants.Actions.COUNT_PRODUCTS);
+    });
+  });
+
+  describe(&quot;#mergeAction&quot;, () =&gt; {
+    it(&quot;gets the value from Constants&quot;, () =&gt; {
+      expect(actions.mergeAction).toEqual(Constants.Actions.MERGE_PRODUCTS);
+    });
   });
 });
 </code></pre>

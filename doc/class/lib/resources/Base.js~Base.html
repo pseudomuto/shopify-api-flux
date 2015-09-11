@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -82,13 +85,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Base from &apos;<span><a href="file/lib/resources/Base.js.html#lineNumber43">shopify-api-flux/lib/resources/Base.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Base from &apos;<span><a href="file/lib/resources/Base.js.html#lineNumber33">shopify-api-flux/lib/resources/Base.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/resources/Base.js.html#lineNumber43">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/resources/Base.js.html#lineNumber33">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -142,39 +145,7 @@ class Thing extends Base {
   
 </div>
 
-<div data-ice="staticMemberSummary"><h2>Static Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Members</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      <span data-ice="static">static</span>
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#static-get-apiMethods">apiMethods</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>An array of methods to be exposed via <span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 
 <div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
@@ -191,7 +162,7 @@ class Thing extends Base {
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(resourceName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(resourceName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, countable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
         </p>
       </div>
       <div>
@@ -209,7 +180,65 @@ class Thing extends Base {
 </tbody>
 </table>
 </div>
-
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-get-actions">actions</a></span></span><span data-ice="signature">: <span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span>: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Returns an object that supplies the clear, count and merge actions for this resource</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-get-apiMethods">apiMethods</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>An array of methods to be exposed via <span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 <div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
   <tbody>
@@ -264,6 +293,32 @@ class Thing extends Base {
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-fetchCount">fetchCount</a></span></span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Performs a GET request for the resource&apos;s count endpoint</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 <table class="summary" data-ice="summary">
@@ -281,7 +336,7 @@ class Thing extends Base {
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-urlFor">urlFor</a></span></span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-urlFor">urlFor</a></span></span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>, params: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -301,12 +356,135 @@ class Thing extends Base {
 
 
 
-<div data-ice="staticMemberDetails"><h2 data-ice="title">Static Public Members</h2>
+
+
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-get-apiMethods">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
     <span class="access" data-ice="access">public</span>
-    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span data-ice="name">constructor</span><span data-ice="signature">(resourceName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, countable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber41">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Using the supplied <code>resourceName</code>, this constructor will generate the singular and plural names for this resource
+which will be used to infer the merge, count, and clear actions to be dispatched.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">resourceName</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The singular name for the resource (e.g. <code>product</code>)</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">countable</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Whether or not this resource is countable (has a /count.json endpoint)</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-actions">
+    <span class="access" data-ice="access">public</span>
+    
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    <span data-ice="name">actions</span><span data-ice="signature">: <span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span>: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber67">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Returns an object that supplies the clear, count and merge actions for this resource</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-get-apiMethods">
+    <span class="access" data-ice="access">public</span>
+    
     <span class="kind" data-ice="kind">get</span>
     
     
@@ -314,7 +492,7 @@ class Thing extends Base {
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
@@ -356,70 +534,6 @@ class Thing extends Base {
   
 </div>
 </div>
-
-<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-constructor-constructor">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    <span data-ice="name">constructor</span><span data-ice="signature">(resourceName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber50">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Using the supplied <code>resourceName</code>, this constructor will generate the singular and plural names for this resource
-which will be used to infer the merge and clear actions to be dispatched.</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">resourceName</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The singular name for the resource (e.g. <code>product</code>)</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
@@ -433,7 +547,7 @@ which will be used to infer the merge and clear actions to be dispatched.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber103">source</a></span></span>
     </span>
   </h3>
 
@@ -474,7 +588,7 @@ which will be used to infer the merge and clear actions to be dispatched.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber78">source</a></span></span>
     </span>
   </h3>
 
@@ -482,6 +596,73 @@ which will be used to infer the merge and clear actions to be dispatched.</p>
   
   
   <div data-ice="description"><p>Performs a GET request for the specified query.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">query</td>
+      <td data-ice="type"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-fetchCount">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">fetchCount</span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber93">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Performs a GET request for the resource&apos;s count endpoint</p>
 </div>
 
   
@@ -539,11 +720,11 @@ which will be used to infer the merge and clear actions to be dispatched.</p>
     
     
     
-    <span data-ice="name">urlFor</span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span data-ice="name">urlFor</span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>, params: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber107">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Base.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 
@@ -567,6 +748,13 @@ which will be used to infer the merge and clear actions to be dispatched.</p>
       <td data-ice="type"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"></td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">params</td>
+      <td data-ice="type"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Query string parameters (only used when query is a number or string)</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -604,6 +792,7 @@ let instance = new Base(&quot;product&quot;);
 instance.urlFor();                            // `/admin/products.json`
 instance.urlFor(1);                           // `/admin/products/1.json`
 instance.urlFor(&quot;1&quot;);                         // `/admin/products/1.json`
+instance.urlFor(1, { type: &quot;test&quot; })          // `/admin/products/1.json?type=test
 instance.urlFor({ fields: [&quot;id&quot;, &quot;title&quot;] }); // `/admin/products.json?fields=id,title</code></pre>
     </div>
 </div>

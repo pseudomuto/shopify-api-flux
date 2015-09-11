@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -122,7 +122,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Flux from \"flux\";\n\nconst { Dispatcher } = Flux;\n\n/**\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n */\n\n/**\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n */\n\nexport default new Dispatcher();\n"
+    "content": "\"use strict\";\n\nimport Flux from \"flux\";\n\nconst { Dispatcher } = Flux;\n\n/**\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n */\n\n/**\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n */\n\n/**\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n */\n\nexport default new Dispatcher();\n"
   },
   {
     "kind": "variable",
@@ -182,7 +182,6 @@
     "longname": "lib/dispatcher/APIDispatcher.js~MergeAction",
     "access": null,
     "description": "An action object that is dispatched when items should be added to a store",
-    "lineNumber": 22,
     "properties": [
       {
         "nullable": null,
@@ -214,6 +213,56 @@
     }
   },
   {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "CountAction",
+    "memberof": "lib/dispatcher/APIDispatcher.js",
+    "longname": "lib/dispatcher/APIDispatcher.js~CountAction",
+    "access": null,
+    "description": "An action object that is dispatched when counts should be added to a store",
+    "lineNumber": 31,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "actionType",
+        "description": "The type of action to be dispatched"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "count",
+        "description": "The count returned from the API call"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query",
+        "description": "The query params for the count call"
+      }
+    ],
+    "type": {
+      "types": [
+        "object"
+      ],
+      "optional": false,
+      "name": "CountAction"
+    }
+  },
+  {
     "kind": "file",
     "static": true,
     "variation": null,
@@ -235,27 +284,36 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Constants     from \"../Constants\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number` - Assumes the value is a resource id\n *   * `string` - Assumes the value is a resource id\n *   * `object` - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   */\n  constructor(resourceName) {\n    this._resource     = resourceName;\n    this._resources    = `${resourceName}s`;\n    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];\n    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return [\"clear\", \"fetch\"];\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this._clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query) {\n    if (isPrimitive(query)) {\n      return `/admin/${this._resources}/${query}.json`;\n    }\n\n    let url    = `/admin/${this._resources}.json`;\n    let params = URLHelpers.toQueryString(query);\n    return params ? `${url}?${params}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this._mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge, count, and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   * @param {boolean} [countable=false] - Whether or not this resource is countable (has a /count.json endpoint)\n   */\n  constructor(resourceName, countable = false) {\n    this._resource  = resourceName;\n    this._resources = `${resourceName}s`;\n    this._countable = countable;\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    let methods = [\"clear\", \"fetch\"];\n\n    if (this._countable) {\n      methods.push(\"fetchCount\");\n    }\n\n    return methods;\n  }\n\n  /**\n   * Returns an object that supplies the clear, count and merge actions for this resource\n   *\n   * @return {Actions}\n   */\n  get actions() {\n    return new Actions(this._resources);\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Performs a GET request for the resource's count endpoint\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetchCount(query) {\n    let url      = this.urlFor(\"count\", query);\n    let dispatch = this._dispatchCount.bind(this);\n\n    return Api.get(url).then(response => dispatch(response.count, query));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this.actions.clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   * @param {ResourceQuery} [params] - Query string parameters (only used when query is a number or string)\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor(1, { type: \"test\" })          // `/admin/products/1.json?type=test\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query, params) {\n    var url         = `/admin/${this._resources}.json`;\n    var queryString = URLHelpers.toQueryString(query);\n\n    if (isPrimitive(query)) {\n      url         = `/admin/${this._resources}/${query}.json`;\n      queryString = URLHelpers.toQueryString(params);\n    }\n\n    return queryString ? `${url}?${queryString}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this.actions.mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n  }\n\n  _dispatchCount(count, query) {\n    let actionType = this.actions.countAction;\n    APIDispatcher.dispatch({ actionType, count, query });\n  }\n}\n"
   },
   {
-    "kind": "typedef",
+    "kind": "function",
     "static": true,
     "variation": null,
-    "name": "ResourceQuery",
+    "name": "isPrimitive",
     "memberof": "lib/resources/Base.js",
-    "longname": "lib/resources/Base.js~ResourceQuery",
+    "longname": "lib/resources/Base.js~isPrimitive",
     "access": null,
-    "description": "An object representing a resource query.\n\nCan be one of the following:\n  * `number` - Assumes the value is a resource id\n  * `string` - Assumes the value is a resource id\n  * `object` - Will be converted to a query string",
-    "lineNumber": 18,
-    "type": {
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/Base.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "value",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
       "types": [
-        "number",
-        "string",
-        "object"
-      ],
-      "optional": false,
-      "name": "ResourceQuery"
-    }
+        "*"
+      ]
+    },
+    "generator": false
   },
   {
     "kind": "class",
@@ -272,7 +330,7 @@
     "examples": [
       "import Base from \"./Base\";\n\nclass Thing extends Base {\n  constructor() {\n    super(\"thing\")\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAllTheThings\"]);\n  }\n\n  fetchAllTheThings() {\n    return this.fetch(\"/admin/things.json\");\n  }\n}"
     ],
-    "lineNumber": 43,
+    "lineNumber": 33,
     "interface": false
   },
   {
@@ -283,8 +341,8 @@
     "memberof": "lib/resources/Base.js~Base",
     "longname": "lib/resources/Base.js~Base#constructor",
     "access": null,
-    "description": "Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\nwhich will be used to infer the merge and clear actions to be dispatched.",
-    "lineNumber": 50,
+    "description": "Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\nwhich will be used to infer the merge, count, and clear actions to be dispatched.",
+    "lineNumber": 41,
     "params": [
       {
         "nullable": null,
@@ -295,6 +353,18 @@
         "optional": false,
         "name": "resourceName",
         "description": "The singular name for the resource (e.g. `product`)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "countable",
+        "description": "Whether or not this resource is countable (has a /count.json endpoint)"
       }
     ],
     "generator": false
@@ -308,7 +378,7 @@
     "longname": "lib/resources/Base.js~Base#_resource",
     "access": null,
     "description": null,
-    "lineNumber": 51,
+    "lineNumber": 42,
     "undocument": true,
     "type": {
       "types": [
@@ -325,7 +395,7 @@
     "longname": "lib/resources/Base.js~Base#_resources",
     "access": null,
     "description": null,
-    "lineNumber": 52,
+    "lineNumber": 43,
     "undocument": true,
     "type": {
       "types": [
@@ -337,29 +407,12 @@
     "kind": "member",
     "static": false,
     "variation": null,
-    "name": "_mergeAction",
+    "name": "_countable",
     "memberof": "lib/resources/Base.js~Base",
-    "longname": "lib/resources/Base.js~Base#_mergeAction",
+    "longname": "lib/resources/Base.js~Base#_countable",
     "access": null,
     "description": null,
-    "lineNumber": 53,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "_clearAction",
-    "memberof": "lib/resources/Base.js~Base",
-    "longname": "lib/resources/Base.js~Base#_clearAction",
-    "access": null,
-    "description": null,
-    "lineNumber": 54,
+    "lineNumber": 44,
     "undocument": true,
     "type": {
       "types": [
@@ -369,14 +422,14 @@
   },
   {
     "kind": "get",
-    "static": true,
+    "static": false,
     "variation": null,
     "name": "apiMethods",
     "memberof": "lib/resources/Base.js~Base",
-    "longname": "lib/resources/Base.js~Base.apiMethods",
+    "longname": "lib/resources/Base.js~Base#apiMethods",
     "access": null,
     "description": "An array of methods to be exposed via {@link APIProxy}",
-    "lineNumber": 62,
+    "lineNumber": 52,
     "return": {
       "nullable": null,
       "types": [
@@ -384,6 +437,31 @@
       ],
       "spread": false,
       "description": "The names of all methods to be made available"
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "actions",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#actions",
+    "access": null,
+    "description": "Returns an object that supplies the clear, count and merge actions for this resource",
+    "lineNumber": 67,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Actions"
+      ],
+      "spread": false,
+      "description": ""
     },
     "type": {
       "types": [
@@ -401,7 +479,39 @@
     "longname": "lib/resources/Base.js~Base#fetch",
     "access": null,
     "description": "Performs a GET request for the specified query.",
-    "lineNumber": 73,
+    "lineNumber": 78,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "fetchCount",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#fetchCount",
+    "access": null,
+    "description": "Performs a GET request for the resource's count endpoint",
+    "lineNumber": 93,
     "params": [
       {
         "nullable": null,
@@ -433,7 +543,7 @@
     "longname": "lib/resources/Base.js~Base#clear",
     "access": null,
     "description": "Dispatches the clear action for this resource. The action will be handled by the appropriate store.",
-    "lineNumber": 84,
+    "lineNumber": 103,
     "params": [],
     "generator": false
   },
@@ -447,9 +557,9 @@
     "access": "protected",
     "description": null,
     "examples": [
-      "import Base from \"./Base\";\n\nlet instance = new Base(\"product\");\n\ninstance.urlFor();                            // `/admin/products.json`\ninstance.urlFor(1);                           // `/admin/products/1.json`\ninstance.urlFor(\"1\");                         // `/admin/products/1.json`\ninstance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title"
+      "import Base from \"./Base\";\n\nlet instance = new Base(\"product\");\n\ninstance.urlFor();                            // `/admin/products.json`\ninstance.urlFor(1);                           // `/admin/products/1.json`\ninstance.urlFor(\"1\");                         // `/admin/products/1.json`\ninstance.urlFor(1, { type: \"test\" })          // `/admin/products/1.json?type=test\ninstance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title"
     ],
-    "lineNumber": 107,
+    "lineNumber": 128,
     "params": [
       {
         "nullable": null,
@@ -460,6 +570,16 @@
         "optional": true,
         "name": "query",
         "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params",
+        "description": "Query string parameters (only used when query is a number or string)"
       }
     ],
     "return": {
@@ -481,11 +601,38 @@
     "longname": "lib/resources/Base.js~Base#_dispatchMerge",
     "access": null,
     "description": null,
-    "lineNumber": 117,
+    "lineNumber": 140,
     "undocument": true,
     "params": [
       {
         "name": "items",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_dispatchCount",
+    "memberof": "lib/resources/Base.js~Base",
+    "longname": "lib/resources/Base.js~Base#_dispatchCount",
+    "access": null,
+    "description": null,
+    "lineNumber": 149,
+    "undocument": true,
+    "params": [
+      {
+        "name": "count",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "query",
         "types": [
           "*"
         ]
@@ -503,7 +650,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\");\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   */\n  fetchAuthorized() {\n    return this.fetch({ financial_status: \"authorized\" });\n  }\n\n  /**\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\", true);\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    return super.apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   */\n  fetchAuthorized() {\n    return this.fetch({ financial_status: \"authorized\" });\n  }\n\n  /**\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
   },
   {
     "kind": "class",
@@ -540,11 +687,11 @@
   },
   {
     "kind": "get",
-    "static": true,
+    "static": false,
     "variation": null,
     "name": "apiMethods",
     "memberof": "lib/resources/Order.js~Order",
-    "longname": "lib/resources/Order.js~Order.apiMethods",
+    "longname": "lib/resources/Order.js~Order#apiMethods",
     "access": null,
     "description": null,
     "lineNumber": 21,
@@ -648,7 +795,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Product resource\n *\n * @extends {Base}\n */\nclass Product extends Base {\n  constructor() {\n    super(\"product\");\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch products in the specified collection\n   *\n   * @param {number|string} collectionId - The id of the collection\n   *\n   * @return {RequestPromise}\n   */\n  fetchByCollection(collectionId) {\n    return this.fetch({ collection_id: collectionId });\n  }\n\n  /**\n   * Fetch all products created after the specified product\n   *\n   * @param {number|string} id - The id of the reference product\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Product();\n"
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Product resource\n *\n * @extends {Base}\n */\nclass Product extends Base {\n  constructor() {\n    super(\"product\", true);\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    return super.apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch products in the specified collection\n   *\n   * @param {number|string} collectionId - The id of the collection\n   *\n   * @return {RequestPromise}\n   */\n  fetchByCollection(collectionId) {\n    return this.fetch({ collection_id: collectionId });\n  }\n\n  /**\n   * Fetch all products created after the specified product\n   *\n   * @param {number|string} id - The id of the reference product\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Product();\n"
   },
   {
     "kind": "class",
@@ -685,11 +832,11 @@
   },
   {
     "kind": "get",
-    "static": true,
+    "static": false,
     "variation": null,
     "name": "apiMethods",
     "memberof": "lib/resources/Product.js~Product",
-    "longname": "lib/resources/Product.js~Product.apiMethods",
+    "longname": "lib/resources/Product.js~Product#apiMethods",
     "access": null,
     "description": null,
     "lineNumber": 21,
@@ -1079,7 +1226,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base      from \"./Base\";\nimport Constants from \"../Constants\";\n\n/**\n * The Shop resource\n *\n * @extends {Base}\n */\nclass Shop extends Base {\n  constructor() {\n    super(\"shop\");\n\n    this._resources   = this._resource;\n    this._mergeAction = Constants.Actions.SET_SHOP;\n    this._clearAction = Constants.Actions.CLEAR_SHOP;\n  }\n}\n\n/** @ignore */\nexport default new Shop();\n"
+    "content": "\"use strict\";\n\nimport Base      from \"./Base\";\nimport Constants from \"../Constants\";\n\n/**\n * The Shop resource\n *\n * @extends {Base}\n */\nclass Shop extends Base {\n  constructor() {\n    super(\"shop\");\n\n    this._resources = this._resource;\n  }\n\n  /**\n   * @override\n   */\n  get actions() {\n    return {\n      mergeAction: Constants.Actions.SET_SHOP,\n      clearAction: Constants.Actions.CLEAR_SHOP\n    };\n  }\n}\n\n/** @ignore */\nexport default new Shop();\n"
   },
   {
     "kind": "class",
@@ -1132,38 +1279,22 @@
     }
   },
   {
-    "kind": "member",
+    "kind": "get",
     "static": false,
     "variation": null,
-    "name": "_mergeAction",
+    "name": "actions",
     "memberof": "lib/resources/Shop.js~Shop",
-    "longname": "lib/resources/Shop.js~Shop#_mergeAction",
+    "longname": "lib/resources/Shop.js~Shop#actions",
     "access": null,
     "description": null,
-    "lineNumber": 16,
-    "undocument": true,
+    "lineNumber": 21,
     "type": {
       "types": [
         "*"
       ]
-    }
-  },
-  {
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "_clearAction",
-    "memberof": "lib/resources/Shop.js~Shop",
-    "longname": "lib/resources/Shop.js~Shop#_clearAction",
-    "access": null,
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
+    },
+    "override": true,
+    "generator": false
   },
   {
     "kind": "variable",
@@ -1177,7 +1308,7 @@
     "importPath": "shopify-api-flux/lib/resources/Shop.js",
     "importStyle": "shop",
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 30,
     "ignore": true,
     "type": {
       "types": [
@@ -1195,7 +1326,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Base\", () => {\n  var actions, dispatcher;\n\n  beforeEach(() => {\n    const BaseActions = require(\"../Base\");\n\n    actions    = new BaseActions(\"thing\");\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n  });\n\n  describe(\".apiMethods\", () => {\n    var klass;\n\n    beforeEach(() => {\n      klass = actions.constructor;\n    });\n\n    it(\"returns all exported action method names\", () => {\n      expect(klass.apiMethods).toContain(\"clear\");\n    });\n\n    it(\"can be overridden in subclasses\", () => {\n      class Test extends klass {\n        static get apiMethods() {\n          return super.apiMethods.concat([\"testMethod\"]);\n        }\n      }\n\n      expect(Test.apiMethods).toContain(\"clear\");\n      expect(Test.apiMethods).toContain(\"testMethod\");\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    var api, request;\n    let actionType = Constants.Actions.MERGE_THINGS;\n\n    beforeEach(() => {\n      api = require(\"../../utilities/WebAPI\");\n    });\n\n    describe(\"when passed a single id\", () => {\n      let thing = { id: 1, title: \"Some Product\" };\n\n      beforeEach(() => {\n        stubFetchRequest(api, { thing });\n        request = actions.fetch(1);\n      });\n\n      it(\"fetches the single resource\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things/1.json\");\n      });\n\n      pit(\"dispatches the correct merge action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [thing] });\n        });\n      });\n    });\n\n    describe(\"when passed an object\", () => {\n      let things = [{ id: 1, title: \"Some Product\" }];\n\n      beforeEach(() => {\n        stubFetchRequest(api, { things });\n        request = actions.fetch({ ids: [1, 2, 3] });\n      });\n\n      it(\"fetches the resource collection with the appropriate query\", () => {\n        let encodedQuery = `ids=${encodeURIComponent(\"1,2,3\")}`;\n        expect(api.get).toBeCalledWith(`/admin/things.json?${encodedQuery}`);\n      });\n\n      pit(\"dispatches the correct merge event\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: things });\n        });\n      });\n    });\n\n    describe(\"when called without parameters\", () => {\n      let things = [\n        { id: 1, title: \"First Product\" },\n        { id: 2, title: \"Second Product\" }\n      ];\n\n      beforeEach(() => {\n        stubFetchRequest(api, { things });\n        request = actions.fetch();\n      });\n\n      it(\"fetches the resource collection\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things.json\");\n      });\n\n      pit(\"dispatches the correct merge action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: things });\n        });\n      });\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => actions.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_THINGS;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n\n  describe(\"#urlFor\", () => {\n    var helpers = require(\"../../utilities/URLHelpers\");\n\n    describe(\"when given no parameters\", () => {\n      it(\"returns the collection's URI\", () => {\n        expect(actions.urlFor()).toBe(\"/admin/things.json\");\n      });\n    });\n\n    describe(\"when requesting a single resource\", () => {\n      it(\"returns the item's URI when passed a number\", () => {\n        expect(actions.urlFor(1)).toBe(\"/admin/things/1.json\");\n      });\n\n      it(\"returns the item's URI when passed a string\", () => {\n        expect(actions.urlFor(\"1\")).toBe(\"/admin/things/1.json\");\n      });\n    });\n\n    describe(\"when given an object\", () => {\n      it(\"parameterizes the object and adds it to the collection URI\", () => {\n        let query = helpers.toQueryString({ ids: [1, 2, 3] });\n        expect(actions.urlFor({ ids: [1, 2, 3] })).toBe(`/admin/things.json?${query}`);\n      });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Base\", () => {\n  var Base, actions, dispatcher;\n\n  beforeEach(() => {\n    Base       = require(\"../Base\");\n    actions    = new Base(\"thing\");\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n  });\n\n  describe(\"#apiMethods\", () => {\n    it(\"returns all exported action method names\", () => {\n      expect(actions.apiMethods).toContain(\"clear\");\n      expect(actions.apiMethods).toContain(\"fetch\");\n      expect(actions.apiMethods).not.toContain(\"fetchCount\");\n    });\n\n    it(\"includes fetchCount when the resource is countable\", () => {\n      let countableResource = new Base(\"thing\", true);\n      expect(countableResource.apiMethods).toContain(\"fetchCount\");\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    var api, request;\n    let actionType = Constants.Actions.MERGE_THINGS;\n\n    beforeEach(() => {\n      api = require(\"../../utilities/WebAPI\");\n    });\n\n    describe(\"when passed a single id\", () => {\n      let thing = { id: 1, title: \"Some Product\" };\n\n      beforeEach(() => {\n        stubFetchRequest(api, { thing });\n        request = actions.fetch(1);\n      });\n\n      it(\"fetches the single resource\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things/1.json\");\n      });\n\n      pit(\"dispatches the correct merge action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [thing] });\n        });\n      });\n    });\n\n    describe(\"when passed an object\", () => {\n      let things = [{ id: 1, title: \"Some Product\" }];\n\n      beforeEach(() => {\n        stubFetchRequest(api, { things });\n        request = actions.fetch({ ids: [1, 2, 3] });\n      });\n\n      it(\"fetches the resource collection with the appropriate query\", () => {\n        let encodedQuery = `ids=${encodeURIComponent(\"1,2,3\")}`;\n        expect(api.get).toBeCalledWith(`/admin/things.json?${encodedQuery}`);\n      });\n\n      pit(\"dispatches the correct merge event\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: things });\n        });\n      });\n    });\n\n    describe(\"when called without parameters\", () => {\n      let things = [\n        { id: 1, title: \"First Product\" },\n        { id: 2, title: \"Second Product\" }\n      ];\n\n      beforeEach(() => {\n        stubFetchRequest(api, { things });\n        request = actions.fetch();\n      });\n\n      it(\"fetches the resource collection\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things.json\");\n      });\n\n      pit(\"dispatches the correct merge action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: things });\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchCount\", () => {\n    let count      = 10;\n    let actionType = Constants.Actions.COUNT_THINGS;\n\n    var api, request;\n\n    beforeEach(() => {\n      api = require(\"../../utilities/WebAPI\");\n      stubFetchRequest(api, { count });\n    });\n\n    describe(\"when called without parameters\", () => {\n      beforeEach(() => {\n        request = actions.fetchCount();\n      });\n\n      it(\"fetches the correct endpoint\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things/count.json\");\n      });\n\n      pit(\"dispatches the count action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, count, query: undefined });\n        });\n      });\n    });\n\n    describe(\"when called with query parameter\", () => {\n      let query = { type: \"test\", a: 1 };\n\n      beforeEach(() => {\n        request = actions.fetchCount(query);\n      });\n\n      it(\"fetches the correct endpoint\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/things/count.json?type=test&a=1\");\n      });\n\n      pit(\"dispatches the count action\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, count, query });\n        });\n      });\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => actions.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_THINGS;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n\n  describe(\"#urlFor\", () => {\n    var helpers = require(\"../../utilities/URLHelpers\");\n\n    describe(\"when given no parameters\", () => {\n      it(\"returns the collection's URI\", () => {\n        expect(actions.urlFor()).toBe(\"/admin/things.json\");\n      });\n    });\n\n    describe(\"when requesting a single resource\", () => {\n      it(\"returns the item's URI when passed a number\", () => {\n        expect(actions.urlFor(1)).toBe(\"/admin/things/1.json\");\n      });\n\n      it(\"returns the item's URI when passed a string\", () => {\n        expect(actions.urlFor(\"1\")).toBe(\"/admin/things/1.json\");\n      });\n\n      it(\"appends params object as query string when supplied\", () => {\n        expect(actions.urlFor(1, { type: \"thing\" })).toBe(\"/admin/things/1.json?type=thing\");\n      });\n    });\n\n    describe(\"when given an object\", () => {\n      it(\"parameterizes the object and adds it to the collection URI\", () => {\n        let query = helpers.toQueryString({ ids: [1, 2, 3] });\n        expect(actions.urlFor({ ids: [1, 2, 3] })).toBe(`/admin/things.json?${query}`);\n      });\n    });\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -1207,7 +1338,27 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Order\", () => {\n  let orders = [{ id: 1, name: \"Order #1\" }];\n\n  var resource, api, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Order\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exposes base and specific fetch methods\", () => {\n      let actual   = resource.constructor.apiMethods;\n      let expected = require(\"../Base\").apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchAuthorized\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { orders });\n      request = resource.fetchAuthorized();\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?financial_status=authorized\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { orders });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\nconst Base = require(\"../Base\");\n\ndescribe(\"Order\", () => {\n  let orders = [{ id: 1, name: \"Order #1\" }];\n\n  var resource, api, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Order\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\"#apiMethods\", () => {\n    it(\"exposes base and specific fetch methods\", () => {\n      let actual   = resource.apiMethods;\n      let expected = new Base(\"order\", true).apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchAuthorized\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { orders });\n      request = resource.fetchAuthorized();\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?financial_status=authorized\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { orders });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Base",
+    "memberof": "lib/resources/__tests__/OrderTest.js",
+    "longname": "lib/resources/__tests__/OrderTest.js~Base",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/__tests__/OrderTest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -1219,7 +1370,27 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Product\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Product\", () => {\n  let products = [{ id: 1, title: \"Some Product\" }];\n\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Product\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exposes base methods and additional fetch methods\", () => {\n      let actual   = resource.constructor.apiMethods;\n      let expected = require(\"../Base\").apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchByCollection\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { products });\n      request = resource.fetchByCollection(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/products.json?collection_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_PRODUCTS,\n          items: products\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { products });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/products.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_PRODUCTS,\n          items: products\n        });\n      });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Product\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\nconst Base = require(\"../Base\");\n\ndescribe(\"Product\", () => {\n  let products = [{ id: 1, title: \"Some Product\" }];\n\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Product\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\"#apiMethods\", () => {\n    it(\"exposes base methods and additional fetch methods\", () => {\n      let actual   = resource.apiMethods;\n      let expected = new Base(\"products\", true).apiMethods.concat([\"fetchByCollection\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchByCollection\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { products });\n      request = resource.fetchByCollection(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/products.json?collection_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_PRODUCTS,\n          items: products\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { products });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/products.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_PRODUCTS,\n          items: products\n        });\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Base",
+    "memberof": "lib/resources/__tests__/ProductTest.js",
+    "longname": "lib/resources/__tests__/ProductTest.js~Base",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/resources/__tests__/ProductTest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -1243,7 +1414,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Shop\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Shop\", () => {\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Shop\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\".apiMethods\", () => {\n    it(\"exports fetch and clear as action methods\", () => {\n      expect(resource.constructor.apiMethods).toEqual([\"clear\", \"fetch\"]);\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    let shop = { id: 1, name: \"My Shop\" };\n\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { shop });\n      request = resource.fetch();\n    });\n\n    it(\"makes the web request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n\n    pit(\"dispatches the action once the shop is retrieved\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch.mock.calls.length).toBe(1);\n\n        let payload = dispatcher.dispatch.mock.calls[0][0];\n        expect(payload.actionType).toBe(Constants.Actions.SET_SHOP);\n        expect(payload.items).toEqual([shop]);\n      });\n    });\n\n    it(\"doesn't forward arguments to super\", () => {\n      resource.fetch({ name: \"Some Shop\" });\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => resource.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_SHOP;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Shop\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Shop\", () => {\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Shop\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\"#apiMethods\", () => {\n    it(\"exports fetch and clear as action methods\", () => {\n      expect(resource.apiMethods).toEqual([\"clear\", \"fetch\"]);\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    let shop = { id: 1, name: \"My Shop\" };\n\n    var request;\n\n    beforeEach(() => {\n      stubFetchRequest(api, { shop });\n      request = resource.fetch();\n    });\n\n    it(\"makes the web request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n\n    pit(\"dispatches the action once the shop is retrieved\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch.mock.calls.length).toBe(1);\n\n        let payload = dispatcher.dispatch.mock.calls[0][0];\n        expect(payload.actionType).toBe(Constants.Actions.SET_SHOP);\n        expect(payload.items).toEqual([shop]);\n      });\n    });\n\n    it(\"doesn't forward arguments to super\", () => {\n      resource.fetch({ name: \"Some Shop\" });\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => resource.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_SHOP;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -1255,7 +1426,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\nfunction mergeItems(state, items) {\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\n/**\n * A base class for resource stores.\n *\n * Stores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n *\n * This store exposes a few methods (from it's base class). These include:\n *\n * * `at(key)`  - returns the object with the specified key. Raises when not found\n * * `get(key)` - returns the object with the specified key. Returns undefined when not found\n * * `has(key)` - returns whether or not an object with the specified key exists in the store\n *\n * @extends {FluxMapStore}\n *\n * @example\n * import APIDispatcher from \"../dispatcher/APIDispatcher\";\n * import Base          from \"./Base\";\n *\n * let store = new Base(APIDispatcher, \"MERGE_PRODUCTS\", \"CLEAR_PRODUCTS\");\n *\n * // listen for change events\n * store.addListener(() => console.log(store.get(1)));\n *\n * // will cause the store to update the state and emit it's change event\n * APIDispatcher.dispatch({\n *   actionType: \"MERGE_PRODUCTS\",\n *   items: [{ id: 1, title: \"My Product\" }]\n * });\n */\nexport default class BaseStore extends Flux.MapStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {string} mergeAction - The actionType for merge operations\n   * @param {string} clearAction - The actionType for clear operations\n   */\n  constructor(dispatcher, mergeAction, clearAction) {\n    super(dispatcher);\n    this._mergeAction = mergeAction;\n    this._clearAction = clearAction;\n  }\n\n  /**\n   * Queries the store for resources matching the source object\n   *\n   * @param {QueryObject} source\n   *\n   * @return {Array<object>} Resources that match the query\n   */\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  /**\n   * Used to reduce a stream of actions coming from the dispatcher into a\n   * single state object. This will handle merge and clear actions for this resource.\n   *\n   * **This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.\n   *\n   * @param {object} state - The current state\n   * @param {object} action - The action sent by the dispatcher\n   *\n   * @return {object} The new state for this store\n   */\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._mergeAction:\n        return mergeItems(state, action.items);\n      case this._clearAction:\n        return state.clear();\n      default:\n        return state;\n    }\n  }\n\n  /**\n   * Determines whether or not the state of this store has changed.\n   *\n   * **This method should not be called directly**\n   *\n   * @param {object} state1 - The original state\n   * @param {object} state2 - The new state\n   *\n   * @return {boolean} Whether or not the state's are identical\n   */\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\nfunction mergeItems(state, items) {\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\n/**\n * A base class for resource stores.\n *\n * Stores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n *\n * This store exposes a few methods (from it's base class). These include:\n *\n * * `at(key)`  - returns the object with the specified key. Raises when not found\n * * `get(key)` - returns the object with the specified key. Returns undefined when not found\n * * `has(key)` - returns whether or not an object with the specified key exists in the store\n *\n * @extends {FluxMapStore}\n *\n * @example\n * import APIDispatcher from \"../dispatcher/APIDispatcher\";\n * import Actions       from \"../utilities/Actions\";\n * import Base          from \"./Base\";\n *\n * let store = new BaseStore(APIDispatcher, new Actions(\"products\"));\n *\n * // listen for change events\n * store.addListener(() => console.log(store.get(1)));\n *\n * // will cause the store to update the state and emit it's change event\n * APIDispatcher.dispatch({\n *   actionType: \"MERGE_PRODUCTS\",\n *   items: [{ id: 1, title: \"My Product\" }]\n * });\n */\nexport default class BaseStore extends Flux.MapStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {Actions} actions\n   */\n  constructor(dispatcher, actions) {\n    super(dispatcher);\n    this._actions = actions;\n  }\n\n  /**\n   * Queries the store for resources matching the source object\n   *\n   * @param {QueryObject} source\n   *\n   * @return {Array<object>} Resources that match the query\n   */\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  /**\n   * Used to reduce a stream of actions coming from the dispatcher into a\n   * single state object. This will handle merge and clear actions for this resource.\n   *\n   * **This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.\n   *\n   * @param {object} state - The current state\n   * @param {object} action - The action sent by the dispatcher\n   *\n   * @return {object} The new state for this store\n   */\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._actions.mergeAction:\n        return mergeItems(state, action.items);\n      case this._actions.clearAction:\n        return state.clear();\n      default:\n        return state;\n    }\n  }\n\n  /**\n   * Determines whether or not the state of this store has changed.\n   *\n   * **This method should not be called directly**\n   *\n   * @param {object} state1 - The original state\n   * @param {object} state2 - The new state\n   *\n   * @return {boolean} Whether or not the state's are identical\n   */\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
   },
   {
     "kind": "function",
@@ -1305,9 +1476,9 @@
     "importStyle": "BaseStore",
     "description": "A base class for resource stores.\n\nStores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n\nThis store exposes a few methods (from it's base class). These include:\n\n* `at(key)`  - returns the object with the specified key. Raises when not found\n* `get(key)` - returns the object with the specified key. Returns undefined when not found\n* `has(key)` - returns whether or not an object with the specified key exists in the store",
     "examples": [
-      "import APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Base          from \"./Base\";\n\nlet store = new Base(APIDispatcher, \"MERGE_PRODUCTS\", \"CLEAR_PRODUCTS\");\n\n// listen for change events\nstore.addListener(() => console.log(store.get(1)));\n\n// will cause the store to update the state and emit it's change event\nAPIDispatcher.dispatch({\n  actionType: \"MERGE_PRODUCTS\",\n  items: [{ id: 1, title: \"My Product\" }]\n});"
+      "import APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Actions       from \"../utilities/Actions\";\nimport Base          from \"./Base\";\n\nlet store = new BaseStore(APIDispatcher, new Actions(\"products\"));\n\n// listen for change events\nstore.addListener(() => console.log(store.get(1)));\n\n// will cause the store to update the state and emit it's change event\nAPIDispatcher.dispatch({\n  actionType: \"MERGE_PRODUCTS\",\n  items: [{ id: 1, title: \"My Product\" }]\n});"
     ],
-    "lineNumber": 42,
+    "lineNumber": 43,
     "interface": false,
     "extends": [
       "FluxMapStore"
@@ -1337,22 +1508,12 @@
       {
         "nullable": null,
         "types": [
-          "string"
+          "Actions"
         ],
         "spread": false,
         "optional": false,
-        "name": "mergeAction",
-        "description": "The actionType for merge operations"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "clearAction",
-        "description": "The actionType for clear operations"
+        "name": "actions",
+        "description": ""
       }
     ],
     "generator": false
@@ -1361,29 +1522,12 @@
     "kind": "member",
     "static": false,
     "variation": null,
-    "name": "_mergeAction",
+    "name": "_actions",
     "memberof": "lib/stores/BaseStore.js~BaseStore",
-    "longname": "lib/stores/BaseStore.js~BaseStore#_mergeAction",
+    "longname": "lib/stores/BaseStore.js~BaseStore#_actions",
     "access": null,
     "description": null,
     "lineNumber": 50,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "_clearAction",
-    "memberof": "lib/stores/BaseStore.js~BaseStore",
-    "longname": "lib/stores/BaseStore.js~BaseStore#_clearAction",
-    "access": null,
-    "description": null,
-    "lineNumber": 51,
     "undocument": true,
     "type": {
       "types": [
@@ -1400,7 +1544,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#where",
     "access": null,
     "description": "Queries the store for resources matching the source object",
-    "lineNumber": 61,
+    "lineNumber": 60,
     "params": [
       {
         "nullable": null,
@@ -1432,7 +1576,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#reduce",
     "access": null,
     "description": "Used to reduce a stream of actions coming from the dispatcher into a\nsingle state object. This will handle merge and clear actions for this resource.\n\n**This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.",
-    "lineNumber": 76,
+    "lineNumber": 75,
     "params": [
       {
         "nullable": null,
@@ -1474,7 +1618,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#areEqual",
     "access": null,
     "description": "Determines whether or not the state of this store has changed.\n\n**This method should not be called directly**",
-    "lineNumber": 97,
+    "lineNumber": 96,
     "params": [
       {
         "nullable": null,
@@ -1511,13 +1655,179 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/stores/CountableStore.js",
+    "memberof": null,
+    "longname": "lib/stores/CountableStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport BaseStore  from \"./BaseStore\";\nimport ObjectHash from \"object-hash\";\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number` - Assumes the value is a resource id\n *   * `string` - Assumes the value is a resource id\n *   * `object` - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n\nfunction hash(obj) {\n  return ObjectHash.sha1(obj || {});\n}\n\nexport default class extends BaseStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {Actions} actions\n   */\n  constructor(dispatcher, actions) {\n    super(dispatcher, actions);\n    this._counts = {};\n  }\n\n  /**\n   * Returns the count for the given query\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {number}\n   */\n  count(query) {\n    return this._counts[hash(query)] || 0;\n  }\n\n  /**\n   * @override\n   */\n  reduce(state, action) {\n    if (action.actionType === this._actions.countAction) {\n      this._counts[hash(action.query)] = action.count;\n      this.__emitChange();\n      return state;\n    }\n\n    return super.reduce(state, action);\n  }\n}\n"
+  },
+  {
+    "kind": "typedef",
+    "static": true,
+    "variation": null,
+    "name": "ResourceQuery",
+    "memberof": "lib/stores/CountableStore.js",
+    "longname": "lib/stores/CountableStore.js~ResourceQuery",
+    "access": null,
+    "description": "An object representing a resource query.\n\nCan be one of the following:\n  * `number` - Assumes the value is a resource id\n  * `string` - Assumes the value is a resource id\n  * `object` - Will be converted to a query string",
+    "lineNumber": 16,
+    "type": {
+      "types": [
+        "number",
+        "string",
+        "object"
+      ],
+      "optional": false,
+      "name": "ResourceQuery"
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "CountableStore",
+    "memberof": "lib/stores/CountableStore.js",
+    "longname": "lib/stores/CountableStore.js~CountableStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/CountableStore.js",
+    "importStyle": "CountableStore",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "lib/stores/BaseStore~BaseStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/CountableStore.js~CountableStore",
+    "longname": "lib/stores/CountableStore.js~CountableStore#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Actions"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "actions",
+        "description": ""
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_counts",
+    "memberof": "lib/stores/CountableStore.js~CountableStore",
+    "longname": "lib/stores/CountableStore.js~CountableStore#_counts",
+    "access": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "count",
+    "memberof": "lib/stores/CountableStore.js~CountableStore",
+    "longname": "lib/stores/CountableStore.js~CountableStore#count",
+    "access": null,
+    "description": "Returns the count for the given query",
+    "lineNumber": 37,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "reduce",
+    "memberof": "lib/stores/CountableStore.js~CountableStore",
+    "longname": "lib/stores/CountableStore.js~CountableStore#reduce",
+    "access": null,
+    "description": null,
+    "lineNumber": 44,
+    "params": [
+      {
+        "name": "state",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "override": true,
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/stores/OrdersStore.js",
     "memberof": null,
     "longname": "lib/stores/OrdersStore.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport BaseStore     from \"./BaseStore\";\nimport Constants     from \"../Constants\";\n\n/**\n * The Orders store\n *\n * @extends {BaseStore}\n */\nclass OrdersStore extends BaseStore {\n  /**\n   * Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_ORDERS, Constants.Actions.CLEAR_ORDERS);\n  }\n}\n\n/** @ignore */\nexport default new OrdersStore(APIDispatcher);\n"
+    "content": "\"use strict\";\n\nimport Actions        from \"../utilities/Actions\";\nimport APIDispatcher  from \"../dispatcher/APIDispatcher\";\nimport CountableStore from \"./CountableStore\";\n\n/**\n * The Orders store\n *\n * @extends {CountableStore}\n */\nclass OrdersStore extends CountableStore {\n  /**\n   * Sets the dispatcher and appropriate actions for orders\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"orders\"));\n  }\n}\n\n/** @ignore */\nexport default new OrdersStore(APIDispatcher);\n"
   },
   {
     "kind": "class",
@@ -1535,7 +1845,7 @@
     "pseudoExport": true,
     "interface": false,
     "extends": [
-      "BaseStore"
+      "CountableStore"
     ]
   },
   {
@@ -1546,8 +1856,8 @@
     "memberof": "lib/stores/OrdersStore.js~OrdersStore",
     "longname": "lib/stores/OrdersStore.js~OrdersStore#constructor",
     "access": null,
-    "description": "Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively",
-    "lineNumber": 17,
+    "description": "Sets the dispatcher and appropriate actions for orders",
+    "lineNumber": 18,
     "params": [
       {
         "nullable": null,
@@ -1574,7 +1884,7 @@
     "importPath": "shopify-api-flux/lib/stores/OrdersStore.js",
     "importStyle": "ordersStore",
     "description": null,
-    "lineNumber": 23,
+    "lineNumber": 24,
     "ignore": true,
     "type": {
       "types": [
@@ -1592,7 +1902,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport BaseStore     from \"./BaseStore\";\nimport Constants     from \"../Constants\";\n\n/**\n * The products store\n *\n * @extends {BaseStore}\n */\nclass ProductsStore extends BaseStore {\n  /**\n   * Sets the merge and clear actions to MERGE_PRODUCTS and CLEAR_PRODUCTS respectively\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to regiter with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, Constants.Actions.MERGE_PRODUCTS, Constants.Actions.CLEAR_PRODUCTS);\n  }\n}\n\n/** @ignore */\nexport default new ProductsStore(APIDispatcher);\n"
+    "content": "\"use strict\";\n\nimport Actions        from \"../utilities/Actions\";\nimport APIDispatcher  from \"../dispatcher/APIDispatcher\";\nimport CountableStore from \"./CountableStore\";\n\n/**\n * The products store\n *\n * @extends {CountableStore}\n */\nclass ProductsStore extends CountableStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for products\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to regiter with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"products\"));\n  }\n}\n\n/** @ignore */\nexport default new ProductsStore(APIDispatcher);\n"
   },
   {
     "kind": "class",
@@ -1610,7 +1920,7 @@
     "pseudoExport": true,
     "interface": false,
     "extends": [
-      "BaseStore"
+      "CountableStore"
     ]
   },
   {
@@ -1621,7 +1931,7 @@
     "memberof": "lib/stores/ProductsStore.js~ProductsStore",
     "longname": "lib/stores/ProductsStore.js~ProductsStore#constructor",
     "access": null,
-    "description": "Sets the merge and clear actions to MERGE_PRODUCTS and CLEAR_PRODUCTS respectively",
+    "description": "Sets the the dispatcher and appropriate actions for products",
     "lineNumber": 18,
     "params": [
       {
@@ -1974,7 +2284,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../BaseStore\");\n\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../BaseStore\");\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  class ThingsStore extends BaseStore {\n    constructor(dispatcher) {\n      super(dispatcher, Constants.Actions.MERGE_THINGS, Constants.Actions.CLEAR_THINGS);\n    }\n  }\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    it(\"responds to actions appropriately\", () => {\n      expect(store.has(1)).toBe(false);\n      expect(store.get(1)).toBeUndefined();\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.get(1).title).toBe(\"My Product\");\n    });\n\n    it(\"only emits a single change event even with multiple values\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\" },\n          { id: 2, title: \"My Second Product\" },\n          { id: 3, title: \"My Third Product\" }\n        ]\n      });\n\n      expect(store.has(1)).toBe(true);\n      expect(store.has(2)).toBe(true);\n      expect(store.has(3)).toBe(true);\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"doesn't emit a change event when the values haven't changed\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n    });\n\n    it(\"clears the cache\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My Product\" }\n        ]\n      });\n\n      expect(changeEvent.mock.calls.length).toBe(1);\n\n      dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n      expect(store.has(1)).toBe(false);\n      expect(changeEvent.mock.calls.length).toBe(2);\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../BaseStore\");\n\nimport Actions   from \"../../utilities/Actions\";\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../BaseStore\");\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  class ThingsStore extends BaseStore {\n    constructor(dispatcher) {\n      super(dispatcher, new Actions(\"things\"));\n    }\n  }\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store      = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    describe(\"merge\", () => {\n      it(\"responds to actions appropriately\", () => {\n        expect(store.has(1)).toBe(false);\n        expect(store.get(1)).toBeUndefined();\n\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(store.has(1)).toBe(true);\n        expect(store.get(1).title).toBe(\"My Product\");\n      });\n\n      it(\"only emits a single change event even with multiple values\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My First Product\" },\n            { id: 2, title: \"My Second Product\" },\n            { id: 3, title: \"My Third Product\" }\n          ]\n        });\n\n        expect(store.has(1)).toBe(true);\n        expect(store.has(2)).toBe(true);\n        expect(store.has(3)).toBe(true);\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n\n      it(\"doesn't emit a change event when the values haven't changed\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n    });\n\n    describe(\"clear\", () => {\n      it(\"clears the cache\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n\n        dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n        expect(store.has(1)).toBe(false);\n        expect(changeEvent.mock.calls.length).toBe(2);\n      });\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -1988,7 +2298,7 @@
     "importPath": "shopify-api-flux/lib/stores/__tests__/BaseStoreTest.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 10,
     "undocument": true,
     "type": {
       "types": [
@@ -2000,25 +2310,33 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/OrdersStoreTest.js",
+    "name": "lib/stores/__tests__/CountableStoreTest.js",
     "memberof": null,
-    "longname": "lib/stores/__tests__/OrdersStoreTest.js",
+    "longname": "lib/stores/__tests__/CountableStoreTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../BaseStore\");\njest.dontMock(\"../OrdersStore\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"OrdersStore\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../OrdersStore\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_ORDERS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_ORDERS);\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"../BaseStore\");\njest.dontMock(\"../CountableStore\");\n\nimport Actions   from \"../../utilities/Actions\";\nimport Constants from \"../../Constants\";\n\nconst CountableStore = require(\"../CountableStore\");\n\ndescribe(\"CountableStore\", () => {\n  var store, dispatcher;\n\n  class ThingsStore extends CountableStore {\n    constructor(dispatcher) {\n      super(dispatcher, new Actions(\"things\"));\n    }\n  }\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store      = new ThingsStore(dispatcher);\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    describe(\"count\", () => {\n      beforeEach(() => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.COUNT_THINGS,\n          count: 10\n        });\n      });\n\n      it(\"stores the count\", () => {\n        expect(store.count()).toBe(10);\n      });\n\n      it(\"differentiates between queries\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.COUNT_THINGS,\n          count: 20,\n          query: { test: \"value\" }\n        });\n\n        expect(store.count()).toBe(10);\n        expect(store.count({ test: \"value\" })).toBe(20);\n      });\n\n      it(\"triggers the change event\", () => {\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n    });\n  });\n\n  describe(\"#count\", () => {\n    it(\"returns the count for the specified query\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.COUNT_THINGS,\n        count: 10,\n        query: { test: \"some value\" }\n      });\n\n      expect(store.count({ test: \"some value\" })).toBe(10);\n    });\n\n    it(\"doesn't care about key order\", () => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.COUNT_THINGS,\n        count: 4,\n        query: { a: 1, b: 2}\n      });\n\n      expect(store.count({ b: 2, a: 1 })).toBe(4);\n    });\n\n    it(\"returns 0 when no results exist\", () => {\n      expect(store.count()).toBe(0);\n    });\n\n    it(\"return 0 when query is falsy\", () => {\n      expect(store.count()).toBe(0);\n      expect(store.count(null)).toBe(0);\n      expect(store.count(undefined)).toBe(0);\n      expect(store.count(\"\")).toBe(0);\n    });\n  });\n});\n"
   },
   {
-    "kind": "file",
+    "kind": "variable",
     "static": true,
     "variation": null,
-    "name": "lib/stores/__tests__/ProductsStoreTest.js",
-    "memberof": null,
-    "longname": "lib/stores/__tests__/ProductsStoreTest.js",
+    "name": "CountableStore",
+    "memberof": "lib/stores/__tests__/CountableStoreTest.js",
+    "longname": "lib/stores/__tests__/CountableStoreTest.js~CountableStore",
     "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/stores/__tests__/CountableStoreTest.js",
+    "importStyle": null,
     "description": null,
-    "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../BaseStore\");\njest.dontMock(\"../ProductsStore\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"ProductsStore\", () => {\n  var store;\n\n  beforeEach(() => {\n    store = require(\"../ProductsStore\");\n  });\n\n  it(\"correctly defines mergeAction\", () => {\n    expect(store._mergeAction).toBe(Constants.Actions.MERGE_PRODUCTS);\n  });\n\n  it(\"correctly defines clearAction\", () => {\n    expect(store._clearAction).toBe(Constants.Actions.CLEAR_PRODUCTS);\n  });\n});\n"
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -2054,7 +2372,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nexport default function(actions, store) {\n  let wrapper = Object.create({}, {\n    store: {\n      get: () => store\n    }\n  });\n\n  actions.constructor.apiMethods.forEach(method => {\n    Object.defineProperty(wrapper, method, {\n      value: (...args) => {\n        return actions[method].call(actions, ...args);\n      }\n    });\n  });\n\n  return wrapper;\n}\n"
+    "content": "\"use strict\";\n\nexport default function(actions, store) {\n  let wrapper = Object.create({}, {\n    store: {\n      get: () => store\n    }\n  });\n\n  actions.apiMethods.forEach(method => {\n    Object.defineProperty(wrapper, method, {\n      value: (...args) => {\n        return actions[method].call(actions, ...args);\n      }\n    });\n  });\n\n  return wrapper;\n}\n"
   },
   {
     "kind": "function",
@@ -2085,6 +2403,164 @@
       }
     ],
     "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/Actions.js",
+    "memberof": null,
+    "longname": "lib/utilities/Actions.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Constants from \"../Constants\";\n\nfunction constantFor(prefix, suffix) {\n  return Constants.Actions[`${prefix}_${suffix}`];\n}\n\nexport default class {\n  /**\n   * Creates a new action object for the specified resource\n   *\n   * @param {string} resourceName - The name of the resource (plural - e.g. `products`)\n   */\n  constructor(resourceName) {\n    this._actionSuffix = resourceName.toUpperCase();\n  }\n\n  get mergeAction() {\n    return constantFor(\"MERGE\", this._actionSuffix);\n  }\n\n  get clearAction() {\n    return constantFor(\"CLEAR\", this._actionSuffix);\n  }\n\n  get countAction() {\n    return constantFor(\"COUNT\", this._actionSuffix);\n  }\n}\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "constantFor",
+    "memberof": "lib/utilities/Actions.js",
+    "longname": "lib/utilities/Actions.js~constantFor",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/utilities/Actions.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [
+      {
+        "name": "prefix",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "suffix",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Actions",
+    "memberof": "lib/utilities/Actions.js",
+    "longname": "lib/utilities/Actions.js~Actions",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/utilities/Actions.js",
+    "importStyle": "Actions",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/utilities/Actions.js~Actions",
+    "longname": "lib/utilities/Actions.js~Actions#constructor",
+    "access": null,
+    "description": "Creates a new action object for the specified resource",
+    "lineNumber": 15,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "resourceName",
+        "description": "The name of the resource (plural - e.g. `products`)"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_actionSuffix",
+    "memberof": "lib/utilities/Actions.js~Actions",
+    "longname": "lib/utilities/Actions.js~Actions#_actionSuffix",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "mergeAction",
+    "memberof": "lib/utilities/Actions.js~Actions",
+    "longname": "lib/utilities/Actions.js~Actions#mergeAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "clearAction",
+    "memberof": "lib/utilities/Actions.js~Actions",
+    "longname": "lib/utilities/Actions.js~Actions#clearAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "countAction",
+    "memberof": "lib/utilities/Actions.js~Actions",
+    "longname": "lib/utilities/Actions.js~Actions#countAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "type": {
       "types": [
         "*"
       ]
@@ -2288,7 +2764,19 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../APIProxy\");\njest.dontMock(\"../../resources/Base\");\njest.dontMock(\"../../resources/Product\");\n\ndescribe(\"APIProxy\", () => {\n  var api, actions, store;\n\n  beforeEach(() => {\n    const APIProxy = require(\"../APIProxy\");\n\n    actions       = require(\"../../resources/Product\");\n    actions.fetch = jest.genMockFunction();\n\n    store = require(\"../../stores/ProductsStore\");\n    api   = new APIProxy(actions, store);\n  });\n\n  it(\"decorates the proxy object with api methods\", () => {\n    let apiMethods = actions.constructor.apiMethods;\n    apiMethods.forEach(method => expect(api[method]).toBeDefined(`${method} not defined`));\n  });\n\n  it(\"proxies api method calls to the action object\", () => {\n    api.fetch();\n    expect(actions.fetch).toBeCalled();\n  });\n\n  it(\"exposes a read-only property called store\", () => {\n    expect(api.store).toBe(store);\n    expect(() => api.store = null).toThrow();\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../APIProxy\");\njest.dontMock(\"../../resources/Base\");\njest.dontMock(\"../../resources/Product\");\n\ndescribe(\"APIProxy\", () => {\n  var api, actions, store;\n\n  beforeEach(() => {\n    const APIProxy = require(\"../APIProxy\");\n\n    actions       = require(\"../../resources/Product\");\n    actions.fetch = jest.genMockFunction();\n\n    store = require(\"../../stores/ProductsStore\");\n    api   = new APIProxy(actions, store);\n  });\n\n  it(\"decorates the proxy object with api methods\", () => {\n    let apiMethods = actions.apiMethods;\n    apiMethods.forEach(method => expect(api[method]).toBeDefined(`${method} not defined`));\n  });\n\n  it(\"proxies api method calls to the action object\", () => {\n    api.fetch();\n    expect(actions.fetch).toBeCalled();\n  });\n\n  it(\"exposes a read-only property called store\", () => {\n    expect(api.store).toBe(store);\n    expect(() => api.store = null).toThrow();\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/utilities/__tests__/ActionsTest..js",
+    "memberof": null,
+    "longname": "lib/utilities/__tests__/ActionsTest..js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions   from \"../Actions\";\nimport Constants from \"../../Constants\";\n\ndescribe(\"Actions\", () => {\n  var actions;\n\n  beforeEach(() => {\n    actions = new Actions(\"products\");\n  });\n\n  describe(\"#clearAction\", () => {\n    it(\"gets the value from Constants\", () => {\n      expect(actions.clearAction).toEqual(Constants.Actions.CLEAR_PRODUCTS);\n    });\n  });\n\n  describe(\"#countAction\", () => {\n    it(\"gets the value from Constants\", () => {\n      expect(actions.countAction).toEqual(Constants.Actions.COUNT_PRODUCTS);\n    });\n  });\n\n  describe(\"#mergeAction\", () => {\n    it(\"gets the value from Constants\", () => {\n      expect(actions.mergeAction).toEqual(Constants.Actions.MERGE_PRODUCTS);\n    });\n  });\n});\n"
   },
   {
     "kind": "file",

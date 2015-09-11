@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "shopify-api-flux/lib/utilities/actions.js~actions",
+    "class/lib/utilities/Actions.js~Actions.html",
+    "<span>Actions</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/utilities/Actions.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/resources/base.js~base",
     "class/lib/resources/Base.js~Base.html",
     "<span>Base</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Base.js</span>",
@@ -15,6 +21,12 @@ window.esdocSearchIndex = [
     "shopify-api-flux/lib/stores/basestore.js~basestore",
     "class/lib/stores/BaseStore.js~BaseStore.html",
     "<span>BaseStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/BaseStore.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/stores/countablestore.js~countablestore",
+    "class/lib/stores/CountableStore.js~CountableStore.html",
+    "<span>CountableStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/CountableStore.js</span>",
     "class"
   ],
   [
@@ -456,6 +468,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "lib/dispatcher/apidispatcher.js~countaction",
+    "typedef/index.html#static-typedef-CountAction",
+    "lib/dispatcher/APIDispatcher.js~CountAction",
+    "typedef"
+  ],
+  [
     "lib/dispatcher/apidispatcher.js~mergeaction",
     "typedef/index.html#static-typedef-MergeAction",
     "lib/dispatcher/APIDispatcher.js~MergeAction",
@@ -472,6 +490,18 @@ window.esdocSearchIndex = [
     "file/lib/resources/Base.js.html",
     "lib/resources/Base.js",
     "file"
+  ],
+  [
+    "lib/resources/base.js~base#actions",
+    "class/lib/resources/Base.js~Base.html#instance-get-actions",
+    "lib/resources/Base.js~Base#actions",
+    "member"
+  ],
+  [
+    "lib/resources/base.js~base#apimethods",
+    "class/lib/resources/Base.js~Base.html#instance-get-apiMethods",
+    "lib/resources/Base.js~Base#apiMethods",
+    "member"
   ],
   [
     "lib/resources/base.js~base#clear",
@@ -492,28 +522,28 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/base.js~base#fetchcount",
+    "class/lib/resources/Base.js~Base.html#instance-method-fetchCount",
+    "lib/resources/Base.js~Base#fetchCount",
+    "method"
+  ],
+  [
     "lib/resources/base.js~base#urlfor",
     "class/lib/resources/Base.js~Base.html#instance-method-urlFor",
     "lib/resources/Base.js~Base#urlFor",
     "method"
   ],
   [
-    "lib/resources/base.js~base.apimethods",
-    "class/lib/resources/Base.js~Base.html#static-get-apiMethods",
-    "lib/resources/Base.js~Base.apiMethods",
-    "member"
-  ],
-  [
-    "lib/resources/base.js~resourcequery",
-    "typedef/index.html#static-typedef-ResourceQuery",
-    "lib/resources/Base.js~ResourceQuery",
-    "typedef"
-  ],
-  [
     "lib/resources/order.js",
     "file/lib/resources/Order.js.html",
     "lib/resources/Order.js",
     "file"
+  ],
+  [
+    "lib/resources/order.js~order#apimethods",
+    "class/lib/resources/Order.js~Order.html#instance-get-apiMethods",
+    "lib/resources/Order.js~Order#apiMethods",
+    "member"
   ],
   [
     "lib/resources/order.js~order#constructor",
@@ -534,16 +564,16 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/resources/order.js~order.apimethods",
-    "class/lib/resources/Order.js~Order.html#static-get-apiMethods",
-    "lib/resources/Order.js~Order.apiMethods",
-    "member"
-  ],
-  [
     "lib/resources/product.js",
     "file/lib/resources/Product.js.html",
     "lib/resources/Product.js",
     "file"
+  ],
+  [
+    "lib/resources/product.js~product#apimethods",
+    "class/lib/resources/Product.js~Product.html#instance-get-apiMethods",
+    "lib/resources/Product.js~Product#apiMethods",
+    "member"
   ],
   [
     "lib/resources/product.js~product#constructor",
@@ -562,12 +592,6 @@ window.esdocSearchIndex = [
     "class/lib/resources/Product.js~Product.html#instance-method-fetchByCollection",
     "lib/resources/Product.js~Product#fetchByCollection",
     "method"
-  ],
-  [
-    "lib/resources/product.js~product.apimethods",
-    "class/lib/resources/Product.js~Product.html#static-get-apiMethods",
-    "lib/resources/Product.js~Product.apiMethods",
-    "member"
   ],
   [
     "lib/resources/session.js",
@@ -598,6 +622,12 @@ window.esdocSearchIndex = [
     "file/lib/resources/Shop.js.html",
     "lib/resources/Shop.js",
     "file"
+  ],
+  [
+    "lib/resources/shop.js~shop#actions",
+    "class/lib/resources/Shop.js~Shop.html#instance-get-actions",
+    "lib/resources/Shop.js~Shop#actions",
+    "member"
   ],
   [
     "lib/resources/shop.js~shop#constructor",
@@ -666,6 +696,36 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/stores/countablestore.js",
+    "file/lib/stores/CountableStore.js.html",
+    "lib/stores/CountableStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/countablestore.js~countablestore#constructor",
+    "class/lib/stores/CountableStore.js~CountableStore.html#instance-constructor-constructor",
+    "lib/stores/CountableStore.js~CountableStore#constructor",
+    "method"
+  ],
+  [
+    "lib/stores/countablestore.js~countablestore#count",
+    "class/lib/stores/CountableStore.js~CountableStore.html#instance-method-count",
+    "lib/stores/CountableStore.js~CountableStore#count",
+    "method"
+  ],
+  [
+    "lib/stores/countablestore.js~countablestore#reduce",
+    "class/lib/stores/CountableStore.js~CountableStore.html#instance-method-reduce",
+    "lib/stores/CountableStore.js~CountableStore#reduce",
+    "method"
+  ],
+  [
+    "lib/stores/countablestore.js~resourcequery",
+    "typedef/index.html#static-typedef-ResourceQuery",
+    "lib/stores/CountableStore.js~ResourceQuery",
+    "typedef"
+  ],
+  [
     "lib/stores/ordersstore.js",
     "file/lib/stores/OrdersStore.js.html",
     "lib/stores/OrdersStore.js",
@@ -726,15 +786,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/stores/__tests__/ordersstoretest.js",
-    "file/lib/stores/__tests__/OrdersStoreTest.js.html",
-    "lib/stores/__tests__/OrdersStoreTest.js",
-    "file"
-  ],
-  [
-    "lib/stores/__tests__/productsstoretest.js",
-    "file/lib/stores/__tests__/ProductsStoreTest.js.html",
-    "lib/stores/__tests__/ProductsStoreTest.js",
+    "lib/stores/__tests__/countablestoretest.js",
+    "file/lib/stores/__tests__/CountableStoreTest.js.html",
+    "lib/stores/__tests__/CountableStoreTest.js",
     "file"
   ],
   [
@@ -754,6 +808,36 @@ window.esdocSearchIndex = [
     "file/lib/utilities/APIProxy.js.html",
     "lib/utilities/APIProxy.js",
     "file"
+  ],
+  [
+    "lib/utilities/actions.js",
+    "file/lib/utilities/Actions.js.html",
+    "lib/utilities/Actions.js",
+    "file"
+  ],
+  [
+    "lib/utilities/actions.js~actions#clearaction",
+    "class/lib/utilities/Actions.js~Actions.html#instance-get-clearAction",
+    "lib/utilities/Actions.js~Actions#clearAction",
+    "member"
+  ],
+  [
+    "lib/utilities/actions.js~actions#constructor",
+    "class/lib/utilities/Actions.js~Actions.html#instance-constructor-constructor",
+    "lib/utilities/Actions.js~Actions#constructor",
+    "method"
+  ],
+  [
+    "lib/utilities/actions.js~actions#countaction",
+    "class/lib/utilities/Actions.js~Actions.html#instance-get-countAction",
+    "lib/utilities/Actions.js~Actions#countAction",
+    "member"
+  ],
+  [
+    "lib/utilities/actions.js~actions#mergeaction",
+    "class/lib/utilities/Actions.js~Actions.html#instance-get-mergeAction",
+    "lib/utilities/Actions.js~Actions#mergeAction",
+    "member"
   ],
   [
     "lib/utilities/urlhelpers.js",
@@ -795,6 +879,12 @@ window.esdocSearchIndex = [
     "lib/utilities/__tests__/apiproxytest.js",
     "file/lib/utilities/__tests__/APIProxyTest.js.html",
     "lib/utilities/__tests__/APIProxyTest.js",
+    "file"
+  ],
+  [
+    "lib/utilities/__tests__/actionstest..js",
+    "file/lib/utilities/__tests__/ActionsTest..js.html",
+    "lib/utilities/__tests__/ActionsTest..js",
     "file"
   ],
   [

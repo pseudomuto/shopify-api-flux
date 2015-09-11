@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -82,13 +85,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import BaseStore from &apos;<span><a href="file/lib/stores/BaseStore.js.html#lineNumber42">shopify-api-flux/lib/stores/BaseStore.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import BaseStore from &apos;<span><a href="file/lib/stores/BaseStore.js.html#lineNumber43">shopify-api-flux/lib/stores/BaseStore.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/stores/BaseStore.js.html#lineNumber42">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/stores/BaseStore.js.html#lineNumber43">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -99,7 +102,7 @@
   
   
   <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js">FluxMapStore</a></span> &#x2192; BaseStore</div></div>
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span>, <span><a href="class/lib/stores/ProductsStore.js~ProductsStore.html">ProductsStore</a></span></div></div>
+  
   
   
   
@@ -126,9 +129,10 @@
   <div class="example-doc" data-ice="exampleDoc">
       
       <pre class="prettyprint source-code"><code data-ice="exampleCode">import APIDispatcher from &quot;../dispatcher/APIDispatcher&quot;;
+import Actions       from &quot;../utilities/Actions&quot;;
 import Base          from &quot;./Base&quot;;
 
-let store = new Base(APIDispatcher, &quot;MERGE_PRODUCTS&quot;, &quot;CLEAR_PRODUCTS&quot;);
+let store = new BaseStore(APIDispatcher, new Actions(&quot;products&quot;));
 
 // listen for change events
 store.addListener(() =&gt; console.log(store.get(1)));
@@ -163,7 +167,7 @@ APIDispatcher.dispatch({
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(dispatcher: <span>APIDispatcher</span>, mergeAction: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, clearAction: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+           <span data-ice="name"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html#instance-constructor-constructor">constructor</a></span></span><span data-ice="signature">(dispatcher: <span>APIDispatcher</span>, actions: <span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span>)</span>
         </p>
       </div>
       <div>
@@ -279,7 +283,7 @@ APIDispatcher.dispatch({
     
     
     
-    <span data-ice="name">constructor</span><span data-ice="signature">(dispatcher: <span>APIDispatcher</span>, mergeAction: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, clearAction: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+    <span data-ice="name">constructor</span><span data-ice="signature">(dispatcher: <span>APIDispatcher</span>, actions: <span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span>)</span>
     <span class="right-info">
       
       
@@ -310,18 +314,10 @@ APIDispatcher.dispatch({
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">mergeAction</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="name" data-depth="0">actions</td>
+      <td data-ice="type"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The actionType for merge operations</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">clearAction</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The actionType for clear operations</p>
-</td>
+      <td data-ice="description"></td>
     </tr>
 </tbody>
   </table>
@@ -358,7 +354,7 @@ APIDispatcher.dispatch({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/stores/BaseStore.js.html#lineNumber97">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/stores/BaseStore.js.html#lineNumber96">source</a></span></span>
     </span>
   </h3>
 
@@ -435,7 +431,7 @@ APIDispatcher.dispatch({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/stores/BaseStore.js.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/stores/BaseStore.js.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 
@@ -513,7 +509,7 @@ single state object. This will handle merge and clear actions for this resource.
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/stores/BaseStore.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/stores/BaseStore.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
