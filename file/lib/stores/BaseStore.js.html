@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -110,9 +113,10 @@ function mergeItems(state, items) {
  *
  * @example
  * import APIDispatcher from &quot;../dispatcher/APIDispatcher&quot;;
+ * import Actions       from &quot;../utilities/Actions&quot;;
  * import Base          from &quot;./Base&quot;;
  *
- * let store = new Base(APIDispatcher, &quot;MERGE_PRODUCTS&quot;, &quot;CLEAR_PRODUCTS&quot;);
+ * let store = new BaseStore(APIDispatcher, new Actions(&quot;products&quot;));
  *
  * // listen for change events
  * store.addListener(() =&gt; console.log(store.get(1)));
@@ -126,13 +130,11 @@ function mergeItems(state, items) {
 export default class BaseStore extends Flux.MapStore {
   /**
    * @param {APIDispatcher} dispatcher - The dispatcher to register with
-   * @param {string} mergeAction - The actionType for merge operations
-   * @param {string} clearAction - The actionType for clear operations
+   * @param {Actions} actions
    */
-  constructor(dispatcher, mergeAction, clearAction) {
+  constructor(dispatcher, actions) {
     super(dispatcher);
-    this._mergeAction = mergeAction;
-    this._clearAction = clearAction;
+    this._actions = actions;
   }
 
   /**
@@ -159,9 +161,9 @@ export default class BaseStore extends Flux.MapStore {
    */
   reduce(state, action) {
     switch(action.actionType) {
-      case this._mergeAction:
+      case this._actions.mergeAction:
         return mergeItems(state, action.items);
-      case this._clearAction:
+      case this._actions.clearAction:
         return state.clear();
       default:
         return state;

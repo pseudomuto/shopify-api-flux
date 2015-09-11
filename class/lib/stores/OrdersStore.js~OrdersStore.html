@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -98,7 +101,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js">FluxMapStore</a></span> &#x2192; <span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span> &#x2192; OrdersStore</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>lib/stores/BaseStore~BaseStore</span> &#x2192; <span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span> &#x2192; OrdersStore</div></div>
   
   
   
@@ -143,7 +146,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively</p>
+        <div data-ice="description"><p>Sets the dispatcher and appropriate actions for orders</p>
 </div>
       </div>
     </td>
@@ -159,7 +162,7 @@
 
 
 <div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></td></tr></thead>
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></td></tr></thead>
   <tbody>
   
   <tr data-ice="target">
@@ -173,65 +176,39 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html#instance-method-areEqual">areEqual</a></span></span><span data-ice="signature">(state1: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, state2: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html#instance-method-count">count</a></span></span><span data-ice="signature">(query: <span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Determines whether or not the state of this store has changed.</p></div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-           <span data-ice="name"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html#instance-method-reduce">reduce</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Used to reduce a stream of actions coming from the dispatcher into a
-</p></div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-           <span data-ice="name"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html#instance-method-where">where</a></span></span><span data-ice="signature">(source: <span><a href="https://lodash.com/docs#where">QueryObject</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Queries the store for resources matching the source object</p>
+        <div data-ice="description"><p>Returns the count for the given query</p>
 </div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html#instance-method-reduce">reduce</a></span></span><span data-ice="signature">(state: <span>*</span>, action: <span>*</span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
       </div>
     </td>
     <td>
@@ -258,17 +235,17 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/stores/OrdersStore.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/stores/OrdersStore.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Sets the merge and clear actions to MERGE_ORDERS and CLEAR_ORDERS respectively</p>
+  <div data-ice="description"><p>Sets the dispatcher and appropriate actions for orders</p>
 </div>
 
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/stores/BaseStore.js~BaseStore.html#instance-constructor-constructor">BaseStore#constructor</a></span></div>
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/stores/CountableStore.js~CountableStore.html#instance-constructor-constructor">CountableStore#constructor</a></span></div>
 
   <div data-ice="properties"><div data-ice="properties">
   <h4 data-ice="title">Params:</h4>

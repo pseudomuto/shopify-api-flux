@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -84,20 +87,10 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/resources/Base.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
+import Actions       from &quot;../utilities/Actions&quot;;
 import Api           from &quot;../utilities/WebAPI&quot;;
 import APIDispatcher from &quot;../dispatcher/APIDispatcher&quot;;
-import Constants     from &quot;../Constants&quot;;
 import URLHelpers    from &quot;../utilities/URLHelpers&quot;;
-
-/**
- * An object representing a resource query.
- *
- * Can be one of the following:
- *   * `number` - Assumes the value is a resource id
- *   * `string` - Assumes the value is a resource id
- *   * `object` - Will be converted to a query string
- * @typedef {number|string|object} ResourceQuery
- */
 
 function isPrimitive(value) {
   return [&quot;number&quot;, &quot;string&quot;].indexOf(typeof value) &gt;= 0;
@@ -127,15 +120,15 @@ function isPrimitive(value) {
 export default class {
   /**
    * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource
-   * which will be used to infer the merge and clear actions to be dispatched.
+   * which will be used to infer the merge, count, and clear actions to be dispatched.
    *
    * @param {string} resourceName - The singular name for the resource (e.g. `product`)
+   * @param {boolean} [countable=false] - Whether or not this resource is countable (has a /count.json endpoint)
    */
-  constructor(resourceName) {
-    this._resource     = resourceName;
-    this._resources    = `${resourceName}s`;
-    this._mergeAction  = Constants.Actions[`MERGE_${this._resources.toUpperCase()}`];
-    this._clearAction  = Constants.Actions[`CLEAR_${this._resources.toUpperCase()}`];
+  constructor(resourceName, countable = false) {
+    this._resource  = resourceName;
+    this._resources = `${resourceName}s`;
+    this._countable = countable;
   }
 
   /**
@@ -143,8 +136,23 @@ export default class {
    *
    * @return {Array&lt;string&gt;} The names of all methods to be made available
    */
-  static get apiMethods() {
-    return [&quot;clear&quot;, &quot;fetch&quot;];
+  get apiMethods() {
+    let methods = [&quot;clear&quot;, &quot;fetch&quot;];
+
+    if (this._countable) {
+      methods.push(&quot;fetchCount&quot;);
+    }
+
+    return methods;
+  }
+
+  /**
+   * Returns an object that supplies the clear, count and merge actions for this resource
+   *
+   * @return {Actions}
+   */
+  get actions() {
+    return new Actions(this._resources);
   }
 
   /**
@@ -163,10 +171,24 @@ export default class {
   }
 
   /**
+   * Performs a GET request for the resource&apos;s count endpoint
+   *
+   * @param {ResourceQuery} [query]
+   *
+   * @return {RequestPromise}
+   */
+  fetchCount(query) {
+    let url      = this.urlFor(&quot;count&quot;, query);
+    let dispatch = this._dispatchCount.bind(this);
+
+    return Api.get(url).then(response =&gt; dispatch(response.count, query));
+  }
+
+  /**
    * Dispatches the clear action for this resource. The action will be handled by the appropriate store.
    */
   clear() {
-    APIDispatcher.dispatch({ actionType: this._clearAction });
+    APIDispatcher.dispatch({ actionType: this.actions.clearAction });
   }
 
   /**
@@ -175,6 +197,7 @@ export default class {
    * string.
    *
    * @param {ResourceQuery} [query]
+   * @param {ResourceQuery} [params] - Query string parameters (only used when query is a number or string)
    *
    * @return {string} The resource URL for the specified query
    *
@@ -186,16 +209,19 @@ export default class {
    * instance.urlFor();                            // `/admin/products.json`
    * instance.urlFor(1);                           // `/admin/products/1.json`
    * instance.urlFor(&quot;1&quot;);                         // `/admin/products/1.json`
+   * instance.urlFor(1, { type: &quot;test&quot; })          // `/admin/products/1.json?type=test
    * instance.urlFor({ fields: [&quot;id&quot;, &quot;title&quot;] }); // `/admin/products.json?fields=id,title
    */
-  urlFor(query) {
+  urlFor(query, params) {
+    var url         = `/admin/${this._resources}.json`;
+    var queryString = URLHelpers.toQueryString(query);
+
     if (isPrimitive(query)) {
-      return `/admin/${this._resources}/${query}.json`;
+      url         = `/admin/${this._resources}/${query}.json`;
+      queryString = URLHelpers.toQueryString(params);
     }
 
-    let url    = `/admin/${this._resources}.json`;
-    let params = URLHelpers.toQueryString(query);
-    return params ? `${url}?${params}` : url;
+    return queryString ? `${url}?${queryString}` : url;
   }
 
   _dispatchMerge(items) {
@@ -203,8 +229,13 @@ export default class {
       items = [items];
     }
 
-    let actionType = this._mergeAction;
+    let actionType = this.actions.mergeAction;
     APIDispatcher.dispatch({ actionType, items });
+  }
+
+  _dispatchCount(count, query) {
+    let actionType = this.actions.countAction;
+    APIDispatcher.dispatch({ actionType, count, query });
   }
 }
 </code></pre>

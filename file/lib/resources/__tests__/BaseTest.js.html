@@ -31,8 +31,10 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -62,6 +64,7 @@
   <ul>
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -90,35 +93,24 @@ jest.dontMock(&quot;../../utilities/URLHelpers&quot;);
 import Constants from &quot;../../Constants&quot;;
 
 describe(&quot;Base&quot;, () =&gt; {
-  var actions, dispatcher;
+  var Base, actions, dispatcher;
 
   beforeEach(() =&gt; {
-    const BaseActions = require(&quot;../Base&quot;);
-
-    actions    = new BaseActions(&quot;thing&quot;);
+    Base       = require(&quot;../Base&quot;);
+    actions    = new Base(&quot;thing&quot;);
     dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
   });
 
-  describe(&quot;.apiMethods&quot;, () =&gt; {
-    var klass;
-
-    beforeEach(() =&gt; {
-      klass = actions.constructor;
-    });
-
+  describe(&quot;#apiMethods&quot;, () =&gt; {
     it(&quot;returns all exported action method names&quot;, () =&gt; {
-      expect(klass.apiMethods).toContain(&quot;clear&quot;);
+      expect(actions.apiMethods).toContain(&quot;clear&quot;);
+      expect(actions.apiMethods).toContain(&quot;fetch&quot;);
+      expect(actions.apiMethods).not.toContain(&quot;fetchCount&quot;);
     });
 
-    it(&quot;can be overridden in subclasses&quot;, () =&gt; {
-      class Test extends klass {
-        static get apiMethods() {
-          return super.apiMethods.concat([&quot;testMethod&quot;]);
-        }
-      }
-
-      expect(Test.apiMethods).toContain(&quot;clear&quot;);
-      expect(Test.apiMethods).toContain(&quot;testMethod&quot;);
+    it(&quot;includes fetchCount when the resource is countable&quot;, () =&gt; {
+      let countableResource = new Base(&quot;thing&quot;, true);
+      expect(countableResource.apiMethods).toContain(&quot;fetchCount&quot;);
     });
   });
 
@@ -192,6 +184,52 @@ describe(&quot;Base&quot;, () =&gt; {
     });
   });
 
+  describe(&quot;#fetchCount&quot;, () =&gt; {
+    let count      = 10;
+    let actionType = Constants.Actions.COUNT_THINGS;
+
+    var api, request;
+
+    beforeEach(() =&gt; {
+      api = require(&quot;../../utilities/WebAPI&quot;);
+      stubFetchRequest(api, { count });
+    });
+
+    describe(&quot;when called without parameters&quot;, () =&gt; {
+      beforeEach(() =&gt; {
+        request = actions.fetchCount();
+      });
+
+      it(&quot;fetches the correct endpoint&quot;, () =&gt; {
+        expect(api.get).toBeCalledWith(&quot;/admin/things/count.json&quot;);
+      });
+
+      pit(&quot;dispatches the count action&quot;, () =&gt; {
+        return Promise.resolve(request).then(() =&gt; {
+          expect(dispatcher.dispatch).toBeCalledWith({ actionType, count, query: undefined });
+        });
+      });
+    });
+
+    describe(&quot;when called with query parameter&quot;, () =&gt; {
+      let query = { type: &quot;test&quot;, a: 1 };
+
+      beforeEach(() =&gt; {
+        request = actions.fetchCount(query);
+      });
+
+      it(&quot;fetches the correct endpoint&quot;, () =&gt; {
+        expect(api.get).toBeCalledWith(&quot;/admin/things/count.json?type=test&amp;a=1&quot;);
+      });
+
+      pit(&quot;dispatches the count action&quot;, () =&gt; {
+        return Promise.resolve(request).then(() =&gt; {
+          expect(dispatcher.dispatch).toBeCalledWith({ actionType, count, query });
+        });
+      });
+    });
+  });
+
   describe(&quot;#clear&quot;, () =&gt; {
     beforeEach(() =&gt; actions.clear());
 
@@ -217,6 +255,10 @@ describe(&quot;Base&quot;, () =&gt; {
 
       it(&quot;returns the item&apos;s URI when passed a string&quot;, () =&gt; {
         expect(actions.urlFor(&quot;1&quot;)).toBe(&quot;/admin/things/1.json&quot;);
+      });
+
+      it(&quot;appends params object as query string when supplied&quot;, () =&gt; {
+        expect(actions.urlFor(1, { type: &quot;thing&quot; })).toBe(&quot;/admin/things/1.json?type=thing&quot;);
       });
     });
 
