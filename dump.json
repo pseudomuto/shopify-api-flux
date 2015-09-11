@@ -1661,7 +1661,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport BaseStore  from \"./BaseStore\";\nimport ObjectHash from \"object-hash\";\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number` - Assumes the value is a resource id\n *   * `string` - Assumes the value is a resource id\n *   * `object` - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n\nfunction hash(obj) {\n  return ObjectHash.sha1(obj || {});\n}\n\nexport default class extends BaseStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {Actions} actions\n   */\n  constructor(dispatcher, actions) {\n    super(dispatcher, actions);\n    this._counts = {};\n  }\n\n  /**\n   * Returns the count for the given query\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {number}\n   */\n  count(query) {\n    return this._counts[hash(query)] || 0;\n  }\n\n  /**\n   * @override\n   */\n  reduce(state, action) {\n    if (action.actionType === this._actions.countAction) {\n      this._counts[hash(action.query)] = action.count;\n      this.__emitChange();\n      return state;\n    }\n\n    return super.reduce(state, action);\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport BaseStore  from \"./BaseStore\";\nimport ObjectHash from \"object-hash\";\n\n/**\n * An object representing a resource query.\n *\n * Can be one of the following:\n *   * `number` - Assumes the value is a resource id\n *   * `string` - Assumes the value is a resource id\n *   * `object` - Will be converted to a query string\n * @typedef {number|string|object} ResourceQuery\n */\n\nfunction hash(obj) {\n  return ObjectHash.sha1(obj || {});\n}\n\n/**\n * A base class for resource stores that are countable (have /count.json endpoints).\n *\n * @extends {BaseStore}\n */\nexport default class extends BaseStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {Actions} actions\n   */\n  constructor(dispatcher, actions) {\n    super(dispatcher, actions);\n    this._counts = {};\n  }\n\n  /**\n   * Returns the count for the given query\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {number}\n   */\n  count(query) {\n    return this._counts[hash(query)] || 0;\n  }\n\n  /**\n   * @override\n   */\n  reduce(state, action) {\n    if (action.actionType === this._actions.countAction) {\n      this._counts[hash(action.query)] = action.count;\n      this.__emitChange();\n      return state;\n    }\n\n    return super.reduce(state, action);\n  }\n}\n"
   },
   {
     "kind": "typedef",
@@ -1694,12 +1694,11 @@
     "export": true,
     "importPath": "shopify-api-flux/lib/stores/CountableStore.js",
     "importStyle": "CountableStore",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
+    "description": "A base class for resource stores that are countable (have /count.json endpoints).",
+    "lineNumber": 25,
     "interface": false,
     "extends": [
-      "lib/stores/BaseStore~BaseStore"
+      "BaseStore"
     ]
   },
   {
@@ -1711,7 +1710,7 @@
     "longname": "lib/stores/CountableStore.js~CountableStore#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 30,
     "params": [
       {
         "nullable": null,
@@ -1745,7 +1744,7 @@
     "longname": "lib/stores/CountableStore.js~CountableStore#_counts",
     "access": null,
     "description": null,
-    "lineNumber": 27,
+    "lineNumber": 32,
     "undocument": true,
     "type": {
       "types": [
@@ -1762,7 +1761,7 @@
     "longname": "lib/stores/CountableStore.js~CountableStore#count",
     "access": null,
     "description": "Returns the count for the given query",
-    "lineNumber": 37,
+    "lineNumber": 42,
     "params": [
       {
         "nullable": null,
@@ -1794,7 +1793,7 @@
     "longname": "lib/stores/CountableStore.js~CountableStore#reduce",
     "access": null,
     "description": null,
-    "lineNumber": 44,
+    "lineNumber": 49,
     "params": [
       {
         "name": "state",

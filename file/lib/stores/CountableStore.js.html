@@ -104,6 +104,11 @@ function hash(obj) {
   return ObjectHash.sha1(obj || {});
 }
 
+/**
+ * A base class for resource stores that are countable (have /count.json endpoints).
+ *
+ * @extends {BaseStore}
+ */
 export default class extends BaseStore {
   /**
    * @param {APIDispatcher} dispatcher - The dispatcher to register with
