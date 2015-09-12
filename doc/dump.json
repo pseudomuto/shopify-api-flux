@@ -2588,7 +2588,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/SessionStore\";\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\nfunction _performRequest(method, url, options) {\n  options = (options || {});\n  options.method = method;\n  options.headers = (options.headers || {});\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
+    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/SessionStore\";\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\nfunction _performRequest(method, url, options) {\n  options                                 = (options || {});\n  options.method                          = method;\n  options.headers                         = (options.headers || {});\n  options.headers[\"Accept\"]               = \"application/json\";\n  options.headers[\"Content-Type\"]         = \"application/json\";\n  options.headers[\"User-Agent\"]           = \"Shopify API Flux\";\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n\n  /**\n   * Performs a POST request for the given URL and options, passing the resource as the request body\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [resource] - the resource to post as the request body\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  post(url, resource, options) {\n    if (resource) {\n      options      = (options || {});\n      options.body = JSON.stringify(resource);\n    }\n\n    return _performRequest(\"post\", url, options);\n  }\n\n  /**\n   * Performs a PUT request for the given URL and options, passing the resource as the request body\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)\n   * @param {object} [resource] - the resource to post as the request body\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  put(url, resource, options) {\n    if (resource) {\n      options      = (options || {});\n      options.body = JSON.stringify(resource);\n    }\n\n    return _performRequest(\"put\", url, options);\n  }\n\n  /**\n   * Performs a DELETE request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  delete(url, options) {\n    return _performRequest(\"delete\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
   },
   {
     "kind": "typedef",
@@ -2687,7 +2687,7 @@
     "examples": [
       "import WebAPI from \"./WebAPI\";\n\nWebAPI.get(\"/admin/products.json\")\n  .then(json => console.log(json))\n  .catch(error => console.log(error.message));"
     ],
-    "lineNumber": 66,
+    "lineNumber": 69,
     "pseudoExport": true,
     "interface": false
   },
@@ -2700,7 +2700,7 @@
     "longname": "lib/utilities/WebAPI.js~WebAPI#get",
     "access": null,
     "description": "Performs a GET request for the given URL and options",
-    "lineNumber": 75,
+    "lineNumber": 78,
     "params": [
       {
         "nullable": null,
@@ -2711,6 +2711,152 @@
         "optional": false,
         "name": "url",
         "description": "the (relative) URL to get (e.g. `/admin/products.json`)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "options to pass along to the fetch call"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "post",
+    "memberof": "lib/utilities/WebAPI.js~WebAPI",
+    "longname": "lib/utilities/WebAPI.js~WebAPI#post",
+    "access": null,
+    "description": "Performs a POST request for the given URL and options, passing the resource as the request body",
+    "lineNumber": 91,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "the (relative) URL to get (e.g. `/admin/products.json`)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "resource",
+        "description": "the resource to post as the request body"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "options to pass along to the fetch call"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "put",
+    "memberof": "lib/utilities/WebAPI.js~WebAPI",
+    "longname": "lib/utilities/WebAPI.js~WebAPI#put",
+    "access": null,
+    "description": "Performs a PUT request for the given URL and options, passing the resource as the request body",
+    "lineNumber": 109,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "the (relative) URL to get (e.g. `/admin/products/1.json`)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "resource",
+        "description": "the resource to post as the request body"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "options to pass along to the fetch call"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "delete",
+    "memberof": "lib/utilities/WebAPI.js~WebAPI",
+    "longname": "lib/utilities/WebAPI.js~WebAPI#delete",
+    "access": null,
+    "description": "Performs a DELETE request for the given URL and options",
+    "lineNumber": 126,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "the (relative) URL to get (e.g. `/admin/products/1.json`)"
       },
       {
         "nullable": null,
@@ -2745,7 +2891,7 @@
     "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
     "importStyle": "webAPI",
     "description": null,
-    "lineNumber": 81,
+    "lineNumber": 132,
     "ignore": true,
     "type": {
       "types": [
@@ -2799,7 +2945,37 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../WebAPI\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"WebAPI\", () => {\n  var SessionStore, WebAPI;\n\n  beforeEach(() => {\n    SessionStore = require(\"../../stores/SessionStore\");\n    WebAPI       = require(\"../WebAPI\");\n\n    SessionStore.getDomain.mockReturnValue(\"example.myshopify.com\");\n    SessionStore.getAccessToken.mockReturnValue(\"my_token\");\n  });\n\n  describe(\"get\", () => {\n    var url, options;\n\n    beforeEach(() => {\n      WebAPI.get(\"/someurl\", { body: JSON.stringify({ param: \"value\" }) });\n\n      url     = fetch.mock.calls[0][0];\n      options = fetch.mock.calls[0][1];\n    });\n\n    afterEach(() => {\n      fetch.mockClear();\n    });\n\n    it(\"requests the specified URL using the GET method\", () => {\n      expect(url).toBe(\"https://example.myshopify.com/someurl\");\n      expect(options.method).toBe(\"get\");\n    });\n\n    it(\"sends request body along with the request\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(options.body).toBe(body);\n    });\n\n    it(\"adds the shopify token header\", () => {\n      expect(options.headers[Constants.OAUTH_HEADER]).toBe(\"my_token\");\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../WebAPI\");\n\nimport Constants from \"../../Constants\";\n\nfunction actsLikeAnAPICall(method, call) {\n  describe(\"(Common Behavior)\", () => {\n    it(`requests the specified URL using the ${method.toUpperCase()} method`, () => {\n      expect(call.url).toBe(\"https://example.myshopify.com/someurl\");\n      expect(call.options.method).toBe(method);\n    });\n\n    it(\"sets the user agent appropriately\", () => {\n      expect(call.options.headers[\"User-Agent\"]).toBe(\"Shopify API Flux\");\n    });\n\n    it(\"sets the accept header to application/json\", () => {\n      expect(call.options.headers[\"Accept\"]).toBe(\"application/json\");\n    });\n\n    it(\"sets the content type header to application/json\", () => {\n      expect(call.options.headers[\"Content-Type\"]).toBe(\"application/json\");\n    });\n\n    it(\"includes the shopify api header\", () => {\n      expect(call.options.headers[Constants.OAUTH_HEADER]).toBe(\"my_token\");\n    });\n  });\n}\n\ndescribe(\"WebAPI\", () => {\n  var SessionStore, WebAPI;\n\n  beforeEach(() => {\n    SessionStore = require(\"../../stores/SessionStore\");\n    WebAPI       = require(\"../WebAPI\");\n\n    SessionStore.getDomain.mockReturnValue(\"example.myshopify.com\");\n    SessionStore.getAccessToken.mockReturnValue(\"my_token\");\n  });\n\n  describe(\"get\", () => {\n    var call = {};\n\n    beforeEach(() => {\n      WebAPI.get(\"/someurl\", { body: JSON.stringify({ param: \"value\" }) });\n\n      call.url     = fetch.mock.calls[0][0];\n      call.options = fetch.mock.calls[0][1];\n    });\n\n    actsLikeAnAPICall(\"get\", call);\n\n    it(\"sends request body along with the request\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(call.options.body).toBe(body);\n    });\n  });\n\n  describe(\"post\", () => {\n    var call = {};\n\n    beforeEach(() => {\n      WebAPI.post(\"/someurl\", { param: \"value\" });\n\n      call.url     = fetch.mock.calls[0][0];\n      call.options = fetch.mock.calls[0][1];\n    });\n\n    actsLikeAnAPICall(\"post\", call);\n\n    it(\"sends the resource as the request body\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(call.options.body).toBe(body);\n    });\n  });\n\n  describe(\"put\", () => {\n    var call = {};\n\n    beforeEach(() => {\n      WebAPI.put(\"/someurl\", { param: \"value\" });\n\n      call.url     = fetch.mock.calls[0][0];\n      call.options = fetch.mock.calls[0][1];\n    });\n\n    actsLikeAnAPICall(\"put\", call);\n\n    it(\"sends the resource as the request body\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(call.options.body).toBe(body);\n    });\n  });\n\n  describe(\"delete\", () => {\n    var call = {};\n\n    beforeEach(() => {\n      WebAPI.delete(\"/someurl\", { body: JSON.stringify({ param: \"value\" }) });\n\n      call.url     = fetch.mock.calls[0][0];\n      call.options = fetch.mock.calls[0][1];\n    });\n\n    actsLikeAnAPICall(\"delete\", call);\n\n    it(\"sends request body along with the request\", () => {\n      let body = JSON.stringify({ param: \"value\" });\n      expect(call.options.body).toBe(body);\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "actsLikeAnAPICall",
+    "memberof": "lib/utilities/__tests__/WebAPITest.js",
+    "longname": "lib/utilities/__tests__/WebAPITest.js~actsLikeAnAPICall",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/utilities/__tests__/WebAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "params": [
+      {
+        "name": "method",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "call",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
   },
   {
     "kind": "external",

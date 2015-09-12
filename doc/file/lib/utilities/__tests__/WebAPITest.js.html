@@ -91,6 +91,31 @@ jest.dontMock(&quot;../WebAPI&quot;);
 
 import Constants from &quot;../../Constants&quot;;
 
+function actsLikeAnAPICall(method, call) {
+  describe(&quot;(Common Behavior)&quot;, () =&gt; {
+    it(`requests the specified URL using the ${method.toUpperCase()} method`, () =&gt; {
+      expect(call.url).toBe(&quot;https://example.myshopify.com/someurl&quot;);
+      expect(call.options.method).toBe(method);
+    });
+
+    it(&quot;sets the user agent appropriately&quot;, () =&gt; {
+      expect(call.options.headers[&quot;User-Agent&quot;]).toBe(&quot;Shopify API Flux&quot;);
+    });
+
+    it(&quot;sets the accept header to application/json&quot;, () =&gt; {
+      expect(call.options.headers[&quot;Accept&quot;]).toBe(&quot;application/json&quot;);
+    });
+
+    it(&quot;sets the content type header to application/json&quot;, () =&gt; {
+      expect(call.options.headers[&quot;Content-Type&quot;]).toBe(&quot;application/json&quot;);
+    });
+
+    it(&quot;includes the shopify api header&quot;, () =&gt; {
+      expect(call.options.headers[Constants.OAUTH_HEADER]).toBe(&quot;my_token&quot;);
+    });
+  });
+}
+
 describe(&quot;WebAPI&quot;, () =&gt; {
   var SessionStore, WebAPI;
 
@@ -103,31 +128,74 @@ describe(&quot;WebAPI&quot;, () =&gt; {
   });
 
   describe(&quot;get&quot;, () =&gt; {
-    var url, options;
+    var call = {};
 
     beforeEach(() =&gt; {
       WebAPI.get(&quot;/someurl&quot;, { body: JSON.stringify({ param: &quot;value&quot; }) });
 
-      url     = fetch.mock.calls[0][0];
-      options = fetch.mock.calls[0][1];
+      call.url     = fetch.mock.calls[0][0];
+      call.options = fetch.mock.calls[0][1];
     });
 
-    afterEach(() =&gt; {
-      fetch.mockClear();
-    });
-
-    it(&quot;requests the specified URL using the GET method&quot;, () =&gt; {
-      expect(url).toBe(&quot;https://example.myshopify.com/someurl&quot;);
-      expect(options.method).toBe(&quot;get&quot;);
-    });
+    actsLikeAnAPICall(&quot;get&quot;, call);
 
     it(&quot;sends request body along with the request&quot;, () =&gt; {
       let body = JSON.stringify({ param: &quot;value&quot; });
-      expect(options.body).toBe(body);
+      expect(call.options.body).toBe(body);
+    });
+  });
+
+  describe(&quot;post&quot;, () =&gt; {
+    var call = {};
+
+    beforeEach(() =&gt; {
+      WebAPI.post(&quot;/someurl&quot;, { param: &quot;value&quot; });
+
+      call.url     = fetch.mock.calls[0][0];
+      call.options = fetch.mock.calls[0][1];
     });
 
-    it(&quot;adds the shopify token header&quot;, () =&gt; {
-      expect(options.headers[Constants.OAUTH_HEADER]).toBe(&quot;my_token&quot;);
+    actsLikeAnAPICall(&quot;post&quot;, call);
+
+    it(&quot;sends the resource as the request body&quot;, () =&gt; {
+      let body = JSON.stringify({ param: &quot;value&quot; });
+      expect(call.options.body).toBe(body);
+    });
+  });
+
+  describe(&quot;put&quot;, () =&gt; {
+    var call = {};
+
+    beforeEach(() =&gt; {
+      WebAPI.put(&quot;/someurl&quot;, { param: &quot;value&quot; });
+
+      call.url     = fetch.mock.calls[0][0];
+      call.options = fetch.mock.calls[0][1];
+    });
+
+    actsLikeAnAPICall(&quot;put&quot;, call);
+
+    it(&quot;sends the resource as the request body&quot;, () =&gt; {
+      let body = JSON.stringify({ param: &quot;value&quot; });
+      expect(call.options.body).toBe(body);
+    });
+  });
+
+  describe(&quot;delete&quot;, () =&gt; {
+    var call = {};
+
+    beforeEach(() =&gt; {
+      WebAPI.delete(&quot;/someurl&quot;, { body: JSON.stringify({ param: &quot;value&quot; }) });
+
+      call.url     = fetch.mock.calls[0][0];
+      call.options = fetch.mock.calls[0][1];
+    });
+
+    actsLikeAnAPICall(&quot;delete&quot;, call);
+
+    it(&quot;sends request body along with the request&quot;, () =&gt; {
+      let body = JSON.stringify({ param: &quot;value&quot; });
+      expect(call.options.body).toBe(body);
     });
   });
 });

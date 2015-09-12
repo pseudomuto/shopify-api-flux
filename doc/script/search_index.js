@@ -870,9 +870,27 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "lib/utilities/webapi.js~webapi#delete",
+    "class/lib/utilities/WebAPI.js~WebAPI.html#instance-method-delete",
+    "lib/utilities/WebAPI.js~WebAPI#delete",
+    "method"
+  ],
+  [
     "lib/utilities/webapi.js~webapi#get",
     "class/lib/utilities/WebAPI.js~WebAPI.html#instance-method-get",
     "lib/utilities/WebAPI.js~WebAPI#get",
+    "method"
+  ],
+  [
+    "lib/utilities/webapi.js~webapi#post",
+    "class/lib/utilities/WebAPI.js~WebAPI.html#instance-method-post",
+    "lib/utilities/WebAPI.js~WebAPI#post",
+    "method"
+  ],
+  [
+    "lib/utilities/webapi.js~webapi#put",
+    "class/lib/utilities/WebAPI.js~WebAPI.html#instance-method-put",
+    "lib/utilities/WebAPI.js~WebAPI#put",
     "method"
   ],
   [

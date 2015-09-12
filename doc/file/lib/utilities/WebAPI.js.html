@@ -127,9 +127,12 @@ import SessionStore from &quot;../stores/SessionStore&quot;;
  */
 
 function _performRequest(method, url, options) {
-  options = (options || {});
-  options.method = method;
-  options.headers = (options.headers || {});
+  options                                 = (options || {});
+  options.method                          = method;
+  options.headers                         = (options.headers || {});
+  options.headers[&quot;Accept&quot;]               = &quot;application/json&quot;;
+  options.headers[&quot;Content-Type&quot;]         = &quot;application/json&quot;;
+  options.headers[&quot;User-Agent&quot;]           = &quot;Shopify API Flux&quot;;
   options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();
 
   return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response =&gt; {
@@ -161,6 +164,54 @@ class WebAPI {
    */
   get(url, options) {
     return _performRequest(&quot;get&quot;, url, options);
+  }
+
+  /**
+   * Performs a POST request for the given URL and options, passing the resource as the request body
+   *
+   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)
+   * @param {object} [resource] - the resource to post as the request body
+   * @param {object} [options] - options to pass along to the fetch call
+   *
+   * @return {RequestPromise}
+   */
+  post(url, resource, options) {
+    if (resource) {
+      options      = (options || {});
+      options.body = JSON.stringify(resource);
+    }
+
+    return _performRequest(&quot;post&quot;, url, options);
+  }
+
+  /**
+   * Performs a PUT request for the given URL and options, passing the resource as the request body
+   *
+   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)
+   * @param {object} [resource] - the resource to post as the request body
+   * @param {object} [options] - options to pass along to the fetch call
+   *
+   * @return {RequestPromise}
+   */
+  put(url, resource, options) {
+    if (resource) {
+      options      = (options || {});
+      options.body = JSON.stringify(resource);
+    }
+
+    return _performRequest(&quot;put&quot;, url, options);
+  }
+
+  /**
+   * Performs a DELETE request for the given URL and options
+   *
+   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)
+   * @param {object} [options] - options to pass along to the fetch call
+   *
+   * @return {RequestPromise}
+   */
+  delete(url, options) {
+    return _performRequest(&quot;delete&quot;, url, options);
   }
 }
 
