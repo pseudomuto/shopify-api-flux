@@ -1,15 +1,11 @@
 language: node_js
-
 notifications:
   email: false
-
 node_js:
-  - iojs-v2
-  - iojs-v3
-
+- iojs-v2
+- iojs-v3
 sudo: false
 script: npm run ci
-
 deploy:
   provider: npm
   email: david.muto@gmail.com
@@ -18,3 +14,5 @@ deploy:
   on:
     tags: true
     repo: pseudomuto/shopify-api-flux
+env:
+  secure: J7HFeDUkQQ/pCMt43m5vAs9v2xH6P6C74hoVM43EG98XcaBr27fc0g/UZOApmh/vwf1UrRSqoaaaQ/ogHxzsVPwWm/rXuAzjB2qEMdC/TCC/E/ijEAo1rc5ih6ZW32lBEFcJEAqi2SUxnmKNxya/ZXc9oZlBnphITeE4W1fEdRb26D22jG2xhOeb4q7OQFcVQuulmTHXPnpHgnD3CxDDvUn+IfhP3ldjqR9STMlTi+C8XGAPYgGNv0NM3YzKHV/Ir2+l3F1uDzMpW+9K97WiyeuwhTzUziJNvGs061UXNOiHVue4t/4wf+5MqsOkMpi9+bUznDdT6lj6GVoIoVkRnJYgmD4ucvdwzGoYcYuSHDH9jOCHiO+JgA7AUkKSJSt+JBTJIYgoWztor/BWaTuVlaac7Ntv5reE4xJT//bGxKVrvgDksqJGRMwjnFPsbDxCPNMvk2HSlZon+JUYv7rhpmO/fjAJi6RnU4zqU14nZNcc/mb3EH4pxhGcGzgfw6p2C/uY0b00sv4Uu6d3biH3pdyNLxUDTUJKilE768/8Pztft8iZgRpcGlBor77bJExAxW/HMMe586duqw/6K1VAq3XzrGDGum9Qy4PauUivyPGhE3Aj1eRWbo4yfLmG5Bk1xJvkHHAGw7vceql7I6iZjaOj+2HggWhSII5nisw0tGQ=
