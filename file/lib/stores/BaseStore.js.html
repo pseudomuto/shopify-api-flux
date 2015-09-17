@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -165,6 +166,8 @@ export default class BaseStore extends Flux.MapStore {
         return mergeItems(state, action.items);
       case this._actions.clearAction:
         return state.clear();
+      case this._actions.destroyAction:
+        return state.delete(action.id);
       default:
         return state;
     }

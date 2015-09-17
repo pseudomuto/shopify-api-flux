@@ -627,18 +627,18 @@
                       "type": "Property",
                       "key": {
                         "type": "Identifier",
-                        "name": "MERGE_PRODUCTS",
+                        "name": "DESTROY_ORDERS",
                         "range": [
-                          303,
-                          317
+                          302,
+                          316
                         ],
                         "loc": {
                           "start": {
-                            "line": 19,
+                            "line": 18,
                             "column": 4
                           },
                           "end": {
-                            "line": 19,
+                            "line": 18,
                             "column": 18
                           }
                         }
@@ -648,16 +648,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          319,
-                          323
+                          318,
+                          322
                         ],
                         "loc": {
                           "start": {
-                            "line": 19,
+                            "line": 18,
                             "column": 20
                           },
                           "end": {
-                            "line": 19,
+                            "line": 18,
                             "column": 24
                           }
                         }
@@ -667,16 +667,16 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        303,
-                        323
+                        302,
+                        322
                       ],
                       "loc": {
                         "start": {
-                          "line": 19,
+                          "line": 18,
                           "column": 4
                         },
                         "end": {
-                          "line": 19,
+                          "line": 18,
                           "column": 24
                         }
                       }
@@ -685,7 +685,7 @@
                       "type": "Property",
                       "key": {
                         "type": "Identifier",
-                        "name": "CLEAR_PRODUCTS",
+                        "name": "MERGE_PRODUCTS",
                         "range": [
                           329,
                           343
@@ -743,7 +743,7 @@
                       "type": "Property",
                       "key": {
                         "type": "Identifier",
-                        "name": "COUNT_PRODUCTS",
+                        "name": "CLEAR_PRODUCTS",
                         "range": [
                           355,
                           369
@@ -801,18 +801,134 @@
                       "type": "Property",
                       "key": {
                         "type": "Identifier",
-                        "name": "MERGE_THINGS",
+                        "name": "COUNT_PRODUCTS",
                         "range": [
-                          401,
-                          413
+                          381,
+                          395
                         ],
                         "loc": {
                           "start": {
-                            "line": 24,
+                            "line": 22,
                             "column": 4
                           },
                           "end": {
-                            "line": 24,
+                            "line": 22,
+                            "column": 18
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          397,
+                          401
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 22,
+                            "column": 20
+                          },
+                          "end": {
+                            "line": 22,
+                            "column": 24
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        381,
+                        401
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 22,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 22,
+                          "column": 24
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "DESTROY_PRODUCTS",
+                        "range": [
+                          407,
+                          423
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 23,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 23,
+                            "column": 20
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          425,
+                          429
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 23,
+                            "column": 22
+                          },
+                          "end": {
+                            "line": 23,
+                            "column": 26
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        407,
+                        429
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 23,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 23,
+                          "column": 26
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "MERGE_THINGS",
+                        "range": [
+                          455,
+                          467
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 26,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 26,
                             "column": 16
                           }
                         }
@@ -822,16 +938,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          415,
-                          419
+                          469,
+                          473
                         ],
                         "loc": {
                           "start": {
-                            "line": 24,
+                            "line": 26,
                             "column": 18
                           },
                           "end": {
-                            "line": 24,
+                            "line": 26,
                             "column": 22
                           }
                         }
@@ -841,16 +957,16 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        401,
-                        419
+                        455,
+                        473
                       ],
                       "loc": {
                         "start": {
-                          "line": 24,
+                          "line": 26,
                           "column": 4
                         },
                         "end": {
-                          "line": 24,
+                          "line": 26,
                           "column": 22
                         }
                       },
@@ -859,16 +975,16 @@
                           "type": "Line",
                           "value": " FOR TESTING",
                           "range": [
-                            382,
-                            396
+                            436,
+                            450
                           ],
                           "loc": {
                             "start": {
-                              "line": 23,
+                              "line": 25,
                               "column": 4
                             },
                             "end": {
-                              "line": 23,
+                              "line": 25,
                               "column": 18
                             }
                           }
@@ -881,16 +997,16 @@
                         "type": "Identifier",
                         "name": "CLEAR_THINGS",
                         "range": [
-                          425,
-                          437
+                          479,
+                          491
                         ],
                         "loc": {
                           "start": {
-                            "line": 25,
+                            "line": 27,
                             "column": 4
                           },
                           "end": {
-                            "line": 25,
+                            "line": 27,
                             "column": 16
                           }
                         }
@@ -900,16 +1016,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          439,
-                          443
+                          493,
+                          497
                         ],
                         "loc": {
                           "start": {
-                            "line": 25,
+                            "line": 27,
                             "column": 18
                           },
                           "end": {
-                            "line": 25,
+                            "line": 27,
                             "column": 22
                           }
                         }
@@ -919,16 +1035,16 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        425,
-                        443
+                        479,
+                        497
                       ],
                       "loc": {
                         "start": {
-                          "line": 25,
+                          "line": 27,
                           "column": 4
                         },
                         "end": {
-                          "line": 25,
+                          "line": 27,
                           "column": 22
                         }
                       }
@@ -939,16 +1055,16 @@
                         "type": "Identifier",
                         "name": "COUNT_THINGS",
                         "range": [
-                          449,
-                          461
+                          503,
+                          515
                         ],
                         "loc": {
                           "start": {
-                            "line": 26,
+                            "line": 28,
                             "column": 4
                           },
                           "end": {
-                            "line": 26,
+                            "line": 28,
                             "column": 16
                           }
                         }
@@ -958,16 +1074,16 @@
                         "value": null,
                         "raw": "null",
                         "range": [
-                          463,
-                          467
+                          517,
+                          521
                         ],
                         "loc": {
                           "start": {
-                            "line": 26,
+                            "line": 28,
                             "column": 18
                           },
                           "end": {
-                            "line": 26,
+                            "line": 28,
                             "column": 22
                           }
                         }
@@ -977,24 +1093,82 @@
                       "shorthand": false,
                       "computed": false,
                       "range": [
-                        449,
-                        467
+                        503,
+                        521
                       ],
                       "loc": {
                         "start": {
-                          "line": 26,
+                          "line": 28,
                           "column": 4
                         },
                         "end": {
-                          "line": 26,
+                          "line": 28,
                           "column": 22
+                        }
+                      }
+                    },
+                    {
+                      "type": "Property",
+                      "key": {
+                        "type": "Identifier",
+                        "name": "DESTROY_THINGS",
+                        "range": [
+                          527,
+                          541
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 29,
+                            "column": 4
+                          },
+                          "end": {
+                            "line": 29,
+                            "column": 18
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": "Literal",
+                        "value": null,
+                        "raw": "null",
+                        "range": [
+                          543,
+                          547
+                        ],
+                        "loc": {
+                          "start": {
+                            "line": 29,
+                            "column": 20
+                          },
+                          "end": {
+                            "line": 29,
+                            "column": 24
+                          }
+                        }
+                      },
+                      "kind": "init",
+                      "method": false,
+                      "shorthand": false,
+                      "computed": false,
+                      "range": [
+                        527,
+                        547
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 29,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 29,
+                          "column": 24
                         }
                       }
                     }
                   ],
                   "range": [
                     132,
-                    471
+                    551
                   ],
                   "loc": {
                     "start": {
@@ -1002,7 +1176,7 @@
                       "column": 21
                     },
                     "end": {
-                      "line": 27,
+                      "line": 30,
                       "column": 3
                     }
                   }
@@ -1010,7 +1184,7 @@
               ],
               "range": [
                 122,
-                472
+                552
               ],
               "loc": {
                 "start": {
@@ -1018,7 +1192,7 @@
                   "column": 11
                 },
                 "end": {
-                  "line": 27,
+                  "line": 30,
                   "column": 4
                 }
               }
@@ -1029,7 +1203,7 @@
             "computed": false,
             "range": [
               113,
-              472
+              552
             ],
             "loc": {
               "start": {
@@ -1037,7 +1211,7 @@
                 "column": 2
               },
               "end": {
-                "line": 27,
+                "line": 30,
                 "column": 4
               }
             }
@@ -1045,7 +1219,7 @@
         ],
         "range": [
           66,
-          474
+          554
         ],
         "loc": {
           "start": {
@@ -1053,7 +1227,7 @@
             "column": 15
           },
           "end": {
-            "line": 28,
+            "line": 31,
             "column": 1
           }
         },
@@ -1062,7 +1236,7 @@
       },
       "range": [
         51,
-        475
+        555
       ],
       "loc": {
         "start": {
@@ -1070,7 +1244,7 @@
           "column": 0
         },
         "end": {
-          "line": 28,
+          "line": 31,
           "column": 2
         }
       }
@@ -1079,7 +1253,7 @@
   "sourceType": "module",
   "range": [
     0,
-    475
+    555
   ],
   "loc": {
     "start": {
@@ -1087,7 +1261,7 @@
       "column": 0
     },
     "end": {
-      "line": 28,
+      "line": 31,
       "column": 2
     }
   },
@@ -1096,16 +1270,16 @@
       "type": "Line",
       "value": " FOR TESTING",
       "range": [
-        382,
-        396
+        436,
+        450
       ],
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 4
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 18
         }
       }

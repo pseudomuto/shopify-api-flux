@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/__mocks__/fetcher.js | Shopify Flux API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/pseudomuto/shopify-api-flux.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ProductsStore.js~ProductsStore.html">ProductsStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Session.js~Session.html">Session</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="typedefWrap">
+  <h2><a href="typedef/">Typedef</a></h2>
+  <ul>
+    
+  <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-SuccessfulRequestCallback">SuccessfulRequestCallback</a></span></li>
+</ul>
+</div>
+
+<div data-ice="externalWrap">
+  <h2>External</h2>
+  <ul>
+    
+  <li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js">FluxMapStore</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://lodash.com/docs#where">QueryObject</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js">Store</a></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/__mocks__/fetcher.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// shamelessly borrowed from https://github.com/github/fetch and modified to
+// work as a module and with integration tests for this lib
+(function(self) {
+  &apos;use strict&apos;;
+
+  if (self.fetch) {
+    return
+  }
+
+  function normalizeName(name) {
+    if (typeof name !== &apos;string&apos;) {
+      name = name.toString();
+    }
+    if (/[^a-z0-9\-#$%&amp;&apos;*+.\^_`|~]/i.test(name)) {
+      throw new TypeError(&apos;Invalid character in header field name&apos;)
+    }
+    return name.toLowerCase()
+  }
+
+  function normalizeValue(value) {
+    if (typeof value !== &apos;string&apos;) {
+      value = value.toString();
+    }
+    return value
+  }
+
+  function Headers(headers) {
+    this.map = {}
+
+    if (headers instanceof Headers) {
+      headers.forEach(function(value, name) {
+        this.append(name, value)
+      }, this)
+
+    } else if (headers) {
+      Object.getOwnPropertyNames(headers).forEach(function(name) {
+        this.append(name, headers[name])
+      }, this)
+    }
+  }
+
+  Headers.prototype.append = function(name, value) {
+    name = normalizeName(name)
+    value = normalizeValue(value)
+    var list = this.map[name]
+    if (!list) {
+      list = []
+      this.map[name] = list
+    }
+    list.push(value)
+  }
+
+  Headers.prototype[&apos;delete&apos;] = function(name) {
+    delete this.map[normalizeName(name)]
+  }
+
+  Headers.prototype.get = function(name) {
+    var values = this.map[normalizeName(name)]
+    return values ? values[0] : null
+  }
+
+  Headers.prototype.getAll = function(name) {
+    return this.map[normalizeName(name)] || []
+  }
+
+  Headers.prototype.has = function(name) {
+    return this.map.hasOwnProperty(normalizeName(name))
+  }
+
+  Headers.prototype.set = function(name, value) {
+    this.map[normalizeName(name)] = [normalizeValue(value)]
+  }
+
+  Headers.prototype.forEach = function(callback, thisArg) {
+    Object.getOwnPropertyNames(this.map).forEach(function(name) {
+      this.map[name].forEach(function(value) {
+        callback.call(thisArg, value, name, this)
+      }, this)
+    }, this)
+  }
+
+  function consumed(body) {
+    if (body.bodyUsed) {
+      return Promise.reject(new TypeError(&apos;Already read&apos;))
+    }
+    body.bodyUsed = true
+  }
+
+  function fileReaderReady(reader) {
+    return new Promise(function(resolve, reject) {
+      reader.onload = function() {
+        resolve(reader.result)
+      }
+      reader.onerror = function() {
+        reject(reader.error)
+      }
+    })
+  }
+
+  function readBlobAsArrayBuffer(blob) {
+    var reader = new FileReader()
+    reader.readAsArrayBuffer(blob)
+    return fileReaderReady(reader)
+  }
+
+  function readBlobAsText(blob) {
+    var reader = new FileReader()
+    reader.readAsText(blob)
+    return fileReaderReady(reader)
+  }
+
+  var support = {
+    blob: &apos;FileReader&apos; in self &amp;&amp; &apos;Blob&apos; in self &amp;&amp; (function() {
+      try {
+        new Blob();
+        return true
+      } catch(e) {
+        return false
+      }
+    })(),
+    formData: &apos;FormData&apos; in self
+  }
+
+  function Body() {
+    this.bodyUsed = false
+
+
+    this._initBody = function(body) {
+      this._bodyInit = body
+      if (typeof body === &apos;string&apos;) {
+        this._bodyText = body
+      } else if (support.blob &amp;&amp; Blob.prototype.isPrototypeOf(body)) {
+        this._bodyBlob = body
+      } else if (support.formData &amp;&amp; FormData.prototype.isPrototypeOf(body)) {
+        this._bodyFormData = body
+      } else if (!body) {
+        this._bodyText = &apos;&apos;
+      } else {
+        throw new Error(&apos;unsupported BodyInit type&apos;)
+      }
+    }
+
+    if (support.blob) {
+      this.blob = function() {
+        var rejected = consumed(this)
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return Promise.resolve(this._bodyBlob)
+        } else if (this._bodyFormData) {
+          throw new Error(&apos;could not read FormData body as blob&apos;)
+        } else {
+          return Promise.resolve(new Blob([this._bodyText]))
+        }
+      }
+
+      this.arrayBuffer = function() {
+        return this.blob().then(readBlobAsArrayBuffer)
+      }
+
+      this.text = function() {
+        var rejected = consumed(this)
+        if (rejected) {
+          return rejected
+        }
+
+        if (this._bodyBlob) {
+          return readBlobAsText(this._bodyBlob)
+        } else if (this._bodyFormData) {
+          throw new Error(&apos;could not read FormData body as text&apos;)
+        } else {
+          return Promise.resolve(this._bodyText)
+        }
+      }
+    } else {
+      this.text = function() {
+        var rejected = consumed(this)
+        return rejected ? rejected : Promise.resolve(this._bodyText)
+      }
+    }
+
+    if (support.formData) {
+      this.formData = function() {
+        return this.text().then(decode)
+      }
+    }
+
+    this.json = function() {
+      return this.text().then(JSON.parse)
+    }
+
+    return this
+  }
+
+  // HTTP methods whose capitalization should be normalized
+  var methods = [&apos;DELETE&apos;, &apos;GET&apos;, &apos;HEAD&apos;, &apos;OPTIONS&apos;, &apos;POST&apos;, &apos;PUT&apos;]
+
+  function normalizeMethod(method) {
+    var upcased = method.toUpperCase()
+    return (methods.indexOf(upcased) &gt; -1) ? upcased : method
+  }
+
+  function Request(url, options) {
+    options = options || {}
+    this.url = url
+
+    this.credentials = options.credentials || &apos;omit&apos;
+    this.headers = new Headers(options.headers)
+    this.method = normalizeMethod(options.method || &apos;GET&apos;)
+    this.mode = options.mode || null
+    this.referrer = null
+
+    if ((this.method === &apos;GET&apos; || this.method === &apos;HEAD&apos;) &amp;&amp; options.body) {
+      throw new TypeError(&apos;Body not allowed for GET or HEAD requests&apos;)
+    }
+    this._initBody(options.body)
+  }
+
+  function decode(body) {
+    var form = new FormData()
+    body.trim().split(&apos;&amp;&apos;).forEach(function(bytes) {
+      if (bytes) {
+        var split = bytes.split(&apos;=&apos;)
+        var name = split.shift().replace(/\+/g, &apos; &apos;)
+        var value = split.join(&apos;=&apos;).replace(/\+/g, &apos; &apos;)
+        form.append(decodeURIComponent(name), decodeURIComponent(value))
+      }
+    })
+    return form
+  }
+
+  function headers(xhr) {
+    var head = new Headers()
+    var pairs = xhr.getAllResponseHeaders().trim().split(&apos;\n&apos;)
+    pairs.forEach(function(header) {
+      var split = header.trim().split(&apos;:&apos;)
+      var key = split.shift().trim()
+      var value = split.join(&apos;:&apos;).trim()
+      head.append(key, value)
+    })
+    return head
+  }
+
+  Body.call(Request.prototype)
+
+  function Response(bodyInit, options) {
+    if (!options) {
+      options = {}
+    }
+
+    this._initBody(bodyInit)
+    this.type = &apos;default&apos;
+    this.url = null
+    this.status = options.status
+    this.ok = this.status &gt;= 200 &amp;&amp; this.status &lt; 300
+    this.statusText = options.statusText
+    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
+    this.url = options.url || &apos;&apos;
+  }
+
+  Body.call(Response.prototype)
+
+  self.Headers = Headers;
+  self.Request = Request;
+  self.Response = Response;
+
+  self.fetch = function(input, init) {
+    // TODO: Request constructor should accept input, init
+    var request
+    if (Request.prototype.isPrototypeOf(input) &amp;&amp; !init) {
+      request = input
+    } else {
+      request = new Request(input, init)
+    }
+
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest()
+
+      function responseURL() {
+        if (&apos;responseURL&apos; in xhr) {
+          return xhr.responseURL
+        }
+
+        // Avoid security warnings on getResponseHeader when not allowed by CORS
+        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+          return xhr.getResponseHeader(&apos;X-Request-URL&apos;)
+        }
+
+        return;
+      }
+
+      xhr.onload = function() {
+        var status = (xhr.status === 1223) ? 204 : xhr.status
+        if (status &lt; 100 || status &gt; 599) {
+          reject(new TypeError(&apos;Network request failed&apos;))
+          return
+        }
+        var options = {
+          status: status,
+          statusText: xhr.statusText,
+          headers: headers(xhr),
+          url: responseURL()
+        }
+        var body = &apos;response&apos; in xhr ? xhr.response : xhr.responseText;
+        resolve(new Response(body, options))
+      }
+
+      xhr.onerror = function() {
+        reject(new TypeError(&apos;Network request failed&apos;))
+      }
+
+      xhr.open(request.method, request.url, true)
+
+      if (request.credentials === &apos;include&apos;) {
+        xhr.withCredentials = true
+      }
+
+      if (&apos;responseType&apos; in xhr &amp;&amp; support.blob) {
+        xhr.responseType = &apos;blob&apos;
+      }
+
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value)
+      })
+
+      xhr.send(typeof request._bodyInit === &apos;undefined&apos; ? null : request._bodyInit)
+    })
+  }
+  self.fetch.polyfill = true
+})(module.exports);
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.2.5)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

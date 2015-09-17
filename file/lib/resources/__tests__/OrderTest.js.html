@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -109,7 +110,7 @@ describe(&quot;Order&quot;, () =&gt; {
   describe(&quot;#apiMethods&quot;, () =&gt; {
     it(&quot;exposes base and specific fetch methods&quot;, () =&gt; {
       let actual   = resource.apiMethods;
-      let expected = new Base(&quot;order&quot;, true).apiMethods.concat([&quot;fetchAuthorized&quot;, &quot;fetchAllSince&quot;]);
+      let expected = new Base(&quot;order&quot;, { countable: true }).apiMethods.concat([&quot;fetchAuthorized&quot;, &quot;fetchAllSince&quot;]);
 
       expect(actual).toEqual(expected);
     });
@@ -119,7 +120,7 @@ describe(&quot;Order&quot;, () =&gt; {
     var request;
 
     beforeEach(() =&gt; {
-      stubFetchRequest(api, { orders });
+      stubRequest(api, &quot;get&quot;, { orders });
       request = resource.fetchAuthorized();
     });
 
@@ -141,7 +142,7 @@ describe(&quot;Order&quot;, () =&gt; {
     var request;
 
     beforeEach(() =&gt; {
-      stubFetchRequest(api, { orders });
+      stubRequest(api, &quot;get&quot;, { orders });
       request = resource.fetchAllSince(12345);
     });
 

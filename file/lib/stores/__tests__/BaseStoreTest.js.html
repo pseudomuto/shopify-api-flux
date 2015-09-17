@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -226,6 +227,24 @@ describe(&quot;Base&quot;, () =&gt; {
 
         expect(store.has(1)).toBe(false);
         expect(changeEvent.mock.calls.length).toBe(2);
+      });
+    });
+
+    describe(&quot;destroy&quot;, () =&gt; {
+      it(&quot;removes the resource from state&quot;, () =&gt; {
+        dispatcher.dispatch({
+          actionType: Constants.Actions.MERGE_THINGS,
+          items: [
+            { id: 1, title: &quot;My Product&quot; },
+            { id: 2, title: &quot;My Second Product&quot; }
+          ]
+        });
+
+        dispatcher.dispatch({ actionType: Constants.Actions.DESTROY_THINGS, id: 1});
+        expect(changeEvent.mock.calls.length).toBe(2);
+
+        expect(store.has(1)).toBe(false);
+        expect(store.has(2)).toBe(true);
       });
     });
   });

@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -95,14 +96,14 @@ const { Dispatcher } = Flux;
  * A generic action object that is dispatched by {APIDispatcher}
  *
  * @typedef {object} Action
- * @property {string} actionType - The type of action to be dispatched
+ * @property {string} actionType - The type of action being dispatched
  */
 
 /**
  * An action object that is dispatched when items should be added to a store
  *
  * @typedef {object} MergeAction
- * @property {string} actionType - The type of action to be dispatched
+ * @property {string} actionType - The type of action being dispatched
  * @property {Array&lt;object&gt;} items - An array of items to be added to the store
  */
 
@@ -110,9 +111,17 @@ const { Dispatcher } = Flux;
  * An action object that is dispatched when counts should be added to a store
  *
  * @typedef {object} CountAction
- * @property {string} actionType - The type of action to be dispatched
+ * @property {string} actionType - The type of action being dispatched
  * @property {number} count - The count returned from the API call
  * @property {ResourceQuery} [query] - The query params for the count call
+ */
+
+/**
+ * An action object the is dispatched when an object is destroyed
+ *
+ * @typedef {object} DestroyAction
+ * @property {string} actionType - The type of action being dispatched
+ * @property {number|string} id - The id of the destroyed resource
  */
 
 export default new Dispatcher();

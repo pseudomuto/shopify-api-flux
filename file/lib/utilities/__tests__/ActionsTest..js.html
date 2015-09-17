@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -112,6 +113,12 @@ describe(&quot;Actions&quot;, () =&gt; {
   describe(&quot;#mergeAction&quot;, () =&gt; {
     it(&quot;gets the value from Constants&quot;, () =&gt; {
       expect(actions.mergeAction).toEqual(Constants.Actions.MERGE_PRODUCTS);
+    });
+  });
+
+  describe(&quot;#destroyAction&quot;, () =&gt; {
+    it(&quot;gets the value from Constants&quot;, () =&gt; {
+      expect(actions.destroyAction).toEqual(Constants.Actions.DESTROY_PRODUCTS);
     });
   });
 });
