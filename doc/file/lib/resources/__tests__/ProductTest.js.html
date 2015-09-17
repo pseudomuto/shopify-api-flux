@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -89,74 +90,21 @@
 
 jest.dontMock(&quot;../Base&quot;);
 jest.dontMock(&quot;../Product&quot;);
-jest.dontMock(&quot;../../utilities/URLHelpers&quot;);
-
-import Constants from &quot;../../Constants&quot;;
-
-const Base = require(&quot;../Base&quot;);
 
 describe(&quot;Product&quot;, () =&gt; {
-  let products = [{ id: 1, title: &quot;Some Product&quot; }];
+  var resource = require(&quot;../Product&quot;);
 
-  var resource, dispatcher, api;
-
-  beforeEach(() =&gt; {
-    dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
-    resource   = require(&quot;../Product&quot;);
-    api        = require(&quot;../../utilities/WebAPI&quot;);
+  it(&quot;is countable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;fetchCount&quot;);
   });
 
-  describe(&quot;#apiMethods&quot;, () =&gt; {
-    it(&quot;exposes base methods and additional fetch methods&quot;, () =&gt; {
-      let actual   = resource.apiMethods;
-      let expected = new Base(&quot;products&quot;, true).apiMethods.concat([&quot;fetchByCollection&quot;, &quot;fetchAllSince&quot;]);
-
-      expect(actual).toEqual(expected);
-    });
+  it(&quot;is createable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;create&quot;);
+    expect(resource.apiMethods).toContain(&quot;update&quot;);
   });
 
-  describe(&quot;#fetchByCollection&quot;, () =&gt; {
-    var request;
-
-    beforeEach(() =&gt; {
-      stubFetchRequest(api, { products });
-      request = resource.fetchByCollection(12345);
-    });
-
-    it(&quot;makes the request&quot;, () =&gt; {
-      expect(api.get).toBeCalledWith(&quot;/admin/products.json?collection_id=12345&quot;);
-    });
-
-    pit(&quot;dispatches the merge event&quot;, () =&gt; {
-      return Promise.resolve(request).then(() =&gt; {
-        expect(dispatcher.dispatch).toBeCalledWith({
-          actionType: Constants.Actions.MERGE_PRODUCTS,
-          items: products
-        });
-      });
-    });
-  });
-
-  describe(&quot;#fetchAllSince&quot;, () =&gt; {
-    var request;
-
-    beforeEach(() =&gt; {
-      stubFetchRequest(api, { products });
-      request = resource.fetchAllSince(12345);
-    });
-
-    it(&quot;makes the request&quot;, () =&gt; {
-      expect(api.get).toBeCalledWith(&quot;/admin/products.json?since_id=12345&quot;);
-    });
-
-    pit(&quot;dispatches the merge event&quot;, () =&gt; {
-      return Promise.resolve(request).then(() =&gt; {
-        expect(dispatcher.dispatch).toBeCalledWith({
-          actionType: Constants.Actions.MERGE_PRODUCTS,
-          items: products
-        });
-      });
-    });
+  it(&quot;is destroyable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;destroy&quot;);
   });
 });
 </code></pre>

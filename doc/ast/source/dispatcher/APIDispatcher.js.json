@@ -243,7 +243,7 @@
       "trailingComments": [
         {
           "type": "Block",
-          "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n ",
+          "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action being dispatched\n ",
           "range": [
             71,
             245
@@ -261,7 +261,7 @@
         },
         {
           "type": "Block",
-          "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
+          "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action being dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
           "range": [
             247,
             518
@@ -279,7 +279,7 @@
         },
         {
           "type": "Block",
-          "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+          "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
           "range": [
             520,
             854
@@ -294,6 +294,24 @@
               "column": 3
             }
           }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * An action object the is dispatched when an object is destroyed\n *\n * @typedef {object} DestroyAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number|string} id - The id of the destroyed resource\n ",
+          "range": [
+            856,
+            1105
+          ],
+          "loc": {
+            "start": {
+              "line": 31,
+              "column": 0
+            },
+            "end": {
+              "line": 37,
+              "column": 3
+            }
+          }
         }
       ]
     },
@@ -305,39 +323,39 @@
           "type": "Identifier",
           "name": "Dispatcher",
           "range": [
-            875,
-            885
+            1126,
+            1136
           ],
           "loc": {
             "start": {
-              "line": 31,
+              "line": 39,
               "column": 19
             },
             "end": {
-              "line": 31,
+              "line": 39,
               "column": 29
             }
           }
         },
         "arguments": [],
         "range": [
-          871,
-          887
+          1122,
+          1138
         ],
         "loc": {
           "start": {
-            "line": 31,
+            "line": 39,
             "column": 15
           },
           "end": {
-            "line": 31,
+            "line": 39,
             "column": 31
           }
         },
         "leadingComments": [
           {
             "type": "Block",
-            "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n ",
+            "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action being dispatched\n ",
             "range": [
               71,
               245
@@ -355,7 +373,7 @@
           },
           {
             "type": "Block",
-            "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
+            "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action being dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
             "range": [
               247,
               518
@@ -373,7 +391,7 @@
           },
           {
             "type": "Block",
-            "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+            "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
             "range": [
               520,
               854
@@ -388,28 +406,46 @@
                 "column": 3
               }
             }
+          },
+          {
+            "type": "Block",
+            "value": "*\n * An action object the is dispatched when an object is destroyed\n *\n * @typedef {object} DestroyAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number|string} id - The id of the destroyed resource\n ",
+            "range": [
+              856,
+              1105
+            ],
+            "loc": {
+              "start": {
+                "line": 31,
+                "column": 0
+              },
+              "end": {
+                "line": 37,
+                "column": 3
+              }
+            }
           }
         ],
         "trailingComments": []
       },
       "range": [
-        856,
-        888
+        1107,
+        1139
       ],
       "loc": {
         "start": {
-          "line": 31,
+          "line": 39,
           "column": 0
         },
         "end": {
-          "line": 31,
+          "line": 39,
           "column": 32
         }
       },
       "leadingComments": [
         {
           "type": "Block",
-          "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n ",
+          "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action being dispatched\n ",
           "range": [
             71,
             245
@@ -427,7 +463,7 @@
         },
         {
           "type": "Block",
-          "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
+          "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action being dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
           "range": [
             247,
             518
@@ -445,7 +481,7 @@
         },
         {
           "type": "Block",
-          "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+          "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
           "range": [
             520,
             854
@@ -460,6 +496,24 @@
               "column": 3
             }
           }
+        },
+        {
+          "type": "Block",
+          "value": "*\n * An action object the is dispatched when an object is destroyed\n *\n * @typedef {object} DestroyAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number|string} id - The id of the destroyed resource\n ",
+          "range": [
+            856,
+            1105
+          ],
+          "loc": {
+            "start": {
+              "line": 31,
+              "column": 0
+            },
+            "end": {
+              "line": 37,
+              "column": 3
+            }
+          }
         }
       ]
     }
@@ -467,7 +521,7 @@
   "sourceType": "module",
   "range": [
     0,
-    888
+    1139
   ],
   "loc": {
     "start": {
@@ -475,14 +529,14 @@
       "column": 0
     },
     "end": {
-      "line": 31,
+      "line": 39,
       "column": 32
     }
   },
   "comments": [
     {
       "type": "Block",
-      "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action to be dispatched\n ",
+      "value": "*\n * A generic action object that is dispatched by {APIDispatcher}\n *\n * @typedef {object} Action\n * @property {string} actionType - The type of action being dispatched\n ",
       "range": [
         71,
         245
@@ -500,7 +554,7 @@
     },
     {
       "type": "Block",
-      "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
+      "value": "*\n * An action object that is dispatched when items should be added to a store\n *\n * @typedef {object} MergeAction\n * @property {string} actionType - The type of action being dispatched\n * @property {Array<object>} items - An array of items to be added to the store\n ",
       "range": [
         247,
         518
@@ -518,7 +572,7 @@
     },
     {
       "type": "Block",
-      "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action to be dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
+      "value": "*\n * An action object that is dispatched when counts should be added to a store\n *\n * @typedef {object} CountAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number} count - The count returned from the API call\n * @property {ResourceQuery} [query] - The query params for the count call\n ",
       "range": [
         520,
         854
@@ -530,6 +584,24 @@
         },
         "end": {
           "line": 29,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "Block",
+      "value": "*\n * An action object the is dispatched when an object is destroyed\n *\n * @typedef {object} DestroyAction\n * @property {string} actionType - The type of action being dispatched\n * @property {number|string} id - The id of the destroyed resource\n ",
+      "range": [
+        856,
+        1105
+      ],
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 0
+        },
+        "end": {
+          "line": 37,
           "column": 3
         }
       }

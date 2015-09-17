@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -124,7 +125,6 @@ class Session extends Base {
     super(&quot;session&quot;);
 
     this._resources   = this._resource;
-    this._clearAction = Constants.Actions.CLEAR_SESSION;
   }
 
   /**
@@ -133,8 +133,14 @@ class Session extends Base {
    *
    * @return {Array&lt;string&gt;} The names of all methods to be made available
    */
-  static get apiMethods() {
+  get apiMethods() {
     return [&quot;init&quot;, &quot;clear&quot;];
+  }
+
+  get actions() {
+    return {
+      clearAction: Constants.Actions.CLEAR_SESSION
+    };
   }
 
   /**

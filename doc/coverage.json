@@ -1,6 +1,6 @@
 {
-  "coverage": "83.33%",
-  "expectCount": 54,
+  "coverage": "80.35%",
+  "expectCount": 56,
   "actualCount": 45,
   "files": {
     "lib/utilities/APIProxy.js": {
@@ -11,18 +11,19 @@
       ]
     },
     "lib/utilities/Actions.js": {
-      "expectCount": 5,
+      "expectCount": 6,
       "actualCount": 1,
       "undocumentLines": [
         9,
         23,
         27,
+        31,
         19
       ]
     },
     "lib/resources/Base.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "lib/stores/BaseStore.js": {
@@ -48,8 +49,8 @@
       "undocumentLines": []
     },
     "lib/resources/Product.js": {
-      "expectCount": 5,
-      "actualCount": 4,
+      "expectCount": 2,
+      "actualCount": 1,
       "undocumentLines": [
         11
       ]
@@ -60,9 +61,10 @@
       "undocumentLines": []
     },
     "lib/resources/Session.js": {
-      "expectCount": 4,
+      "expectCount": 5,
       "actualCount": 3,
       "undocumentLines": [
+        52,
         36
       ]
     },

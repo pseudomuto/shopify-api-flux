@@ -65,6 +65,7 @@
     
   <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
 <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
@@ -106,11 +107,25 @@ describe(&quot;Base&quot;, () =&gt; {
       expect(actions.apiMethods).toContain(&quot;clear&quot;);
       expect(actions.apiMethods).toContain(&quot;fetch&quot;);
       expect(actions.apiMethods).not.toContain(&quot;fetchCount&quot;);
+      expect(actions.apiMethods).not.toContain(&quot;create&quot;);
+      expect(actions.apiMethods).not.toContain(&quot;update&quot;);
+      expect(actions.apiMethods).not.toContain(&quot;destroy&quot;);
     });
 
     it(&quot;includes fetchCount when the resource is countable&quot;, () =&gt; {
-      let countableResource = new Base(&quot;thing&quot;, true);
+      let countableResource = new Base(&quot;thing&quot;, { countable: true });
       expect(countableResource.apiMethods).toContain(&quot;fetchCount&quot;);
+    });
+
+    it(&quot;includes create/update when the resource is createable&quot;, () =&gt; {
+      let countableResource = new Base(&quot;thing&quot;, { createable: true });
+      expect(countableResource.apiMethods).toContain(&quot;create&quot;);
+      expect(countableResource.apiMethods).toContain(&quot;update&quot;);
+    });
+
+    it(&quot;includes destroy when the resource is destroyable&quot;, () =&gt; {
+      let countableResource = new Base(&quot;thing&quot;, { destroyable: true });
+      expect(countableResource.apiMethods).toContain(&quot;destroy&quot;);
     });
   });
 
@@ -126,7 +141,7 @@ describe(&quot;Base&quot;, () =&gt; {
       let thing = { id: 1, title: &quot;Some Product&quot; };
 
       beforeEach(() =&gt; {
-        stubFetchRequest(api, { thing });
+        stubRequest(api, &quot;get&quot;, { thing });
         request = actions.fetch(1);
       });
 
@@ -145,7 +160,7 @@ describe(&quot;Base&quot;, () =&gt; {
       let things = [{ id: 1, title: &quot;Some Product&quot; }];
 
       beforeEach(() =&gt; {
-        stubFetchRequest(api, { things });
+        stubRequest(api, &quot;get&quot;, { things });
         request = actions.fetch({ ids: [1, 2, 3] });
       });
 
@@ -168,7 +183,7 @@ describe(&quot;Base&quot;, () =&gt; {
       ];
 
       beforeEach(() =&gt; {
-        stubFetchRequest(api, { things });
+        stubRequest(api, &quot;get&quot;, { things });
         request = actions.fetch();
       });
 
@@ -192,7 +207,7 @@ describe(&quot;Base&quot;, () =&gt; {
 
     beforeEach(() =&gt; {
       api = require(&quot;../../utilities/WebAPI&quot;);
-      stubFetchRequest(api, { count });
+      stubRequest(api, &quot;get&quot;, { count });
     });
 
     describe(&quot;when called without parameters&quot;, () =&gt; {
@@ -226,6 +241,101 @@ describe(&quot;Base&quot;, () =&gt; {
         return Promise.resolve(request).then(() =&gt; {
           expect(dispatcher.dispatch).toBeCalledWith({ actionType, count, query });
         });
+      });
+    });
+  });
+
+  describe(&quot;#create&quot;, () =&gt; {
+    let actionType = Constants.Actions.MERGE_THINGS;
+    let thing      = { id: 1, title: &quot;Some Product&quot; };
+
+    var api, request;
+
+    beforeEach(() =&gt; {
+      api = require(&quot;../../utilities/WebAPI&quot;);
+      stubRequest(api, &quot;post&quot;, { thing });
+      request = actions.create(thing);
+    });
+
+    it(&quot;posts to the correct endpoint&quot;, () =&gt; {
+      expect(api.post).toBeCalledWith(&quot;/admin/things.json&quot;, { thing }, undefined);
+    });
+
+    pit(&quot;dispatches the merge action on success&quot;, () =&gt; {
+      return Promise.resolve(request).then(() =&gt; {
+        expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [thing] });
+      });
+    });
+
+    describe(&quot;when supplied with options&quot;, () =&gt; {
+      it(&quot;passes options to the fetch call&quot;, () =&gt; {
+        let options = { headers: { &quot;Content-Type&quot;: &quot;application/thing&quot; } };
+        request     = actions.create(thing, options);
+
+        expect(api.post).toBeCalledWith(&quot;/admin/things.json&quot;, { thing }, options);
+      });
+    });
+  });
+
+  describe(&quot;#update&quot;, () =&gt; {
+    let actionType = Constants.Actions.MERGE_THINGS;
+    let thing      = { id: 1, title: &quot;Some Product&quot; };
+
+    var api, request;
+
+    beforeEach(() =&gt; {
+      api = require(&quot;../../utilities/WebAPI&quot;);
+      stubRequest(api, &quot;put&quot;, { thing });
+      request = actions.update(1, thing);
+    });
+
+    it(&quot;requests the correct endpoint&quot;, () =&gt; {
+      expect(api.put).toBeCalledWith(&quot;/admin/things/1.json&quot;, { thing }, undefined);
+    });
+
+    pit(&quot;dispatches the merge action on success&quot;, () =&gt; {
+      return Promise.resolve(request).then(() =&gt; {
+        expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [thing] });
+      });
+    });
+
+    describe(&quot;when supplied with options&quot;, () =&gt; {
+      it(&quot;passes options to the fetch call&quot;, () =&gt; {
+        let options = { headers: { &quot;Content-Type&quot;: &quot;application/thing&quot; } };
+        request     = actions.update(1, thing, options);
+
+        expect(api.put).toBeCalledWith(&quot;/admin/things/1.json&quot;, { thing }, options);
+      });
+    });
+  });
+
+  describe(&quot;#destroy&quot;, () =&gt; {
+    let actionType = Constants.Actions.DESTROY_THINGS;
+
+    var api, request;
+
+    beforeEach(() =&gt; {
+      api = require(&quot;../../utilities/WebAPI&quot;);
+      stubRequest(api, &quot;delete&quot;, {});
+      request = actions.destroy(1);
+    });
+
+    it(&quot;requests the correct endpoint&quot;, () =&gt; {
+      expect(api.delete).toBeCalledWith(&quot;/admin/things/1.json&quot;, undefined);
+    });
+
+    pit(&quot;dispatches the correct action&quot;, () =&gt; {
+      return Promise.resolve(request).then(() =&gt; {
+        expect(dispatcher.dispatch).toBeCalledWith({ actionType, id: 1 });
+      });
+    });
+
+    describe(&quot;when supplied with options&quot;, () =&gt; {
+      it(&quot;passes options to the fetch call&quot;, () =&gt; {
+        let options = { headers: { &quot;Content-Type&quot;: &quot;application/thing&quot; } };
+        request     = actions.destroy(1, options);
+
+        expect(api.delete).toBeCalledWith(&quot;/admin/things/1.json&quot;, options);
       });
     });
   });

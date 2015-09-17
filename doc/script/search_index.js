@@ -444,6 +444,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/__mocks__/fetcher.js",
+    "file/lib/__mocks__/fetcher.js.html",
+    "lib/__mocks__/fetcher.js",
+    "file"
+  ],
+  [
     "lib/__mocks__/whatwg-fetch.js",
     "file/lib/__mocks__/whatwg-fetch.js.html",
     "lib/__mocks__/whatwg-fetch.js",
@@ -474,6 +480,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "lib/dispatcher/apidispatcher.js~destroyaction",
+    "typedef/index.html#static-typedef-DestroyAction",
+    "lib/dispatcher/APIDispatcher.js~DestroyAction",
+    "typedef"
+  ],
+  [
     "lib/dispatcher/apidispatcher.js~mergeaction",
     "typedef/index.html#static-typedef-MergeAction",
     "lib/dispatcher/APIDispatcher.js~MergeAction",
@@ -483,6 +495,12 @@ window.esdocSearchIndex = [
     "lib/dispatcher/__tests__/apidispatchertest.js",
     "file/lib/dispatcher/__tests__/APIDispatcherTest.js.html",
     "lib/dispatcher/__tests__/APIDispatcherTest.js",
+    "file"
+  ],
+  [
+    "lib/integration/__tests__/productsapitest.js",
+    "file/lib/integration/__tests__/ProductsAPITest.js.html",
+    "lib/integration/__tests__/ProductsAPITest.js",
     "file"
   ],
   [
@@ -516,6 +534,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/base.js~base#create",
+    "class/lib/resources/Base.js~Base.html#instance-method-create",
+    "lib/resources/Base.js~Base#create",
+    "method"
+  ],
+  [
+    "lib/resources/base.js~base#destroy",
+    "class/lib/resources/Base.js~Base.html#instance-method-destroy",
+    "lib/resources/Base.js~Base#destroy",
+    "method"
+  ],
+  [
     "lib/resources/base.js~base#fetch",
     "class/lib/resources/Base.js~Base.html#instance-method-fetch",
     "lib/resources/Base.js~Base#fetch",
@@ -525,6 +555,12 @@ window.esdocSearchIndex = [
     "lib/resources/base.js~base#fetchcount",
     "class/lib/resources/Base.js~Base.html#instance-method-fetchCount",
     "lib/resources/Base.js~Base#fetchCount",
+    "method"
+  ],
+  [
+    "lib/resources/base.js~base#update",
+    "class/lib/resources/Base.js~Base.html#instance-method-update",
+    "lib/resources/Base.js~Base#update",
     "method"
   ],
   [
@@ -570,27 +606,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/resources/product.js~product#apimethods",
-    "class/lib/resources/Product.js~Product.html#instance-get-apiMethods",
-    "lib/resources/Product.js~Product#apiMethods",
-    "member"
-  ],
-  [
     "lib/resources/product.js~product#constructor",
     "class/lib/resources/Product.js~Product.html#instance-constructor-constructor",
     "lib/resources/Product.js~Product#constructor",
-    "method"
-  ],
-  [
-    "lib/resources/product.js~product#fetchallsince",
-    "class/lib/resources/Product.js~Product.html#instance-method-fetchAllSince",
-    "lib/resources/Product.js~Product#fetchAllSince",
-    "method"
-  ],
-  [
-    "lib/resources/product.js~product#fetchbycollection",
-    "class/lib/resources/Product.js~Product.html#instance-method-fetchByCollection",
-    "lib/resources/Product.js~Product#fetchByCollection",
     "method"
   ],
   [
@@ -598,6 +616,18 @@ window.esdocSearchIndex = [
     "file/lib/resources/Session.js.html",
     "lib/resources/Session.js",
     "file"
+  ],
+  [
+    "lib/resources/session.js~session#actions",
+    "class/lib/resources/Session.js~Session.html#instance-get-actions",
+    "lib/resources/Session.js~Session#actions",
+    "member"
+  ],
+  [
+    "lib/resources/session.js~session#apimethods",
+    "class/lib/resources/Session.js~Session.html#instance-get-apiMethods",
+    "lib/resources/Session.js~Session#apiMethods",
+    "member"
   ],
   [
     "lib/resources/session.js~session#constructor",
@@ -610,12 +640,6 @@ window.esdocSearchIndex = [
     "class/lib/resources/Session.js~Session.html#instance-method-init",
     "lib/resources/Session.js~Session#init",
     "method"
-  ],
-  [
-    "lib/resources/session.js~session.apimethods",
-    "class/lib/resources/Session.js~Session.html#static-get-apiMethods",
-    "lib/resources/Session.js~Session.apiMethods",
-    "member"
   ],
   [
     "lib/resources/shop.js",
@@ -831,6 +855,12 @@ window.esdocSearchIndex = [
     "lib/utilities/actions.js~actions#countaction",
     "class/lib/utilities/Actions.js~Actions.html#instance-get-countAction",
     "lib/utilities/Actions.js~Actions#countAction",
+    "member"
+  ],
+  [
+    "lib/utilities/actions.js~actions#destroyaction",
+    "class/lib/utilities/Actions.js~Actions.html#instance-get-destroyAction",
+    "lib/utilities/Actions.js~Actions#destroyAction",
     "member"
   ],
   [
