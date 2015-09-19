@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">lib/stores/OrdersStore.js | Shopify Flux API Document</title>
+  <title data-ice="title">lib/resources/Redirect.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -93,31 +93,28 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/OrdersStore.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/Redirect.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-import Actions        from &quot;../utilities/Actions&quot;;
-import APIDispatcher  from &quot;../dispatcher/APIDispatcher&quot;;
-import CountableStore from &quot;./CountableStore&quot;;
+import Base from &quot;./Base&quot;;
 
 /**
- * The Orders store
+ * The Redirect resource
  *
- * @extends {CountableStore}
+ * @extends {Base}
  */
-class OrdersStore extends CountableStore {
-  /**
-   * Sets the dispatcher and appropriate actions for orders
-   *
-   * @param {APIDispatcher} dispatcher - The dispatcher to register with
-   */
-  constructor(dispatcher) {
-    super(dispatcher, new Actions(&quot;orders&quot;));
+class Redirect extends Base {
+  constructor() {
+    super(&quot;redirect&quot;, {
+      countable: true,
+      createable: true,
+      destroyable: true
+    });
   }
 }
 
 /** @ignore */
-export default new OrdersStore(APIDispatcher);
+export default new Redirect();
 </code></pre>
 
 </div>

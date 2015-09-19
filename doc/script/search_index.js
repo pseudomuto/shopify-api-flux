@@ -90,6 +90,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/resources/redirect.js~redirect",
+    "class/lib/resources/Redirect.js~Redirect.html",
+    "<span>Redirect</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Redirect.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/stores/redirectsstore.js~redirectsstore",
+    "class/lib/stores/RedirectsStore.js~RedirectsStore.html",
+    "<span>RedirectsStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/RedirectsStore.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/resources/session.js~session",
     "class/lib/resources/Session.js~Session.html",
     "<span>Session</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Session.js</span>",
@@ -564,6 +576,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/redirectsapitest.js",
+    "file/lib/integration/__tests__/RedirectsAPITest.js.html",
+    "lib/integration/__tests__/RedirectsAPITest.js",
+    "file"
+  ],
+  [
     "lib/resources/base.js",
     "file/lib/resources/Base.js.html",
     "lib/resources/Base.js",
@@ -708,6 +726,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/redirect.js",
+    "file/lib/resources/Redirect.js.html",
+    "lib/resources/Redirect.js",
+    "file"
+  ],
+  [
+    "lib/resources/redirect.js~redirect#constructor",
+    "class/lib/resources/Redirect.js~Redirect.html#instance-constructor-constructor",
+    "lib/resources/Redirect.js~Redirect#constructor",
+    "method"
+  ],
+  [
     "lib/resources/session.js",
     "file/lib/resources/Session.js.html",
     "lib/resources/Session.js",
@@ -789,6 +819,12 @@ window.esdocSearchIndex = [
     "lib/resources/__tests__/producttest.js",
     "file/lib/resources/__tests__/ProductTest.js.html",
     "lib/resources/__tests__/ProductTest.js",
+    "file"
+  ],
+  [
+    "lib/resources/__tests__/redirecttest.js",
+    "file/lib/resources/__tests__/RedirectTest.js.html",
+    "lib/resources/__tests__/RedirectTest.js",
     "file"
   ],
   [
@@ -921,6 +957,18 @@ window.esdocSearchIndex = [
     "lib/stores/productsstore.js~productsstore#constructor",
     "class/lib/stores/ProductsStore.js~ProductsStore.html#instance-constructor-constructor",
     "lib/stores/ProductsStore.js~ProductsStore#constructor",
+    "method"
+  ],
+  [
+    "lib/stores/redirectsstore.js",
+    "file/lib/stores/RedirectsStore.js.html",
+    "lib/stores/RedirectsStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/redirectsstore.js~redirectsstore#constructor",
+    "class/lib/stores/RedirectsStore.js~RedirectsStore.html#instance-constructor-constructor",
+    "lib/stores/RedirectsStore.js~RedirectsStore#constructor",
     "method"
   ],
   [
