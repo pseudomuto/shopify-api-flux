@@ -35,6 +35,8 @@
 <li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountriesStore.js~CountriesStore.html">CountriesStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Country.js~Country.html">Country</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
@@ -91,6 +93,7 @@
 import APIProxy from &quot;./utilities/APIProxy&quot;;
 
 export default {
+  Country:  new APIProxy(require(&quot;./resources/Country&quot;), require(&quot;./stores/CountriesStore&quot;)),
   Order:    new APIProxy(require(&quot;./resources/Order&quot;), require(&quot;./stores/OrdersStore&quot;)),
   Product:  new APIProxy(require(&quot;./resources/Product&quot;), require(&quot;./stores/ProductsStore&quot;)),
   Session:  new APIProxy(require(&quot;./resources/Session&quot;), require(&quot;./stores/SessionStore&quot;)),

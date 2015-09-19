@@ -30,6 +30,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/stores/countriesstore.js~countriesstore",
+    "class/lib/stores/CountriesStore.js~CountriesStore.html",
+    "<span>CountriesStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/CountriesStore.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/resources/country.js~country",
+    "class/lib/resources/Country.js~Country.html",
+    "<span>Country</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Country.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/resources/order.js~order",
     "class/lib/resources/Order.js~Order.html",
     "<span>Order</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Order.js</span>",
@@ -498,6 +510,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/countriesapitest.js",
+    "file/lib/integration/__tests__/CountriesAPITest.js.html",
+    "lib/integration/__tests__/CountriesAPITest.js",
+    "file"
+  ],
+  [
     "lib/integration/__tests__/ordersapitest.js",
     "file/lib/integration/__tests__/OrdersAPITest.js.html",
     "lib/integration/__tests__/OrdersAPITest.js",
@@ -573,6 +591,18 @@ window.esdocSearchIndex = [
     "lib/resources/base.js~base#urlfor",
     "class/lib/resources/Base.js~Base.html#instance-method-urlFor",
     "lib/resources/Base.js~Base#urlFor",
+    "method"
+  ],
+  [
+    "lib/resources/country.js",
+    "file/lib/resources/Country.js.html",
+    "lib/resources/Country.js",
+    "file"
+  ],
+  [
+    "lib/resources/country.js~country#constructor",
+    "class/lib/resources/Country.js~Country.html#instance-constructor-constructor",
+    "lib/resources/Country.js~Country#constructor",
     "method"
   ],
   [
@@ -672,6 +702,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/resources/__tests__/countrytest.js",
+    "file/lib/resources/__tests__/CountryTest.js.html",
+    "lib/resources/__tests__/CountryTest.js",
+    "file"
+  ],
+  [
     "lib/resources/__tests__/ordertest.js",
     "file/lib/resources/__tests__/OrderTest.js.html",
     "lib/resources/__tests__/OrderTest.js",
@@ -754,6 +790,18 @@ window.esdocSearchIndex = [
     "typedef/index.html#static-typedef-ResourceQuery",
     "lib/stores/CountableStore.js~ResourceQuery",
     "typedef"
+  ],
+  [
+    "lib/stores/countriesstore.js",
+    "file/lib/stores/CountriesStore.js.html",
+    "lib/stores/CountriesStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/countriesstore.js~countriesstore#constructor",
+    "class/lib/stores/CountriesStore.js~CountriesStore.html#instance-constructor-constructor",
+    "lib/stores/CountriesStore.js~CountriesStore#constructor",
+    "method"
   ],
   [
     "lib/stores/ordersstore.js",
