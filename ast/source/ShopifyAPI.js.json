@@ -119,10 +119,10 @@
             "type": "Property",
             "key": {
               "type": "Identifier",
-              "name": "Country",
+              "name": "Blog",
               "range": [
                 80,
-                87
+                84
               ],
               "loc": {
                 "start": {
@@ -131,7 +131,7 @@
                 },
                 "end": {
                   "line": 6,
-                  "column": 9
+                  "column": 6
                 }
               }
             },
@@ -179,11 +179,11 @@
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./resources/Country",
-                      "raw": "\"./resources/Country\"",
+                      "value": "./resources/Blog",
+                      "raw": "\"./resources/Blog\"",
                       "range": [
                         111,
-                        132
+                        129
                       ],
                       "loc": {
                         "start": {
@@ -192,774 +192,22 @@
                         },
                         "end": {
                           "line": 6,
-                          "column": 54
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    103,
-                    133
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 6,
-                      "column": 25
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 55
-                    }
-                  }
-                },
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      135,
-                      142
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 6,
-                        "column": 57
-                      },
-                      "end": {
-                        "line": 6,
-                        "column": 64
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./stores/CountriesStore",
-                      "raw": "\"./stores/CountriesStore\"",
-                      "range": [
-                        143,
-                        168
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 6,
-                          "column": 65
-                        },
-                        "end": {
-                          "line": 6,
-                          "column": 90
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    135,
-                    169
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 6,
-                      "column": 57
-                    },
-                    "end": {
-                      "line": 6,
-                      "column": 91
-                    }
-                  }
-                }
-              ],
-              "range": [
-                90,
-                170
-              ],
-              "loc": {
-                "start": {
-                  "line": 6,
-                  "column": 12
-                },
-                "end": {
-                  "line": 6,
-                  "column": 92
-                }
-              }
-            },
-            "kind": "init",
-            "method": false,
-            "shorthand": false,
-            "computed": false,
-            "range": [
-              80,
-              170
-            ],
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 2
-              },
-              "end": {
-                "line": 6,
-                "column": 92
-              }
-            }
-          },
-          {
-            "type": "Property",
-            "key": {
-              "type": "Identifier",
-              "name": "Order",
-              "range": [
-                174,
-                179
-              ],
-              "loc": {
-                "start": {
-                  "line": 7,
-                  "column": 2
-                },
-                "end": {
-                  "line": 7,
-                  "column": 7
-                }
-              }
-            },
-            "value": {
-              "type": "NewExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "APIProxy",
-                "range": [
-                  188,
-                  196
-                ],
-                "loc": {
-                  "start": {
-                    "line": 7,
-                    "column": 16
-                  },
-                  "end": {
-                    "line": 7,
-                    "column": 24
-                  }
-                }
-              },
-              "arguments": [
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      197,
-                      204
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 7,
-                        "column": 25
-                      },
-                      "end": {
-                        "line": 7,
-                        "column": 32
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./resources/Order",
-                      "raw": "\"./resources/Order\"",
-                      "range": [
-                        205,
-                        224
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 7,
-                          "column": 33
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 52
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    197,
-                    225
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 7,
-                      "column": 25
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 53
-                    }
-                  }
-                },
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      227,
-                      234
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 7,
-                        "column": 55
-                      },
-                      "end": {
-                        "line": 7,
-                        "column": 62
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./stores/OrdersStore",
-                      "raw": "\"./stores/OrdersStore\"",
-                      "range": [
-                        235,
-                        257
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 7,
-                          "column": 63
-                        },
-                        "end": {
-                          "line": 7,
-                          "column": 85
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    227,
-                    258
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 7,
-                      "column": 55
-                    },
-                    "end": {
-                      "line": 7,
-                      "column": 86
-                    }
-                  }
-                }
-              ],
-              "range": [
-                184,
-                259
-              ],
-              "loc": {
-                "start": {
-                  "line": 7,
-                  "column": 12
-                },
-                "end": {
-                  "line": 7,
-                  "column": 87
-                }
-              }
-            },
-            "kind": "init",
-            "method": false,
-            "shorthand": false,
-            "computed": false,
-            "range": [
-              174,
-              259
-            ],
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 2
-              },
-              "end": {
-                "line": 7,
-                "column": 87
-              }
-            }
-          },
-          {
-            "type": "Property",
-            "key": {
-              "type": "Identifier",
-              "name": "Product",
-              "range": [
-                263,
-                270
-              ],
-              "loc": {
-                "start": {
-                  "line": 8,
-                  "column": 2
-                },
-                "end": {
-                  "line": 8,
-                  "column": 9
-                }
-              }
-            },
-            "value": {
-              "type": "NewExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "APIProxy",
-                "range": [
-                  277,
-                  285
-                ],
-                "loc": {
-                  "start": {
-                    "line": 8,
-                    "column": 16
-                  },
-                  "end": {
-                    "line": 8,
-                    "column": 24
-                  }
-                }
-              },
-              "arguments": [
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      286,
-                      293
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 8,
-                        "column": 25
-                      },
-                      "end": {
-                        "line": 8,
-                        "column": 32
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./resources/Product",
-                      "raw": "\"./resources/Product\"",
-                      "range": [
-                        294,
-                        315
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 8,
-                          "column": 33
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 54
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    286,
-                    316
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 8,
-                      "column": 25
-                    },
-                    "end": {
-                      "line": 8,
-                      "column": 55
-                    }
-                  }
-                },
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      318,
-                      325
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 8,
-                        "column": 57
-                      },
-                      "end": {
-                        "line": 8,
-                        "column": 64
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./stores/ProductsStore",
-                      "raw": "\"./stores/ProductsStore\"",
-                      "range": [
-                        326,
-                        350
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 8,
-                          "column": 65
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 89
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    318,
-                    351
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 8,
-                      "column": 57
-                    },
-                    "end": {
-                      "line": 8,
-                      "column": 90
-                    }
-                  }
-                }
-              ],
-              "range": [
-                273,
-                352
-              ],
-              "loc": {
-                "start": {
-                  "line": 8,
-                  "column": 12
-                },
-                "end": {
-                  "line": 8,
-                  "column": 91
-                }
-              }
-            },
-            "kind": "init",
-            "method": false,
-            "shorthand": false,
-            "computed": false,
-            "range": [
-              263,
-              352
-            ],
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 2
-              },
-              "end": {
-                "line": 8,
-                "column": 91
-              }
-            }
-          },
-          {
-            "type": "Property",
-            "key": {
-              "type": "Identifier",
-              "name": "Session",
-              "range": [
-                356,
-                363
-              ],
-              "loc": {
-                "start": {
-                  "line": 9,
-                  "column": 2
-                },
-                "end": {
-                  "line": 9,
-                  "column": 9
-                }
-              }
-            },
-            "value": {
-              "type": "NewExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "APIProxy",
-                "range": [
-                  370,
-                  378
-                ],
-                "loc": {
-                  "start": {
-                    "line": 9,
-                    "column": 16
-                  },
-                  "end": {
-                    "line": 9,
-                    "column": 24
-                  }
-                }
-              },
-              "arguments": [
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      379,
-                      386
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 9,
-                        "column": 25
-                      },
-                      "end": {
-                        "line": 9,
-                        "column": 32
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./resources/Session",
-                      "raw": "\"./resources/Session\"",
-                      "range": [
-                        387,
-                        408
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 9,
-                          "column": 33
-                        },
-                        "end": {
-                          "line": 9,
-                          "column": 54
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    379,
-                    409
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 9,
-                      "column": 25
-                    },
-                    "end": {
-                      "line": 9,
-                      "column": 55
-                    }
-                  }
-                },
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      411,
-                      418
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 9,
-                        "column": 57
-                      },
-                      "end": {
-                        "line": 9,
-                        "column": 64
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./stores/SessionStore",
-                      "raw": "\"./stores/SessionStore\"",
-                      "range": [
-                        419,
-                        442
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 9,
-                          "column": 65
-                        },
-                        "end": {
-                          "line": 9,
-                          "column": 88
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    411,
-                    443
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 9,
-                      "column": 57
-                    },
-                    "end": {
-                      "line": 9,
-                      "column": 89
-                    }
-                  }
-                }
-              ],
-              "range": [
-                366,
-                444
-              ],
-              "loc": {
-                "start": {
-                  "line": 9,
-                  "column": 12
-                },
-                "end": {
-                  "line": 9,
-                  "column": 90
-                }
-              }
-            },
-            "kind": "init",
-            "method": false,
-            "shorthand": false,
-            "computed": false,
-            "range": [
-              356,
-              444
-            ],
-            "loc": {
-              "start": {
-                "line": 9,
-                "column": 2
-              },
-              "end": {
-                "line": 9,
-                "column": 90
-              }
-            }
-          },
-          {
-            "type": "Property",
-            "key": {
-              "type": "Identifier",
-              "name": "Shop",
-              "range": [
-                448,
-                452
-              ],
-              "loc": {
-                "start": {
-                  "line": 10,
-                  "column": 2
-                },
-                "end": {
-                  "line": 10,
-                  "column": 6
-                }
-              }
-            },
-            "value": {
-              "type": "NewExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "APIProxy",
-                "range": [
-                  462,
-                  470
-                ],
-                "loc": {
-                  "start": {
-                    "line": 10,
-                    "column": 16
-                  },
-                  "end": {
-                    "line": 10,
-                    "column": 24
-                  }
-                }
-              },
-              "arguments": [
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      471,
-                      478
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 10,
-                        "column": 25
-                      },
-                      "end": {
-                        "line": 10,
-                        "column": 32
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./resources/Shop",
-                      "raw": "\"./resources/Shop\"",
-                      "range": [
-                        479,
-                        497
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 10,
-                          "column": 33
-                        },
-                        "end": {
-                          "line": 10,
                           "column": 51
                         }
                       }
                     }
                   ],
                   "range": [
-                    471,
-                    498
+                    103,
+                    130
                   ],
                   "loc": {
                     "start": {
-                      "line": 10,
+                      "line": 6,
                       "column": 25
                     },
                     "end": {
-                      "line": 10,
+                      "line": 6,
                       "column": 52
                     }
                   }
@@ -970,16 +218,1144 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      500,
-                      507
+                      132,
+                      139
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 6,
+                        "column": 54
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 61
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/BlogsStore",
+                      "raw": "\"./stores/BlogsStore\"",
+                      "range": [
+                        140,
+                        161
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 6,
+                          "column": 62
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 83
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    132,
+                    162
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 6,
+                      "column": 54
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 84
+                    }
+                  }
+                }
+              ],
+              "range": [
+                90,
+                163
+              ],
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 12
+                },
+                "end": {
+                  "line": 6,
+                  "column": 85
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              80,
+              163
+            ],
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 85
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Country",
+              "range": [
+                167,
+                174
+              ],
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 2
+                },
+                "end": {
+                  "line": 7,
+                  "column": 9
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  181,
+                  189
+                ],
+                "loc": {
+                  "start": {
+                    "line": 7,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      190,
+                      197
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 7,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Country",
+                      "raw": "\"./resources/Country\"",
+                      "range": [
+                        198,
+                        219
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 7,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 54
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    190,
+                    220
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 7,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 55
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      222,
+                      229
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 7,
+                        "column": 57
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 64
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/CountriesStore",
+                      "raw": "\"./stores/CountriesStore\"",
+                      "range": [
+                        230,
+                        255
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 7,
+                          "column": 65
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 90
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    222,
+                    256
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 7,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 7,
+                      "column": 91
+                    }
+                  }
+                }
+              ],
+              "range": [
+                177,
+                257
+              ],
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 12
+                },
+                "end": {
+                  "line": 7,
+                  "column": 92
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              167,
+              257
+            ],
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 2
+              },
+              "end": {
+                "line": 7,
+                "column": 92
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Order",
+              "range": [
+                261,
+                266
+              ],
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 2
+                },
+                "end": {
+                  "line": 8,
+                  "column": 7
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  275,
+                  283
+                ],
+                "loc": {
+                  "start": {
+                    "line": 8,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 8,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      284,
+                      291
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 8,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Order",
+                      "raw": "\"./resources/Order\"",
+                      "range": [
+                        292,
+                        311
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 8,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 52
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    284,
+                    312
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 8,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 53
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      314,
+                      321
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 8,
+                        "column": 55
+                      },
+                      "end": {
+                        "line": 8,
+                        "column": 62
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/OrdersStore",
+                      "raw": "\"./stores/OrdersStore\"",
+                      "range": [
+                        322,
+                        344
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 8,
+                          "column": 63
+                        },
+                        "end": {
+                          "line": 8,
+                          "column": 85
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    314,
+                    345
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 8,
+                      "column": 55
+                    },
+                    "end": {
+                      "line": 8,
+                      "column": 86
+                    }
+                  }
+                }
+              ],
+              "range": [
+                271,
+                346
+              ],
+              "loc": {
+                "start": {
+                  "line": 8,
+                  "column": 12
+                },
+                "end": {
+                  "line": 8,
+                  "column": 87
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              261,
+              346
+            ],
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 2
+              },
+              "end": {
+                "line": 8,
+                "column": 87
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Page",
+              "range": [
+                350,
+                354
+              ],
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 2
+                },
+                "end": {
+                  "line": 9,
+                  "column": 6
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  364,
+                  372
+                ],
+                "loc": {
+                  "start": {
+                    "line": 9,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      373,
+                      380
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Page",
+                      "raw": "\"./resources/Page\"",
+                      "range": [
+                        381,
+                        399
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 51
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    373,
+                    400
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 52
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      402,
+                      409
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 54
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 61
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/PagesStore",
+                      "raw": "\"./stores/PagesStore\"",
+                      "range": [
+                        410,
+                        431
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 9,
+                          "column": 62
+                        },
+                        "end": {
+                          "line": 9,
+                          "column": 83
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    402,
+                    432
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 54
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 84
+                    }
+                  }
+                }
+              ],
+              "range": [
+                360,
+                433
+              ],
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 12
+                },
+                "end": {
+                  "line": 9,
+                  "column": 85
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              350,
+              433
+            ],
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 2
+              },
+              "end": {
+                "line": 9,
+                "column": 85
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Product",
+              "range": [
+                437,
+                444
+              ],
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 2
+                },
+                "end": {
+                  "line": 10,
+                  "column": 9
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  451,
+                  459
+                ],
+                "loc": {
+                  "start": {
+                    "line": 10,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 10,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      460,
+                      467
                     ],
                     "loc": {
                       "start": {
                         "line": 10,
-                        "column": 54
+                        "column": 25
                       },
                       "end": {
                         "line": 10,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Product",
+                      "raw": "\"./resources/Product\"",
+                      "range": [
+                        468,
+                        489
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 10,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 10,
+                          "column": 54
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    460,
+                    490
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 10,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 55
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      492,
+                      499
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 10,
+                        "column": 57
+                      },
+                      "end": {
+                        "line": 10,
+                        "column": 64
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/ProductsStore",
+                      "raw": "\"./stores/ProductsStore\"",
+                      "range": [
+                        500,
+                        524
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 10,
+                          "column": 65
+                        },
+                        "end": {
+                          "line": 10,
+                          "column": 89
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    492,
+                    525
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 10,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 10,
+                      "column": 90
+                    }
+                  }
+                }
+              ],
+              "range": [
+                447,
+                526
+              ],
+              "loc": {
+                "start": {
+                  "line": 10,
+                  "column": 12
+                },
+                "end": {
+                  "line": 10,
+                  "column": 91
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              437,
+              526
+            ],
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 2
+              },
+              "end": {
+                "line": 10,
+                "column": 91
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Session",
+              "range": [
+                530,
+                537
+              ],
+              "loc": {
+                "start": {
+                  "line": 11,
+                  "column": 2
+                },
+                "end": {
+                  "line": 11,
+                  "column": 9
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  544,
+                  552
+                ],
+                "loc": {
+                  "start": {
+                    "line": 11,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 11,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      553,
+                      560
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 11,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 11,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Session",
+                      "raw": "\"./resources/Session\"",
+                      "range": [
+                        561,
+                        582
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 11,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 11,
+                          "column": 54
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    553,
+                    583
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 11,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 55
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      585,
+                      592
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 11,
+                        "column": 57
+                      },
+                      "end": {
+                        "line": 11,
+                        "column": 64
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/SessionStore",
+                      "raw": "\"./stores/SessionStore\"",
+                      "range": [
+                        593,
+                        616
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 11,
+                          "column": 65
+                        },
+                        "end": {
+                          "line": 11,
+                          "column": 88
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    585,
+                    617
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 11,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 11,
+                      "column": 89
+                    }
+                  }
+                }
+              ],
+              "range": [
+                540,
+                618
+              ],
+              "loc": {
+                "start": {
+                  "line": 11,
+                  "column": 12
+                },
+                "end": {
+                  "line": 11,
+                  "column": 90
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              530,
+              618
+            ],
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 2
+              },
+              "end": {
+                "line": 11,
+                "column": 90
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Shop",
+              "range": [
+                622,
+                626
+              ],
+              "loc": {
+                "start": {
+                  "line": 12,
+                  "column": 2
+                },
+                "end": {
+                  "line": 12,
+                  "column": 6
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  636,
+                  644
+                ],
+                "loc": {
+                  "start": {
+                    "line": 12,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      645,
+                      652
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Shop",
+                      "raw": "\"./resources/Shop\"",
+                      "range": [
+                        653,
+                        671
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 12,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 51
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    645,
+                    672
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 12,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 52
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      674,
+                      681
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 54
+                      },
+                      "end": {
+                        "line": 12,
                         "column": 61
                       }
                     }
@@ -990,48 +1366,48 @@
                       "value": "./stores/ShopStore",
                       "raw": "\"./stores/ShopStore\"",
                       "range": [
-                        508,
-                        528
+                        682,
+                        702
                       ],
                       "loc": {
                         "start": {
-                          "line": 10,
+                          "line": 12,
                           "column": 62
                         },
                         "end": {
-                          "line": 10,
+                          "line": 12,
                           "column": 82
                         }
                       }
                     }
                   ],
                   "range": [
-                    500,
-                    529
+                    674,
+                    703
                   ],
                   "loc": {
                     "start": {
-                      "line": 10,
+                      "line": 12,
                       "column": 54
                     },
                     "end": {
-                      "line": 10,
+                      "line": 12,
                       "column": 83
                     }
                   }
                 }
               ],
               "range": [
-                458,
-                530
+                632,
+                704
               ],
               "loc": {
                 "start": {
-                  "line": 10,
+                  "line": 12,
                   "column": 12
                 },
                 "end": {
-                  "line": 10,
+                  "line": 12,
                   "column": 84
                 }
               }
@@ -1041,16 +1417,16 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              448,
-              530
+              622,
+              704
             ],
             "loc": {
               "start": {
-                "line": 10,
+                "line": 12,
                 "column": 2
               },
               "end": {
-                "line": 10,
+                "line": 12,
                 "column": 84
               }
             }
@@ -1058,7 +1434,7 @@
         ],
         "range": [
           76,
-          532
+          706
         ],
         "loc": {
           "start": {
@@ -1066,7 +1442,7 @@
             "column": 15
           },
           "end": {
-            "line": 11,
+            "line": 13,
             "column": 1
           }
         },
@@ -1075,7 +1451,7 @@
       },
       "range": [
         61,
-        533
+        707
       ],
       "loc": {
         "start": {
@@ -1083,7 +1459,7 @@
           "column": 0
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 2
         }
       }
@@ -1092,7 +1468,7 @@
   "sourceType": "module",
   "range": [
     0,
-    533
+    707
   ],
   "loc": {
     "start": {
@@ -1100,7 +1476,7 @@
       "column": 0
     },
     "end": {
-      "line": 11,
+      "line": 13,
       "column": 2
     }
   },

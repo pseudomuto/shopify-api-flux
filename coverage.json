@@ -1,7 +1,7 @@
 {
-  "coverage": "80%",
-  "expectCount": 60,
-  "actualCount": 48,
+  "coverage": "79.41%",
+  "expectCount": 68,
+  "actualCount": 54,
   "files": {
     "lib/utilities/APIProxy.js": {
       "expectCount": 1,
@@ -31,6 +31,18 @@
       "actualCount": 5,
       "undocumentLines": []
     },
+    "lib/resources/Blog.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        11
+      ]
+    },
+    "lib/stores/BlogsStore.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
     "lib/stores/CountableStore.js": {
       "expectCount": 4,
       "actualCount": 4,
@@ -56,6 +68,18 @@
       ]
     },
     "lib/stores/OrdersStore.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/resources/Page.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        11
+      ]
+    },
+    "lib/stores/PagesStore.js": {
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
