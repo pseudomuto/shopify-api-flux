@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -66,7 +66,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Country:  new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -102,7 +102,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Order\",\n  \"Product\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Country\",\n  \"Order\",\n  \"Product\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -325,6 +325,78 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\njest.dontMock(\"flux\");\njest.dontMock(\"../APIDispatcher\");\n\ndescribe(\"APIDispatcher\", () => {\n  var APIDispatcher;\n\n  beforeEach(() => {\n    APIDispatcher = require(\"../APIDispatcher\");\n  });\n\n  it(\"sends actions to subscribers\", () => {\n    let listener = jest.genMockFunction();\n    let payload = {};\n\n    APIDispatcher.register(listener);\n    APIDispatcher.dispatch(payload);\n\n    expect(listener.mock.calls.length).toBe(1);\n    expect(listener.mock.calls[0][0]).toBe(payload);\n  });\n\n  it(\"does things\", () => {\n    expect(true).toBe(true);\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/integration/__tests__/CountriesAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/CountriesAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI           = require(\"../../ShopifyAPI\");\nconst { Country, Session } = ShopifyAPI;\n\nconst CountryId = 100312773;\n\ndescribe(\"Countries API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting countries\", () => {\n    pit(\"GET /admin/countries.json\", () => {\n      return Country.fetch().then(countries => {\n        expect(countries.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/countries.json?ids=\", () => {\n      return Country.fetch({ ids: [CountryId] }).then(countries => {\n        expect(countries.length).toBe(2); // rest of world is always included\n        expect(countries[0].id).toBe(CountryId);\n      });\n    });\n\n    pit(\"GET /admin/countries/:id.json\", () => {\n      return Country.fetch(CountryId).then(countries => {\n        expect(countries).toBeDefined();\n        expect(countries.length).toBe(1);\n        expect(countries[0].id).toBe(CountryId);\n      });\n    });\n  });\n\n  describe(\"counting countries\", () => {\n    pit (\"GET /admin/countries/count.json\", () => {\n      return Country.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/countries/count.json?id=\", () => {\n      return Country.fetchCount({ id: CountryId }).then(count => {\n        expect(count).toBe(2); // rest of world is always included\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/CountriesAPITest.js",
+    "longname": "lib/integration/__tests__/CountriesAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/CountriesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Country",
+    "memberof": "lib/integration/__tests__/CountriesAPITest.js",
+    "longname": "lib/integration/__tests__/CountriesAPITest.js~Country",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/CountriesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "CountryId",
+    "memberof": "lib/integration/__tests__/CountriesAPITest.js",
+    "longname": "lib/integration/__tests__/CountriesAPITest.js~CountryId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/CountriesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -1052,6 +1124,88 @@
       }
     ],
     "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Country.js",
+    "memberof": null,
+    "longname": "lib/resources/Country.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Country resource\n *\n * @extends {Base}\n */\nclass Country extends Base {\n  constructor() {\n    super(\"country\", {\n      countable: true,\n      createable: true,\n      destroyable: true\n    });\n\n    this._resources = \"countries\";\n  }\n}\n\n/** @ignore */\nexport default new Country();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Country",
+    "memberof": "lib/resources/Country.js",
+    "longname": "lib/resources/Country.js~Country",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Country.js",
+    "importStyle": null,
+    "description": "The Country resource",
+    "lineNumber": 10,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Country.js~Country",
+    "longname": "lib/resources/Country.js~Country#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_resources",
+    "memberof": "lib/resources/Country.js~Country",
+    "longname": "lib/resources/Country.js~Country#_resources",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "country",
+    "memberof": "lib/resources/Country.js",
+    "longname": "lib/resources/Country.js~country",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Country.js",
+    "importStyle": "country",
+    "description": null,
+    "lineNumber": 23,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Country.js~Country"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -1800,6 +1954,18 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/__tests__/CountryTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/CountryTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Country\");\n\ndescribe(\"Country\", () => {\n  var resource = require(\"../Country\");\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/__tests__/OrderTest.js",
     "memberof": null,
     "longname": "lib/resources/__tests__/OrderTest.js",
@@ -2243,6 +2409,81 @@
     },
     "override": true,
     "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/CountriesStore.js",
+    "memberof": null,
+    "longname": "lib/stores/CountriesStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions        from \"../utilities/Actions\";\nimport APIDispatcher  from \"../dispatcher/APIDispatcher\";\nimport CountableStore from \"./CountableStore\";\n\n/**\n * The Countries store\n *\n * @extends {CountableStore}\n */\nclass CountriesStore extends CountableStore {\n  /**\n   * Sets the dispatcher and appropriate actions for countries\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"countries\"));\n  }\n}\n\n/** @ignore */\nexport default new CountriesStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "CountriesStore",
+    "memberof": "lib/stores/CountriesStore.js",
+    "longname": "lib/stores/CountriesStore.js~CountriesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/CountriesStore.js",
+    "importStyle": null,
+    "description": "The Countries store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "CountableStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/CountriesStore.js~CountriesStore",
+    "longname": "lib/stores/CountriesStore.js~CountriesStore#constructor",
+    "access": null,
+    "description": "Sets the dispatcher and appropriate actions for countries",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "countriesStore",
+    "memberof": "lib/stores/CountriesStore.js",
+    "longname": "lib/stores/CountriesStore.js~countriesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/CountriesStore.js",
+    "importStyle": "countriesStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/CountriesStore.js~CountriesStore"
+      ]
+    }
   },
   {
     "kind": "file",

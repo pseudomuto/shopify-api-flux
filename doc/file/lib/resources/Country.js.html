@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/resources/__tests__/ProductTest.js | Shopify Flux API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/resources/Country.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -87,28 +87,30 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/__tests__/ProductTest.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/Country.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-jest.dontMock(&quot;../Base&quot;);
-jest.dontMock(&quot;../Product&quot;);
+import Base from &quot;./Base&quot;;
 
-describe(&quot;Product&quot;, () =&gt; {
-  var resource = require(&quot;../Product&quot;);
+/**
+ * The Country resource
+ *
+ * @extends {Base}
+ */
+class Country extends Base {
+  constructor() {
+    super(&quot;country&quot;, {
+      countable: true,
+      createable: true,
+      destroyable: true
+    });
 
-  it(&quot;is countable&quot;, () =&gt; {
-    expect(resource.apiMethods).toContain(&quot;fetchCount&quot;);
-  });
+    this._resources = &quot;countries&quot;;
+  }
+}
 
-  it(&quot;is createable&quot;, () =&gt; {
-    expect(resource.apiMethods).toContain(&quot;create&quot;);
-    expect(resource.apiMethods).toContain(&quot;update&quot;);
-  });
-
-  it(&quot;is destroyable&quot;, () =&gt; {
-    expect(resource.apiMethods).toContain(&quot;destroy&quot;);
-  });
-});
+/** @ignore */
+export default new Country();
 </code></pre>
 
 </div>

@@ -119,10 +119,10 @@
             "type": "Property",
             "key": {
               "type": "Identifier",
-              "name": "Order",
+              "name": "Country",
               "range": [
                 80,
-                85
+                87
               ],
               "loc": {
                 "start": {
@@ -131,7 +131,7 @@
                 },
                 "end": {
                   "line": 6,
-                  "column": 7
+                  "column": 9
                 }
               }
             },
@@ -179,11 +179,11 @@
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./resources/Order",
-                      "raw": "\"./resources/Order\"",
+                      "value": "./resources/Country",
+                      "raw": "\"./resources/Country\"",
                       "range": [
                         111,
-                        130
+                        132
                       ],
                       "loc": {
                         "start": {
@@ -192,14 +192,14 @@
                         },
                         "end": {
                           "line": 6,
-                          "column": 52
+                          "column": 54
                         }
                       }
                     }
                   ],
                   "range": [
                     103,
-                    131
+                    133
                   ],
                   "loc": {
                     "start": {
@@ -208,6 +208,194 @@
                     },
                     "end": {
                       "line": 6,
+                      "column": 55
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      135,
+                      142
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 6,
+                        "column": 57
+                      },
+                      "end": {
+                        "line": 6,
+                        "column": 64
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/CountriesStore",
+                      "raw": "\"./stores/CountriesStore\"",
+                      "range": [
+                        143,
+                        168
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 6,
+                          "column": 65
+                        },
+                        "end": {
+                          "line": 6,
+                          "column": 90
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    135,
+                    169
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 6,
+                      "column": 57
+                    },
+                    "end": {
+                      "line": 6,
+                      "column": 91
+                    }
+                  }
+                }
+              ],
+              "range": [
+                90,
+                170
+              ],
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 12
+                },
+                "end": {
+                  "line": 6,
+                  "column": 92
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              80,
+              170
+            ],
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 2
+              },
+              "end": {
+                "line": 6,
+                "column": 92
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Order",
+              "range": [
+                174,
+                179
+              ],
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 2
+                },
+                "end": {
+                  "line": 7,
+                  "column": 7
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  188,
+                  196
+                ],
+                "loc": {
+                  "start": {
+                    "line": 7,
+                    "column": 16
+                  },
+                  "end": {
+                    "line": 7,
+                    "column": 24
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      197,
+                      204
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 7,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 7,
+                        "column": 32
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Order",
+                      "raw": "\"./resources/Order\"",
+                      "range": [
+                        205,
+                        224
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 7,
+                          "column": 33
+                        },
+                        "end": {
+                          "line": 7,
+                          "column": 52
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    197,
+                    225
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 7,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 7,
                       "column": 53
                     }
                   }
@@ -218,16 +406,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      133,
-                      140
+                      227,
+                      234
                     ],
                     "loc": {
                       "start": {
-                        "line": 6,
+                        "line": 7,
                         "column": 55
                       },
                       "end": {
-                        "line": 6,
+                        "line": 7,
                         "column": 62
                       }
                     }
@@ -238,48 +426,48 @@
                       "value": "./stores/OrdersStore",
                       "raw": "\"./stores/OrdersStore\"",
                       "range": [
-                        141,
-                        163
+                        235,
+                        257
                       ],
                       "loc": {
                         "start": {
-                          "line": 6,
+                          "line": 7,
                           "column": 63
                         },
                         "end": {
-                          "line": 6,
+                          "line": 7,
                           "column": 85
                         }
                       }
                     }
                   ],
                   "range": [
-                    133,
-                    164
+                    227,
+                    258
                   ],
                   "loc": {
                     "start": {
-                      "line": 6,
+                      "line": 7,
                       "column": 55
                     },
                     "end": {
-                      "line": 6,
+                      "line": 7,
                       "column": 86
                     }
                   }
                 }
               ],
               "range": [
-                90,
-                165
+                184,
+                259
               ],
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 7,
                   "column": 12
                 },
                 "end": {
-                  "line": 6,
+                  "line": 7,
                   "column": 87
                 }
               }
@@ -289,16 +477,16 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              80,
-              165
+              174,
+              259
             ],
             "loc": {
               "start": {
-                "line": 6,
+                "line": 7,
                 "column": 2
               },
               "end": {
-                "line": 6,
+                "line": 7,
                 "column": 87
               }
             }
@@ -309,16 +497,16 @@
               "type": "Identifier",
               "name": "Product",
               "range": [
-                169,
-                176
+                263,
+                270
               ],
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 8,
                   "column": 2
                 },
                 "end": {
-                  "line": 7,
+                  "line": 8,
                   "column": 9
                 }
               }
@@ -329,16 +517,16 @@
                 "type": "Identifier",
                 "name": "APIProxy",
                 "range": [
-                  183,
-                  191
+                  277,
+                  285
                 ],
                 "loc": {
                   "start": {
-                    "line": 7,
+                    "line": 8,
                     "column": 16
                   },
                   "end": {
-                    "line": 7,
+                    "line": 8,
                     "column": 24
                   }
                 }
@@ -350,16 +538,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      192,
-                      199
+                      286,
+                      293
                     ],
                     "loc": {
                       "start": {
-                        "line": 7,
+                        "line": 8,
                         "column": 25
                       },
                       "end": {
-                        "line": 7,
+                        "line": 8,
                         "column": 32
                       }
                     }
@@ -370,32 +558,32 @@
                       "value": "./resources/Product",
                       "raw": "\"./resources/Product\"",
                       "range": [
-                        200,
-                        221
+                        294,
+                        315
                       ],
                       "loc": {
                         "start": {
-                          "line": 7,
+                          "line": 8,
                           "column": 33
                         },
                         "end": {
-                          "line": 7,
+                          "line": 8,
                           "column": 54
                         }
                       }
                     }
                   ],
                   "range": [
-                    192,
-                    222
+                    286,
+                    316
                   ],
                   "loc": {
                     "start": {
-                      "line": 7,
+                      "line": 8,
                       "column": 25
                     },
                     "end": {
-                      "line": 7,
+                      "line": 8,
                       "column": 55
                     }
                   }
@@ -406,16 +594,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      224,
-                      231
+                      318,
+                      325
                     ],
                     "loc": {
                       "start": {
-                        "line": 7,
+                        "line": 8,
                         "column": 57
                       },
                       "end": {
-                        "line": 7,
+                        "line": 8,
                         "column": 64
                       }
                     }
@@ -426,48 +614,48 @@
                       "value": "./stores/ProductsStore",
                       "raw": "\"./stores/ProductsStore\"",
                       "range": [
-                        232,
-                        256
+                        326,
+                        350
                       ],
                       "loc": {
                         "start": {
-                          "line": 7,
+                          "line": 8,
                           "column": 65
                         },
                         "end": {
-                          "line": 7,
+                          "line": 8,
                           "column": 89
                         }
                       }
                     }
                   ],
                   "range": [
-                    224,
-                    257
+                    318,
+                    351
                   ],
                   "loc": {
                     "start": {
-                      "line": 7,
+                      "line": 8,
                       "column": 57
                     },
                     "end": {
-                      "line": 7,
+                      "line": 8,
                       "column": 90
                     }
                   }
                 }
               ],
               "range": [
-                179,
-                258
+                273,
+                352
               ],
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 8,
                   "column": 12
                 },
                 "end": {
-                  "line": 7,
+                  "line": 8,
                   "column": 91
                 }
               }
@@ -477,16 +665,16 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              169,
-              258
+              263,
+              352
             ],
             "loc": {
               "start": {
-                "line": 7,
+                "line": 8,
                 "column": 2
               },
               "end": {
-                "line": 7,
+                "line": 8,
                 "column": 91
               }
             }
@@ -497,16 +685,16 @@
               "type": "Identifier",
               "name": "Session",
               "range": [
-                262,
-                269
+                356,
+                363
               ],
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 9,
                   "column": 2
                 },
                 "end": {
-                  "line": 8,
+                  "line": 9,
                   "column": 9
                 }
               }
@@ -517,16 +705,16 @@
                 "type": "Identifier",
                 "name": "APIProxy",
                 "range": [
-                  276,
-                  284
+                  370,
+                  378
                 ],
                 "loc": {
                   "start": {
-                    "line": 8,
+                    "line": 9,
                     "column": 16
                   },
                   "end": {
-                    "line": 8,
+                    "line": 9,
                     "column": 24
                   }
                 }
@@ -538,16 +726,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      285,
-                      292
+                      379,
+                      386
                     ],
                     "loc": {
                       "start": {
-                        "line": 8,
+                        "line": 9,
                         "column": 25
                       },
                       "end": {
-                        "line": 8,
+                        "line": 9,
                         "column": 32
                       }
                     }
@@ -558,32 +746,32 @@
                       "value": "./resources/Session",
                       "raw": "\"./resources/Session\"",
                       "range": [
-                        293,
-                        314
+                        387,
+                        408
                       ],
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 9,
                           "column": 33
                         },
                         "end": {
-                          "line": 8,
+                          "line": 9,
                           "column": 54
                         }
                       }
                     }
                   ],
                   "range": [
-                    285,
-                    315
+                    379,
+                    409
                   ],
                   "loc": {
                     "start": {
-                      "line": 8,
+                      "line": 9,
                       "column": 25
                     },
                     "end": {
-                      "line": 8,
+                      "line": 9,
                       "column": 55
                     }
                   }
@@ -594,16 +782,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      317,
-                      324
+                      411,
+                      418
                     ],
                     "loc": {
                       "start": {
-                        "line": 8,
+                        "line": 9,
                         "column": 57
                       },
                       "end": {
-                        "line": 8,
+                        "line": 9,
                         "column": 64
                       }
                     }
@@ -614,48 +802,48 @@
                       "value": "./stores/SessionStore",
                       "raw": "\"./stores/SessionStore\"",
                       "range": [
-                        325,
-                        348
+                        419,
+                        442
                       ],
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 9,
                           "column": 65
                         },
                         "end": {
-                          "line": 8,
+                          "line": 9,
                           "column": 88
                         }
                       }
                     }
                   ],
                   "range": [
-                    317,
-                    349
+                    411,
+                    443
                   ],
                   "loc": {
                     "start": {
-                      "line": 8,
+                      "line": 9,
                       "column": 57
                     },
                     "end": {
-                      "line": 8,
+                      "line": 9,
                       "column": 89
                     }
                   }
                 }
               ],
               "range": [
-                272,
-                350
+                366,
+                444
               ],
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 9,
                   "column": 12
                 },
                 "end": {
-                  "line": 8,
+                  "line": 9,
                   "column": 90
                 }
               }
@@ -665,16 +853,16 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              262,
-              350
+              356,
+              444
             ],
             "loc": {
               "start": {
-                "line": 8,
+                "line": 9,
                 "column": 2
               },
               "end": {
-                "line": 8,
+                "line": 9,
                 "column": 90
               }
             }
@@ -685,16 +873,16 @@
               "type": "Identifier",
               "name": "Shop",
               "range": [
-                354,
-                358
+                448,
+                452
               ],
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 10,
                   "column": 2
                 },
                 "end": {
-                  "line": 9,
+                  "line": 10,
                   "column": 6
                 }
               }
@@ -705,16 +893,16 @@
                 "type": "Identifier",
                 "name": "APIProxy",
                 "range": [
-                  368,
-                  376
+                  462,
+                  470
                 ],
                 "loc": {
                   "start": {
-                    "line": 9,
+                    "line": 10,
                     "column": 16
                   },
                   "end": {
-                    "line": 9,
+                    "line": 10,
                     "column": 24
                   }
                 }
@@ -726,16 +914,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      377,
-                      384
+                      471,
+                      478
                     ],
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 10,
                         "column": 25
                       },
                       "end": {
-                        "line": 9,
+                        "line": 10,
                         "column": 32
                       }
                     }
@@ -746,32 +934,32 @@
                       "value": "./resources/Shop",
                       "raw": "\"./resources/Shop\"",
                       "range": [
-                        385,
-                        403
+                        479,
+                        497
                       ],
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 10,
                           "column": 33
                         },
                         "end": {
-                          "line": 9,
+                          "line": 10,
                           "column": 51
                         }
                       }
                     }
                   ],
                   "range": [
-                    377,
-                    404
+                    471,
+                    498
                   ],
                   "loc": {
                     "start": {
-                      "line": 9,
+                      "line": 10,
                       "column": 25
                     },
                     "end": {
-                      "line": 9,
+                      "line": 10,
                       "column": 52
                     }
                   }
@@ -782,16 +970,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      406,
-                      413
+                      500,
+                      507
                     ],
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 10,
                         "column": 54
                       },
                       "end": {
-                        "line": 9,
+                        "line": 10,
                         "column": 61
                       }
                     }
@@ -802,48 +990,48 @@
                       "value": "./stores/ShopStore",
                       "raw": "\"./stores/ShopStore\"",
                       "range": [
-                        414,
-                        434
+                        508,
+                        528
                       ],
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 10,
                           "column": 62
                         },
                         "end": {
-                          "line": 9,
+                          "line": 10,
                           "column": 82
                         }
                       }
                     }
                   ],
                   "range": [
-                    406,
-                    435
+                    500,
+                    529
                   ],
                   "loc": {
                     "start": {
-                      "line": 9,
+                      "line": 10,
                       "column": 54
                     },
                     "end": {
-                      "line": 9,
+                      "line": 10,
                       "column": 83
                     }
                   }
                 }
               ],
               "range": [
-                364,
-                436
+                458,
+                530
               ],
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 10,
                   "column": 12
                 },
                 "end": {
-                  "line": 9,
+                  "line": 10,
                   "column": 84
                 }
               }
@@ -853,16 +1041,16 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              354,
-              436
+              448,
+              530
             ],
             "loc": {
               "start": {
-                "line": 9,
+                "line": 10,
                 "column": 2
               },
               "end": {
-                "line": 9,
+                "line": 10,
                 "column": 84
               }
             }
@@ -870,7 +1058,7 @@
         ],
         "range": [
           76,
-          438
+          532
         ],
         "loc": {
           "start": {
@@ -878,7 +1066,7 @@
             "column": 15
           },
           "end": {
-            "line": 10,
+            "line": 11,
             "column": 1
           }
         },
@@ -887,7 +1075,7 @@
       },
       "range": [
         61,
-        439
+        533
       ],
       "loc": {
         "start": {
@@ -895,7 +1083,7 @@
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 11,
           "column": 2
         }
       }
@@ -904,7 +1092,7 @@
   "sourceType": "module",
   "range": [
     0,
-    439
+    533
   ],
   "loc": {
     "start": {
@@ -912,7 +1100,7 @@
       "column": 0
     },
     "end": {
-      "line": 10,
+      "line": 11,
       "column": 2
     }
   },
