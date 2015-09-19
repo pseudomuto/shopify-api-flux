@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">lib/resources/Order.js | Shopify Flux API Document</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/integration/__tests__/OrdersAPITest.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -85,79 +85,62 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/Order.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/integration/__tests__/OrdersAPITest.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-import Api  from &quot;../utilities/WebAPI&quot;;
-import Base from &quot;./Base&quot;;
+jest.autoMockOff();
 
-/**
- * The Order resource
- *
- * @extends {Base}
- */
-class Order extends Base {
-  constructor() {
-    super(&quot;order&quot;, {
-      countable:    true,
-      createable:   true,
-      destroyable:  true
+import _ from &quot;lodash&quot;;
+
+const ShopifyAPI         = require(&quot;../../ShopifyAPI&quot;);
+const { Order, Session } = ShopifyAPI;
+
+const OrderId = 1322251717;
+
+describe(&quot;Orders API&quot;, () =&gt; {
+  setupIntegrationTest(Session);
+
+  describe(&quot;getting orders&quot;, () =&gt; {
+    pit(&quot;GET /admin/orders.json&quot;, () =&gt; {
+      return Order.fetch().then(orders =&gt; {
+        expect(orders.length).toBeGreaterThan(0);
+      });
     });
-  }
 
-  /**
-   * Close an open order
-   *
-   * @param {number|string} id - The id of the order
-   *
-   * @return {RequestPromise}
-   */
-  close(id) {
-    return this._postToAction(id, &quot;close&quot;);
-  }
+    pit(&quot;GET /admin/orders.json?fields=id,name&quot;, () =&gt; {
+      return Order.fetch({ fields: [&quot;id&quot;, &quot;name&quot;] }).then(orders =&gt; {
+        expect(orders.length).toBeGreaterThan(0);
+      });
+    });
 
-  /**
-   * Open a closed order
-   *
-   * @param {number|string} id - The id of the order
-   *
-   * @return {RequestPromise}
-   */
-  open(id) {
-    return this._postToAction(id, &quot;open&quot;);
-  }
+    pit(&quot;GET /admin/orders.json?financial_status=paid&quot;, () =&gt; {
+      return Order.fetch({ financial_status: &quot;paid&quot; }).then(orders =&gt; {
+        expect(_.pluck(orders, &quot;id&quot;).indexOf(OrderId)).toBeGreaterThan(-1);
+      });
+    });
 
-  /**
-   * Cancel an order
-   *
-   * @param {number|string} id - The id of the order
-   * @param {object}  [options] - Options for the cancel operation
-   * @param {number}  [options.amount] - The (decimal) amount to refund
-   * @param {boolean} [options.restock=false] - Whether or not to restock inventory
-   * @param {string}  [options.reason=other] - One of customer, inventory, fraud or other
-   * @param {boolean} [options.email=false] - Whether or not to send the customer an email regarding the cancellation
-   *
-   * @return {RequestPromise}
-   */
-  cancel(id, options = {}) {
-    return this._postToAction(id, &quot;cancel&quot;, options);
-  }
+    pit(&quot;GET /admin/orders/:id.json&quot;, () =&gt; {
+      return Order.fetch(OrderId).then(orders =&gt; {
+        expect(orders.length).toBe(1);
+        expect(orders[0].id).toBe(OrderId);
+      });
+    });
+  });
 
-  _postToAction(id, action, resource) {
-    let url      = this._memberURLForAction(action, id);
-    let dispatch = this._dispatchMerge.bind(this);
-    let property = this._resource;
+  describe(&quot;counting orders&quot;, () =&gt; {
+    pit (&quot;GET /admin/orders/count.json&quot;, () =&gt; {
+      return Order.fetchCount().then(count =&gt; {
+        expect(count).toBeGreaterThan(0);
+      });
+    });
 
-    return Api.post(url, resource).then(response =&gt; dispatch(response[property]));
-  }
-
-  _memberURLForAction(action, ...urlParams) {
-    return this.urlFor(...urlParams).replace(/\.json$/, `/${action}.json`);
-  }
-}
-
-/** @ignore */
-export default new Order();
+    pit (&quot;GET /admin/orders/count.json?id=&quot;, () =&gt; {
+      return Order.fetchCount({ financial_status: &quot;paid&quot; }).then(count =&gt; {
+        expect(count).toBeGreaterThan(0);
+      });
+    });
+  });
+});
 </code></pre>
 
 </div>

@@ -93,10 +93,10 @@ jest.autoMockOff();
 const ShopifyAPI           = require(&quot;../../ShopifyAPI&quot;);
 const { Product, Session } = ShopifyAPI;
 
+const ProductId = 2158011973;
+
 describe(&quot;Products API&quot;, () =&gt; {
   setupIntegrationTest(Session);
-
-  let productId = Number(process.env.SHOPIFY_API_PRODUCT_ID);
 
   describe(&quot;getting products&quot;, () =&gt; {
     pit(&quot;GET /admin/products.json&quot;, () =&gt; {
@@ -106,17 +106,17 @@ describe(&quot;Products API&quot;, () =&gt; {
     });
 
     pit(&quot;GET /admin/products.json?ids=&quot;, () =&gt; {
-      return Product.fetch({ ids: [productId] }).then(products =&gt; {
+      return Product.fetch({ ids: [ProductId] }).then(products =&gt; {
         expect(products.length).toBe(1);
-        expect(products[0].id).toBe(productId);
+        expect(products[0].id).toBe(ProductId);
       });
     });
 
     pit(&quot;GET /admin/products/:id.json&quot;, () =&gt; {
-      return Product.fetch(productId).then(products =&gt; {
+      return Product.fetch(ProductId).then(products =&gt; {
         expect(products).toBeDefined();
         expect(products.length).toBe(1);
-        expect(products[0].id).toBe(productId);
+        expect(products[0].id).toBe(ProductId);
       });
     });
   });
@@ -129,7 +129,7 @@ describe(&quot;Products API&quot;, () =&gt; {
     });
 
     pit (&quot;GET /admin/products/count.json?id=&quot;, () =&gt; {
-      return Product.fetchCount({ id: productId }).then(count =&gt; {
+      return Product.fetchCount({ id: ProductId }).then(count =&gt; {
         expect(count).toBe(1);
       });
     });

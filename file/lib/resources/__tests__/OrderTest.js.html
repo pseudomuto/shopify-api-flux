@@ -94,67 +94,90 @@ jest.dontMock(&quot;../../utilities/URLHelpers&quot;);
 
 import Constants from &quot;../../Constants&quot;;
 
-const Base = require(&quot;../Base&quot;);
-
 describe(&quot;Order&quot;, () =&gt; {
-  let orders = [{ id: 1, name: &quot;Order #1&quot; }];
-
-  var resource, api, dispatcher;
+  var resource;
 
   beforeEach(() =&gt; {
-    dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
-    resource   = require(&quot;../Order&quot;);
-    api        = require(&quot;../../utilities/WebAPI&quot;);
+    resource = require(&quot;../Order&quot;);
   });
 
-  describe(&quot;#apiMethods&quot;, () =&gt; {
-    it(&quot;exposes base and specific fetch methods&quot;, () =&gt; {
-      let actual   = resource.apiMethods;
-      let expected = new Base(&quot;order&quot;, { countable: true }).apiMethods.concat([&quot;fetchAuthorized&quot;, &quot;fetchAllSince&quot;]);
-
-      expect(actual).toEqual(expected);
-    });
+  it(&quot;is countable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;fetchCount&quot;);
   });
 
-  describe(&quot;#fetchAuthorized&quot;, () =&gt; {
-    var request;
+  it(&quot;is createable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;create&quot;);
+    expect(resource.apiMethods).toContain(&quot;update&quot;);
+  });
+
+  it(&quot;is destroyable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;destroy&quot;);
+  });
+
+  describe(&quot;#custom actions&quot;, () =&gt; {
+    let actionType = Constants.Actions.MERGE_ORDERS;
+    let order      = { id: 1, name: &quot;Order #1&quot; };
+
+    var api, request, dispatcher;
 
     beforeEach(() =&gt; {
-      stubRequest(api, &quot;get&quot;, { orders });
-      request = resource.fetchAuthorized();
+      api        = require(&quot;../../utilities/WebAPI&quot;);
+      dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
+
+      stubRequest(api, &quot;post&quot;, { order });
     });
 
-    it(&quot;makes the request&quot;, () =&gt; {
-      expect(api.get).toBeCalledWith(&quot;/admin/orders.json?financial_status=authorized&quot;);
-    });
+    describe(&quot;#open&quot;, () =&gt; {
+      beforeEach(() =&gt; {
+        request = resource.open(order.id);
+      });
 
-    pit(&quot;dispatches the merge event&quot;, () =&gt; {
-      return Promise.resolve(request).then(() =&gt; {
-        expect(dispatcher.dispatch).toBeCalledWith({
-          actionType: Constants.Actions.MERGE_ORDERS,
-          items: orders
+      it(&quot;posts to the correct endpoint&quot;, () =&gt; {
+        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/open.json`, undefined);
+      });
+
+      pit(&quot;dispatches the merge action on success&quot;, () =&gt; {
+        return Promise.resolve(request).then(() =&gt; {
+          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });
         });
       });
     });
-  });
 
-  describe(&quot;#fetchAllSince&quot;, () =&gt; {
-    var request;
+    describe(&quot;#close&quot;, () =&gt; {
+      beforeEach(() =&gt; {
+        request = resource.close(order.id);
+      });
 
-    beforeEach(() =&gt; {
-      stubRequest(api, &quot;get&quot;, { orders });
-      request = resource.fetchAllSince(12345);
+      it(&quot;posts to the correct endpoint&quot;, () =&gt; {
+        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/close.json`, undefined);
+      });
+
+      pit(&quot;dispatches the merge action on success&quot;, () =&gt; {
+        return Promise.resolve(request).then(() =&gt; {
+          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });
+        });
+      });
     });
 
-    it(&quot;makes the request&quot;, () =&gt; {
-      expect(api.get).toBeCalledWith(&quot;/admin/orders.json?since_id=12345&quot;);
-    });
+    describe(&quot;#cancel&quot;, () =&gt; {
+      beforeEach(() =&gt; {
+        request = resource.cancel(order.id);
+      });
 
-    pit(&quot;dispatches the merge event&quot;, () =&gt; {
-      return Promise.resolve(request).then(() =&gt; {
-        expect(dispatcher.dispatch).toBeCalledWith({
-          actionType: Constants.Actions.MERGE_ORDERS,
-          items: orders
+      it(&quot;posts to the correct endpoint&quot;, () =&gt; {
+        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, {});
+      });
+
+      it(&quot;includes options when supplied&quot;, () =&gt; {
+        let options = { email: true };
+        request     = resource.cancel(order.id, options);
+
+        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, options);
+      });
+
+      pit(&quot;dispatches the merge action on success&quot;, () =&gt; {
+        return Promise.resolve(request).then(() =&gt; {
+          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });
         });
       });
     });

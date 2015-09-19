@@ -330,13 +330,85 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/integration/__tests__/OrdersAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/OrdersAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nimport _ from \"lodash\";\n\nconst ShopifyAPI         = require(\"../../ShopifyAPI\");\nconst { Order, Session } = ShopifyAPI;\n\nconst OrderId = 1322251717;\n\ndescribe(\"Orders API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting orders\", () => {\n    pit(\"GET /admin/orders.json\", () => {\n      return Order.fetch().then(orders => {\n        expect(orders.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/orders.json?fields=id,name\", () => {\n      return Order.fetch({ fields: [\"id\", \"name\"] }).then(orders => {\n        expect(orders.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/orders.json?financial_status=paid\", () => {\n      return Order.fetch({ financial_status: \"paid\" }).then(orders => {\n        expect(_.pluck(orders, \"id\").indexOf(OrderId)).toBeGreaterThan(-1);\n      });\n    });\n\n    pit(\"GET /admin/orders/:id.json\", () => {\n      return Order.fetch(OrderId).then(orders => {\n        expect(orders.length).toBe(1);\n        expect(orders[0].id).toBe(OrderId);\n      });\n    });\n  });\n\n  describe(\"counting orders\", () => {\n    pit (\"GET /admin/orders/count.json\", () => {\n      return Order.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/orders/count.json?id=\", () => {\n      return Order.fetchCount({ financial_status: \"paid\" }).then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/OrdersAPITest.js",
+    "longname": "lib/integration/__tests__/OrdersAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/OrdersAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Order",
+    "memberof": "lib/integration/__tests__/OrdersAPITest.js",
+    "longname": "lib/integration/__tests__/OrdersAPITest.js~Order",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/OrdersAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "OrderId",
+    "memberof": "lib/integration/__tests__/OrdersAPITest.js",
+    "longname": "lib/integration/__tests__/OrdersAPITest.js~OrderId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/OrdersAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/integration/__tests__/ProductsAPITest.js",
     "memberof": null,
     "longname": "lib/integration/__tests__/ProductsAPITest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI           = require(\"../../ShopifyAPI\");\nconst { Product, Session } = ShopifyAPI;\n\ndescribe(\"Products API\", () => {\n  setupIntegrationTest(Session);\n\n  let productId = Number(process.env.SHOPIFY_API_PRODUCT_ID);\n\n  describe(\"getting products\", () => {\n    pit(\"GET /admin/products.json\", () => {\n      return Product.fetch().then(products => {\n        expect(products.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/products.json?ids=\", () => {\n      return Product.fetch({ ids: [productId] }).then(products => {\n        expect(products.length).toBe(1);\n        expect(products[0].id).toBe(productId);\n      });\n    });\n\n    pit(\"GET /admin/products/:id.json\", () => {\n      return Product.fetch(productId).then(products => {\n        expect(products).toBeDefined();\n        expect(products.length).toBe(1);\n        expect(products[0].id).toBe(productId);\n      });\n    });\n  });\n\n  describe(\"counting products\", () => {\n    pit (\"GET /admin/products/count.json\", () => {\n      return Product.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/products/count.json?id=\", () => {\n      return Product.fetchCount({ id: productId }).then(count => {\n        expect(count).toBe(1);\n      });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI           = require(\"../../ShopifyAPI\");\nconst { Product, Session } = ShopifyAPI;\n\nconst ProductId = 2158011973;\n\ndescribe(\"Products API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting products\", () => {\n    pit(\"GET /admin/products.json\", () => {\n      return Product.fetch().then(products => {\n        expect(products.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/products.json?ids=\", () => {\n      return Product.fetch({ ids: [ProductId] }).then(products => {\n        expect(products.length).toBe(1);\n        expect(products[0].id).toBe(ProductId);\n      });\n    });\n\n    pit(\"GET /admin/products/:id.json\", () => {\n      return Product.fetch(ProductId).then(products => {\n        expect(products).toBeDefined();\n        expect(products.length).toBe(1);\n        expect(products[0].id).toBe(ProductId);\n      });\n    });\n  });\n\n  describe(\"counting products\", () => {\n    pit (\"GET /admin/products/count.json\", () => {\n      return Product.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/products/count.json?id=\", () => {\n      return Product.fetchCount({ id: ProductId }).then(count => {\n        expect(count).toBe(1);\n      });\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -375,6 +447,26 @@
     "type": {
       "types": [
         "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ProductId",
+    "memberof": "lib/integration/__tests__/ProductsAPITest.js",
+    "longname": "lib/integration/__tests__/ProductsAPITest.js~ProductId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/ProductsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
       ]
     }
   },
@@ -971,7 +1063,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\", {\n      countable: true\n    });\n  }\n\n  /**\n   * @override\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    return super.apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n  }\n\n  /**\n   * Fetch authorized orders from the API\n   *\n   * @return {RequestPromise}\n   */\n  fetchAuthorized() {\n    return this.fetch({ financial_status: \"authorized\" });\n  }\n\n  /**\n   * Fetch all orders that were created after the specified order\n   *\n   * @param {number|string} id - The id of the reference order\n   *\n   * @return {RequestPromise}\n   */\n  fetchAllSince(id) {\n    return this.fetch({ since_id: id });\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
+    "content": "\"use strict\";\n\nimport Api  from \"../utilities/WebAPI\";\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\", {\n      countable:    true,\n      createable:   true,\n      destroyable:  true\n    });\n  }\n\n  /**\n   * Close an open order\n   *\n   * @param {number|string} id - The id of the order\n   *\n   * @return {RequestPromise}\n   */\n  close(id) {\n    return this._postToAction(id, \"close\");\n  }\n\n  /**\n   * Open a closed order\n   *\n   * @param {number|string} id - The id of the order\n   *\n   * @return {RequestPromise}\n   */\n  open(id) {\n    return this._postToAction(id, \"open\");\n  }\n\n  /**\n   * Cancel an order\n   *\n   * @param {number|string} id - The id of the order\n   * @param {object}  [options] - Options for the cancel operation\n   * @param {number}  [options.amount] - The (decimal) amount to refund\n   * @param {boolean} [options.restock=false] - Whether or not to restock inventory\n   * @param {string}  [options.reason=other] - One of customer, inventory, fraud or other\n   * @param {boolean} [options.email=false] - Whether or not to send the customer an email regarding the cancellation\n   *\n   * @return {RequestPromise}\n   */\n  cancel(id, options = {}) {\n    return this._postToAction(id, \"cancel\", options);\n  }\n\n  _postToAction(id, action, resource) {\n    let url      = this._memberURLForAction(action, id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, resource).then(response => dispatch(response[property]));\n  }\n\n  _memberURLForAction(action, ...urlParams) {\n    return this.urlFor(...urlParams).replace(/\\.json$/, `/${action}.json`);\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
   },
   {
     "kind": "class",
@@ -985,7 +1077,7 @@
     "importPath": "shopify-api-flux/lib/resources/Order.js",
     "importStyle": null,
     "description": "The Order resource",
-    "lineNumber": 10,
+    "lineNumber": 11,
     "pseudoExport": true,
     "interface": false,
     "extends": [
@@ -1001,68 +1093,21 @@
     "longname": "lib/resources/Order.js~Order#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 12,
     "undocument": true,
     "params": [],
     "generator": false
   },
   {
-    "kind": "get",
-    "static": false,
-    "variation": null,
-    "name": "apiMethods",
-    "memberof": "lib/resources/Order.js~Order",
-    "longname": "lib/resources/Order.js~Order#apiMethods",
-    "access": null,
-    "description": null,
-    "lineNumber": 23,
-    "return": {
-      "nullable": null,
-      "types": [
-        "Array<string>"
-      ],
-      "spread": false,
-      "description": "The names of all methods to be made available"
-    },
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "override": true,
-    "generator": false
-  },
-  {
     "kind": "method",
     "static": false,
     "variation": null,
-    "name": "fetchAuthorized",
+    "name": "close",
     "memberof": "lib/resources/Order.js~Order",
-    "longname": "lib/resources/Order.js~Order#fetchAuthorized",
+    "longname": "lib/resources/Order.js~Order#close",
     "access": null,
-    "description": "Fetch authorized orders from the API",
-    "lineNumber": 32,
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "RequestPromise"
-      ],
-      "spread": false,
-      "description": ""
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "fetchAllSince",
-    "memberof": "lib/resources/Order.js~Order",
-    "longname": "lib/resources/Order.js~Order#fetchAllSince",
-    "access": null,
-    "description": "Fetch all orders that were created after the specified order",
-    "lineNumber": 43,
+    "description": "Close an open order",
+    "lineNumber": 27,
     "params": [
       {
         "nullable": null,
@@ -1073,7 +1118,7 @@
         "spread": false,
         "optional": false,
         "name": "id",
-        "description": "The id of the reference order"
+        "description": "The id of the order"
       }
     ],
     "return": {
@@ -1083,6 +1128,199 @@
       ],
       "spread": false,
       "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "open",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#open",
+    "access": null,
+    "description": "Open a closed order",
+    "lineNumber": 38,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number",
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "The id of the order"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "cancel",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#cancel",
+    "access": null,
+    "description": "Cancel an order",
+    "lineNumber": 54,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number",
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "The id of the order"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options",
+        "description": "Options for the cancel operation"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "options.amount",
+        "description": "The (decimal) amount to refund"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "options.restock",
+        "description": "Whether or not to restock inventory"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "other",
+        "defaultRaw": "other",
+        "name": "options.reason",
+        "description": "One of customer, inventory, fraud or other"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
+        "name": "options.email",
+        "description": "Whether or not to send the customer an email regarding the cancellation"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_postToAction",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#_postToAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 58,
+    "undocument": true,
+    "params": [
+      {
+        "name": "id",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "resource",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "_memberURLForAction",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#_memberURLForAction",
+    "access": null,
+    "description": null,
+    "lineNumber": 66,
+    "undocument": true,
+    "params": [
+      {
+        "name": "action",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "urlParams",
+        "types": [
+          "...*"
+        ],
+        "spread": true
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
     },
     "generator": false
   },
@@ -1098,7 +1336,7 @@
     "importPath": "shopify-api-flux/lib/resources/Order.js",
     "importStyle": "order",
     "description": null,
-    "lineNumber": 49,
+    "lineNumber": 72,
     "ignore": true,
     "type": {
       "types": [
@@ -1568,27 +1806,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\nconst Base = require(\"../Base\");\n\ndescribe(\"Order\", () => {\n  let orders = [{ id: 1, name: \"Order #1\" }];\n\n  var resource, api, dispatcher;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Order\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\"#apiMethods\", () => {\n    it(\"exposes base and specific fetch methods\", () => {\n      let actual   = resource.apiMethods;\n      let expected = new Base(\"order\", { countable: true }).apiMethods.concat([\"fetchAuthorized\", \"fetchAllSince\"]);\n\n      expect(actual).toEqual(expected);\n    });\n  });\n\n  describe(\"#fetchAuthorized\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubRequest(api, \"get\", { orders });\n      request = resource.fetchAuthorized();\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?financial_status=authorized\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n\n  describe(\"#fetchAllSince\", () => {\n    var request;\n\n    beforeEach(() => {\n      stubRequest(api, \"get\", { orders });\n      request = resource.fetchAllSince(12345);\n    });\n\n    it(\"makes the request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/orders.json?since_id=12345\");\n    });\n\n    pit(\"dispatches the merge event\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch).toBeCalledWith({\n          actionType: Constants.Actions.MERGE_ORDERS,\n          items: orders\n        });\n      });\n    });\n  });\n});\n"
-  },
-  {
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "Base",
-    "memberof": "lib/resources/__tests__/OrderTest.js",
-    "longname": "lib/resources/__tests__/OrderTest.js~Base",
-    "access": null,
-    "export": false,
-    "importPath": "shopify-api-flux/lib/resources/__tests__/OrderTest.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Order\", () => {\n  var resource;\n\n  beforeEach(() => {\n    resource = require(\"../Order\");\n  });\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n\n  describe(\"#custom actions\", () => {\n    let actionType = Constants.Actions.MERGE_ORDERS;\n    let order      = { id: 1, name: \"Order #1\" };\n\n    var api, request, dispatcher;\n\n    beforeEach(() => {\n      api        = require(\"../../utilities/WebAPI\");\n      dispatcher = require(\"../../dispatcher/APIDispatcher\");\n\n      stubRequest(api, \"post\", { order });\n    });\n\n    describe(\"#open\", () => {\n      beforeEach(() => {\n        request = resource.open(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/open.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#close\", () => {\n      beforeEach(() => {\n        request = resource.close(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/close.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#cancel\", () => {\n      beforeEach(() => {\n        request = resource.cancel(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, {});\n      });\n\n      it(\"includes options when supplied\", () => {\n        let options = { email: true };\n        request     = resource.cancel(order.id, options);\n\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, options);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n  });\n});\n"
   },
   {
     "kind": "file",
