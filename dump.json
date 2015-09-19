@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -66,7 +66,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:     new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:  new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:     new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -102,7 +102,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -676,6 +676,78 @@
     "access": null,
     "export": false,
     "importPath": "shopify-api-flux/lib/integration/__tests__/ProductsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/integration/__tests__/RedirectsAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/RedirectsAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI            = require(\"../../ShopifyAPI\");\nconst { Redirect, Session } = ShopifyAPI;\n\nconst RedirectId = 54522693;\n\ndescribe(\"Redirects API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting redirects\", () => {\n    pit(\"GET /admin/redirects.json\", () => {\n      return Redirect.fetch().then(redirects => {\n        expect(redirects.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/redirects.json?ids=\", () => {\n      return Redirect.fetch({ ids: [RedirectId] }).then(redirects => {\n        expect(redirects.length).toBe(1);\n        expect(redirects[0].id).toBe(RedirectId);\n      });\n    });\n\n    pit(\"GET /admin/redirects/:id.json\", () => {\n      return Redirect.fetch(RedirectId).then(redirects => {\n        expect(redirects).toBeDefined();\n        expect(redirects.length).toBe(1);\n        expect(redirects[0].id).toBe(RedirectId);\n      });\n    });\n  });\n\n  describe(\"counting redirects\", () => {\n    pit (\"GET /admin/redirects/count.json\", () => {\n      return Redirect.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/redirects/count.json?id=\", () => {\n      return Redirect.fetchCount({ id: RedirectId }).then(count => {\n        expect(count).toBe(1);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/RedirectsAPITest.js",
+    "longname": "lib/integration/__tests__/RedirectsAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/RedirectsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Redirect",
+    "memberof": "lib/integration/__tests__/RedirectsAPITest.js",
+    "longname": "lib/integration/__tests__/RedirectsAPITest.js~Redirect",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/RedirectsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "RedirectId",
+    "memberof": "lib/integration/__tests__/RedirectsAPITest.js",
+    "longname": "lib/integration/__tests__/RedirectsAPITest.js~RedirectId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/RedirectsAPITest.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 8,
@@ -1841,6 +1913,71 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/Redirect.js",
+    "memberof": null,
+    "longname": "lib/resources/Redirect.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Redirect resource\n *\n * @extends {Base}\n */\nclass Redirect extends Base {\n  constructor() {\n    super(\"redirect\", {\n      countable: true,\n      createable: true,\n      destroyable: true\n    });\n  }\n}\n\n/** @ignore */\nexport default new Redirect();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Redirect",
+    "memberof": "lib/resources/Redirect.js",
+    "longname": "lib/resources/Redirect.js~Redirect",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Redirect.js",
+    "importStyle": null,
+    "description": "The Redirect resource",
+    "lineNumber": 10,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Redirect.js~Redirect",
+    "longname": "lib/resources/Redirect.js~Redirect#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "redirect",
+    "memberof": "lib/resources/Redirect.js",
+    "longname": "lib/resources/Redirect.js~redirect",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Redirect.js",
+    "importStyle": "redirect",
+    "description": null,
+    "lineNumber": 21,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Redirect.js~Redirect"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/Session.js",
     "memberof": null,
     "longname": "lib/resources/Session.js",
@@ -2283,6 +2420,18 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Product\");\n\ndescribe(\"Product\", () => {\n  var resource = require(\"../Product\");\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/RedirectTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/RedirectTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Redirect\");\n\ndescribe(\"Redirect\", () => {\n  var resource = require(\"../Redirect\");\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -3080,6 +3229,81 @@
     "type": {
       "types": [
         "lib/stores/ProductsStore.js~ProductsStore"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/RedirectsStore.js",
+    "memberof": null,
+    "longname": "lib/stores/RedirectsStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions        from \"../utilities/Actions\";\nimport APIDispatcher  from \"../dispatcher/APIDispatcher\";\nimport CountableStore from \"./CountableStore\";\n\n/**\n * The redirects store\n *\n * @extends {CountableStore}\n */\nclass RedirectsStore extends CountableStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for redirects\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"redirects\"));\n  }\n}\n\n/** @ignore */\nexport default new RedirectsStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "RedirectsStore",
+    "memberof": "lib/stores/RedirectsStore.js",
+    "longname": "lib/stores/RedirectsStore.js~RedirectsStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/RedirectsStore.js",
+    "importStyle": null,
+    "description": "The redirects store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "CountableStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/RedirectsStore.js~RedirectsStore",
+    "longname": "lib/stores/RedirectsStore.js~RedirectsStore#constructor",
+    "access": null,
+    "description": "Sets the the dispatcher and appropriate actions for redirects",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "redirectsStore",
+    "memberof": "lib/stores/RedirectsStore.js",
+    "longname": "lib/stores/RedirectsStore.js~redirectsStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/RedirectsStore.js",
+    "importStyle": "redirectsStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/RedirectsStore.js~RedirectsStore"
       ]
     }
   },

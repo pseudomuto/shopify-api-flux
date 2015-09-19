@@ -1,7 +1,7 @@
 {
-  "coverage": "79.41%",
-  "expectCount": 68,
-  "actualCount": 54,
+  "coverage": "79.16%",
+  "expectCount": 72,
+  "actualCount": 57,
   "files": {
     "lib/utilities/APIProxy.js": {
       "expectCount": 1,
@@ -92,6 +92,18 @@
       ]
     },
     "lib/stores/ProductsStore.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/resources/Redirect.js": {
+      "expectCount": 2,
+      "actualCount": 1,
+      "undocumentLines": [
+        11
+      ]
+    },
+    "lib/stores/RedirectsStore.js": {
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []

@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">lib/stores/OrdersStore.js | Shopify Flux API Document</title>
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/integration/__tests__/RedirectsAPITest.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -93,31 +93,56 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/OrdersStore.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/integration/__tests__/RedirectsAPITest.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-import Actions        from &quot;../utilities/Actions&quot;;
-import APIDispatcher  from &quot;../dispatcher/APIDispatcher&quot;;
-import CountableStore from &quot;./CountableStore&quot;;
+jest.autoMockOff();
 
-/**
- * The Orders store
- *
- * @extends {CountableStore}
- */
-class OrdersStore extends CountableStore {
-  /**
-   * Sets the dispatcher and appropriate actions for orders
-   *
-   * @param {APIDispatcher} dispatcher - The dispatcher to register with
-   */
-  constructor(dispatcher) {
-    super(dispatcher, new Actions(&quot;orders&quot;));
-  }
-}
+const ShopifyAPI            = require(&quot;../../ShopifyAPI&quot;);
+const { Redirect, Session } = ShopifyAPI;
 
-/** @ignore */
-export default new OrdersStore(APIDispatcher);
+const RedirectId = 54522693;
+
+describe(&quot;Redirects API&quot;, () =&gt; {
+  setupIntegrationTest(Session);
+
+  describe(&quot;getting redirects&quot;, () =&gt; {
+    pit(&quot;GET /admin/redirects.json&quot;, () =&gt; {
+      return Redirect.fetch().then(redirects =&gt; {
+        expect(redirects.length).toBeGreaterThan(0);
+      });
+    });
+
+    pit(&quot;GET /admin/redirects.json?ids=&quot;, () =&gt; {
+      return Redirect.fetch({ ids: [RedirectId] }).then(redirects =&gt; {
+        expect(redirects.length).toBe(1);
+        expect(redirects[0].id).toBe(RedirectId);
+      });
+    });
+
+    pit(&quot;GET /admin/redirects/:id.json&quot;, () =&gt; {
+      return Redirect.fetch(RedirectId).then(redirects =&gt; {
+        expect(redirects).toBeDefined();
+        expect(redirects.length).toBe(1);
+        expect(redirects[0].id).toBe(RedirectId);
+      });
+    });
+  });
+
+  describe(&quot;counting redirects&quot;, () =&gt; {
+    pit (&quot;GET /admin/redirects/count.json&quot;, () =&gt; {
+      return Redirect.fetchCount().then(count =&gt; {
+        expect(count).toBeGreaterThan(0);
+      });
+    });
+
+    pit (&quot;GET /admin/redirects/count.json?id=&quot;, () =&gt; {
+      return Redirect.fetchCount({ id: RedirectId }).then(count =&gt; {
+        expect(count).toBe(1);
+      });
+    });
+  });
+});
 </code></pre>
 
 </div>
