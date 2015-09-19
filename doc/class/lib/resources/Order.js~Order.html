@@ -92,7 +92,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/resources/Order.js.html#lineNumber10">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/resources/Order.js.html#lineNumber11">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -158,38 +158,7 @@
 </tbody>
 </table>
 </div>
-<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Order.js~Order.html#instance-get-apiMethods">apiMethods</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 <div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
   <tbody>
@@ -205,13 +174,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Order.js~Order.html#instance-method-fetchAllSince">fetchAllSince</a></span></span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/resources/Order.js~Order.html#instance-method-cancel">cancel</a></span></span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Fetch all orders that were created after the specified order</p>
+        <div data-ice="description"><p>Cancel an order</p>
 </div>
       </div>
     </td>
@@ -231,13 +200,39 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Order.js~Order.html#instance-method-fetchAuthorized">fetchAuthorized</a></span></span><span data-ice="signature">(): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/resources/Order.js~Order.html#instance-method-close">close</a></span></span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Fetch authorized orders from the API</p>
+        <div data-ice="description"><p>Close an open order</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/lib/resources/Order.js~Order.html#instance-method-open">open</a></span></span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Open a closed order</p>
 </div>
       </div>
     </td>
@@ -504,7 +499,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber11">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber12">source</a></span></span>
     </span>
   </h3>
 
@@ -534,81 +529,28 @@
   
 </div>
 </div>
-<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-get-apiMethods">
-    <span class="access" data-ice="access">public</span>
-    
-    <span class="kind" data-ice="kind">get</span>
-    
-    
-    <span data-ice="name">apiMethods</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;: <span>*</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber23">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/resources/Base.js~Base.html#instance-get-apiMethods">Base#apiMethods</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tr>
-        <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
-        <td class="return-desc" data-ice="returnDescription"><p>The names of all methods to be made available</p>
-</td>
-      </tr>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-fetchAllSince">
+  <h3 data-ice="anchor" id="instance-method-cancel">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">fetchAllSince</span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+    <span data-ice="name">cancel</span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Fetch all orders that were created after the specified order</p>
+  <div data-ice="description"><p>Cancel an order</p>
 </div>
 
   
@@ -625,7 +567,45 @@
       <td data-ice="name" data-depth="0">id</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The id of the reference order</p>
+      <td data-ice="description"><p>The id of the order</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">options</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>Options for the cancel operation</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.amount</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The (decimal) amount to refund</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.restock</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Whether or not to restock inventory</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.reason</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: other</li></ul></td>
+      <td data-ice="description"><p>One of customer, inventory, fraud or other</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" data-depth="1">options.email</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: false</li></ul></td>
+      <td data-ice="description"><p>Whether or not to send the customer an email regarding the cancellation</p>
 </td>
     </tr>
 </tbody>
@@ -659,29 +639,114 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-fetchAuthorized">
+  <h3 data-ice="anchor" id="instance-method-close">
     <span class="access" data-ice="access">public</span>
     
     
     
     
-    <span data-ice="name">fetchAuthorized</span><span data-ice="signature">(): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+    <span data-ice="name">close</span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber27">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Fetch authorized orders from the API</p>
+  <div data-ice="description"><p>Close an open order</p>
 </div>
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">id</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The id of the order</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></td>
+        
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-open">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">open</span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/resources/Order.js.html#lineNumber38">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Open a closed order</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">id</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The id of the order</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   <div class="return-params" data-ice="returnParams">

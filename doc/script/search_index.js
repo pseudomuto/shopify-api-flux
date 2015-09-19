@@ -498,6 +498,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/ordersapitest.js",
+    "file/lib/integration/__tests__/OrdersAPITest.js.html",
+    "lib/integration/__tests__/OrdersAPITest.js",
+    "file"
+  ],
+  [
     "lib/integration/__tests__/productsapitest.js",
     "file/lib/integration/__tests__/ProductsAPITest.js.html",
     "lib/integration/__tests__/ProductsAPITest.js",
@@ -576,10 +582,16 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/resources/order.js~order#apimethods",
-    "class/lib/resources/Order.js~Order.html#instance-get-apiMethods",
-    "lib/resources/Order.js~Order#apiMethods",
-    "member"
+    "lib/resources/order.js~order#cancel",
+    "class/lib/resources/Order.js~Order.html#instance-method-cancel",
+    "lib/resources/Order.js~Order#cancel",
+    "method"
+  ],
+  [
+    "lib/resources/order.js~order#close",
+    "class/lib/resources/Order.js~Order.html#instance-method-close",
+    "lib/resources/Order.js~Order#close",
+    "method"
   ],
   [
     "lib/resources/order.js~order#constructor",
@@ -588,15 +600,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/resources/order.js~order#fetchallsince",
-    "class/lib/resources/Order.js~Order.html#instance-method-fetchAllSince",
-    "lib/resources/Order.js~Order#fetchAllSince",
-    "method"
-  ],
-  [
-    "lib/resources/order.js~order#fetchauthorized",
-    "class/lib/resources/Order.js~Order.html#instance-method-fetchAuthorized",
-    "lib/resources/Order.js~Order#fetchAuthorized",
+    "lib/resources/order.js~order#open",
+    "class/lib/resources/Order.js~Order.html#instance-method-open",
+    "lib/resources/Order.js~Order#open",
     "method"
   ],
   [
