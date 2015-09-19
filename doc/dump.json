@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -66,7 +66,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Country:  new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:     new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:  new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:    new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:     new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:  new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Session:  new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:     new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -102,7 +102,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Country\",\n  \"Order\",\n  \"Product\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -330,6 +330,78 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/integration/__tests__/BlogsAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/BlogsAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI        = require(\"../../ShopifyAPI\");\nconst { Blog, Session } = ShopifyAPI;\n\nconst BlogId = 26362181;\n\ndescribe(\"blogs API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting blogs\", () => {\n    pit(\"GET /admin/blogs.json\", () => {\n      return Blog.fetch().then(blogs => {\n        expect(blogs.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/blogs.json?ids=\", () => {\n      return Blog.fetch({ ids: [BlogId] }).then(blogs => {\n        expect(blogs.length).toBe(1);\n        expect(blogs[0].id).toBe(BlogId);\n      });\n    });\n\n    pit(\"GET /admin/blogs/:id.json\", () => {\n      return Blog.fetch(BlogId).then(blogs => {\n        expect(blogs).toBeDefined();\n        expect(blogs.length).toBe(1);\n        expect(blogs[0].id).toBe(BlogId);\n      });\n    });\n  });\n\n  describe(\"counting blogs\", () => {\n    pit (\"GET /admin/blogs/count.json\", () => {\n      return Blog.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/blogs/count.json?id=\", () => {\n      return Blog.fetchCount({ id: BlogId }).then(count => {\n        expect(count).toBe(1);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/BlogsAPITest.js",
+    "longname": "lib/integration/__tests__/BlogsAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BlogsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Blog",
+    "memberof": "lib/integration/__tests__/BlogsAPITest.js",
+    "longname": "lib/integration/__tests__/BlogsAPITest.js~Blog",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BlogsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "BlogId",
+    "memberof": "lib/integration/__tests__/BlogsAPITest.js",
+    "longname": "lib/integration/__tests__/BlogsAPITest.js~BlogId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BlogsAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/integration/__tests__/CountriesAPITest.js",
     "memberof": null,
     "longname": "lib/integration/__tests__/CountriesAPITest.js",
@@ -463,6 +535,78 @@
     "importStyle": null,
     "description": null,
     "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/integration/__tests__/PagesAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/PagesAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI           = require(\"../../ShopifyAPI\");\nconst { Page, Session } = ShopifyAPI;\n\nconst PageId = 67616453;\n\ndescribe(\"Pages API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting pages\", () => {\n    pit(\"GET /admin/pages.json\", () => {\n      return Page.fetch().then(pages => {\n        expect(pages.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/pages.json?title=\", () => {\n      return Page.fetch({ title: \"Frontpage\" }).then(pages => {\n        expect(pages.length).toBe(1);\n        expect(pages[0].id).toBe(PageId);\n      });\n    });\n\n    pit(\"GET /admin/pages/:id.json\", () => {\n      return Page.fetch(PageId).then(pages => {\n        expect(pages).toBeDefined();\n        expect(pages.length).toBe(1);\n        expect(pages[0].id).toBe(PageId);\n      });\n    });\n  });\n\n  describe(\"counting pages\", () => {\n    pit (\"GET /admin/pages/count.json\", () => {\n      return Page.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n\n    pit (\"GET /admin/pages/count.json?title=\", () => {\n      return Page.fetchCount({ title: \"Frontpage\" }).then(count => {\n        expect(count).toBe(1);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/PagesAPITest.js",
+    "longname": "lib/integration/__tests__/PagesAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/PagesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Page",
+    "memberof": "lib/integration/__tests__/PagesAPITest.js",
+    "longname": "lib/integration/__tests__/PagesAPITest.js~Page",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/PagesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "PageId",
+    "memberof": "lib/integration/__tests__/PagesAPITest.js",
+    "longname": "lib/integration/__tests__/PagesAPITest.js~PageId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/PagesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
     "undocument": true,
     "type": {
       "types": [
@@ -1129,6 +1273,71 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/Blog.js",
+    "memberof": null,
+    "longname": "lib/resources/Blog.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Blog resource\n *\n * @extends {Base}\n */\nclass Blog extends Base {\n  constructor() {\n    super(\"blog\", {\n      countable: true,\n      createable: true,\n      destroyable: true\n    });\n  }\n}\n\n/** @ignore */\nexport default new Blog();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Blog",
+    "memberof": "lib/resources/Blog.js",
+    "longname": "lib/resources/Blog.js~Blog",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Blog.js",
+    "importStyle": null,
+    "description": "The Blog resource",
+    "lineNumber": 10,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Blog.js~Blog",
+    "longname": "lib/resources/Blog.js~Blog#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "blog",
+    "memberof": "lib/resources/Blog.js",
+    "longname": "lib/resources/Blog.js~blog",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Blog.js",
+    "importStyle": "blog",
+    "description": null,
+    "lineNumber": 21,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Blog.js~Blog"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/Country.js",
     "memberof": null,
     "longname": "lib/resources/Country.js",
@@ -1495,6 +1704,71 @@
     "type": {
       "types": [
         "lib/resources/Order.js~Order"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/Page.js",
+    "memberof": null,
+    "longname": "lib/resources/Page.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Page resource\n *\n * @extends {Base}\n */\nclass Page extends Base {\n  constructor() {\n    super(\"page\", {\n      countable: true,\n      createable: true,\n      destroyable: true\n    });\n  }\n}\n\n/** @ignore */\nexport default new Page();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Page",
+    "memberof": "lib/resources/Page.js",
+    "longname": "lib/resources/Page.js~Page",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Page.js",
+    "importStyle": null,
+    "description": "The Page resource",
+    "lineNumber": 10,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Page.js~Page",
+    "longname": "lib/resources/Page.js~Page#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "page",
+    "memberof": "lib/resources/Page.js",
+    "longname": "lib/resources/Page.js~page",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Page.js",
+    "importStyle": "page",
+    "description": null,
+    "lineNumber": 21,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Page.js~Page"
       ]
     }
   },
@@ -1954,6 +2228,18 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/__tests__/BlogTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/BlogTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Blog\");\n\ndescribe(\"Blog\", () => {\n  var resource = require(\"../Blog\");\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/__tests__/CountryTest.js",
     "memberof": null,
     "longname": "lib/resources/__tests__/CountryTest.js",
@@ -1973,6 +2259,18 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Order\", () => {\n  var resource;\n\n  beforeEach(() => {\n    resource = require(\"../Order\");\n  });\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n\n  describe(\"#custom actions\", () => {\n    let actionType = Constants.Actions.MERGE_ORDERS;\n    let order      = { id: 1, name: \"Order #1\" };\n\n    var api, request, dispatcher;\n\n    beforeEach(() => {\n      api        = require(\"../../utilities/WebAPI\");\n      dispatcher = require(\"../../dispatcher/APIDispatcher\");\n\n      stubRequest(api, \"post\", { order });\n    });\n\n    describe(\"#open\", () => {\n      beforeEach(() => {\n        request = resource.open(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/open.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#close\", () => {\n      beforeEach(() => {\n        request = resource.close(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/close.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#cancel\", () => {\n      beforeEach(() => {\n        request = resource.cancel(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, {});\n      });\n\n      it(\"includes options when supplied\", () => {\n        let options = { email: true };\n        request     = resource.cancel(order.id, options);\n\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, options);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/PageTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/PageTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Page\");\n\ndescribe(\"Page\", () => {\n  var resource = require(\"../Page\");\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -2244,6 +2542,81 @@
       "description": "Whether or not the state's are identical"
     },
     "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/BlogsStore.js",
+    "memberof": null,
+    "longname": "lib/stores/BlogsStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions        from \"../utilities/Actions\";\nimport APIDispatcher  from \"../dispatcher/APIDispatcher\";\nimport CountableStore from \"./CountableStore\";\n\n/**\n * The blogs store\n *\n * @extends {CountableStore}\n */\nclass BlogsStore extends CountableStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for blogs\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"blogs\"));\n  }\n}\n\n/** @ignore */\nexport default new BlogsStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "BlogsStore",
+    "memberof": "lib/stores/BlogsStore.js",
+    "longname": "lib/stores/BlogsStore.js~BlogsStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/BlogsStore.js",
+    "importStyle": null,
+    "description": "The blogs store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "CountableStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/BlogsStore.js~BlogsStore",
+    "longname": "lib/stores/BlogsStore.js~BlogsStore#constructor",
+    "access": null,
+    "description": "Sets the the dispatcher and appropriate actions for blogs",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "blogsStore",
+    "memberof": "lib/stores/BlogsStore.js",
+    "longname": "lib/stores/BlogsStore.js~blogsStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/BlogsStore.js",
+    "importStyle": "blogsStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/BlogsStore.js~BlogsStore"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -2557,6 +2930,81 @@
     "type": {
       "types": [
         "lib/stores/OrdersStore.js~OrdersStore"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/PagesStore.js",
+    "memberof": null,
+    "longname": "lib/stores/PagesStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions        from \"../utilities/Actions\";\nimport APIDispatcher  from \"../dispatcher/APIDispatcher\";\nimport CountableStore from \"./CountableStore\";\n\n/**\n * The pages store\n *\n * @extends {CountableStore}\n */\nclass PagesStore extends CountableStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for pages\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"pages\"));\n  }\n}\n\n/** @ignore */\nexport default new PagesStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "PagesStore",
+    "memberof": "lib/stores/PagesStore.js",
+    "longname": "lib/stores/PagesStore.js~PagesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/PagesStore.js",
+    "importStyle": null,
+    "description": "The pages store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "CountableStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/PagesStore.js~PagesStore",
+    "longname": "lib/stores/PagesStore.js~PagesStore#constructor",
+    "access": null,
+    "description": "Sets the the dispatcher and appropriate actions for pages",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "pagesStore",
+    "memberof": "lib/stores/PagesStore.js",
+    "longname": "lib/stores/PagesStore.js~pagesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/PagesStore.js",
+    "importStyle": "pagesStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/PagesStore.js~PagesStore"
       ]
     }
   },

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/integration/__tests__/PagesAPITest.js | Shopify Flux API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+</head>
+<body class="layout-container">
+
+<header>
+  <a href="./">Home</a>
+  <a href="identifiers.html">Identifier</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/pseudomuto/shopify-api-flux.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div data-ice="classWrap">
+  <h2>Class</h2>
+  <ul>
+    
+  <li data-ice="classDoc"><span><a href="class/lib/utilities/Actions.js~Actions.html">Actions</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Base.js~Base.html">Base</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/BaseStore.js~BaseStore.html">BaseStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Blog.js~Blog.html">Blog</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/BlogsStore.js~BlogsStore.html">BlogsStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CountriesStore.js~CountriesStore.html">CountriesStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Country.js~Country.html">Country</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Page.js~Page.html">Page</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/PagesStore.js~PagesStore.html">PagesStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Product.js~Product.html">Product</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ProductsStore.js~ProductsStore.html">ProductsStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Session.js~Session.html">Session</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-APIProxy">APIProxy</a></span></li>
+</ul>
+</div>
+
+
+
+<div data-ice="typedefWrap">
+  <h2><a href="typedef/">Typedef</a></h2>
+  <ul>
+    
+  <li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-Action">Action</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-CountAction">CountAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-DestroyAction">DestroyAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-FailedRequestCallback">FailedRequestCallback</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-MergeAction">MergeAction</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-ResourceQuery">ResourceQuery</a></span></li>
+<li data-ice="typedefDoc"><span><a href="typedef/index.html#static-typedef-SuccessfulRequestCallback">SuccessfulRequestCallback</a></span></li>
+</ul>
+</div>
+
+<div data-ice="externalWrap">
+  <h2>External</h2>
+  <ul>
+    
+  <li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxMapStore.js">FluxMapStore</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://lodash.com/docs#where">QueryObject</a></span></li>
+<li data-ice="externalDoc"><span><a href="https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js">Store</a></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/integration/__tests__/PagesAPITest.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
+
+jest.autoMockOff();
+
+const ShopifyAPI           = require(&quot;../../ShopifyAPI&quot;);
+const { Page, Session } = ShopifyAPI;
+
+const PageId = 67616453;
+
+describe(&quot;Pages API&quot;, () =&gt; {
+  setupIntegrationTest(Session);
+
+  describe(&quot;getting pages&quot;, () =&gt; {
+    pit(&quot;GET /admin/pages.json&quot;, () =&gt; {
+      return Page.fetch().then(pages =&gt; {
+        expect(pages.length).toBeGreaterThan(0);
+      });
+    });
+
+    pit(&quot;GET /admin/pages.json?title=&quot;, () =&gt; {
+      return Page.fetch({ title: &quot;Frontpage&quot; }).then(pages =&gt; {
+        expect(pages.length).toBe(1);
+        expect(pages[0].id).toBe(PageId);
+      });
+    });
+
+    pit(&quot;GET /admin/pages/:id.json&quot;, () =&gt; {
+      return Page.fetch(PageId).then(pages =&gt; {
+        expect(pages).toBeDefined();
+        expect(pages.length).toBe(1);
+        expect(pages[0].id).toBe(PageId);
+      });
+    });
+  });
+
+  describe(&quot;counting pages&quot;, () =&gt; {
+    pit (&quot;GET /admin/pages/count.json&quot;, () =&gt; {
+      return Page.fetchCount().then(count =&gt; {
+        expect(count).toBeGreaterThan(0);
+      });
+    });
+
+    pit (&quot;GET /admin/pages/count.json?title=&quot;, () =&gt; {
+      return Page.fetchCount({ title: &quot;Frontpage&quot; }).then(count =&gt; {
+        expect(count).toBe(1);
+      });
+    });
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.2.5)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

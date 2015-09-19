@@ -24,6 +24,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/resources/blog.js~blog",
+    "class/lib/resources/Blog.js~Blog.html",
+    "<span>Blog</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Blog.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/stores/blogsstore.js~blogsstore",
+    "class/lib/stores/BlogsStore.js~BlogsStore.html",
+    "<span>BlogsStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/BlogsStore.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/stores/countablestore.js~countablestore",
     "class/lib/stores/CountableStore.js~CountableStore.html",
     "<span>CountableStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/CountableStore.js</span>",
@@ -51,6 +63,18 @@ window.esdocSearchIndex = [
     "shopify-api-flux/lib/stores/ordersstore.js~ordersstore",
     "class/lib/stores/OrdersStore.js~OrdersStore.html",
     "<span>OrdersStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/OrdersStore.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/resources/page.js~page",
+    "class/lib/resources/Page.js~Page.html",
+    "<span>Page</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Page.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/stores/pagesstore.js~pagesstore",
+    "class/lib/stores/PagesStore.js~PagesStore.html",
+    "<span>PagesStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/PagesStore.js</span>",
     "class"
   ],
   [
@@ -510,6 +534,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/blogsapitest.js",
+    "file/lib/integration/__tests__/BlogsAPITest.js.html",
+    "lib/integration/__tests__/BlogsAPITest.js",
+    "file"
+  ],
+  [
     "lib/integration/__tests__/countriesapitest.js",
     "file/lib/integration/__tests__/CountriesAPITest.js.html",
     "lib/integration/__tests__/CountriesAPITest.js",
@@ -519,6 +549,12 @@ window.esdocSearchIndex = [
     "lib/integration/__tests__/ordersapitest.js",
     "file/lib/integration/__tests__/OrdersAPITest.js.html",
     "lib/integration/__tests__/OrdersAPITest.js",
+    "file"
+  ],
+  [
+    "lib/integration/__tests__/pagesapitest.js",
+    "file/lib/integration/__tests__/PagesAPITest.js.html",
+    "lib/integration/__tests__/PagesAPITest.js",
     "file"
   ],
   [
@@ -594,6 +630,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/blog.js",
+    "file/lib/resources/Blog.js.html",
+    "lib/resources/Blog.js",
+    "file"
+  ],
+  [
+    "lib/resources/blog.js~blog#constructor",
+    "class/lib/resources/Blog.js~Blog.html#instance-constructor-constructor",
+    "lib/resources/Blog.js~Blog#constructor",
+    "method"
+  ],
+  [
     "lib/resources/country.js",
     "file/lib/resources/Country.js.html",
     "lib/resources/Country.js",
@@ -633,6 +681,18 @@ window.esdocSearchIndex = [
     "lib/resources/order.js~order#open",
     "class/lib/resources/Order.js~Order.html#instance-method-open",
     "lib/resources/Order.js~Order#open",
+    "method"
+  ],
+  [
+    "lib/resources/page.js",
+    "file/lib/resources/Page.js.html",
+    "lib/resources/Page.js",
+    "file"
+  ],
+  [
+    "lib/resources/page.js~page#constructor",
+    "class/lib/resources/Page.js~Page.html#instance-constructor-constructor",
+    "lib/resources/Page.js~Page#constructor",
     "method"
   ],
   [
@@ -702,6 +762,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/resources/__tests__/blogtest.js",
+    "file/lib/resources/__tests__/BlogTest.js.html",
+    "lib/resources/__tests__/BlogTest.js",
+    "file"
+  ],
+  [
     "lib/resources/__tests__/countrytest.js",
     "file/lib/resources/__tests__/CountryTest.js.html",
     "lib/resources/__tests__/CountryTest.js",
@@ -711,6 +777,12 @@ window.esdocSearchIndex = [
     "lib/resources/__tests__/ordertest.js",
     "file/lib/resources/__tests__/OrderTest.js.html",
     "lib/resources/__tests__/OrderTest.js",
+    "file"
+  ],
+  [
+    "lib/resources/__tests__/pagetest.js",
+    "file/lib/resources/__tests__/PageTest.js.html",
+    "lib/resources/__tests__/PageTest.js",
     "file"
   ],
   [
@@ -759,6 +831,18 @@ window.esdocSearchIndex = [
     "lib/stores/basestore.js~basestore#where",
     "class/lib/stores/BaseStore.js~BaseStore.html#instance-method-where",
     "lib/stores/BaseStore.js~BaseStore#where",
+    "method"
+  ],
+  [
+    "lib/stores/blogsstore.js",
+    "file/lib/stores/BlogsStore.js.html",
+    "lib/stores/BlogsStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/blogsstore.js~blogsstore#constructor",
+    "class/lib/stores/BlogsStore.js~BlogsStore.html#instance-constructor-constructor",
+    "lib/stores/BlogsStore.js~BlogsStore#constructor",
     "method"
   ],
   [
@@ -813,6 +897,18 @@ window.esdocSearchIndex = [
     "lib/stores/ordersstore.js~ordersstore#constructor",
     "class/lib/stores/OrdersStore.js~OrdersStore.html#instance-constructor-constructor",
     "lib/stores/OrdersStore.js~OrdersStore#constructor",
+    "method"
+  ],
+  [
+    "lib/stores/pagesstore.js",
+    "file/lib/stores/PagesStore.js.html",
+    "lib/stores/PagesStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/pagesstore.js~pagesstore#constructor",
+    "class/lib/stores/PagesStore.js~PagesStore.html#instance-constructor-constructor",
+    "lib/stores/PagesStore.js~PagesStore#constructor",
     "method"
   ],
   [
