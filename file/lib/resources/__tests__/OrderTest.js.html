@@ -39,6 +39,8 @@
 <li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/CountriesStore.js~CountriesStore.html">CountriesStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Country.js~Country.html">Country</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Customer.js~Customer.html">Customer</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CustomersStore.js~CustomersStore.html">CustomersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Page.js~Page.html">Page</a></span></li>
@@ -122,6 +124,12 @@ describe(&quot;Order&quot;, () =&gt; {
 
   it(&quot;is destroyable&quot;, () =&gt; {
     expect(resource.apiMethods).toContain(&quot;destroy&quot;);
+  });
+
+  it(&quot;exports custom methods&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;open&quot;);
+    expect(resource.apiMethods).toContain(&quot;close&quot;);
+    expect(resource.apiMethods).toContain(&quot;cancel&quot;);
   });
 
   describe(&quot;#custom actions&quot;, () =&gt; {

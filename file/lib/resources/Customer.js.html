@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/resources/__tests__/SessionTest.js | Shopify Flux API Document</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/resources/Customer.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -97,69 +97,54 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/__tests__/SessionTest.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/Customer.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-jest.dontMock(&quot;../Base&quot;);
-jest.dontMock(&quot;../Session&quot;);
+import Api  from &quot;../utilities/WebAPI&quot;;
+import Base from &quot;./Base&quot;;
 
-import Constants from &quot;../../Constants&quot;;
-
-describe(&quot;Session&quot;, () =&gt; {
-  var dispatcher, resource;
-
-  beforeEach(() =&gt; {
-    dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
-    resource   = require(&quot;../Session&quot;);
-  });
-
-  describe(&quot;#apiMethods&quot;, () =&gt; {
-    it(&quot;exports init and clear as action methods&quot;, () =&gt; {
-      expect(resource.apiMethods).toEqual([&quot;init&quot;, &quot;clear&quot;]);
+/**
+ * The Customer resource
+ *
+ * @extends {Base}
+ */
+class Customer extends Base {
+  constructor() {
+    super(&quot;customer&quot;, {
+      countable:    true,
+      createable:   true,
+      destroyable:  true
     });
-  });
+  }
 
-  describe(&quot;#init&quot;, () =&gt; {
-    it(&quot;dispatches the action appropriately&quot;, () =&gt; {
-      resource.init(&quot;david.myshopify.com&quot;, &quot;my_shopify_api_token&quot;);
-      expect(dispatcher.dispatch.mock.calls.length).toBe(1);
+  /**
+   * @override
+   */
+  get apiMethods() {
+    return super.apiMethods.concat([&quot;search&quot;]);
+  }
 
-      let payload = dispatcher.dispatch.mock.calls[0][0];
-      expect(payload.actionType).toBe(Constants.Actions.SET_SESSION);
-      expect(payload.domain).toBe(&quot;david.myshopify.com&quot;);
-      expect(payload.accessToken).toBe(&quot;my_shopify_api_token&quot;);
-    });
+  /**
+   * Searches for customers
+   *
+   * @param {ResourceQuery} query - Query parameters
+   * @param {string} query.query - What to search for (e.g.`Bob country:United States`)
+   * @param {string} [query.order] - Field and direction (default `last_order_date DESC`)
+   * @param {string} [query.fields] - Comma-delimeted set of fields to include in results
+   *
+   * @return {RequestPromise}
+   */
+  search(query) {
+    let url      = this.urlFor(&quot;search&quot;, query);
+    let dispatch = this._dispatchMerge.bind(this);
+    let property = this._resources;
 
-    it(&quot;ensures myshopify.com domain when only host is supplied&quot;, () =&gt; {
-      resource.init(&quot;david&quot;, &quot;my_shopify_api_token&quot;);
+    return Api.get(url).then(response =&gt; dispatch(response[property]));
+  }
+}
 
-      let payload = dispatcher.dispatch.mock.calls[0][0];
-      expect(payload.domain).toBe(&quot;david.myshopify.com&quot;);
-    });
-
-    it(&quot;raises an error when the supplied domain is falsy&quot;, () =&gt; {
-      expect(() =&gt; resource.init(null, &quot;authToken&quot;)).toThrow();
-      expect(() =&gt; resource.init(undefined, &quot;authToken&quot;)).toThrow();
-      expect(() =&gt; resource.init(&quot;&quot;, &quot;authToken&quot;)).toThrow();
-    });
-
-    it(&quot;raises an error when the supplied token is falsy&quot;, () =&gt; {
-      expect(() =&gt; resource.init(&quot;domain&quot;)).toThrow();
-      expect(() =&gt; resource.init(&quot;domain&quot;, null)).toThrow();
-      expect(() =&gt; resource.init(&quot;domain&quot;, undefined)).toThrow();
-      expect(() =&gt; resource.init(&quot;domain&quot;, &quot;&quot;)).toThrow();
-    });
-  });
-
-  describe(&quot;#clear&quot;, () =&gt; {
-    beforeEach(() =&gt; resource.clear());
-
-    it(&quot;dispatches the proper action&quot;, () =&gt; {
-      let actionType = Constants.Actions.CLEAR_SESSION;
-      expect(dispatcher.dispatch).toBeCalledWith({ actionType });
-    });
-  });
-});
+/** @ignore */
+export default new Customer();
 </code></pre>
 
 </div>

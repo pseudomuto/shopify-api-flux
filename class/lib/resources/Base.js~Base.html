@@ -39,6 +39,8 @@
 <li data-ice="classDoc"><span><a href="class/lib/stores/CountableStore.js~CountableStore.html">CountableStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/CountriesStore.js~CountriesStore.html">CountriesStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Country.js~Country.html">Country</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Customer.js~Customer.html">Customer</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/CustomersStore.js~CustomersStore.html">CustomersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Order.js~Order.html">Order</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/OrdersStore.js~OrdersStore.html">OrdersStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Page.js~Page.html">Page</a></span></li>
@@ -113,7 +115,7 @@
   
   
   
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/lib/resources/Blog.js~Blog.html">Blog</a></span>, <span><a href="class/lib/resources/Country.js~Country.html">Country</a></span>, <span><a href="class/lib/resources/Order.js~Order.html">Order</a></span>, <span><a href="class/lib/resources/Page.js~Page.html">Page</a></span>, <span><a href="class/lib/resources/Product.js~Product.html">Product</a></span>, <span><a href="class/lib/resources/Redirect.js~Redirect.html">Redirect</a></span>, <span><a href="class/lib/resources/Session.js~Session.html">Session</a></span>, <span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span>, <span><a href="class/lib/resources/Theme.js~Theme.html">Theme</a></span></div></div>
+  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/lib/resources/Blog.js~Blog.html">Blog</a></span>, <span><a href="class/lib/resources/Country.js~Country.html">Country</a></span>, <span><a href="class/lib/resources/Customer.js~Customer.html">Customer</a></span>, <span><a href="class/lib/resources/Order.js~Order.html">Order</a></span>, <span><a href="class/lib/resources/Page.js~Page.html">Page</a></span>, <span><a href="class/lib/resources/Product.js~Product.html">Product</a></span>, <span><a href="class/lib/resources/Redirect.js~Redirect.html">Redirect</a></span>, <span><a href="class/lib/resources/Session.js~Session.html">Session</a></span>, <span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span>, <span><a href="class/lib/resources/Theme.js~Theme.html">Theme</a></span></div></div>
   
   
   
@@ -140,7 +142,7 @@ class Thing extends Base {
     super(&quot;thing&quot;)
   }
 
-  static get apiMethods() {
+  get apiMethods() {
     return super.apiMethods.concat([&quot;fetchAllTheThings&quot;]);
   }
 

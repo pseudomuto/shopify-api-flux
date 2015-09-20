@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/resources/__tests__/SessionTest.js | Shopify Flux API Document</title>
+  <title data-ice="title">lib/resources/__tests__/CustomerTest.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -97,66 +97,65 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/__tests__/SessionTest.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/resources/__tests__/CustomerTest.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
 jest.dontMock(&quot;../Base&quot;);
-jest.dontMock(&quot;../Session&quot;);
+jest.dontMock(&quot;../Customer&quot;);
+jest.dontMock(&quot;../../utilities/URLHelpers&quot;);
 
 import Constants from &quot;../../Constants&quot;;
 
-describe(&quot;Session&quot;, () =&gt; {
-  var dispatcher, resource;
+describe(&quot;Customer&quot;, () =&gt; {
+  var resource;
 
   beforeEach(() =&gt; {
-    dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
-    resource   = require(&quot;../Session&quot;);
+    resource = require(&quot;../Customer&quot;);
   });
 
-  describe(&quot;#apiMethods&quot;, () =&gt; {
-    it(&quot;exports init and clear as action methods&quot;, () =&gt; {
-      expect(resource.apiMethods).toEqual([&quot;init&quot;, &quot;clear&quot;]);
-    });
+  it(&quot;is countable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;fetchCount&quot;);
   });
 
-  describe(&quot;#init&quot;, () =&gt; {
-    it(&quot;dispatches the action appropriately&quot;, () =&gt; {
-      resource.init(&quot;david.myshopify.com&quot;, &quot;my_shopify_api_token&quot;);
-      expect(dispatcher.dispatch.mock.calls.length).toBe(1);
-
-      let payload = dispatcher.dispatch.mock.calls[0][0];
-      expect(payload.actionType).toBe(Constants.Actions.SET_SESSION);
-      expect(payload.domain).toBe(&quot;david.myshopify.com&quot;);
-      expect(payload.accessToken).toBe(&quot;my_shopify_api_token&quot;);
-    });
-
-    it(&quot;ensures myshopify.com domain when only host is supplied&quot;, () =&gt; {
-      resource.init(&quot;david&quot;, &quot;my_shopify_api_token&quot;);
-
-      let payload = dispatcher.dispatch.mock.calls[0][0];
-      expect(payload.domain).toBe(&quot;david.myshopify.com&quot;);
-    });
-
-    it(&quot;raises an error when the supplied domain is falsy&quot;, () =&gt; {
-      expect(() =&gt; resource.init(null, &quot;authToken&quot;)).toThrow();
-      expect(() =&gt; resource.init(undefined, &quot;authToken&quot;)).toThrow();
-      expect(() =&gt; resource.init(&quot;&quot;, &quot;authToken&quot;)).toThrow();
-    });
-
-    it(&quot;raises an error when the supplied token is falsy&quot;, () =&gt; {
-      expect(() =&gt; resource.init(&quot;domain&quot;)).toThrow();
-      expect(() =&gt; resource.init(&quot;domain&quot;, null)).toThrow();
-      expect(() =&gt; resource.init(&quot;domain&quot;, undefined)).toThrow();
-      expect(() =&gt; resource.init(&quot;domain&quot;, &quot;&quot;)).toThrow();
-    });
+  it(&quot;is createable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;create&quot;);
+    expect(resource.apiMethods).toContain(&quot;update&quot;);
   });
 
-  describe(&quot;#clear&quot;, () =&gt; {
-    beforeEach(() =&gt; resource.clear());
+  it(&quot;is destroyable&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;destroy&quot;);
+  });
 
-    it(&quot;dispatches the proper action&quot;, () =&gt; {
-      let actionType = Constants.Actions.CLEAR_SESSION;
-      expect(dispatcher.dispatch).toBeCalledWith({ actionType });
+  it(&quot;exports the search method&quot;, () =&gt; {
+    expect(resource.apiMethods).toContain(&quot;search&quot;);
+  });
+
+  describe(&quot;custom actions&quot;, () =&gt; {
+    let actionType = Constants.Actions.MERGE_CUSTOMERS;
+    let customer   = { id: 1, name: &quot;Bob&quot; };
+
+    var api, request, dispatcher;
+
+    beforeEach(() =&gt; {
+      api        = require(&quot;../../utilities/WebAPI&quot;);
+      dispatcher = require(&quot;../../dispatcher/APIDispatcher&quot;);
+    });
+
+    describe(&quot;#search&quot;, () =&gt; {
+      beforeEach(() =&gt; {
+        stubRequest(api, &quot;get&quot;, { customers: [customer] });
+        request = resource.search({ query: &quot;Bob country:United States&quot; });
+      });
+
+      it(&quot;fetches the correct URL&quot;, () =&gt; {
+        expect(api.get).toBeCalledWith(&quot;/admin/customers/search.json?query=Bob%20country%3AUnited%20States&quot;);
+      });
+
+      pit(&quot;dispatches the merge action on success&quot;, () =&gt; {
+        return Promise.resolve(request).then(() =&gt; {
+          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [customer] });
+        });
+      });
     });
   });
 });
