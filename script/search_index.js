@@ -138,6 +138,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/shopifyapierror.js~shopifyapierror",
+    "class/lib/ShopifyAPIError.js~ShopifyAPIError.html",
+    "<span>ShopifyAPIError</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/ShopifyAPIError.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/resources/theme.js~theme",
     "class/lib/resources/Theme.js~Theme.html",
     "<span>Theme</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Theme.js</span>",
@@ -516,6 +522,36 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/shopifyapierror.js",
+    "file/lib/ShopifyAPIError.js.html",
+    "lib/ShopifyAPIError.js",
+    "file"
+  ],
+  [
+    "lib/shopifyapierror.js~shopifyapierror#constructor",
+    "class/lib/ShopifyAPIError.js~ShopifyAPIError.html#instance-constructor-constructor",
+    "lib/ShopifyAPIError.js~ShopifyAPIError#constructor",
+    "method"
+  ],
+  [
+    "lib/shopifyapierror.js~shopifyapierror#message",
+    "class/lib/ShopifyAPIError.js~ShopifyAPIError.html#instance-get-message",
+    "lib/ShopifyAPIError.js~ShopifyAPIError#message",
+    "member"
+  ],
+  [
+    "lib/shopifyapierror.js~shopifyapierror#name",
+    "class/lib/ShopifyAPIError.js~ShopifyAPIError.html#instance-get-name",
+    "lib/ShopifyAPIError.js~ShopifyAPIError#name",
+    "member"
+  ],
+  [
+    "lib/shopifyapierror.js~shopifyapierror#status",
+    "class/lib/ShopifyAPIError.js~ShopifyAPIError.html#instance-get-status",
+    "lib/ShopifyAPIError.js~ShopifyAPIError#status",
+    "member"
+  ],
+  [
     "lib/__mocks__/fetcher.js",
     "file/lib/__mocks__/fetcher.js.html",
     "lib/__mocks__/fetcher.js",
@@ -525,6 +561,12 @@ window.esdocSearchIndex = [
     "lib/__mocks__/whatwg-fetch.js",
     "file/lib/__mocks__/whatwg-fetch.js.html",
     "lib/__mocks__/whatwg-fetch.js",
+    "file"
+  ],
+  [
+    "lib/__tests__/shopifyapierrortest.js",
+    "file/lib/__tests__/ShopifyAPIErrorTest.js.html",
+    "lib/__tests__/ShopifyAPIErrorTest.js",
     "file"
   ],
   [
@@ -567,6 +609,12 @@ window.esdocSearchIndex = [
     "lib/dispatcher/__tests__/apidispatchertest.js",
     "file/lib/dispatcher/__tests__/APIDispatcherTest.js.html",
     "lib/dispatcher/__tests__/APIDispatcherTest.js",
+    "file"
+  ],
+  [
+    "lib/integration/__tests__/baseapitest.js",
+    "file/lib/integration/__tests__/BaseAPITest.js.html",
+    "lib/integration/__tests__/BaseAPITest.js",
     "file"
   ],
   [

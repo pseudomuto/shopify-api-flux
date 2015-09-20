@@ -53,6 +53,7 @@
 <li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/ShopifyAPIError.js~ShopifyAPIError.html">ShopifyAPIError</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Theme.js~Theme.html">Theme</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/ThemesStore.js~ThemesStore.html">ThemesStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
@@ -104,6 +105,10 @@ import Flux from &quot;flux/utils&quot;;
 import _    from &quot;lodash&quot;;
 
 function mergeItems(state, items) {
+  if (items.length === 0) {
+    return state;
+  }
+
   let initialState = state.set(items[0].id, items[0]);
 
   return items.reduce((previous, current) =&gt; {

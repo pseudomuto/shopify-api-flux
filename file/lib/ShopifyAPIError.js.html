@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">lib/stores/PagesStore.js | Shopify Flux API Document</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">lib/ShopifyAPIError.js | Shopify Flux API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -98,31 +98,58 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/stores/PagesStore.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/ShopifyAPIError.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&quot;use strict&quot;;
 
-import Actions        from &quot;../utilities/Actions&quot;;
-import APIDispatcher  from &quot;../dispatcher/APIDispatcher&quot;;
-import CountableStore from &quot;./CountableStore&quot;;
-
-/**
- * The pages store
- *
- * @extends {CountableStore}
- */
-class PagesStore extends CountableStore {
-  /**
-   * Sets the the dispatcher and appropriate actions for pages
-   *
-   * @param {APIDispatcher} dispatcher - The dispatcher to register with
-   */
-  constructor(dispatcher) {
-    super(dispatcher, new Actions(&quot;pages&quot;));
-  }
+function messageFromResponse(response) {
+  return `API Error (${response.status}): ${response.statusText}`;
 }
 
-/** @ignore */
-export default new PagesStore(APIDispatcher);
+/**
+ * A base error class for API errors
+ *
+ * @extends {Error}
+ */
+export default class ShopifyAPIError extends Error {
+  constructor(response) {
+    super(messageFromResponse(response));
+    this._status  = response.status;
+    this._message = messageFromResponse(response);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    } else {
+      Object.defineProperty(this, &quot;stack&quot;, { value: (new Error()).stack });
+    }
+  }
+
+  /**
+   * The name of the class of this error
+   *
+   * @return {string}
+   */
+  get name() {
+    return this.constructor.name;
+  }
+
+  /**
+   * The status code returned from the response
+   *
+   * @return {number}
+   */
+  get status() {
+    return this._status;
+  }
+
+  /**
+   * The message for this error (including status code and text)
+   *
+   * @return {string}
+   */
+  get message() {
+    return this._message;
+  }
+}
 </code></pre>
 
 </div>
