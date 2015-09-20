@@ -51,6 +51,8 @@
 <li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Theme.js~Theme.html">Theme</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ThemesStore.js~ThemesStore.html">ThemesStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
 </ul>
 </div>
@@ -111,7 +113,7 @@
   
   
   
-  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/lib/resources/Blog.js~Blog.html">Blog</a></span>, <span><a href="class/lib/resources/Country.js~Country.html">Country</a></span>, <span><a href="class/lib/resources/Order.js~Order.html">Order</a></span>, <span><a href="class/lib/resources/Page.js~Page.html">Page</a></span>, <span><a href="class/lib/resources/Product.js~Product.html">Product</a></span>, <span><a href="class/lib/resources/Redirect.js~Redirect.html">Redirect</a></span>, <span><a href="class/lib/resources/Session.js~Session.html">Session</a></span>, <span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></div></div>
+  <div class="flat-list" data-ice="directSubclass"><h4>Direct Subclass:</h4><div><span><a href="class/lib/resources/Blog.js~Blog.html">Blog</a></span>, <span><a href="class/lib/resources/Country.js~Country.html">Country</a></span>, <span><a href="class/lib/resources/Order.js~Order.html">Order</a></span>, <span><a href="class/lib/resources/Page.js~Page.html">Page</a></span>, <span><a href="class/lib/resources/Product.js~Product.html">Product</a></span>, <span><a href="class/lib/resources/Redirect.js~Redirect.html">Redirect</a></span>, <span><a href="class/lib/resources/Session.js~Session.html">Session</a></span>, <span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span>, <span><a href="class/lib/resources/Theme.js~Theme.html">Theme</a></span></div></div>
   
   
   
@@ -314,7 +316,7 @@ class Thing extends Base {
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-destroy">destroy</a></span></span><span data-ice="signature">(id-: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-destroy">destroy</a></span></span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
         </p>
       </div>
       <div>
@@ -391,7 +393,7 @@ class Thing extends Base {
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-update">update</a></span></span><span data-ice="signature">(-: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, resource: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+           <span data-ice="name"><span><a href="class/lib/resources/Base.js~Base.html#instance-method-update">update</a></span></span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, resource: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
         </p>
       </div>
       <div>
@@ -766,7 +768,7 @@ which will be used to infer the merge, count, and clear actions to be dispatched
     
     
     
-    <span data-ice="name">destroy</span><span data-ice="signature">(id-: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+    <span data-ice="name">destroy</span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
     <span class="right-info">
       
       
@@ -791,7 +793,7 @@ which will be used to infer the merge, count, and clear actions to be dispatched
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">id-</td>
+      <td data-ice="name" data-depth="0">id</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The id of the resource</p>
@@ -975,7 +977,7 @@ which will be used to infer the merge, count, and clear actions to be dispatched
     
     
     
-    <span data-ice="name">update</span><span data-ice="signature">(-: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, resource: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
+    <span data-ice="name">update</span><span data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, resource: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="typedef/index.html#static-typedef-RequestPromise">RequestPromise</a></span></span>
     <span class="right-info">
       
       
@@ -1000,7 +1002,7 @@ which will be used to infer the merge, count, and clear actions to be dispatched
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">-</td>
+      <td data-ice="name" data-depth="0">id</td>
       <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The id of the resource</p>

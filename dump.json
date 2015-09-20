@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    MERGE_THEMES: null,\n    CLEAR_THEMES: null,\n    DESTROY_THEMES: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -66,7 +66,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\")),\n  Theme:     new APIProxy(require(\"./resources/Theme\"), require(\"./stores/ThemesStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -102,7 +102,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\",\n  \"Theme\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -762,13 +762,85 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/integration/__tests__/ThemesAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/ThemesAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI           = require(\"../../ShopifyAPI\");\nconst { Theme, Session } = ShopifyAPI;\n\nconst ThemeId = 44291845;\n\ndescribe(\"Themes API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting themes\", () => {\n    pit(\"GET /admin/themes.json\", () => {\n      return Theme.fetch().then(themes => {\n        expect(themes.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/themes.json?fields=\", () => {\n      return Theme.fetch({ fields: [\"id\"] }).then(themes => {\n        expect(themes.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/themes/:id.json\", () => {\n      return Theme.fetch(ThemeId).then(themes => {\n        expect(themes).toBeDefined();\n        expect(themes.length).toBe(1);\n        expect(themes[0].id).toBe(ThemeId);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/ThemesAPITest.js",
+    "longname": "lib/integration/__tests__/ThemesAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/ThemesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Theme",
+    "memberof": "lib/integration/__tests__/ThemesAPITest.js",
+    "longname": "lib/integration/__tests__/ThemesAPITest.js~Theme",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/ThemesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ThemeId",
+    "memberof": "lib/integration/__tests__/ThemesAPITest.js",
+    "longname": "lib/integration/__tests__/ThemesAPITest.js~ThemeId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/ThemesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/Base.js",
     "memberof": null,
     "longname": "lib/resources/Base.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nlet DEFAULT_API_METHODS = {\n  countable:    [\"fetchCount\"],\n  createable:   [\"create\", \"update\"],\n  destroyable:  [\"destroy\"]\n};\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge, count, and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   * @param {object} [options] - Options for this resource\n   * @param {boolean} options.countable - Whether or not this resource is countable (has a /count.json endpoint)\n   * @param {boolean} options.createable - Whether or not this resource can be created\n   * @param {boolean} options.destroyable - Whether or not this resource can be deleted\n   */\n  constructor(resourceName, options = {}) {\n    this._resource  = resourceName;\n    this._resources = `${resourceName}s`;\n    this._options   = options;\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    let exportedMethods = [\"clear\", \"fetch\"];\n\n    for (let type of Object.keys(DEFAULT_API_METHODS)) {\n      if (this._options[type]) {\n        exportedMethods.push(...DEFAULT_API_METHODS[type]);\n      }\n    }\n\n    return exportedMethods;\n  }\n\n  /**\n   * Returns an object that supplies the clear, count and merge actions for this resource\n   *\n   * @return {Actions}\n   */\n  get actions() {\n    return new Actions(this._resources);\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Performs a GET request for the resource's count endpoint\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetchCount(query) {\n    let url      = this.urlFor(\"count\", query);\n    let dispatch = this._dispatchCount.bind(this);\n\n    return Api.get(url).then(response => dispatch(response.count, query));\n  }\n\n  /**\n   * Performs a POST request, sending the resource along as the request body\n   *\n   * @param {object} resource - The resource to be created\n   * @param {object} [options] - Options to be passed along to the request\n   *\n   * @return {RequestPromise}\n   */\n  create(resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor();\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Updates the given resource\n   *\n   * @param {number|string} - The id of the resource\n   * @param {object} resource - The resource to be updated\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  update(id, resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.put(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Destroys the resource\n   *\n   * @param {number|string} id- The id of the resource\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  destroy(id, options) {\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchDestroy.bind(this);\n\n    return Api.delete(url, options).then(() => dispatch(id));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this.actions.clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   * @param {ResourceQuery} [params] - Query string parameters (only used when query is a number or string)\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor(1, { type: \"test\" })          // `/admin/products/1.json?type=test\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query, params) {\n    var url         = `/admin/${this._resources}.json`;\n    var queryString = URLHelpers.toQueryString(query);\n\n    if (isPrimitive(query)) {\n      url         = `/admin/${this._resources}/${query}.json`;\n      queryString = URLHelpers.toQueryString(params);\n    }\n\n    return queryString ? `${url}?${queryString}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this.actions.mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n\n    return items;\n  }\n\n  _dispatchCount(count, query) {\n    let actionType = this.actions.countAction;\n    APIDispatcher.dispatch({ actionType, count, query });\n\n    return count;\n  }\n\n  _dispatchDestroy(id) {\n    let actionType = this.actions.destroyAction;\n    APIDispatcher.dispatch({ actionType, id });\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nlet DEFAULT_API_METHODS = {\n  countable:    [\"fetchCount\"],\n  createable:   [\"create\", \"update\"],\n  destroyable:  [\"destroy\"]\n};\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge, count, and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   * @param {object} [options] - Options for this resource\n   * @param {boolean} options.countable - Whether or not this resource is countable (has a /count.json endpoint)\n   * @param {boolean} options.createable - Whether or not this resource can be created\n   * @param {boolean} options.destroyable - Whether or not this resource can be deleted\n   */\n  constructor(resourceName, options = {}) {\n    this._resource  = resourceName;\n    this._resources = `${resourceName}s`;\n    this._options   = options;\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    let exportedMethods = [\"clear\", \"fetch\"];\n\n    for (let type of Object.keys(DEFAULT_API_METHODS)) {\n      if (this._options[type]) {\n        exportedMethods.push(...DEFAULT_API_METHODS[type]);\n      }\n    }\n\n    return exportedMethods;\n  }\n\n  /**\n   * Returns an object that supplies the clear, count and merge actions for this resource\n   *\n   * @return {Actions}\n   */\n  get actions() {\n    return new Actions(this._resources);\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Performs a GET request for the resource's count endpoint\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetchCount(query) {\n    let url      = this.urlFor(\"count\", query);\n    let dispatch = this._dispatchCount.bind(this);\n\n    return Api.get(url).then(response => dispatch(response.count, query));\n  }\n\n  /**\n   * Performs a POST request, sending the resource along as the request body\n   *\n   * @param {object} resource - The resource to be created\n   * @param {object} [options] - Options to be passed along to the request\n   *\n   * @return {RequestPromise}\n   */\n  create(resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor();\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Updates the given resource\n   *\n   * @param {number|string} id - The id of the resource\n   * @param {object} resource - The resource to be updated\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  update(id, resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.put(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Destroys the resource\n   *\n   * @param {number|string} id - The id of the resource\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  destroy(id, options) {\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchDestroy.bind(this);\n\n    return Api.delete(url, options).then(() => dispatch(id));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this.actions.clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   * @param {ResourceQuery} [params] - Query string parameters (only used when query is a number or string)\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor(1, { type: \"test\" })          // `/admin/products/1.json?type=test\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query, params) {\n    var url         = `/admin/${this._resources}.json`;\n    var queryString = URLHelpers.toQueryString(query);\n\n    if (isPrimitive(query)) {\n      url         = `/admin/${this._resources}/${query}.json`;\n      queryString = URLHelpers.toQueryString(params);\n    }\n\n    return queryString ? `${url}?${queryString}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this.actions.mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n\n    return items;\n  }\n\n  _dispatchCount(count, query) {\n    let actionType = this.actions.countAction;\n    APIDispatcher.dispatch({ actionType, count, query });\n\n    return count;\n  }\n\n  _dispatchDestroy(id) {\n    let actionType = this.actions.destroyAction;\n    APIDispatcher.dispatch({ actionType, id });\n  }\n}\n"
   },
   {
     "kind": "variable",
@@ -1127,7 +1199,7 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "-",
+        "name": "id",
         "description": "The id of the resource"
       },
       {
@@ -1180,7 +1252,7 @@
         ],
         "spread": false,
         "optional": false,
-        "name": "id-",
+        "name": "id",
         "description": "The id of the resource"
       },
       {
@@ -2353,6 +2425,71 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/Theme.js",
+    "memberof": null,
+    "longname": "lib/resources/Theme.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Theme resource\n *\n * @extends {Base}\n */\nclass Theme extends Base {\n  constructor() {\n    super(\"theme\", {\n      countable:    false,\n      createable:   true,\n      destroyable:  true\n    });\n  }\n}\n\n/** @ignore */\nexport default new Theme();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Theme",
+    "memberof": "lib/resources/Theme.js",
+    "longname": "lib/resources/Theme.js~Theme",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Theme.js",
+    "importStyle": null,
+    "description": "The Theme resource",
+    "lineNumber": 10,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Theme.js~Theme",
+    "longname": "lib/resources/Theme.js~Theme#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "theme",
+    "memberof": "lib/resources/Theme.js",
+    "longname": "lib/resources/Theme.js~theme",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Theme.js",
+    "importStyle": "theme",
+    "description": null,
+    "lineNumber": 21,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Theme.js~Theme"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/__tests__/BaseTest.js",
     "memberof": null,
     "longname": "lib/resources/__tests__/BaseTest.js",
@@ -2456,6 +2593,18 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Shop\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Shop\", () => {\n  var resource, dispatcher, api;\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    resource   = require(\"../Shop\");\n    api        = require(\"../../utilities/WebAPI\");\n  });\n\n  describe(\"#apiMethods\", () => {\n    it(\"exports fetch and clear as action methods\", () => {\n      expect(resource.apiMethods).toEqual([\"clear\", \"fetch\"]);\n    });\n  });\n\n  describe(\"#fetch\", () => {\n    let shop = { id: 1, name: \"My Shop\" };\n\n    var request;\n\n    beforeEach(() => {\n      stubRequest(api, \"get\", { shop });\n      request = resource.fetch();\n    });\n\n    it(\"makes the web request\", () => {\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n\n    pit(\"dispatches the action once the shop is retrieved\", () => {\n      return Promise.resolve(request).then(() => {\n        expect(dispatcher.dispatch.mock.calls.length).toBe(1);\n\n        let payload = dispatcher.dispatch.mock.calls[0][0];\n        expect(payload.actionType).toBe(Constants.Actions.SET_SHOP);\n        expect(payload.items).toEqual([shop]);\n      });\n    });\n\n    it(\"doesn't forward arguments to super\", () => {\n      resource.fetch({ name: \"Some Shop\" });\n      expect(api.get).toBeCalledWith(\"/admin/shop.json\");\n    });\n  });\n\n  describe(\"#clear\", () => {\n    beforeEach(() => resource.clear());\n\n    it(\"dispatches the proper action\", () => {\n      let actionType = Constants.Actions.CLEAR_SHOP;\n      expect(dispatcher.dispatch).toBeCalledWith({ actionType });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/ThemeTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/ThemeTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Theme\");\n\ndescribe(\"Theme\", () => {\n  var resource = require(\"../Theme\");\n\n  it(\"is not countable\", () => {\n    expect(resource.apiMethods).not.toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -3611,6 +3760,81 @@
     "type": {
       "types": [
         "lib/stores/ShopStore.js~ShopStore"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/ThemesStore.js",
+    "memberof": null,
+    "longname": "lib/stores/ThemesStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport BaseStore     from \"./BaseStore\";\n\n/**\n * The themes store\n *\n * @extends {BaseStore}\n */\nclass ThemesStore extends BaseStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for themes\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"themes\"));\n  }\n}\n\n/** @ignore */\nexport default new ThemesStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ThemesStore",
+    "memberof": "lib/stores/ThemesStore.js",
+    "longname": "lib/stores/ThemesStore.js~ThemesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/ThemesStore.js",
+    "importStyle": null,
+    "description": "The themes store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "BaseStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/ThemesStore.js~ThemesStore",
+    "longname": "lib/stores/ThemesStore.js~ThemesStore#constructor",
+    "access": null,
+    "description": "Sets the the dispatcher and appropriate actions for themes",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "themesStore",
+    "memberof": "lib/stores/ThemesStore.js",
+    "longname": "lib/stores/ThemesStore.js~themesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/ThemesStore.js",
+    "importStyle": "themesStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/ThemesStore.js~ThemesStore"
       ]
     }
   },
