@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    MERGE_THEMES: null,\n    CLEAR_THEMES: null,\n    DESTROY_THEMES: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_CUSTOMERS: null,\n    CLEAR_CUSTOMERS: null,\n    DESTROY_CUSTOMERS: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    MERGE_THEMES: null,\n    CLEAR_THEMES: null,\n    DESTROY_THEMES: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -66,7 +66,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\")),\n  Theme:     new APIProxy(require(\"./resources/Theme\"), require(\"./stores/ThemesStore\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Customer:  new APIProxy(require(\"./resources/Customer\"), require(\"./stores/CustomersStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\")),\n  Theme:     new APIProxy(require(\"./resources/Theme\"), require(\"./stores/ThemesStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -102,7 +102,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\",\n  \"Theme\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Customer\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\",\n  \"Theme\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -463,6 +463,78 @@
     "importStyle": null,
     "description": null,
     "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/integration/__tests__/CustomersAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/CustomersAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nimport _ from \"lodash\";\n\nconst ShopifyAPI            = require(\"../../ShopifyAPI\");\nconst { Customer, Session } = ShopifyAPI;\n\nconst CustomerId = 1332875589;\n\ndescribe(\"Customers API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting customers\", () => {\n    pit(\"GET /admin/customers.json\", () => {\n      return Customer.fetch().then(customers => {\n        expect(customers.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/customers.json?fields=id,name\", () => {\n      return Customer.fetch({ fields: [\"id\", \"name\"] }).then(customers => {\n        expect(customers.length).toBeGreaterThan(0);\n      });\n    });\n\n    pit(\"GET /admin/customers/:id.json\", () => {\n      return Customer.fetch(CustomerId).then(customers => {\n        expect(customers.length).toBe(1);\n        expect(customers[0].id).toBe(CustomerId);\n      });\n    });\n  });\n\n  describe(\"counting customers\", () => {\n    pit(\"GET /admin/customers/count.json\", () => {\n      return Customer.fetchCount().then(count => {\n        expect(count).toBeGreaterThan(0);\n      });\n    });\n  });\n\n  describe(\"searching customers\", () => {\n    pit(\"GET /admin/customers/search.json?query=\", () => {\n      return Customer.search({ query: \"David\" }).then(results => {\n        expect(results.length).toBeGreaterThan(0);\n        expect(_.pluck(results, \"id\")).toContain(CustomerId);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/CustomersAPITest.js",
+    "longname": "lib/integration/__tests__/CustomersAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/CustomersAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Customer",
+    "memberof": "lib/integration/__tests__/CustomersAPITest.js",
+    "longname": "lib/integration/__tests__/CustomersAPITest.js~Customer",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/CustomersAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "CustomerId",
+    "memberof": "lib/integration/__tests__/CustomersAPITest.js",
+    "longname": "lib/integration/__tests__/CustomersAPITest.js~CustomerId",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/CustomersAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 10,
     "undocument": true,
     "type": {
       "types": [
@@ -840,7 +912,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nlet DEFAULT_API_METHODS = {\n  countable:    [\"fetchCount\"],\n  createable:   [\"create\", \"update\"],\n  destroyable:  [\"destroy\"]\n};\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   static get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge, count, and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   * @param {object} [options] - Options for this resource\n   * @param {boolean} options.countable - Whether or not this resource is countable (has a /count.json endpoint)\n   * @param {boolean} options.createable - Whether or not this resource can be created\n   * @param {boolean} options.destroyable - Whether or not this resource can be deleted\n   */\n  constructor(resourceName, options = {}) {\n    this._resource  = resourceName;\n    this._resources = `${resourceName}s`;\n    this._options   = options;\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    let exportedMethods = [\"clear\", \"fetch\"];\n\n    for (let type of Object.keys(DEFAULT_API_METHODS)) {\n      if (this._options[type]) {\n        exportedMethods.push(...DEFAULT_API_METHODS[type]);\n      }\n    }\n\n    return exportedMethods;\n  }\n\n  /**\n   * Returns an object that supplies the clear, count and merge actions for this resource\n   *\n   * @return {Actions}\n   */\n  get actions() {\n    return new Actions(this._resources);\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Performs a GET request for the resource's count endpoint\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetchCount(query) {\n    let url      = this.urlFor(\"count\", query);\n    let dispatch = this._dispatchCount.bind(this);\n\n    return Api.get(url).then(response => dispatch(response.count, query));\n  }\n\n  /**\n   * Performs a POST request, sending the resource along as the request body\n   *\n   * @param {object} resource - The resource to be created\n   * @param {object} [options] - Options to be passed along to the request\n   *\n   * @return {RequestPromise}\n   */\n  create(resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor();\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Updates the given resource\n   *\n   * @param {number|string} id - The id of the resource\n   * @param {object} resource - The resource to be updated\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  update(id, resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.put(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Destroys the resource\n   *\n   * @param {number|string} id - The id of the resource\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  destroy(id, options) {\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchDestroy.bind(this);\n\n    return Api.delete(url, options).then(() => dispatch(id));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this.actions.clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   * @param {ResourceQuery} [params] - Query string parameters (only used when query is a number or string)\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor(1, { type: \"test\" })          // `/admin/products/1.json?type=test\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query, params) {\n    var url         = `/admin/${this._resources}.json`;\n    var queryString = URLHelpers.toQueryString(query);\n\n    if (isPrimitive(query)) {\n      url         = `/admin/${this._resources}/${query}.json`;\n      queryString = URLHelpers.toQueryString(params);\n    }\n\n    return queryString ? `${url}?${queryString}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this.actions.mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n\n    return items;\n  }\n\n  _dispatchCount(count, query) {\n    let actionType = this.actions.countAction;\n    APIDispatcher.dispatch({ actionType, count, query });\n\n    return count;\n  }\n\n  _dispatchDestroy(id) {\n    let actionType = this.actions.destroyAction;\n    APIDispatcher.dispatch({ actionType, id });\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport Api           from \"../utilities/WebAPI\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport URLHelpers    from \"../utilities/URLHelpers\";\n\nlet DEFAULT_API_METHODS = {\n  countable:    [\"fetchCount\"],\n  createable:   [\"create\", \"update\"],\n  destroyable:  [\"destroy\"]\n};\n\nfunction isPrimitive(value) {\n  return [\"number\", \"string\"].indexOf(typeof value) >= 0;\n}\n\n/**\n * A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\n * include all methods that should be made available to consumers.\n *\n * @example\n * import Base from \"./Base\";\n *\n * class Thing extends Base {\n *   constructor() {\n *     super(\"thing\")\n *   }\n *\n *   get apiMethods() {\n *     return super.apiMethods.concat([\"fetchAllTheThings\"]);\n *   }\n *\n *   fetchAllTheThings() {\n *     return this.fetch(\"/admin/things.json\");\n *   }\n * }\n */\nexport default class {\n  /**\n   * Using the supplied `resourceName`, this constructor will generate the singular and plural names for this resource\n   * which will be used to infer the merge, count, and clear actions to be dispatched.\n   *\n   * @param {string} resourceName - The singular name for the resource (e.g. `product`)\n   * @param {object} [options] - Options for this resource\n   * @param {boolean} options.countable - Whether or not this resource is countable (has a /count.json endpoint)\n   * @param {boolean} options.createable - Whether or not this resource can be created\n   * @param {boolean} options.destroyable - Whether or not this resource can be deleted\n   */\n  constructor(resourceName, options = {}) {\n    this._resource  = resourceName;\n    this._resources = `${resourceName}s`;\n    this._options   = options;\n  }\n\n  /**\n   * An array of methods to be exposed via {@link APIProxy}\n   *\n   * @return {Array<string>} The names of all methods to be made available\n   */\n  get apiMethods() {\n    let exportedMethods = [\"clear\", \"fetch\"];\n\n    for (let type of Object.keys(DEFAULT_API_METHODS)) {\n      if (this._options[type]) {\n        exportedMethods.push(...DEFAULT_API_METHODS[type]);\n      }\n    }\n\n    return exportedMethods;\n  }\n\n  /**\n   * Returns an object that supplies the clear, count and merge actions for this resource\n   *\n   * @return {Actions}\n   */\n  get actions() {\n    return new Actions(this._resources);\n  }\n\n  /**\n   * Performs a GET request for the specified query.\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetch(query) {\n    let url      = this.urlFor(query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let resource = isPrimitive(query) ? this._resource : this._resources;\n\n    return Api.get(url).then(response => dispatch(response[resource]));\n  }\n\n  /**\n   * Performs a GET request for the resource's count endpoint\n   *\n   * @param {ResourceQuery} [query]\n   *\n   * @return {RequestPromise}\n   */\n  fetchCount(query) {\n    let url      = this.urlFor(\"count\", query);\n    let dispatch = this._dispatchCount.bind(this);\n\n    return Api.get(url).then(response => dispatch(response.count, query));\n  }\n\n  /**\n   * Performs a POST request, sending the resource along as the request body\n   *\n   * @param {object} resource - The resource to be created\n   * @param {object} [options] - Options to be passed along to the request\n   *\n   * @return {RequestPromise}\n   */\n  create(resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor();\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Updates the given resource\n   *\n   * @param {number|string} id - The id of the resource\n   * @param {object} resource - The resource to be updated\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  update(id, resource, options) {\n    let body     = { [this._resource]: resource };\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.put(url, body, options).then(response => dispatch(response[property]));\n  }\n\n  /**\n   * Destroys the resource\n   *\n   * @param {number|string} id - The id of the resource\n   * @param {object} [options] - Options to be passed along with the request\n   *\n   * @return {RequestPromise}\n   */\n  destroy(id, options) {\n    let url      = this.urlFor(id);\n    let dispatch = this._dispatchDestroy.bind(this);\n\n    return Api.delete(url, options).then(() => dispatch(id));\n  }\n\n  /**\n   * Dispatches the clear action for this resource. The action will be handled by the appropriate store.\n   */\n  clear() {\n    APIDispatcher.dispatch({ actionType: this.actions.clearAction });\n  }\n\n  /**\n   * @protected\n   * Generates a resource URL for the specified query. The query can be an id, or an object to be converted to a query\n   * string.\n   *\n   * @param {ResourceQuery} [query]\n   * @param {ResourceQuery} [params] - Query string parameters (only used when query is a number or string)\n   *\n   * @return {string} The resource URL for the specified query\n   *\n   * @example\n   * import Base from \"./Base\";\n   *\n   * let instance = new Base(\"product\");\n   *\n   * instance.urlFor();                            // `/admin/products.json`\n   * instance.urlFor(1);                           // `/admin/products/1.json`\n   * instance.urlFor(\"1\");                         // `/admin/products/1.json`\n   * instance.urlFor(1, { type: \"test\" })          // `/admin/products/1.json?type=test\n   * instance.urlFor({ fields: [\"id\", \"title\"] }); // `/admin/products.json?fields=id,title\n   */\n  urlFor(query, params) {\n    var url         = `/admin/${this._resources}.json`;\n    var queryString = URLHelpers.toQueryString(query);\n\n    if (isPrimitive(query)) {\n      url         = `/admin/${this._resources}/${query}.json`;\n      queryString = URLHelpers.toQueryString(params);\n    }\n\n    return queryString ? `${url}?${queryString}` : url;\n  }\n\n  _dispatchMerge(items) {\n    if (!Array.isArray(items)) {\n      items = [items];\n    }\n\n    let actionType = this.actions.mergeAction;\n    APIDispatcher.dispatch({ actionType, items });\n\n    return items;\n  }\n\n  _dispatchCount(count, query) {\n    let actionType = this.actions.countAction;\n    APIDispatcher.dispatch({ actionType, count, query });\n\n    return count;\n  }\n\n  _dispatchDestroy(id) {\n    let actionType = this.actions.destroyAction;\n    APIDispatcher.dispatch({ actionType, id });\n  }\n}\n"
   },
   {
     "kind": "variable",
@@ -904,7 +976,7 @@
     "importStyle": "Base",
     "description": "A base class for API resources. This class is meant to be subclassed and have it's `apiMethods` method overridden to\ninclude all methods that should be made available to consumers.",
     "examples": [
-      "import Base from \"./Base\";\n\nclass Thing extends Base {\n  constructor() {\n    super(\"thing\")\n  }\n\n  static get apiMethods() {\n    return super.apiMethods.concat([\"fetchAllTheThings\"]);\n  }\n\n  fetchAllTheThings() {\n    return this.fetch(\"/admin/things.json\");\n  }\n}"
+      "import Base from \"./Base\";\n\nclass Thing extends Base {\n  constructor() {\n    super(\"thing\")\n  }\n\n  get apiMethods() {\n    return super.apiMethods.concat([\"fetchAllTheThings\"]);\n  }\n\n  fetchAllTheThings() {\n    return this.fetch(\"/admin/things.json\");\n  }\n}"
     ],
     "lineNumber": 39,
     "interface": false
@@ -1564,13 +1636,158 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/Customer.js",
+    "memberof": null,
+    "longname": "lib/resources/Customer.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Api  from \"../utilities/WebAPI\";\nimport Base from \"./Base\";\n\n/**\n * The Customer resource\n *\n * @extends {Base}\n */\nclass Customer extends Base {\n  constructor() {\n    super(\"customer\", {\n      countable:    true,\n      createable:   true,\n      destroyable:  true\n    });\n  }\n\n  /**\n   * @override\n   */\n  get apiMethods() {\n    return super.apiMethods.concat([\"search\"]);\n  }\n\n  /**\n   * Searches for customers\n   *\n   * @param {ResourceQuery} query - Query parameters\n   * @param {string} query.query - What to search for (e.g.`Bob country:United States`)\n   * @param {string} [query.order] - Field and direction (default `last_order_date DESC`)\n   * @param {string} [query.fields] - Comma-delimeted set of fields to include in results\n   *\n   * @return {RequestPromise}\n   */\n  search(query) {\n    let url      = this.urlFor(\"search\", query);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resources;\n\n    return Api.get(url).then(response => dispatch(response[property]));\n  }\n}\n\n/** @ignore */\nexport default new Customer();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Customer",
+    "memberof": "lib/resources/Customer.js",
+    "longname": "lib/resources/Customer.js~Customer",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Customer.js",
+    "importStyle": null,
+    "description": "The Customer resource",
+    "lineNumber": 11,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Customer.js~Customer",
+    "longname": "lib/resources/Customer.js~Customer#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "apiMethods",
+    "memberof": "lib/resources/Customer.js~Customer",
+    "longname": "lib/resources/Customer.js~Customer#apiMethods",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "override": true,
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "search",
+    "memberof": "lib/resources/Customer.js~Customer",
+    "longname": "lib/resources/Customer.js~Customer#search",
+    "access": null,
+    "description": "Searches for customers",
+    "lineNumber": 37,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "ResourceQuery"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "query",
+        "description": "Query parameters"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "query.query",
+        "description": "What to search for (e.g.`Bob country:United States`)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query.order",
+        "description": "Field and direction (default `last_order_date DESC`)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "query.fields",
+        "description": "Comma-delimeted set of fields to include in results"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "RequestPromise"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "customer",
+    "memberof": "lib/resources/Customer.js",
+    "longname": "lib/resources/Customer.js~customer",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Customer.js",
+    "importStyle": "customer",
+    "description": null,
+    "lineNumber": 47,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Customer.js~Customer"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/Order.js",
     "memberof": null,
     "longname": "lib/resources/Order.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Api  from \"../utilities/WebAPI\";\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\", {\n      countable:    true,\n      createable:   true,\n      destroyable:  true\n    });\n  }\n\n  /**\n   * Close an open order\n   *\n   * @param {number|string} id - The id of the order\n   *\n   * @return {RequestPromise}\n   */\n  close(id) {\n    return this._postToAction(id, \"close\");\n  }\n\n  /**\n   * Open a closed order\n   *\n   * @param {number|string} id - The id of the order\n   *\n   * @return {RequestPromise}\n   */\n  open(id) {\n    return this._postToAction(id, \"open\");\n  }\n\n  /**\n   * Cancel an order\n   *\n   * @param {number|string} id - The id of the order\n   * @param {object}  [options] - Options for the cancel operation\n   * @param {number}  [options.amount] - The (decimal) amount to refund\n   * @param {boolean} [options.restock=false] - Whether or not to restock inventory\n   * @param {string}  [options.reason=other] - One of customer, inventory, fraud or other\n   * @param {boolean} [options.email=false] - Whether or not to send the customer an email regarding the cancellation\n   *\n   * @return {RequestPromise}\n   */\n  cancel(id, options = {}) {\n    return this._postToAction(id, \"cancel\", options);\n  }\n\n  _postToAction(id, action, resource) {\n    let url      = this._memberURLForAction(action, id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, resource).then(response => dispatch(response[property]));\n  }\n\n  _memberURLForAction(action, ...urlParams) {\n    return this.urlFor(...urlParams).replace(/\\.json$/, `/${action}.json`);\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
+    "content": "\"use strict\";\n\nimport Api  from \"../utilities/WebAPI\";\nimport Base from \"./Base\";\n\n/**\n * The Order resource\n *\n * @extends {Base}\n */\nclass Order extends Base {\n  constructor() {\n    super(\"order\", {\n      countable:    true,\n      createable:   true,\n      destroyable:  true\n    });\n  }\n\n  /**\n   * @override\n   */\n  get apiMethods() {\n    return super.apiMethods.concat([\"open\", \"close\", \"cancel\"]);\n  }\n\n  /**\n   * Close an open order\n   *\n   * @param {number|string} id - The id of the order\n   *\n   * @return {RequestPromise}\n   */\n  close(id) {\n    return this._postToAction(id, \"close\");\n  }\n\n  /**\n   * Open a closed order\n   *\n   * @param {number|string} id - The id of the order\n   *\n   * @return {RequestPromise}\n   */\n  open(id) {\n    return this._postToAction(id, \"open\");\n  }\n\n  /**\n   * Cancel an order\n   *\n   * @param {number|string} id - The id of the order\n   * @param {object}  [options] - Options for the cancel operation\n   * @param {number}  [options.amount] - The (decimal) amount to refund\n   * @param {boolean} [options.restock=false] - Whether or not to restock inventory\n   * @param {string}  [options.reason=other] - One of customer, inventory, fraud or other\n   * @param {boolean} [options.email=false] - Whether or not to send the customer an email regarding the cancellation\n   *\n   * @return {RequestPromise}\n   */\n  cancel(id, options = {}) {\n    return this._postToAction(id, \"cancel\", options);\n  }\n\n  _postToAction(id, action, resource) {\n    let url      = this._memberURLForAction(action, id);\n    let dispatch = this._dispatchMerge.bind(this);\n    let property = this._resource;\n\n    return Api.post(url, resource).then(response => dispatch(response[property]));\n  }\n\n  _memberURLForAction(action, ...urlParams) {\n    return this.urlFor(...urlParams).replace(/\\.json$/, `/${action}.json`);\n  }\n}\n\n/** @ignore */\nexport default new Order();\n"
   },
   {
     "kind": "class",
@@ -1606,6 +1823,24 @@
     "generator": false
   },
   {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "apiMethods",
+    "memberof": "lib/resources/Order.js~Order",
+    "longname": "lib/resources/Order.js~Order#apiMethods",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "override": true,
+    "generator": false
+  },
+  {
     "kind": "method",
     "static": false,
     "variation": null,
@@ -1614,7 +1849,7 @@
     "longname": "lib/resources/Order.js~Order#close",
     "access": null,
     "description": "Close an open order",
-    "lineNumber": 27,
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
@@ -1647,7 +1882,7 @@
     "longname": "lib/resources/Order.js~Order#open",
     "access": null,
     "description": "Open a closed order",
-    "lineNumber": 38,
+    "lineNumber": 45,
     "params": [
       {
         "nullable": null,
@@ -1680,7 +1915,7 @@
     "longname": "lib/resources/Order.js~Order#cancel",
     "access": null,
     "description": "Cancel an order",
-    "lineNumber": 54,
+    "lineNumber": 61,
     "params": [
       {
         "nullable": null,
@@ -1769,7 +2004,7 @@
     "longname": "lib/resources/Order.js~Order#_postToAction",
     "access": null,
     "description": null,
-    "lineNumber": 58,
+    "lineNumber": 65,
     "undocument": true,
     "params": [
       {
@@ -1807,7 +2042,7 @@
     "longname": "lib/resources/Order.js~Order#_memberURLForAction",
     "access": null,
     "description": null,
-    "lineNumber": 66,
+    "lineNumber": 73,
     "undocument": true,
     "params": [
       {
@@ -1843,7 +2078,7 @@
     "importPath": "shopify-api-flux/lib/resources/Order.js",
     "importStyle": "order",
     "description": null,
-    "lineNumber": 72,
+    "lineNumber": 79,
     "ignore": true,
     "type": {
       "types": [
@@ -2526,13 +2761,25 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/__tests__/CustomerTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/CustomerTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Customer\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Customer\", () => {\n  var resource;\n\n  beforeEach(() => {\n    resource = require(\"../Customer\");\n  });\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n\n  it(\"exports the search method\", () => {\n    expect(resource.apiMethods).toContain(\"search\");\n  });\n\n  describe(\"custom actions\", () => {\n    let actionType = Constants.Actions.MERGE_CUSTOMERS;\n    let customer   = { id: 1, name: \"Bob\" };\n\n    var api, request, dispatcher;\n\n    beforeEach(() => {\n      api        = require(\"../../utilities/WebAPI\");\n      dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    });\n\n    describe(\"#search\", () => {\n      beforeEach(() => {\n        stubRequest(api, \"get\", { customers: [customer] });\n        request = resource.search({ query: \"Bob country:United States\" });\n      });\n\n      it(\"fetches the correct URL\", () => {\n        expect(api.get).toBeCalledWith(\"/admin/customers/search.json?query=Bob%20country%3AUnited%20States\");\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [customer] });\n        });\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/__tests__/OrderTest.js",
     "memberof": null,
     "longname": "lib/resources/__tests__/OrderTest.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Order\", () => {\n  var resource;\n\n  beforeEach(() => {\n    resource = require(\"../Order\");\n  });\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n\n  describe(\"#custom actions\", () => {\n    let actionType = Constants.Actions.MERGE_ORDERS;\n    let order      = { id: 1, name: \"Order #1\" };\n\n    var api, request, dispatcher;\n\n    beforeEach(() => {\n      api        = require(\"../../utilities/WebAPI\");\n      dispatcher = require(\"../../dispatcher/APIDispatcher\");\n\n      stubRequest(api, \"post\", { order });\n    });\n\n    describe(\"#open\", () => {\n      beforeEach(() => {\n        request = resource.open(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/open.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#close\", () => {\n      beforeEach(() => {\n        request = resource.close(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/close.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#cancel\", () => {\n      beforeEach(() => {\n        request = resource.cancel(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, {});\n      });\n\n      it(\"includes options when supplied\", () => {\n        let options = { email: true };\n        request     = resource.cancel(order.id, options);\n\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, options);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Order\");\njest.dontMock(\"../../utilities/URLHelpers\");\n\nimport Constants from \"../../Constants\";\n\ndescribe(\"Order\", () => {\n  var resource;\n\n  beforeEach(() => {\n    resource = require(\"../Order\");\n  });\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n\n  it(\"exports custom methods\", () => {\n    expect(resource.apiMethods).toContain(\"open\");\n    expect(resource.apiMethods).toContain(\"close\");\n    expect(resource.apiMethods).toContain(\"cancel\");\n  });\n\n  describe(\"#custom actions\", () => {\n    let actionType = Constants.Actions.MERGE_ORDERS;\n    let order      = { id: 1, name: \"Order #1\" };\n\n    var api, request, dispatcher;\n\n    beforeEach(() => {\n      api        = require(\"../../utilities/WebAPI\");\n      dispatcher = require(\"../../dispatcher/APIDispatcher\");\n\n      stubRequest(api, \"post\", { order });\n    });\n\n    describe(\"#open\", () => {\n      beforeEach(() => {\n        request = resource.open(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/open.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#close\", () => {\n      beforeEach(() => {\n        request = resource.close(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/close.json`, undefined);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n\n    describe(\"#cancel\", () => {\n      beforeEach(() => {\n        request = resource.cancel(order.id);\n      });\n\n      it(\"posts to the correct endpoint\", () => {\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, {});\n      });\n\n      it(\"includes options when supplied\", () => {\n        let options = { email: true };\n        request     = resource.cancel(order.id, options);\n\n        expect(api.post).toBeCalledWith(`/admin/orders/${order.id}/cancel.json`, options);\n      });\n\n      pit(\"dispatches the merge action on success\", () => {\n        return Promise.resolve(request).then(() => {\n          expect(dispatcher.dispatch).toBeCalledWith({ actionType, items: [order] });\n        });\n      });\n    });\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -3153,6 +3400,81 @@
     "type": {
       "types": [
         "lib/stores/CountriesStore.js~CountriesStore"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/CustomersStore.js",
+    "memberof": null,
+    "longname": "lib/stores/CustomersStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport CountableStore     from \"./CountableStore\";\n\n/**\n * The customers store\n *\n * @extends {CountableStore}\n */\nclass CustomersStore extends CountableStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for customers\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"customers\"));\n  }\n}\n\n/** @ignore */\nexport default new CustomersStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "CustomersStore",
+    "memberof": "lib/stores/CustomersStore.js",
+    "longname": "lib/stores/CustomersStore.js~CustomersStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/CustomersStore.js",
+    "importStyle": null,
+    "description": "The customers store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "CountableStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/CustomersStore.js~CustomersStore",
+    "longname": "lib/stores/CustomersStore.js~CustomersStore#constructor",
+    "access": null,
+    "description": "Sets the the dispatcher and appropriate actions for customers",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "customersStore",
+    "memberof": "lib/stores/CustomersStore.js",
+    "longname": "lib/stores/CustomersStore.js~customersStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/CustomersStore.js",
+    "importStyle": "customersStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/CustomersStore.js~CustomersStore"
       ]
     }
   },

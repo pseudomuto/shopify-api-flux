@@ -54,6 +54,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/resources/customer.js~customer",
+    "class/lib/resources/Customer.js~Customer.html",
+    "<span>Customer</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Customer.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/stores/customersstore.js~customersstore",
+    "class/lib/stores/CustomersStore.js~CustomersStore.html",
+    "<span>CustomersStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/CustomersStore.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/resources/order.js~order",
     "class/lib/resources/Order.js~Order.html",
     "<span>Order</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Order.js</span>",
@@ -570,6 +582,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/customersapitest.js",
+    "file/lib/integration/__tests__/CustomersAPITest.js.html",
+    "lib/integration/__tests__/CustomersAPITest.js",
+    "file"
+  ],
+  [
     "lib/integration/__tests__/ordersapitest.js",
     "file/lib/integration/__tests__/OrdersAPITest.js.html",
     "lib/integration/__tests__/OrdersAPITest.js",
@@ -690,10 +708,40 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/customer.js",
+    "file/lib/resources/Customer.js.html",
+    "lib/resources/Customer.js",
+    "file"
+  ],
+  [
+    "lib/resources/customer.js~customer#apimethods",
+    "class/lib/resources/Customer.js~Customer.html#instance-get-apiMethods",
+    "lib/resources/Customer.js~Customer#apiMethods",
+    "member"
+  ],
+  [
+    "lib/resources/customer.js~customer#constructor",
+    "class/lib/resources/Customer.js~Customer.html#instance-constructor-constructor",
+    "lib/resources/Customer.js~Customer#constructor",
+    "method"
+  ],
+  [
+    "lib/resources/customer.js~customer#search",
+    "class/lib/resources/Customer.js~Customer.html#instance-method-search",
+    "lib/resources/Customer.js~Customer#search",
+    "method"
+  ],
+  [
     "lib/resources/order.js",
     "file/lib/resources/Order.js.html",
     "lib/resources/Order.js",
     "file"
+  ],
+  [
+    "lib/resources/order.js~order#apimethods",
+    "class/lib/resources/Order.js~Order.html#instance-get-apiMethods",
+    "lib/resources/Order.js~Order#apiMethods",
+    "member"
   ],
   [
     "lib/resources/order.js~order#cancel",
@@ -834,6 +882,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/resources/__tests__/customertest.js",
+    "file/lib/resources/__tests__/CustomerTest.js.html",
+    "lib/resources/__tests__/CustomerTest.js",
+    "file"
+  ],
+  [
     "lib/resources/__tests__/ordertest.js",
     "file/lib/resources/__tests__/OrderTest.js.html",
     "lib/resources/__tests__/OrderTest.js",
@@ -957,6 +1011,18 @@ window.esdocSearchIndex = [
     "lib/stores/countriesstore.js~countriesstore#constructor",
     "class/lib/stores/CountriesStore.js~CountriesStore.html#instance-constructor-constructor",
     "lib/stores/CountriesStore.js~CountriesStore#constructor",
+    "method"
+  ],
+  [
+    "lib/stores/customersstore.js",
+    "file/lib/stores/CustomersStore.js.html",
+    "lib/stores/CustomersStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/customersstore.js~customersstore#constructor",
+    "class/lib/stores/CustomersStore.js~CustomersStore.html#instance-constructor-constructor",
+    "lib/stores/CustomersStore.js~CustomersStore#constructor",
     "method"
   ],
   [
