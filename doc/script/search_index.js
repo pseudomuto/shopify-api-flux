@@ -126,6 +126,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/resources/theme.js~theme",
+    "class/lib/resources/Theme.js~Theme.html",
+    "<span>Theme</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Theme.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/stores/themesstore.js~themesstore",
+    "class/lib/stores/ThemesStore.js~ThemesStore.html",
+    "<span>ThemesStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/ThemesStore.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/utilities/webapi.js~webapi",
     "class/lib/utilities/WebAPI.js~WebAPI.html",
     "<span>WebAPI</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/utilities/WebAPI.js</span>",
@@ -582,6 +594,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/themesapitest.js",
+    "file/lib/integration/__tests__/ThemesAPITest.js.html",
+    "lib/integration/__tests__/ThemesAPITest.js",
+    "file"
+  ],
+  [
     "lib/resources/base.js",
     "file/lib/resources/Base.js.html",
     "lib/resources/Base.js",
@@ -786,6 +804,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/theme.js",
+    "file/lib/resources/Theme.js.html",
+    "lib/resources/Theme.js",
+    "file"
+  ],
+  [
+    "lib/resources/theme.js~theme#constructor",
+    "class/lib/resources/Theme.js~Theme.html#instance-constructor-constructor",
+    "lib/resources/Theme.js~Theme#constructor",
+    "method"
+  ],
+  [
     "lib/resources/__tests__/basetest.js",
     "file/lib/resources/__tests__/BaseTest.js.html",
     "lib/resources/__tests__/BaseTest.js",
@@ -837,6 +867,12 @@ window.esdocSearchIndex = [
     "lib/resources/__tests__/shoptest.js",
     "file/lib/resources/__tests__/ShopTest.js.html",
     "lib/resources/__tests__/ShopTest.js",
+    "file"
+  ],
+  [
+    "lib/resources/__tests__/themetest.js",
+    "file/lib/resources/__tests__/ThemeTest.js.html",
+    "lib/resources/__tests__/ThemeTest.js",
     "file"
   ],
   [
@@ -999,6 +1035,18 @@ window.esdocSearchIndex = [
     "lib/stores/shopstore.js~shopstore#getcurrent",
     "class/lib/stores/ShopStore.js~ShopStore.html#instance-method-getCurrent",
     "lib/stores/ShopStore.js~ShopStore#getCurrent",
+    "method"
+  ],
+  [
+    "lib/stores/themesstore.js",
+    "file/lib/stores/ThemesStore.js.html",
+    "lib/stores/ThemesStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/themesstore.js~themesstore#constructor",
+    "class/lib/stores/ThemesStore.js~ThemesStore.html#instance-constructor-constructor",
+    "lib/stores/ThemesStore.js~ThemesStore#constructor",
     "method"
   ],
   [

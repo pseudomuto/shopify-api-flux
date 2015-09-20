@@ -51,6 +51,8 @@
 <li data-ice="classDoc"><span><a href="class/lib/stores/SessionStore.js~SessionStore.html">SessionStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/resources/Shop.js~Shop.html">Shop</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/stores/ShopStore.js~ShopStore.html">ShopStore</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/resources/Theme.js~Theme.html">Theme</a></span></li>
+<li data-ice="classDoc"><span><a href="class/lib/stores/ThemesStore.js~ThemesStore.html">ThemesStore</a></span></li>
 <li data-ice="classDoc"><span><a href="class/lib/utilities/WebAPI.js~WebAPI.html">WebAPI</a></span></li>
 </ul>
 </div>
@@ -224,7 +226,7 @@ export default class {
   /**
    * Updates the given resource
    *
-   * @param {number|string} - The id of the resource
+   * @param {number|string} id - The id of the resource
    * @param {object} resource - The resource to be updated
    * @param {object} [options] - Options to be passed along with the request
    *
@@ -242,7 +244,7 @@ export default class {
   /**
    * Destroys the resource
    *
-   * @param {number|string} id- The id of the resource
+   * @param {number|string} id - The id of the resource
    * @param {object} [options] - Options to be passed along with the request
    *
    * @return {RequestPromise}
