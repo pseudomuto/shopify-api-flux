@@ -72,6 +72,195 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/ShopifyAPIError.js",
+    "memberof": null,
+    "longname": "lib/ShopifyAPIError.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nfunction messageFromResponse(response) {\n  return `API Error (${response.status}): ${response.statusText}`;\n}\n\n/**\n * A base error class for API errors\n *\n * @extends {Error}\n */\nexport default class ShopifyAPIError extends Error {\n  constructor(response) {\n    super(messageFromResponse(response));\n    this._status  = response.status;\n    this._message = messageFromResponse(response);\n\n    if (Error.captureStackTrace) {\n      Error.captureStackTrace(this, this.constructor);\n    } else {\n      Object.defineProperty(this, \"stack\", { value: (new Error()).stack });\n    }\n  }\n\n  /**\n   * The name of the class of this error\n   *\n   * @return {string}\n   */\n  get name() {\n    return this.constructor.name;\n  }\n\n  /**\n   * The status code returned from the response\n   *\n   * @return {number}\n   */\n  get status() {\n    return this._status;\n  }\n\n  /**\n   * The message for this error (including status code and text)\n   *\n   * @return {string}\n   */\n  get message() {\n    return this._message;\n  }\n}\n"
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "messageFromResponse",
+    "memberof": "lib/ShopifyAPIError.js",
+    "longname": "lib/ShopifyAPIError.js~messageFromResponse",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/ShopifyAPIError.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "params": [
+      {
+        "name": "response",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPIError",
+    "memberof": "lib/ShopifyAPIError.js",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/ShopifyAPIError.js",
+    "importStyle": "ShopifyAPIError",
+    "description": "A base error class for API errors",
+    "lineNumber": 12,
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [
+      {
+        "name": "response",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_status",
+    "memberof": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError#_status",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_message",
+    "memberof": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError#_message",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "name",
+    "memberof": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError#name",
+    "access": null,
+    "description": "The name of the class of this error",
+    "lineNumber": 30,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "status",
+    "memberof": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError#status",
+    "access": null,
+    "description": "The status code returned from the response",
+    "lineNumber": 39,
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "get",
+    "static": false,
+    "variation": null,
+    "name": "message",
+    "memberof": "lib/ShopifyAPIError.js~ShopifyAPIError",
+    "longname": "lib/ShopifyAPIError.js~ShopifyAPIError#message",
+    "access": null,
+    "description": "The message for this error (including status code and text)",
+    "lineNumber": 48,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/__mocks__/fetcher.js",
     "memberof": null,
     "longname": "lib/__mocks__/fetcher.js",
@@ -91,6 +280,18 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\nmodule.exports = jest.genMockFunction().mockReturnValue(new Promise((resolve) => resolve()));\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/__tests__/ShopifyAPIErrorTest.js",
+    "memberof": null,
+    "longname": "lib/__tests__/ShopifyAPIErrorTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport ShopifyAPIError from \"../ShopifyAPIError\";\n\ndescribe(\"ShopifyAPIError\", () => {\n  var error;\n\n  beforeEach(() => {\n    error = new ShopifyAPIError({ status: 200, statusText: \"Status Text\" });\n  });\n\n  it(\"defines a name property as the exception type\", () => {\n    expect(error.name).toBe(\"ShopifyAPIError\");\n  });\n\n  it(\"copies the status from the response\", () => {\n    expect(error.status).toBe(200);\n  });\n\n  it(\"sets the message property\", () => {\n    expect(error.message).toEqual(\"API Error (200): Status Text\");\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -325,6 +526,98 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\njest.dontMock(\"flux\");\njest.dontMock(\"../APIDispatcher\");\n\ndescribe(\"APIDispatcher\", () => {\n  var APIDispatcher;\n\n  beforeEach(() => {\n    APIDispatcher = require(\"../APIDispatcher\");\n  });\n\n  it(\"sends actions to subscribers\", () => {\n    let listener = jest.genMockFunction();\n    let payload = {};\n\n    APIDispatcher.register(listener);\n    APIDispatcher.dispatch(payload);\n\n    expect(listener.mock.calls.length).toBe(1);\n    expect(listener.mock.calls[0][0]).toBe(payload);\n  });\n\n  it(\"does things\", () => {\n    expect(true).toBe(true);\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/integration/__tests__/BaseAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/BaseAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI           = require(\"../../ShopifyAPI\");\nconst ShopifyAPIError      = require(\"../../ShopifyAPIError\");\nconst { Product, Session } = ShopifyAPI;\n\nlet ensureRejected = () => {\n  throw new Error(\"Should have rejected\");\n};\n\ndescribe(\"Base API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"error handling\", () => {\n    pit(\"throws ShopifyAPIError objects when response is not (200, 299)\", () => {\n      return Promise.resolve(Product.fetch(1)).then(ensureRejected).catch(error => {\n        expect(error instanceof ShopifyAPIError).toBe(true);\n      });\n    });\n\n    pit(\"includes the status of the response on the exception\", () => {\n      return Promise.resolve(Product.fetch(1)).then(ensureRejected).catch(error => {\n        expect(error.status).toBe(404);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/BaseAPITest.js",
+    "longname": "lib/integration/__tests__/BaseAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BaseAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPIError",
+    "memberof": "lib/integration/__tests__/BaseAPITest.js",
+    "longname": "lib/integration/__tests__/BaseAPITest.js~ShopifyAPIError",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BaseAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Product",
+    "memberof": "lib/integration/__tests__/BaseAPITest.js",
+    "longname": "lib/integration/__tests__/BaseAPITest.js~Product",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BaseAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ensureRejected",
+    "memberof": "lib/integration/__tests__/BaseAPITest.js",
+    "longname": "lib/integration/__tests__/BaseAPITest.js~ensureRejected",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/BaseAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
   },
   {
     "kind": "file",
@@ -2863,7 +3156,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\nfunction mergeItems(state, items) {\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\n/**\n * A base class for resource stores.\n *\n * Stores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n *\n * This store exposes a few methods (from it's base class). These include:\n *\n * * `at(key)`  - returns the object with the specified key. Raises when not found\n * * `get(key)` - returns the object with the specified key. Returns undefined when not found\n * * `has(key)` - returns whether or not an object with the specified key exists in the store\n *\n * @extends {FluxMapStore}\n *\n * @example\n * import APIDispatcher from \"../dispatcher/APIDispatcher\";\n * import Actions       from \"../utilities/Actions\";\n * import Base          from \"./Base\";\n *\n * let store = new BaseStore(APIDispatcher, new Actions(\"products\"));\n *\n * // listen for change events\n * store.addListener(() => console.log(store.get(1)));\n *\n * // will cause the store to update the state and emit it's change event\n * APIDispatcher.dispatch({\n *   actionType: \"MERGE_PRODUCTS\",\n *   items: [{ id: 1, title: \"My Product\" }]\n * });\n */\nexport default class BaseStore extends Flux.MapStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {Actions} actions\n   */\n  constructor(dispatcher, actions) {\n    super(dispatcher);\n    this._actions = actions;\n  }\n\n  /**\n   * Queries the store for resources matching the source object\n   *\n   * @param {QueryObject} source\n   *\n   * @return {Array<object>} Resources that match the query\n   */\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  /**\n   * Used to reduce a stream of actions coming from the dispatcher into a\n   * single state object. This will handle merge and clear actions for this resource.\n   *\n   * **This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.\n   *\n   * @param {object} state - The current state\n   * @param {object} action - The action sent by the dispatcher\n   *\n   * @return {object} The new state for this store\n   */\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._actions.mergeAction:\n        return mergeItems(state, action.items);\n      case this._actions.clearAction:\n        return state.clear();\n      case this._actions.destroyAction:\n        return state.delete(action.id);\n      default:\n        return state;\n    }\n  }\n\n  /**\n   * Determines whether or not the state of this store has changed.\n   *\n   * **This method should not be called directly**\n   *\n   * @param {object} state1 - The original state\n   * @param {object} state2 - The new state\n   *\n   * @return {boolean} Whether or not the state's are identical\n   */\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
+    "content": "\"use strict\";\n\nimport Flux from \"flux/utils\";\nimport _    from \"lodash\";\n\nfunction mergeItems(state, items) {\n  if (items.length === 0) {\n    return state;\n  }\n\n  let initialState = state.set(items[0].id, items[0]);\n\n  return items.reduce((previous, current) => {\n    return previous.set(current.id, current);\n  }, initialState);\n}\n\n/**\n * A base class for resource stores.\n *\n * Stores handle dispatch events from resources. When anything changes, the store's change event is omitted.\n *\n * This store exposes a few methods (from it's base class). These include:\n *\n * * `at(key)`  - returns the object with the specified key. Raises when not found\n * * `get(key)` - returns the object with the specified key. Returns undefined when not found\n * * `has(key)` - returns whether or not an object with the specified key exists in the store\n *\n * @extends {FluxMapStore}\n *\n * @example\n * import APIDispatcher from \"../dispatcher/APIDispatcher\";\n * import Actions       from \"../utilities/Actions\";\n * import Base          from \"./Base\";\n *\n * let store = new BaseStore(APIDispatcher, new Actions(\"products\"));\n *\n * // listen for change events\n * store.addListener(() => console.log(store.get(1)));\n *\n * // will cause the store to update the state and emit it's change event\n * APIDispatcher.dispatch({\n *   actionType: \"MERGE_PRODUCTS\",\n *   items: [{ id: 1, title: \"My Product\" }]\n * });\n */\nexport default class BaseStore extends Flux.MapStore {\n  /**\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   * @param {Actions} actions\n   */\n  constructor(dispatcher, actions) {\n    super(dispatcher);\n    this._actions = actions;\n  }\n\n  /**\n   * Queries the store for resources matching the source object\n   *\n   * @param {QueryObject} source\n   *\n   * @return {Array<object>} Resources that match the query\n   */\n  where(source) {\n    return _.where(this.getState().toArray(), source);\n  }\n\n  /**\n   * Used to reduce a stream of actions coming from the dispatcher into a\n   * single state object. This will handle merge and clear actions for this resource.\n   *\n   * **This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.\n   *\n   * @param {object} state - The current state\n   * @param {object} action - The action sent by the dispatcher\n   *\n   * @return {object} The new state for this store\n   */\n  reduce(state, action) {\n    switch(action.actionType) {\n      case this._actions.mergeAction:\n        return mergeItems(state, action.items);\n      case this._actions.clearAction:\n        return state.clear();\n      case this._actions.destroyAction:\n        return state.delete(action.id);\n      default:\n        return state;\n    }\n  }\n\n  /**\n   * Determines whether or not the state of this store has changed.\n   *\n   * **This method should not be called directly**\n   *\n   * @param {object} state1 - The original state\n   * @param {object} state2 - The new state\n   *\n   * @return {boolean} Whether or not the state's are identical\n   */\n  areEqual(state1, state2) {\n    return _.isEqual(state1, state2);\n  }\n}\n"
   },
   {
     "kind": "function",
@@ -2915,7 +3208,7 @@
     "examples": [
       "import APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport Actions       from \"../utilities/Actions\";\nimport Base          from \"./Base\";\n\nlet store = new BaseStore(APIDispatcher, new Actions(\"products\"));\n\n// listen for change events\nstore.addListener(() => console.log(store.get(1)));\n\n// will cause the store to update the state and emit it's change event\nAPIDispatcher.dispatch({\n  actionType: \"MERGE_PRODUCTS\",\n  items: [{ id: 1, title: \"My Product\" }]\n});"
     ],
-    "lineNumber": 43,
+    "lineNumber": 47,
     "interface": false,
     "extends": [
       "FluxMapStore"
@@ -2930,7 +3223,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 48,
+    "lineNumber": 52,
     "params": [
       {
         "nullable": null,
@@ -2964,7 +3257,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#_actions",
     "access": null,
     "description": null,
-    "lineNumber": 50,
+    "lineNumber": 54,
     "undocument": true,
     "type": {
       "types": [
@@ -2981,7 +3274,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#where",
     "access": null,
     "description": "Queries the store for resources matching the source object",
-    "lineNumber": 60,
+    "lineNumber": 64,
     "params": [
       {
         "nullable": null,
@@ -3013,7 +3306,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#reduce",
     "access": null,
     "description": "Used to reduce a stream of actions coming from the dispatcher into a\nsingle state object. This will handle merge and clear actions for this resource.\n\n**This method should not be called directly**, but rather via a call to the dispatcher's `dispatch` method.",
-    "lineNumber": 75,
+    "lineNumber": 79,
     "params": [
       {
         "nullable": null,
@@ -3055,7 +3348,7 @@
     "longname": "lib/stores/BaseStore.js~BaseStore#areEqual",
     "access": null,
     "description": "Determines whether or not the state of this store has changed.\n\n**This method should not be called directly**",
-    "lineNumber": 98,
+    "lineNumber": 102,
     "params": [
       {
         "nullable": null,
@@ -4170,7 +4463,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../BaseStore\");\n\nimport Actions   from \"../../utilities/Actions\";\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../BaseStore\");\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  class ThingsStore extends BaseStore {\n    constructor(dispatcher) {\n      super(dispatcher, new Actions(\"things\"));\n    }\n  }\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store      = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    describe(\"merge\", () => {\n      it(\"responds to actions appropriately\", () => {\n        expect(store.has(1)).toBe(false);\n        expect(store.get(1)).toBeUndefined();\n\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(store.has(1)).toBe(true);\n        expect(store.get(1).title).toBe(\"My Product\");\n      });\n\n      it(\"only emits a single change event even with multiple values\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My First Product\" },\n            { id: 2, title: \"My Second Product\" },\n            { id: 3, title: \"My Third Product\" }\n          ]\n        });\n\n        expect(store.has(1)).toBe(true);\n        expect(store.has(2)).toBe(true);\n        expect(store.has(3)).toBe(true);\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n\n      it(\"doesn't emit a change event when the values haven't changed\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n    });\n\n    describe(\"clear\", () => {\n      it(\"clears the cache\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n\n        dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n        expect(store.has(1)).toBe(false);\n        expect(changeEvent.mock.calls.length).toBe(2);\n      });\n    });\n\n    describe(\"destroy\", () => {\n      it(\"removes the resource from state\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" },\n            { id: 2, title: \"My Second Product\" }\n          ]\n        });\n\n        dispatcher.dispatch({ actionType: Constants.Actions.DESTROY_THINGS, id: 1});\n        expect(changeEvent.mock.calls.length).toBe(2);\n\n        expect(store.has(1)).toBe(false);\n        expect(store.has(2)).toBe(true);\n      });\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.dontMock(\"../../dispatcher/APIDispatcher\");\njest.dontMock(\"flux/utils\");\njest.dontMock(\"../BaseStore\");\n\nimport Actions   from \"../../utilities/Actions\";\nimport Constants from \"../../Constants\";\n\nconst BaseStore = require(\"../BaseStore\");\n\ndescribe(\"Base\", () => {\n  var store, dispatcher;\n\n  class ThingsStore extends BaseStore {\n    constructor(dispatcher) {\n      super(dispatcher, new Actions(\"things\"));\n    }\n  }\n\n  beforeEach(() => {\n    dispatcher = require(\"../../dispatcher/APIDispatcher\");\n    store      = new ThingsStore(dispatcher);\n  });\n\n  describe(\"where\", () => {\n    beforeEach(() => {\n      dispatcher.dispatch({\n        actionType: Constants.Actions.MERGE_THINGS,\n        items: [\n          { id: 1, title: \"My First Product\", collection: { title: \"col\" } },\n          { id: 2, title: \"My Second Product\", collection: null, tags: [\"cool\"] },\n          { id: 3, title: \"My Third Product\", tags: [\"cool\", \"thing\"] },\n          { id: 4, children: [{ title: \"First Child\" }, { title: \"Second Child\" }] }\n        ]\n      });\n    });\n\n    it(\"filters by simple properties\", () => {\n      let result   = store.where({ id: 1 });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters simple array properties\", () => {\n      let result = store.where({ tags: [\"cool\"] });\n      expect(result.length).toBe(2);\n    });\n\n    it(\"filters complex array properties\", () => {\n      let result = store.where({ children: [{ title: \"First Child\" }] });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"filters child objects\", () => {\n      let result = store.where({ collection: { title: \"col\" } });\n      expect(result.length).toBe(1);\n    });\n\n    it(\"returns an empty array when no matches are found\", () => {\n      let result = store.where({ tags: [\"notfound\"] });\n      expect(result.length).toBe(0);\n    });\n  });\n\n  describe(\"action handling\", () => {\n    var changeEvent;\n\n    beforeEach(() => {\n      changeEvent          = jest.genMockFunction();\n      store.__emitter.emit = changeEvent;\n    });\n\n    describe(\"merge\", () => {\n      it(\"responds to actions appropriately\", () => {\n        expect(store.has(1)).toBe(false);\n        expect(store.get(1)).toBeUndefined();\n\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(store.has(1)).toBe(true);\n        expect(store.get(1).title).toBe(\"My Product\");\n      });\n\n      it(\"only emits a single change event even with multiple values\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My First Product\" },\n            { id: 2, title: \"My Second Product\" },\n            { id: 3, title: \"My Third Product\" }\n          ]\n        });\n\n        expect(store.has(1)).toBe(true);\n        expect(store.has(2)).toBe(true);\n        expect(store.has(3)).toBe(true);\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n\n      it(\"doesn't emit a change event when the values haven't changed\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n      });\n\n      it(\"can handle empty items list\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: []\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(0);\n      });\n    });\n\n    describe(\"clear\", () => {\n      it(\"clears the cache\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" }\n          ]\n        });\n\n        expect(changeEvent.mock.calls.length).toBe(1);\n\n        dispatcher.dispatch({ actionType: Constants.Actions.CLEAR_THINGS });\n\n        expect(store.has(1)).toBe(false);\n        expect(changeEvent.mock.calls.length).toBe(2);\n      });\n    });\n\n    describe(\"destroy\", () => {\n      it(\"removes the resource from state\", () => {\n        dispatcher.dispatch({\n          actionType: Constants.Actions.MERGE_THINGS,\n          items: [\n            { id: 1, title: \"My Product\" },\n            { id: 2, title: \"My Second Product\" }\n          ]\n        });\n\n        dispatcher.dispatch({ actionType: Constants.Actions.DESTROY_THINGS, id: 1});\n        expect(changeEvent.mock.calls.length).toBe(2);\n\n        expect(store.has(1)).toBe(false);\n        expect(store.has(2)).toBe(true);\n      });\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -4493,7 +4786,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport Constants    from \"../Constants\";\nimport SessionStore from \"../stores/SessionStore\";\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\nfunction _performRequest(method, url, options) {\n  options                                 = (options || {});\n  options.method                          = method;\n  options.headers                         = (options.headers || {});\n  options.headers[\"Accept\"]               = \"application/json\";\n  options.headers[\"Content-Type\"]         = \"application/json\";\n  options.headers[\"User-Agent\"]           = \"Shopify API Flux\";\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    return response.json();\n  });\n}\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n\n  /**\n   * Performs a POST request for the given URL and options, passing the resource as the request body\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [resource] - the resource to post as the request body\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  post(url, resource, options) {\n    if (resource) {\n      options      = (options || {});\n      options.body = JSON.stringify(resource);\n    }\n\n    return _performRequest(\"post\", url, options);\n  }\n\n  /**\n   * Performs a PUT request for the given URL and options, passing the resource as the request body\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)\n   * @param {object} [resource] - the resource to post as the request body\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  put(url, resource, options) {\n    if (resource) {\n      options      = (options || {});\n      options.body = JSON.stringify(resource);\n    }\n\n    return _performRequest(\"put\", url, options);\n  }\n\n  /**\n   * Performs a DELETE request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  delete(url, options) {\n    return _performRequest(\"delete\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
+    "content": "\"use strict\";\n\nimport Constants       from \"../Constants\";\nimport SessionStore    from \"../stores/SessionStore\";\nimport ShopifyAPIError from \"../ShopifyAPIError\";\n\n/**\n * A method signature for resolved request promises\n *\n * @typedef {Function} SuccessfulRequestCallback\n * @param {object} json\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/some/path\").then(json => {\n *   // do something with the result\n *   console.log(json);\n * });\n */\n\n/**\n * A method signature for rejected request promises\n *\n * @typedef {Function} FailedRequestCallback\n * @param {Error} error\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/failed/request\").catch(error => {\n *   // do something with the error\n *   console.log(error.message);\n * });\n */\n\n/**\n * A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}\n *\n * @typedef {Promise} RequestPromise\n */\n\nfunction _performRequest(method, url, options) {\n  options                                 = (options || {});\n  options.method                          = method;\n  options.headers                         = (options.headers || {});\n  options.headers[\"Accept\"]               = \"application/json\";\n  options.headers[\"Content-Type\"]         = \"application/json\";\n  options.headers[\"User-Agent\"]           = \"Shopify API Flux\";\n  options.headers[Constants.OAUTH_HEADER] = SessionStore.getAccessToken();\n\n  return fetch(`https://${SessionStore.getDomain()}${url}`, options).then(response => {\n    if (!response.ok) {\n      throw new ShopifyAPIError(response);\n    }\n\n    return response.json();\n  });\n}\n\n/**\n * A helper class for working with the REST API.\n *\n * In all cases, no attempt is made to trap errors. {@link RequestPromise}s are returned from each method. It's up to the\n * caller to handle rejection.\n *\n * @example\n * import WebAPI from \"./WebAPI\";\n *\n * WebAPI.get(\"/admin/products.json\")\n *   .then(json => console.log(json))\n *   .catch(error => console.log(error.message));\n */\nclass WebAPI {\n  /**\n   * Performs a GET request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  get(url, options) {\n    return _performRequest(\"get\", url, options);\n  }\n\n  /**\n   * Performs a POST request for the given URL and options, passing the resource as the request body\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products.json`)\n   * @param {object} [resource] - the resource to post as the request body\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  post(url, resource, options) {\n    if (resource) {\n      options      = (options || {});\n      options.body = JSON.stringify(resource);\n    }\n\n    return _performRequest(\"post\", url, options);\n  }\n\n  /**\n   * Performs a PUT request for the given URL and options, passing the resource as the request body\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)\n   * @param {object} [resource] - the resource to post as the request body\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  put(url, resource, options) {\n    if (resource) {\n      options      = (options || {});\n      options.body = JSON.stringify(resource);\n    }\n\n    return _performRequest(\"put\", url, options);\n  }\n\n  /**\n   * Performs a DELETE request for the given URL and options\n   *\n   * @param {string} url - the (relative) URL to get (e.g. `/admin/products/1.json`)\n   * @param {object} [options] - options to pass along to the fetch call\n   *\n   * @return {RequestPromise}\n   */\n  delete(url, options) {\n    return _performRequest(\"delete\", url, options);\n  }\n}\n\n/** @ignore */\nexport default new WebAPI();\n"
   },
   {
     "kind": "typedef",
@@ -4568,7 +4861,7 @@
     "longname": "lib/utilities/WebAPI.js~RequestPromise",
     "access": null,
     "description": "A {@link Promise} that resolves with a {@link SuccessfulRequestCallback} and rejects with a {@link FailedRequestCallback}",
-    "lineNumber": 42,
+    "lineNumber": 43,
     "type": {
       "types": [
         "Promise"
@@ -4592,7 +4885,7 @@
     "examples": [
       "import WebAPI from \"./WebAPI\";\n\nWebAPI.get(\"/admin/products.json\")\n  .then(json => console.log(json))\n  .catch(error => console.log(error.message));"
     ],
-    "lineNumber": 69,
+    "lineNumber": 74,
     "pseudoExport": true,
     "interface": false
   },
@@ -4605,7 +4898,7 @@
     "longname": "lib/utilities/WebAPI.js~WebAPI#get",
     "access": null,
     "description": "Performs a GET request for the given URL and options",
-    "lineNumber": 78,
+    "lineNumber": 83,
     "params": [
       {
         "nullable": null,
@@ -4647,7 +4940,7 @@
     "longname": "lib/utilities/WebAPI.js~WebAPI#post",
     "access": null,
     "description": "Performs a POST request for the given URL and options, passing the resource as the request body",
-    "lineNumber": 91,
+    "lineNumber": 96,
     "params": [
       {
         "nullable": null,
@@ -4699,7 +4992,7 @@
     "longname": "lib/utilities/WebAPI.js~WebAPI#put",
     "access": null,
     "description": "Performs a PUT request for the given URL and options, passing the resource as the request body",
-    "lineNumber": 109,
+    "lineNumber": 114,
     "params": [
       {
         "nullable": null,
@@ -4751,7 +5044,7 @@
     "longname": "lib/utilities/WebAPI.js~WebAPI#delete",
     "access": null,
     "description": "Performs a DELETE request for the given URL and options",
-    "lineNumber": 126,
+    "lineNumber": 131,
     "params": [
       {
         "nullable": null,
@@ -4796,7 +5089,7 @@
     "importPath": "shopify-api-flux/lib/utilities/WebAPI.js",
     "importStyle": "webAPI",
     "description": null,
-    "lineNumber": 132,
+    "lineNumber": 137,
     "ignore": true,
     "type": {
       "types": [
