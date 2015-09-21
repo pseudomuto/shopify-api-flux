@@ -1059,10 +1059,10 @@
             "type": "Property",
             "key": {
               "type": "Identifier",
-              "name": "Product",
+              "name": "Policy",
               "range": [
                 537,
-                544
+                543
               ],
               "loc": {
                 "start": {
@@ -1071,7 +1071,7 @@
                 },
                 "end": {
                   "line": 11,
-                  "column": 9
+                  "column": 8
                 }
               }
             },
@@ -1119,11 +1119,11 @@
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./resources/Product",
-                      "raw": "\"./resources/Product\"",
+                      "value": "./resources/Policy",
+                      "raw": "\"./resources/Policy\"",
                       "range": [
                         569,
-                        590
+                        589
                       ],
                       "loc": {
                         "start": {
@@ -1132,14 +1132,14 @@
                         },
                         "end": {
                           "line": 11,
-                          "column": 55
+                          "column": 54
                         }
                       }
                     }
                   ],
                   "range": [
                     561,
-                    591
+                    590
                   ],
                   "loc": {
                     "start": {
@@ -1148,7 +1148,7 @@
                     },
                     "end": {
                       "line": 11,
-                      "column": 56
+                      "column": 55
                     }
                   }
                 },
@@ -1158,60 +1158,60 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      593,
-                      600
+                      592,
+                      599
                     ],
                     "loc": {
                       "start": {
                         "line": 11,
-                        "column": 58
+                        "column": 57
                       },
                       "end": {
                         "line": 11,
-                        "column": 65
+                        "column": 64
                       }
                     }
                   },
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./stores/ProductsStore",
-                      "raw": "\"./stores/ProductsStore\"",
+                      "value": "./stores/PoliciesStore",
+                      "raw": "\"./stores/PoliciesStore\"",
                       "range": [
-                        601,
-                        625
+                        600,
+                        624
                       ],
                       "loc": {
                         "start": {
                           "line": 11,
-                          "column": 66
+                          "column": 65
                         },
                         "end": {
                           "line": 11,
-                          "column": 90
+                          "column": 89
                         }
                       }
                     }
                   ],
                   "range": [
-                    593,
-                    626
+                    592,
+                    625
                   ],
                   "loc": {
                     "start": {
                       "line": 11,
-                      "column": 58
+                      "column": 57
                     },
                     "end": {
                       "line": 11,
-                      "column": 91
+                      "column": 90
                     }
                   }
                 }
               ],
               "range": [
                 548,
-                627
+                626
               ],
               "loc": {
                 "start": {
@@ -1220,7 +1220,7 @@
                 },
                 "end": {
                   "line": 11,
-                  "column": 92
+                  "column": 91
                 }
               }
             },
@@ -1230,7 +1230,7 @@
             "computed": false,
             "range": [
               537,
-              627
+              626
             ],
             "loc": {
               "start": {
@@ -1239,7 +1239,7 @@
               },
               "end": {
                 "line": 11,
-                "column": 92
+                "column": 91
               }
             }
           },
@@ -1247,10 +1247,10 @@
             "type": "Property",
             "key": {
               "type": "Identifier",
-              "name": "Redirect",
+              "name": "Product",
               "range": [
-                631,
-                639
+                630,
+                637
               ],
               "loc": {
                 "start": {
@@ -1259,194 +1259,6 @@
                 },
                 "end": {
                   "line": 12,
-                  "column": 10
-                }
-              }
-            },
-            "value": {
-              "type": "NewExpression",
-              "callee": {
-                "type": "Identifier",
-                "name": "APIProxy",
-                "range": [
-                  646,
-                  654
-                ],
-                "loc": {
-                  "start": {
-                    "line": 12,
-                    "column": 17
-                  },
-                  "end": {
-                    "line": 12,
-                    "column": 25
-                  }
-                }
-              },
-              "arguments": [
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      655,
-                      662
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 12,
-                        "column": 26
-                      },
-                      "end": {
-                        "line": 12,
-                        "column": 33
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./resources/Redirect",
-                      "raw": "\"./resources/Redirect\"",
-                      "range": [
-                        663,
-                        685
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 12,
-                          "column": 34
-                        },
-                        "end": {
-                          "line": 12,
-                          "column": 56
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    655,
-                    686
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 12,
-                      "column": 26
-                    },
-                    "end": {
-                      "line": 12,
-                      "column": 57
-                    }
-                  }
-                },
-                {
-                  "type": "CallExpression",
-                  "callee": {
-                    "type": "Identifier",
-                    "name": "require",
-                    "range": [
-                      688,
-                      695
-                    ],
-                    "loc": {
-                      "start": {
-                        "line": 12,
-                        "column": 59
-                      },
-                      "end": {
-                        "line": 12,
-                        "column": 66
-                      }
-                    }
-                  },
-                  "arguments": [
-                    {
-                      "type": "Literal",
-                      "value": "./stores/RedirectsStore",
-                      "raw": "\"./stores/RedirectsStore\"",
-                      "range": [
-                        696,
-                        721
-                      ],
-                      "loc": {
-                        "start": {
-                          "line": 12,
-                          "column": 67
-                        },
-                        "end": {
-                          "line": 12,
-                          "column": 92
-                        }
-                      }
-                    }
-                  ],
-                  "range": [
-                    688,
-                    722
-                  ],
-                  "loc": {
-                    "start": {
-                      "line": 12,
-                      "column": 59
-                    },
-                    "end": {
-                      "line": 12,
-                      "column": 93
-                    }
-                  }
-                }
-              ],
-              "range": [
-                642,
-                723
-              ],
-              "loc": {
-                "start": {
-                  "line": 12,
-                  "column": 13
-                },
-                "end": {
-                  "line": 12,
-                  "column": 94
-                }
-              }
-            },
-            "kind": "init",
-            "method": false,
-            "shorthand": false,
-            "computed": false,
-            "range": [
-              631,
-              723
-            ],
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 2
-              },
-              "end": {
-                "line": 12,
-                "column": 94
-              }
-            }
-          },
-          {
-            "type": "Property",
-            "key": {
-              "type": "Identifier",
-              "name": "Session",
-              "range": [
-                727,
-                734
-              ],
-              "loc": {
-                "start": {
-                  "line": 13,
-                  "column": 2
-                },
-                "end": {
-                  "line": 13,
                   "column": 9
                 }
               }
@@ -1457,8 +1269,196 @@
                 "type": "Identifier",
                 "name": "APIProxy",
                 "range": [
-                  742,
-                  750
+                  645,
+                  653
+                ],
+                "loc": {
+                  "start": {
+                    "line": 12,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 12,
+                    "column": 25
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      654,
+                      661
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 33
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Product",
+                      "raw": "\"./resources/Product\"",
+                      "range": [
+                        662,
+                        683
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 12,
+                          "column": 34
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 55
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    654,
+                    684
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 12,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 56
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      686,
+                      693
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 12,
+                        "column": 58
+                      },
+                      "end": {
+                        "line": 12,
+                        "column": 65
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/ProductsStore",
+                      "raw": "\"./stores/ProductsStore\"",
+                      "range": [
+                        694,
+                        718
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 12,
+                          "column": 66
+                        },
+                        "end": {
+                          "line": 12,
+                          "column": 90
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    686,
+                    719
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 12,
+                      "column": 58
+                    },
+                    "end": {
+                      "line": 12,
+                      "column": 91
+                    }
+                  }
+                }
+              ],
+              "range": [
+                641,
+                720
+              ],
+              "loc": {
+                "start": {
+                  "line": 12,
+                  "column": 13
+                },
+                "end": {
+                  "line": 12,
+                  "column": 92
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              630,
+              720
+            ],
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 2
+              },
+              "end": {
+                "line": 12,
+                "column": 92
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Redirect",
+              "range": [
+                724,
+                732
+              ],
+              "loc": {
+                "start": {
+                  "line": 13,
+                  "column": 2
+                },
+                "end": {
+                  "line": 13,
+                  "column": 10
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  739,
+                  747
                 ],
                 "loc": {
                   "start": {
@@ -1478,8 +1478,8 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      751,
-                      758
+                      748,
+                      755
                     ],
                     "loc": {
                       "start": {
@@ -1495,11 +1495,11 @@
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./resources/Session",
-                      "raw": "\"./resources/Session\"",
+                      "value": "./resources/Redirect",
+                      "raw": "\"./resources/Redirect\"",
                       "range": [
-                        759,
-                        780
+                        756,
+                        778
                       ],
                       "loc": {
                         "start": {
@@ -1508,14 +1508,14 @@
                         },
                         "end": {
                           "line": 13,
-                          "column": 55
+                          "column": 56
                         }
                       }
                     }
                   ],
                   "range": [
-                    751,
-                    781
+                    748,
+                    779
                   ],
                   "loc": {
                     "start": {
@@ -1524,7 +1524,7 @@
                     },
                     "end": {
                       "line": 13,
-                      "column": 56
+                      "column": 57
                     }
                   }
                 },
@@ -1534,59 +1534,59 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      783,
-                      790
+                      781,
+                      788
                     ],
                     "loc": {
                       "start": {
                         "line": 13,
-                        "column": 58
+                        "column": 59
                       },
                       "end": {
                         "line": 13,
-                        "column": 65
+                        "column": 66
                       }
                     }
                   },
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./stores/SessionStore",
-                      "raw": "\"./stores/SessionStore\"",
+                      "value": "./stores/RedirectsStore",
+                      "raw": "\"./stores/RedirectsStore\"",
                       "range": [
-                        791,
+                        789,
                         814
                       ],
                       "loc": {
                         "start": {
                           "line": 13,
-                          "column": 66
+                          "column": 67
                         },
                         "end": {
                           "line": 13,
-                          "column": 89
+                          "column": 92
                         }
                       }
                     }
                   ],
                   "range": [
-                    783,
+                    781,
                     815
                   ],
                   "loc": {
                     "start": {
                       "line": 13,
-                      "column": 58
+                      "column": 59
                     },
                     "end": {
                       "line": 13,
-                      "column": 90
+                      "column": 93
                     }
                   }
                 }
               ],
               "range": [
-                738,
+                735,
                 816
               ],
               "loc": {
@@ -1596,7 +1596,7 @@
                 },
                 "end": {
                   "line": 13,
-                  "column": 91
+                  "column": 94
                 }
               }
             },
@@ -1605,7 +1605,7 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              727,
+              724,
               816
             ],
             "loc": {
@@ -1615,7 +1615,7 @@
               },
               "end": {
                 "line": 13,
-                "column": 91
+                "column": 94
               }
             }
           },
@@ -1623,10 +1623,10 @@
             "type": "Property",
             "key": {
               "type": "Identifier",
-              "name": "Shop",
+              "name": "Session",
               "range": [
                 820,
-                824
+                827
               ],
               "loc": {
                 "start": {
@@ -1635,7 +1635,7 @@
                 },
                 "end": {
                   "line": 14,
-                  "column": 6
+                  "column": 9
                 }
               }
             },
@@ -1683,11 +1683,11 @@
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./resources/Shop",
-                      "raw": "\"./resources/Shop\"",
+                      "value": "./resources/Session",
+                      "raw": "\"./resources/Session\"",
                       "range": [
                         852,
-                        870
+                        873
                       ],
                       "loc": {
                         "start": {
@@ -1696,14 +1696,14 @@
                         },
                         "end": {
                           "line": 14,
-                          "column": 52
+                          "column": 55
                         }
                       }
                     }
                   ],
                   "range": [
                     844,
-                    871
+                    874
                   ],
                   "loc": {
                     "start": {
@@ -1712,7 +1712,7 @@
                     },
                     "end": {
                       "line": 14,
-                      "column": 53
+                      "column": 56
                     }
                   }
                 },
@@ -1722,60 +1722,60 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      873,
-                      880
+                      876,
+                      883
                     ],
                     "loc": {
                       "start": {
                         "line": 14,
-                        "column": 55
+                        "column": 58
                       },
                       "end": {
                         "line": 14,
-                        "column": 62
+                        "column": 65
                       }
                     }
                   },
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./stores/ShopStore",
-                      "raw": "\"./stores/ShopStore\"",
+                      "value": "./stores/SessionStore",
+                      "raw": "\"./stores/SessionStore\"",
                       "range": [
-                        881,
-                        901
+                        884,
+                        907
                       ],
                       "loc": {
                         "start": {
                           "line": 14,
-                          "column": 63
+                          "column": 66
                         },
                         "end": {
                           "line": 14,
-                          "column": 83
+                          "column": 89
                         }
                       }
                     }
                   ],
                   "range": [
-                    873,
-                    902
+                    876,
+                    908
                   ],
                   "loc": {
                     "start": {
                       "line": 14,
-                      "column": 55
+                      "column": 58
                     },
                     "end": {
                       "line": 14,
-                      "column": 84
+                      "column": 90
                     }
                   }
                 }
               ],
               "range": [
                 831,
-                903
+                909
               ],
               "loc": {
                 "start": {
@@ -1784,7 +1784,7 @@
                 },
                 "end": {
                   "line": 14,
-                  "column": 85
+                  "column": 91
                 }
               }
             },
@@ -1794,7 +1794,7 @@
             "computed": false,
             "range": [
               820,
-              903
+              909
             ],
             "loc": {
               "start": {
@@ -1803,7 +1803,7 @@
               },
               "end": {
                 "line": 14,
-                "column": 85
+                "column": 91
               }
             }
           },
@@ -1811,10 +1811,10 @@
             "type": "Property",
             "key": {
               "type": "Identifier",
-              "name": "Theme",
+              "name": "Shop",
               "range": [
-                907,
-                912
+                913,
+                917
               ],
               "loc": {
                 "start": {
@@ -1823,7 +1823,7 @@
                 },
                 "end": {
                   "line": 15,
-                  "column": 7
+                  "column": 6
                 }
               }
             },
@@ -1833,8 +1833,8 @@
                 "type": "Identifier",
                 "name": "APIProxy",
                 "range": [
-                  922,
-                  930
+                  928,
+                  936
                 ],
                 "loc": {
                   "start": {
@@ -1854,8 +1854,8 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      931,
-                      938
+                      937,
+                      944
                     ],
                     "loc": {
                       "start": {
@@ -1871,11 +1871,11 @@
                   "arguments": [
                     {
                       "type": "Literal",
-                      "value": "./resources/Theme",
-                      "raw": "\"./resources/Theme\"",
+                      "value": "./resources/Shop",
+                      "raw": "\"./resources/Shop\"",
                       "range": [
-                        939,
-                        958
+                        945,
+                        963
                       ],
                       "loc": {
                         "start": {
@@ -1884,14 +1884,14 @@
                         },
                         "end": {
                           "line": 15,
-                          "column": 53
+                          "column": 52
                         }
                       }
                     }
                   ],
                   "range": [
-                    931,
-                    959
+                    937,
+                    964
                   ],
                   "loc": {
                     "start": {
@@ -1900,6 +1900,194 @@
                     },
                     "end": {
                       "line": 15,
+                      "column": 53
+                    }
+                  }
+                },
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      966,
+                      973
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 15,
+                        "column": 55
+                      },
+                      "end": {
+                        "line": 15,
+                        "column": 62
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./stores/ShopStore",
+                      "raw": "\"./stores/ShopStore\"",
+                      "range": [
+                        974,
+                        994
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 15,
+                          "column": 63
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 83
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    966,
+                    995
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 15,
+                      "column": 55
+                    },
+                    "end": {
+                      "line": 15,
+                      "column": 84
+                    }
+                  }
+                }
+              ],
+              "range": [
+                924,
+                996
+              ],
+              "loc": {
+                "start": {
+                  "line": 15,
+                  "column": 13
+                },
+                "end": {
+                  "line": 15,
+                  "column": 85
+                }
+              }
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "computed": false,
+            "range": [
+              913,
+              996
+            ],
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 2
+              },
+              "end": {
+                "line": 15,
+                "column": 85
+              }
+            }
+          },
+          {
+            "type": "Property",
+            "key": {
+              "type": "Identifier",
+              "name": "Theme",
+              "range": [
+                1000,
+                1005
+              ],
+              "loc": {
+                "start": {
+                  "line": 16,
+                  "column": 2
+                },
+                "end": {
+                  "line": 16,
+                  "column": 7
+                }
+              }
+            },
+            "value": {
+              "type": "NewExpression",
+              "callee": {
+                "type": "Identifier",
+                "name": "APIProxy",
+                "range": [
+                  1015,
+                  1023
+                ],
+                "loc": {
+                  "start": {
+                    "line": 16,
+                    "column": 17
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 25
+                  }
+                }
+              },
+              "arguments": [
+                {
+                  "type": "CallExpression",
+                  "callee": {
+                    "type": "Identifier",
+                    "name": "require",
+                    "range": [
+                      1024,
+                      1031
+                    ],
+                    "loc": {
+                      "start": {
+                        "line": 16,
+                        "column": 26
+                      },
+                      "end": {
+                        "line": 16,
+                        "column": 33
+                      }
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "value": "./resources/Theme",
+                      "raw": "\"./resources/Theme\"",
+                      "range": [
+                        1032,
+                        1051
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 16,
+                          "column": 34
+                        },
+                        "end": {
+                          "line": 16,
+                          "column": 53
+                        }
+                      }
+                    }
+                  ],
+                  "range": [
+                    1024,
+                    1052
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 16,
+                      "column": 26
+                    },
+                    "end": {
+                      "line": 16,
                       "column": 54
                     }
                   }
@@ -1910,16 +2098,16 @@
                     "type": "Identifier",
                     "name": "require",
                     "range": [
-                      961,
-                      968
+                      1054,
+                      1061
                     ],
                     "loc": {
                       "start": {
-                        "line": 15,
+                        "line": 16,
                         "column": 56
                       },
                       "end": {
-                        "line": 15,
+                        "line": 16,
                         "column": 63
                       }
                     }
@@ -1930,48 +2118,48 @@
                       "value": "./stores/ThemesStore",
                       "raw": "\"./stores/ThemesStore\"",
                       "range": [
-                        969,
-                        991
+                        1062,
+                        1084
                       ],
                       "loc": {
                         "start": {
-                          "line": 15,
+                          "line": 16,
                           "column": 64
                         },
                         "end": {
-                          "line": 15,
+                          "line": 16,
                           "column": 86
                         }
                       }
                     }
                   ],
                   "range": [
-                    961,
-                    992
+                    1054,
+                    1085
                   ],
                   "loc": {
                     "start": {
-                      "line": 15,
+                      "line": 16,
                       "column": 56
                     },
                     "end": {
-                      "line": 15,
+                      "line": 16,
                       "column": 87
                     }
                   }
                 }
               ],
               "range": [
-                918,
-                993
+                1011,
+                1086
               ],
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 16,
                   "column": 13
                 },
                 "end": {
-                  "line": 15,
+                  "line": 16,
                   "column": 88
                 }
               }
@@ -1981,16 +2169,16 @@
             "shorthand": false,
             "computed": false,
             "range": [
-              907,
-              993
+              1000,
+              1086
             ],
             "loc": {
               "start": {
-                "line": 15,
+                "line": 16,
                 "column": 2
               },
               "end": {
-                "line": 15,
+                "line": 16,
                 "column": 88
               }
             }
@@ -1998,7 +2186,7 @@
         ],
         "range": [
           76,
-          995
+          1088
         ],
         "loc": {
           "start": {
@@ -2006,7 +2194,7 @@
             "column": 15
           },
           "end": {
-            "line": 16,
+            "line": 17,
             "column": 1
           }
         },
@@ -2015,7 +2203,7 @@
       },
       "range": [
         61,
-        996
+        1089
       ],
       "loc": {
         "start": {
@@ -2023,7 +2211,7 @@
           "column": 0
         },
         "end": {
-          "line": 16,
+          "line": 17,
           "column": 2
         }
       }
@@ -2032,7 +2220,7 @@
   "sourceType": "module",
   "range": [
     0,
-    996
+    1089
   ],
   "loc": {
     "start": {
@@ -2040,7 +2228,7 @@
       "column": 0
     },
     "end": {
-      "line": 16,
+      "line": 17,
       "column": 2
     }
   },
