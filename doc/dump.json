@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_CUSTOMERS: null,\n    CLEAR_CUSTOMERS: null,\n    DESTROY_CUSTOMERS: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    MERGE_THEMES: null,\n    CLEAR_THEMES: null,\n    DESTROY_THEMES: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
+    "content": "\"use strict\";\n\nimport keyMirror from \"keymirror\";\n\nexport default {\n  OAUTH_HEADER: \"X-Shopify-Access-Token\",\n\n  Actions: keyMirror({\n    SET_SHOP: null,\n    CLEAR_SHOP: null,\n\n    SET_SESSION: null,\n    CLEAR_SESSION: null,\n\n    MERGE_BLOGS: null,\n    CLEAR_BLOGS: null,\n    COUNT_BLOGS: null,\n    DESTROY_BLOGS: null,\n\n    MERGE_COUNTRIES: null,\n    CLEAR_COUNTRIES: null,\n    COUNT_COUNTRIES: null,\n    DESTROY_COUNTRIES: null,\n\n    MERGE_CUSTOMERS: null,\n    CLEAR_CUSTOMERS: null,\n    DESTROY_CUSTOMERS: null,\n\n    MERGE_ORDERS: null,\n    CLEAR_ORDERS: null,\n    COUNT_ORDERS: null,\n    DESTROY_ORDERS: null,\n\n    MERGE_PAGES: null,\n    CLEAR_PAGES: null,\n    COUNT_PAGES: null,\n    DESTROY_PAGES: null,\n\n    MERGE_POLICIES: null,\n    CLEAR_POLICIES: null,\n\n    MERGE_PRODUCTS: null,\n    CLEAR_PRODUCTS: null,\n    COUNT_PRODUCTS: null,\n    DESTROY_PRODUCTS: null,\n\n    MERGE_REDIRECTS: null,\n    CLEAR_REDIRECTS: null,\n    COUNT_REDIRECTS: null,\n    DESTROY_REDIRECTS: null,\n\n    MERGE_THEMES: null,\n    CLEAR_THEMES: null,\n    DESTROY_THEMES: null,\n\n    // FOR TESTING\n    MERGE_THINGS: null,\n    CLEAR_THINGS: null,\n    COUNT_THINGS: null,\n    DESTROY_THINGS: null\n  })\n};\n"
   },
   {
     "kind": "file",
@@ -66,7 +66,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Customer:  new APIProxy(require(\"./resources/Customer\"), require(\"./stores/CustomersStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\")),\n  Theme:     new APIProxy(require(\"./resources/Theme\"), require(\"./stores/ThemesStore\"))\n};\n"
+    "content": "\"use strict\";\n\nimport APIProxy from \"./utilities/APIProxy\";\n\nexport default {\n  Blog:      new APIProxy(require(\"./resources/Blog\"), require(\"./stores/BlogsStore\")),\n  Country:   new APIProxy(require(\"./resources/Country\"), require(\"./stores/CountriesStore\")),\n  Customer:  new APIProxy(require(\"./resources/Customer\"), require(\"./stores/CustomersStore\")),\n  Order:     new APIProxy(require(\"./resources/Order\"), require(\"./stores/OrdersStore\")),\n  Page:      new APIProxy(require(\"./resources/Page\"), require(\"./stores/PagesStore\")),\n  Policy:    new APIProxy(require(\"./resources/Policy\"), require(\"./stores/PoliciesStore\")),\n  Product:   new APIProxy(require(\"./resources/Product\"), require(\"./stores/ProductsStore\")),\n  Redirect:  new APIProxy(require(\"./resources/Redirect\"), require(\"./stores/RedirectsStore\")),\n  Session:   new APIProxy(require(\"./resources/Session\"), require(\"./stores/SessionStore\")),\n  Shop:      new APIProxy(require(\"./resources/Shop\"), require(\"./stores/ShopStore\")),\n  Theme:     new APIProxy(require(\"./resources/Theme\"), require(\"./stores/ThemesStore\"))\n};\n"
   },
   {
     "kind": "file",
@@ -303,7 +303,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Customer\",\n  \"Order\",\n  \"Page\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\",\n  \"Theme\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst RESOURCES = [\n  \"Blog\",\n  \"Country\",\n  \"Customer\",\n  \"Order\",\n  \"Page\",\n  \"Policy\",\n  \"Product\",\n  \"Redirect\",\n  \"Session\",\n  \"Shop\",\n  \"Theme\"\n];\n\ndescribe(\"ShopifyAPI\", () => {\n  var api;\n\n  beforeEach(() => {\n    api = require(\"../ShopifyAPI\");\n  });\n\n  it(\"defines all resources\", () => {\n    RESOURCES.forEach(resource => {\n      expect(api[resource]).toBeDefined();\n      expect(api[resource]).not.toBeNull();\n      expect(api[resource].store).not.toBeNull();\n    });\n  });\n});\n"
   },
   {
     "kind": "variable",
@@ -976,6 +976,58 @@
     "type": {
       "types": [
         "number"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/integration/__tests__/PoliciesAPITest.js",
+    "memberof": null,
+    "longname": "lib/integration/__tests__/PoliciesAPITest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.autoMockOff();\n\nconst ShopifyAPI          = require(\"../../ShopifyAPI\");\nconst { Policy, Session } = ShopifyAPI;\n\ndescribe(\"Policies API\", () => {\n  setupIntegrationTest(Session);\n\n  describe(\"getting policies\", () => {\n    pit(\"GET /admin/policies.json\", () => {\n      return Policy.fetch().then(policies => {\n        // refund, tos and privacy\n        expect(policies.length).toBe(3);\n      });\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ShopifyAPI",
+    "memberof": "lib/integration/__tests__/PoliciesAPITest.js",
+    "longname": "lib/integration/__tests__/PoliciesAPITest.js~ShopifyAPI",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/PoliciesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "Policy",
+    "memberof": "lib/integration/__tests__/PoliciesAPITest.js",
+    "longname": "lib/integration/__tests__/PoliciesAPITest.js~Policy",
+    "access": null,
+    "export": false,
+    "importPath": "shopify-api-flux/lib/integration/__tests__/PoliciesAPITest.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
       ]
     }
   },
@@ -2448,6 +2500,107 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "lib/resources/Policy.js",
+    "memberof": null,
+    "longname": "lib/resources/Policy.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Base from \"./Base\";\n\n/**\n * The Policy resource\n *\n * @extends {Base}\n */\nclass Policy extends Base {\n  constructor() {\n    super(\"policy\", {\n      countable:    false,\n      createable:   false,\n      destroyable:  false\n    });\n\n    this._resources = \"policies\";\n  }\n\n  /**\n   * @override\n   */\n  urlFor() {\n    return `/admin/${this._resources}.json`;\n  }\n}\n\n/** @ignore */\nexport default new Policy();\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Policy",
+    "memberof": "lib/resources/Policy.js",
+    "longname": "lib/resources/Policy.js~Policy",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Policy.js",
+    "importStyle": null,
+    "description": "The Policy resource",
+    "lineNumber": 10,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "Base"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/resources/Policy.js~Policy",
+    "longname": "lib/resources/Policy.js~Policy#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_resources",
+    "memberof": "lib/resources/Policy.js~Policy",
+    "longname": "lib/resources/Policy.js~Policy#_resources",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "urlFor",
+    "memberof": "lib/resources/Policy.js~Policy",
+    "longname": "lib/resources/Policy.js~Policy#urlFor",
+    "access": null,
+    "description": null,
+    "lineNumber": 24,
+    "params": [],
+    "return": {
+      "types": [
+        "string"
+      ]
+    },
+    "override": true,
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "policy",
+    "memberof": "lib/resources/Policy.js",
+    "longname": "lib/resources/Policy.js~policy",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/resources/Policy.js",
+    "importStyle": "policy",
+    "description": null,
+    "lineNumber": 30,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/resources/Policy.js~Policy"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "lib/resources/Product.js",
     "memberof": null,
     "longname": "lib/resources/Product.js",
@@ -3085,6 +3238,18 @@
     "description": null,
     "lineNumber": 1,
     "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Page\");\n\ndescribe(\"Page\", () => {\n  var resource = require(\"../Page\");\n\n  it(\"is countable\", () => {\n    expect(resource.apiMethods).toContain(\"fetchCount\");\n  });\n\n  it(\"is createable\", () => {\n    expect(resource.apiMethods).toContain(\"create\");\n    expect(resource.apiMethods).toContain(\"update\");\n  });\n\n  it(\"is destroyable\", () => {\n    expect(resource.apiMethods).toContain(\"destroy\");\n  });\n});\n"
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/resources/__tests__/PolicyTest.js",
+    "memberof": null,
+    "longname": "lib/resources/__tests__/PolicyTest.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\njest.dontMock(\"../Base\");\njest.dontMock(\"../Policy\");\n\ndescribe(\"Policy\", () => {\n  var resource;\n\n  beforeEach(() => {\n    resource = require(\"../Policy\");\n  });\n\n  it(\"is not countable\", () => {\n    expect(resource.apiMethods).not.toContain(\"fetchCount\");\n  });\n\n  it(\"is not createable\", () => {\n    expect(resource.apiMethods).not.toContain(\"create\");\n    expect(resource.apiMethods).not.toContain(\"update\");\n  });\n\n  it(\"is not destroyable\", () => {\n    expect(resource.apiMethods).not.toContain(\"destroy\");\n  });\n\n  describe(\"fetch\", () => {\n    var api;\n\n    beforeEach(() => {\n      api = require(\"../../utilities/WebAPI\");\n      stubRequest(api, \"get\", { policies: [] });\n    });\n\n    it(\"ignores any parameters\", () => {\n      resource.fetch(1);\n      resource.fetch({ query: \"param\" });\n\n      expect(api.get.mock.calls.length).toBe(2);\n      expect(api.get).toBeCalledWith(\"/admin/policies.json\");\n    });\n  });\n});\n"
   },
   {
     "kind": "file",
@@ -3918,6 +4083,81 @@
     "type": {
       "types": [
         "lib/stores/PagesStore.js~PagesStore"
+      ]
+    }
+  },
+  {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "lib/stores/PoliciesStore.js",
+    "memberof": null,
+    "longname": "lib/stores/PoliciesStore.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\"use strict\";\n\nimport Actions       from \"../utilities/Actions\";\nimport APIDispatcher from \"../dispatcher/APIDispatcher\";\nimport BaseStore     from \"./BaseStore\";\n\n/**\n * The policies store\n *\n * @extends {BaseStore}\n */\nclass PoliciesStore extends BaseStore {\n  /**\n   * Sets the the dispatcher and appropriate actions for policies\n   *\n   * @param {APIDispatcher} dispatcher - The dispatcher to register with\n   */\n  constructor(dispatcher) {\n    super(dispatcher, new Actions(\"policies\"));\n  }\n}\n\n/** @ignore */\nexport default new PoliciesStore(APIDispatcher);\n"
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "PoliciesStore",
+    "memberof": "lib/stores/PoliciesStore.js",
+    "longname": "lib/stores/PoliciesStore.js~PoliciesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/PoliciesStore.js",
+    "importStyle": null,
+    "description": "The policies store",
+    "lineNumber": 12,
+    "pseudoExport": true,
+    "interface": false,
+    "extends": [
+      "BaseStore"
+    ]
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "lib/stores/PoliciesStore.js~PoliciesStore",
+    "longname": "lib/stores/PoliciesStore.js~PoliciesStore#constructor",
+    "access": null,
+    "description": "Sets the the dispatcher and appropriate actions for policies",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "APIDispatcher"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dispatcher",
+        "description": "The dispatcher to register with"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "policiesStore",
+    "memberof": "lib/stores/PoliciesStore.js",
+    "longname": "lib/stores/PoliciesStore.js~policiesStore",
+    "access": null,
+    "export": true,
+    "importPath": "shopify-api-flux/lib/stores/PoliciesStore.js",
+    "importStyle": "policiesStore",
+    "description": null,
+    "lineNumber": 24,
+    "ignore": true,
+    "type": {
+      "types": [
+        "lib/stores/PoliciesStore.js~PoliciesStore"
       ]
     }
   },

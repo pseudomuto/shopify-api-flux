@@ -1,7 +1,7 @@
 {
-  "coverage": "79.54%",
-  "expectCount": 88,
-  "actualCount": 70,
+  "coverage": "79.56%",
+  "expectCount": 93,
+  "actualCount": 74,
   "files": {
     "lib/utilities/APIProxy.js": {
       "expectCount": 1,
@@ -95,6 +95,18 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
+    },
+    "lib/stores/PoliciesStore.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/resources/Policy.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        11
+      ]
     },
     "lib/resources/Product.js": {
       "expectCount": 2,

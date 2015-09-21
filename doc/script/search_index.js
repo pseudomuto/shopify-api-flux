@@ -90,6 +90,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "shopify-api-flux/lib/stores/policiesstore.js~policiesstore",
+    "class/lib/stores/PoliciesStore.js~PoliciesStore.html",
+    "<span>PoliciesStore</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/stores/PoliciesStore.js</span>",
+    "class"
+  ],
+  [
+    "shopify-api-flux/lib/resources/policy.js~policy",
+    "class/lib/resources/Policy.js~Policy.html",
+    "<span>Policy</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Policy.js</span>",
+    "class"
+  ],
+  [
     "shopify-api-flux/lib/resources/product.js~product",
     "class/lib/resources/Product.js~Product.html",
     "<span>Product</span> <span class=\"search-result-import-path\">shopify-api-flux/lib/resources/Product.js</span>",
@@ -648,6 +660,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/integration/__tests__/policiesapitest.js",
+    "file/lib/integration/__tests__/PoliciesAPITest.js.html",
+    "lib/integration/__tests__/PoliciesAPITest.js",
+    "file"
+  ],
+  [
     "lib/integration/__tests__/productsapitest.js",
     "file/lib/integration/__tests__/ProductsAPITest.js.html",
     "lib/integration/__tests__/ProductsAPITest.js",
@@ -828,6 +846,24 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/resources/policy.js",
+    "file/lib/resources/Policy.js.html",
+    "lib/resources/Policy.js",
+    "file"
+  ],
+  [
+    "lib/resources/policy.js~policy#constructor",
+    "class/lib/resources/Policy.js~Policy.html#instance-constructor-constructor",
+    "lib/resources/Policy.js~Policy#constructor",
+    "method"
+  ],
+  [
+    "lib/resources/policy.js~policy#urlfor",
+    "class/lib/resources/Policy.js~Policy.html#instance-method-urlFor",
+    "lib/resources/Policy.js~Policy#urlFor",
+    "method"
+  ],
+  [
     "lib/resources/product.js",
     "file/lib/resources/Product.js.html",
     "lib/resources/Product.js",
@@ -945,6 +981,12 @@ window.esdocSearchIndex = [
     "lib/resources/__tests__/pagetest.js",
     "file/lib/resources/__tests__/PageTest.js.html",
     "lib/resources/__tests__/PageTest.js",
+    "file"
+  ],
+  [
+    "lib/resources/__tests__/policytest.js",
+    "file/lib/resources/__tests__/PolicyTest.js.html",
+    "lib/resources/__tests__/PolicyTest.js",
     "file"
   ],
   [
@@ -1095,6 +1137,18 @@ window.esdocSearchIndex = [
     "lib/stores/pagesstore.js~pagesstore#constructor",
     "class/lib/stores/PagesStore.js~PagesStore.html#instance-constructor-constructor",
     "lib/stores/PagesStore.js~PagesStore#constructor",
+    "method"
+  ],
+  [
+    "lib/stores/policiesstore.js",
+    "file/lib/stores/PoliciesStore.js.html",
+    "lib/stores/PoliciesStore.js",
+    "file"
+  ],
+  [
+    "lib/stores/policiesstore.js~policiesstore#constructor",
+    "class/lib/stores/PoliciesStore.js~PoliciesStore.html#instance-constructor-constructor",
+    "lib/stores/PoliciesStore.js~PoliciesStore#constructor",
     "method"
   ],
   [
